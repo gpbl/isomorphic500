@@ -7,16 +7,16 @@ var Page = React.createClass({
     console.log('Component did mount.');
   },
   render: function() {
-    return (
-      /* jshint ignore:start */ 
+    return ( 
       <div>
       	<Header />
+
+          This is webpack hot loader!
 	        <p>
 	        	{ this.props.greetings }
       		</p>
       	<Footer />
       </div>
-      /* jshint ignore:end */ 
     );
   }
 });

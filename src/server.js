@@ -17,11 +17,12 @@ var WebpackDevServer = require('webpack-dev-server');
 var config = require('../webpack.config');
 
 var webpackServer = new WebpackDevServer(webpack(config), {
-    publicPath: config.output.publicPath
+    publicPath: config.output.publicPath,
+    contentBase: 'http://localhost:3000',
+    hot: true
 }).listen(3001, 'localhost', function (err, result) {
     if (err) {
         console.log(err);
     }
     debug('Webpack server listening on port 3001');
-    // console.log('Webpack listening at localhost:3000');
 });
