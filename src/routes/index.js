@@ -6,14 +6,15 @@ var Page = require('../components/Page.jsx');
 /* GET home page. */
 router.get('/', function (req, res) {
 
-    var pageElement = React.createElement(Page, {
-        greetings: "Hello, Earthling!"
-    });
+	var pageElement = React.createElement(Page, {
+		title: "Home page",
+		greetings: "Hello, Earthling!"
+	});
 
-    res.render('index', {
-        pageElementAsString: React.renderToString(pageElement),
-        props: pageElement.props
-    });
+	res.render('page', {
+		pageElementAsString: React.renderToString(pageElement),
+		props: pageElement.props
+	});
 });
 
 module.exports = router;

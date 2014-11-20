@@ -6,36 +6,37 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 
 var routes       = require('./routes/index');
-var users        = require('./routes/users');
 
 var app = express();
 
-// view engine setup
+// View engine: we use ejs since it provides the basic features we need,
+// since the views will be mainly rendered by react in each route.
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
+// Uncomment this after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
+
+// Express basic stuff
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
 app.use('/', routes);
-app.use('/users', users);
 
-// catch 404 and forward to error handler
+// Catch 404 errors and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
-// error handlers
+// Error handlers
 
-// development error handler
-// will print stacktrace
+// Development error handler: will print a stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -46,8 +47,7 @@ if (app.get('env') === 'development') {
     });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// Production error handler: show the error page
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -55,6 +55,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;

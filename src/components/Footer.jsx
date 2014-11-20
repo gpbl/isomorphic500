@@ -1,14 +1,11 @@
 var React = require('react');
-
 var Footer = React.createClass({
 		render: function() {
 			return (
-				/* jshint ignore:start */
 				<div>
 					<hr/>
-					{ new Date() }
+					<i>Footer</i>
 				</div>
-				/* jshint ignore:end */
 			);
 		}
 });
