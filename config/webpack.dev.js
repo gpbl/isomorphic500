@@ -6,7 +6,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:3001',
     'webpack/hot/dev-server',
-    './src/client/main'
+    './app/client/main'
   ],
 
   output: {

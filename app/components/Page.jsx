@@ -10,8 +10,6 @@ var Page = React.createClass({
     return ( 
       <div>
       	<Header />
-
-          This is webpack hot loader!
 	        <p>
 	        	{ this.props.greetings }
       		</p>
