@@ -2,9 +2,10 @@
 <html>
 <head>
 	<title><%= props.title %></title>
+	<link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-	<div id="mountNode"><%- pageElementAsString %></div>
+	<div id="rootNode"><%- rootElementAsString %></div>
 	<script>
 		var props = <%- JSON.stringify(props) %>
 	</script>

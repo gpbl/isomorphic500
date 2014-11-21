@@ -1,13 +1,19 @@
 "use strict";
 
 var React = require('react');
-var PageContent = require('./PageContent.jsx');
+var Header = require('./Header.jsx');
+var Footer = require('./Footer.jsx');
 
 var Page = React.createClass({
   render: function() {
     return ( 
       <div>
-        <PageContent {...this.props} />
+      	<Header title="react.js with express!" />
+				{ this.props.greetings }        
+				<div>
+					<input type="text" />
+				</div>
+     		<Footer />
       </div>
     );
   }

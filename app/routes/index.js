@@ -3,19 +3,19 @@
 var express = require('express');
 var router = express.Router();
 var React = require('React');
-var Page = require('../components/Page.jsx');
+var Root = require('../components/Root.jsx');
 
 /* GET home page. */
 router.get('/', function (req, res) {
 
-	var pageElement = React.createElement(Page, {
+	var rootElement = React.createElement(Root, {
 		title: "Home page",
 		greetings: 'Hello, Earthling!'
 	});
 
 	res.render('page', {
-		pageElementAsString: React.renderToString(pageElement),
-		props: pageElement.props
+		rootElementAsString: React.renderToString(rootElement),
+		props: rootElement.props
 	});
 });
 

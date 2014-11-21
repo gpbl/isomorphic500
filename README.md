@@ -6,13 +6,13 @@ A starting template for building a single page web application using React and E
 
 * React components are rendered server side on first load [1]
 * Support of webpack hot reload (see [react-hot-loader](https://github.com/gaearon/react-hot-loader)) 
-* Use Gulp as task runner
+* Technologies: Gulp, SASS
 
-This architecture is intended as starting point for creating a web app, using a specific stack of technologies. Although I  tried to organize it as much generic as possibile, there are some compromises required to adopt this hybrid react server/client architecture. Feel free to contribute and give suggestions :-)
+This architecture is intended as starting point for creating a web app. Although I  tried to organize it as much generic as possibile, there are some compromises required to adopt this hybrid react server/client architecture. Feel free to contribute and give suggestions :-)
 
 [1] This means 
 
-## Directory map
+### Directory map
 
 ```bash
 │
@@ -21,22 +21,23 @@ This architecture is intended as starting point for creating a web app, using a 
 │   │   └── main.jsx             # Entry point for the browser, mounts the root component on DOM ready
 │   │
 │   ├── components            # Contains all React components
+│   │   ├── Root.jsx             # Root component, must mount the Page component 
+│   │   ├── Page.jsx             # Page component (Header and Footer go here)
+│   │   │
 │   │   ├── Footer.jsx           # Example component creating a footer
-│   │   ├── Header.jsx           # Example component creating a header
-│   │   ├── Page.jsx             # Root component 
-│   │   └── PageContent.jsx      # Content of the page (Header and Footer go here)
+│   │   └── Header.jsx           # Example component creating a header
 │   │
 │   ├── index.js              # Main app script 
 │   │ 
 │   ├── public                # Contains the public (static) files for the client. They will be cache-busted.
-│   │   ├── css
-│   │   ├── images
-│   │   └── js
+│   │   ├── css                  # Here will be placed the compiled SASS styles
+│   │   ├── images               
+│   │   └── js                   # In the build version, will contain the uglified webpack files
 │   | 
 │   ├── routes                # Express routes
 │   │   └── index.js             # Route for the home page, which renders page.ejs 
 │   │ 
-│   └── views                 # Express views
+│   └── views                 # Express views (with ejs)
 │       ├── error.ejs            # View displaying server-side errors
 │       └── page.ejs             # Page where the React root component is mounted server-side
 │
@@ -48,13 +49,19 @@ This architecture is intended as starting point for creating a web app, using a 
 
 ```
 
+### Setup
+
+```bash
+git clone https://github.com/gpbl/react-express-webpack-template.git
+cd react-express-webpack-template
+npm install
+```
+
 ## Running a development server
 
 ```bash
 node server
 ```
-
-
 
 
 ## Building
