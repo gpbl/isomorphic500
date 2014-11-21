@@ -1,16 +1,19 @@
 "use strict";
 
 var gulp = require('gulp');
-var del = require('del');
+var fs = require('fs-extra');
 var gutil = require("gulp-util");
 var filter = require('gulp-filter');
 var replace = require('gulp-replace');
+
+var Promise = require('es6-promise').Promise;
+
 var CacheBuster = require('gulp-cachebust');
 var cachebust = new CacheBuster();
 
 var webpack = require("webpack");
-var webpackBuild = require('./config/webpack.build');
-var webpackDev = require('./config/webpack.dev');
+var webpackBuild = require('./webpack.config.build');
+var webpackDev = require('./webpack.config.dev');
 
 var paths = {
 	build: 'build/',
@@ -22,11 +25,11 @@ var paths = {
 };
 
 // Build for production
-gulp.task('build', ['clean:build', 'webpack:build', 'copy:build', 'bust:build']);
+gulp.task('build', ['clean:build', 'webpack:build', 'copy:build', 'copy:node-modules:build', 'bust:build']);
 
 // Clean build directory
 gulp.task('clean:build', function (callback) {
-	del(paths.build, callback);
+	fs.remove(paths.build, callback);
 });
 
 // Create chunks and uglify with webpack
@@ -94,4 +97,43 @@ gulp.task('bust-replace:build', ['bust-collect:build'], function () {
 		})
 		.pipe(cachebust.references())
 		.pipe(gulp.dest(paths.build));
+});
+
+// gulp.task('copy:node-modules', function(callback) {
+
+// });
+
+// Copy dependencies to build directory
+gulp.task('copy:node-modules:build', ['clean:build'], function (callback) {
+
+	var dest = paths.build + 'node_modules/';
+	fs.mkdirsSync(dest);
+	var promises = [];
+
+	var promiseFromCopy = function (source, dest) {
+			return new Promise(function (resolve, reject) {
+						fs.copy(source, dest, function (err) {
+							if (err) {
+								reject(err);
+							} else {
+								resolve(true);
+							}
+						});
+					}
+				);
+		};
+
+	var packages = require('./package.json').dependencies;
+	for (var pkg in packages) {
+		var path = './node_modules/' + pkg;
+		// console.log(path)
+		promises.push(promiseFromCopy(path, dest + pkg));
+	}
+	// callback()
+
+	Promise.all(promises).then(function() {
+		gutil.log("[copy]", 'Copied ' + Object.keys(packages).length + ' module(s).'); 
+		callback();
+	});
+
 });
