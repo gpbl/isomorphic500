@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
 var React = require('React');
@@ -8,7 +10,7 @@ router.get('/', function (req, res) {
 
 	var pageElement = React.createElement(Page, {
 		title: "Home page",
-		greetings: "Hello, Earthling!"
+		greetings: 'Hello, Earthling!'
 	});
 
 	res.render('page', {

@@ -1,19 +1,13 @@
+"use strict";
+
 var React = require('react');
-var Header = require('./Header.jsx');
-var Footer = require('./Footer.jsx');
+var PageContent = require('./PageContent.jsx');
 
 var Page = React.createClass({
-  componentDidMount: function() {
-    console.log('Component did mount.');
-  },
   render: function() {
     return ( 
       <div>
-      	<Header />
-	        <p>
-	        	{ this.props.greetings }
-      		</p>
-      	<Footer />
+        <PageContent {...this.props} />
       </div>
     );
   }

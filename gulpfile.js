@@ -1,29 +1,97 @@
-var gulp    = require('gulp');
-var webpack = require('gulp-webpack');
-var del     = require('del');
-var react   = require('gulp-react');
+"use strict";
 
-gulp.task('default', function () {
-	// place code for your default task here
-});
+var gulp = require('gulp');
+var del = require('del');
+var gutil = require("gulp-util");
+var filter = require('gulp-filter');
+var replace = require('gulp-replace');
+var CacheBuster = require('gulp-cachebust');
+var cachebust = new CacheBuster();
+
+var webpack = require("webpack");
+var webpackBuild = require('./config/webpack.build');
+var webpackDev = require('./config/webpack.dev');
+
+var paths = {
+	build: 'build/',
+	app: 'app/',
+	components: 'app/components/**/*.jsx',
+	routes: 'app/routes/**/*.js',
+	views: 'app/views/**/*.ejs',
+	staticFiles: 'app/public/**/*'
+};
 
 // Build for production
-var buildDir = 'build';
-gulp.task("build", ['clean:build', "webpack:build", "react:build"]);
+gulp.task('build', ['clean:build', 'webpack:build', 'copy:build', 'bust:build']);
 
+// Clean build directory
 gulp.task('clean:build', function (callback) {
-	del(buildDir, callback);
-});
-gulp.task("webpack:build", ['clean:build'], function () {
-	var config = require('./config/webpack.build');
-
-	return gulp.src('app/client/main.jsx')
-		.pipe(webpack(config))
-		.pipe(gulp.dest(buildDir + '/app/public/js'));
+	del(paths.build, callback);
 });
 
-gulp.task("react:build", ['clean:build'], function () {
-	return gulp.src('./app/components/**/*.jsx', {base: './app/'})
-		.pipe(react())
-		.pipe(gulp.dest(buildDir + '/app'));
+// Create chunks and uglify with webpack
+gulp.task('webpack:build', ['clean:build'], function (callback) {
+	webpack(webpackBuild, function (err, stats) {
+		if (err) throw new gutil.PluginError("webpack", err);
+		gutil.log("[webpack]", stats.toString({
+			colors: true,
+			hash: false,
+			timings: false,
+			assets: true,
+			chunks: false,
+			chunkModules: false,
+			modules: false,
+			children: true
+		}));
+		callback();
+	});
+});
+
+// Copy the app to the build directory
+gulp.task('copy:build', ['clean:build'], function () {
+	var src = [
+		'package.json',
+		'server.js',
+		paths.app + '*.js',
+		paths.components,
+		paths.routes,
+		paths.views,
+		paths.staticFiles
+	];
+	var viewsFilter = filter('**/*.ejs');
+	return gulp.src(src, {
+		base: '.'
+	})
+
+	// Replace the development public path of webpack with the build public path
+	.pipe(viewsFilter)
+		.pipe(replace(webpackDev.output.publicPath, webpackBuild.output.publicPath))
+		.pipe(viewsFilter.restore())
+
+	.pipe(gulp.dest(paths.build));
+});
+
+
+// Cache busters
+gulp.task('bust:build', ['bust-collect:build', 'bust-replace:build']);
+
+// Collect resources for cache busting
+gulp.task('bust-collect:build', ['webpack:build', 'copy:build'], function () {
+	return gulp.src(paths.staticFiles, {
+			cwd: paths.build
+		})
+		.pipe(cachebust.resources());
+});
+
+// Replace collected resources
+gulp.task('bust-replace:build', ['bust-collect:build'], function () {
+
+	var src = [paths.views];
+
+	return gulp.src(src, {
+			cwd: paths.build,
+			base: paths.build
+		})
+		.pipe(cachebust.references())
+		.pipe(gulp.dest(paths.build));
 });

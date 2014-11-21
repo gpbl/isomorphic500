@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+"use strict";
 
 // Enable JSX requires
 require('node-jsx').install();
@@ -15,7 +15,7 @@ var server = app.listen(app.get('port'), function () {
 if (app.get('env') === 'development') {
 	var webpack = require('webpack');
 	var WebpackDevServer = require('webpack-dev-server');
-	var config = require('../config/webpack.dev');
+	var config = require('./config/webpack.dev');
 
 	var webpackServer = new WebpackDevServer(webpack(config), {
 		publicPath: config.output.publicPath,
