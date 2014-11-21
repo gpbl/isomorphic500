@@ -8,5 +8,5 @@ React.render(
 		// on the first call, when react is already mounted server-side
 		// it is set in the express routes and included in the views templates
     <Page {...props} />,
-    document.getElementById('mountNode')
+    document.getElementById('rootNode')
 );

@@ -5,6 +5,7 @@ var fs = require('fs-extra');
 var gutil = require("gulp-util");
 var filter = require('gulp-filter');
 var replace = require('gulp-replace');
+var sass = require('gulp-ruby-sass');
 
 var Promise = require('es6-promise').Promise;
 
@@ -18,11 +19,23 @@ var webpackDev = require('./webpack.config.dev');
 var paths = {
 	build: 'build/',
 	app: 'app/',
+	style: 'app/style/main.scss',
+	publicCSS: 'app/public/css',
 	components: 'app/components/**/*.jsx',
 	routes: 'app/routes/**/*.js',
 	views: 'app/views/**/*.ejs',
 	staticFiles: 'app/public/**/*'
 };
+
+gulp.task('css', function () {
+	return gulp.src(paths.style)
+		.pipe(sass())
+		.on('error', function (err) {
+			console.log(err.message);
+		})
+		.pipe(gulp.dest(paths.publicCSS));
+});
+
 
 // Build for production
 gulp.task('build', ['clean:build', 'webpack:build', 'copy:build', 'copy:node-modules:build', 'bust:build']);
@@ -61,15 +74,15 @@ gulp.task('copy:build', ['clean:build'], function () {
 		paths.views,
 		paths.staticFiles
 	];
-	var viewsFilter = filter('**/*.ejs');
+	var filterViews = filter('**/*.ejs');
 	return gulp.src(src, {
 		base: '.'
 	})
 
 	// Replace the development public path of webpack with the build public path
-	.pipe(viewsFilter)
+	.pipe(filterViews)
 		.pipe(replace(webpackDev.output.publicPath, webpackBuild.output.publicPath))
-		.pipe(viewsFilter.restore())
+		.pipe(filterViews.restore())
 
 	.pipe(gulp.dest(paths.build));
 });
@@ -89,7 +102,7 @@ gulp.task('bust-collect:build', ['webpack:build', 'copy:build'], function () {
 // Replace collected resources
 gulp.task('bust-replace:build', ['bust-collect:build'], function () {
 
-	var src = [paths.views];
+	var src = [paths.views, paths.publicCSS + '*.css'];
 
 	return gulp.src(src, {
 			cwd: paths.build,
@@ -99,10 +112,6 @@ gulp.task('bust-replace:build', ['bust-collect:build'], function () {
 		.pipe(gulp.dest(paths.build));
 });
 
-// gulp.task('copy:node-modules', function(callback) {
-
-// });
-
 // Copy dependencies to build directory
 gulp.task('copy:node-modules:build', ['clean:build'], function (callback) {
 
@@ -111,17 +120,16 @@ gulp.task('copy:node-modules:build', ['clean:build'], function (callback) {
 	var promises = [];
 
 	var promiseFromCopy = function (source, dest) {
-			return new Promise(function (resolve, reject) {
-						fs.copy(source, dest, function (err) {
-							if (err) {
-								reject(err);
-							} else {
-								resolve(true);
-							}
-						});
-					}
-				);
-		};
+		return new Promise(function (resolve, reject) {
+			fs.copy(source, dest, function (err) {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(true);
+				}
+			});
+		});
+	};
 
 	var packages = require('./package.json').dependencies;
 	for (var pkg in packages) {
@@ -131,8 +139,8 @@ gulp.task('copy:node-modules:build', ['clean:build'], function (callback) {
 	}
 	// callback()
 
-	Promise.all(promises).then(function() {
-		gutil.log("[copy]", 'Copied ' + Object.keys(packages).length + ' module(s).'); 
+	Promise.all(promises).then(function () {
+		gutil.log("[copy]", 'Copied ' + Object.keys(packages).length + ' module(s).');
 		callback();
 	});
 
