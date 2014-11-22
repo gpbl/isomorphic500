@@ -1,22 +1,19 @@
-"use strict";
+'use strict';
 
-var express = require('express');
-var router = express.Router();
-var React = require('React');
-var Root = require('../components/Root.jsx');
+var React  = require('react');
+var Router = require('react-router');
 
-/* GET home page. */
-router.get('/', function (req, res) {
+var reactRoutes = require('./react-routes.jsx');
 
-	var rootElement = React.createElement(Root, {
-		title: "Home page",
-		greetings: 'Hello, Earthling!'
+var routes = function (req, res, next) {
+	Router.run(reactRoutes, req.path, function (Handler) {
+		var handlerElement = React.createElement(Handler);
+		var html = React.renderToString(handlerElement);
+		res.render('page', {
+			html: html,
+			props: handlerElement.props
+		});
 	});
+};
 
-	res.render('page', {
-		rootElementAsString: React.renderToString(rootElement),
-		props: rootElement.props
-	});
-});
-
-module.exports = router;
+module.exports = routes;

@@ -1,3 +1,27 @@
 body {
-	background-color: green;
+	font-family: "Avenir Next";
+}
+
+h1 {
+	font-weight: 200;
+}
+
+.master {
+	margin-right: 24px;
+	float: left;
+
+}
+
+.detail {
+	float: left;
+	img {
+		width: 600px;
+	}
+	h2 {
+		font-weight: 200;
+		background: black;
+		color: white;
+		margin: 0;
+		padding: 5px 10px;
+	}
 }

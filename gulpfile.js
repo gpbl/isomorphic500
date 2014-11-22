@@ -9,6 +9,7 @@ var gulp         = require('gulp'),
     nodemon      = require('gulp-nodemon'),
     autoprefixer = require('gulp-autoprefixer'),
     livereload   = require('gulp-livereload'),
+    jshint       = require('gulp-jshint'),
     cachebust    = new require('gulp-cachebust')(),
     fs           = require('fs-extra'),
     webpack      = require("webpack"),
@@ -29,7 +30,7 @@ var paths = {
 };
 
 gulp.task('serve', function(){
-  nodemon({'script': 'server.js'});
+  nodemon({'script': 'server.js', ext: 'js html' });
 });
 
 gulp.task('sass', function () {

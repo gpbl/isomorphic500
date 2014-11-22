@@ -102,8 +102,7 @@ The express server is configured to serve static files with a suffix to prevent 
 
 ## To do
 
-[ ] Linting (needs to find a gulp plugin working with [jsxhint](https://github.com/STRML/JSXHint))
-[ ] Tests
-[ ] Flow integration
-[ ] i18n support
-[ ] gulp dist
+* Linting (needs to find a gulp plugin working with [jsxhint](https://github.com/STRML/JSXHint))
+* Tests
+* i18n support examples
+* gulp dist

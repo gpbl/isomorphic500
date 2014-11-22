@@ -18,7 +18,7 @@
     "morgan": "^1.5.0",
     "node-jsx": "^0.12.0",
     "react": "^0.12.1",
-    "react-router": "^0.10.2",
+    "react-router": "^0.11.1",
     "serve-favicon": "^2.1.7"
   },
   "devDependencies": {
@@ -27,9 +27,11 @@
     "gulp-autoprefixer": "^2.0.0",
     "gulp-cachebust": "0.0.3",
     "gulp-filter": "^1.0.2",
+    "gulp-jshint": "^1.9.0",
     "gulp-livereload": "^2.1.1",
     "gulp-nodemon": "^1.0.4",
     "gulp-plumber": "^0.6.6",
+    "gulp-react": "^2.0.0",
     "gulp-replace": "^0.5.0",
     "gulp-ruby-sass": "^0.7.1",
     "gulp-util": "^3.0.1",

@@ -3,13 +3,8 @@
 <head>
 	<title><%= props.title %></title>
 	<link rel="stylesheet" href="/css/main.css">
-</head>
-<body>
-	<div id="rootNode"><%- rootElementAsString %></div>
-	<script>
-		var props = <%- JSON.stringify(props) %>
-	</script>
 	<script src="http://localhost:3001/js/lib.js"></script>
 	<script src="http://localhost:3001/js/main.js"></script>
-</body>
+</head>
+<body><%- html %></body>
 </html>
