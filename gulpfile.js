@@ -5,6 +5,7 @@ var gulp         = require('gulp'),
     filter       = require('gulp-filter'),
     replace      = require('gulp-replace'),
     sass         = require('gulp-ruby-sass'),
+    plumber      = require('gulp-plumber'),
     nodemon      = require('gulp-nodemon'),
     autoprefixer = require('gulp-autoprefixer'),
     livereload   = require('gulp-livereload'),
@@ -30,10 +31,14 @@ gulp.task('serve', function(){
 });
 
 gulp.task('sass', function () {
+	var filterCSS = filter('**/*.css');
 	return gulp.src(paths.sass)
+		.pipe(plumber())
 		.pipe(sass())
 		.on('error', function (err) { console.log(err.message); })
+		.pipe(filterCSS)
 		.pipe(autoprefixer())
+		.pipe(filterCSS.restore())
 		.pipe(gulp.dest(paths.css));
 });
 
