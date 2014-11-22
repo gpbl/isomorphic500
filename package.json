@@ -24,10 +24,12 @@
   "devDependencies": {
     "fs-extra": "^0.12.0",
     "gulp": "^3.8.10",
+    "gulp-autoprefixer": "^2.0.0",
     "gulp-cachebust": "0.0.3",
     "gulp-filter": "^1.0.2",
+    "gulp-livereload": "^2.1.1",
+    "gulp-nodemon": "^1.0.4",
     "gulp-replace": "^0.5.0",
-    "gulp-rev": "^2.0.1",
     "gulp-ruby-sass": "^0.7.1",
     "gulp-util": "^3.0.1",
     "jsx-loader": "^0.12.2",

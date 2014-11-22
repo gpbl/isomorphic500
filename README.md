@@ -2,15 +2,11 @@
 
 A starting template for building a single page web application using React and Express. 
 
-**Features** 
+### Features 
 
-* React components are rendered server side on first load [1]
-* Support of webpack hot reload (see [react-hot-loader](https://github.com/gaearon/react-hot-loader)) 
-* Technologies: Gulp, SASS
-
-This architecture is intended as starting point for creating a web app. Although I  tried to organize it as much generic as possibile, there are some compromises required to adopt this hybrid react server/client architecture. Feel free to contribute and give suggestions :-)
-
-[1] This means 
+* React components are rendered server side on first load, then mounted on browser
+* Development: webpack hot reload (for react components, using [react-hot-loader](https://github.com/gaearon/react-hot-loader)) and livereload (for CSS)
+* Technologies: Gulp, SASS (with autoprefixer), nodemon
 
 ### Directory map
 
@@ -30,16 +26,19 @@ This architecture is intended as starting point for creating a web app. Although
 │   ├── index.js              # Main app script 
 │   │ 
 │   ├── public                # Contains the public (static) files for the client. They will be cache-busted.
-│   │   ├── css                  # Here will be placed the compiled SASS styles
-│   │   ├── images               
-│   │   └── js                   # In the build version, will contain the uglified webpack files
+│   │   ├── css               # Here will be placed the compiled SASS styles
+│   │   ├── images            # Here you can place the images   
+│   │   └── js                # Empty in dev. In prod contains the scripts compiled with webpack
 │   | 
 │   ├── routes                # Express routes
-│   │   └── index.js             # Route for the home page, which renders page.ejs 
+│   │   └── index.js          # Route for the home page, which renders views/page.ejs 
+│   │ 
+│   ├── style                 # Contains the SASS files, compiled in public/css with grunt
+│   │   └── main.scss         # Example of SASS file
 │   │ 
 │   └── views                 # Express views (with ejs)
-│       ├── error.ejs            # View displaying server-side errors
-│       └── page.ejs             # Page where the React root component is mounted server-side
+│       ├── error.ejs         # View displaying server-side errors
+│       └── page.ejs          # Page where the React root component is mounted server-side
 │
 ├── server.js                 # Starts the server, and the webpack-dev-server on development
 │
@@ -52,17 +51,33 @@ This architecture is intended as starting point for creating a web app. Although
 ### Setup
 
 ```bash
+# Clone the repository
 git clone https://github.com/gpbl/react-express-webpack-template.git
+
+# Install dependencies
 cd react-express-webpack-template
 npm install
+
+# Install SASS (if not available)
+gem install sass
 ```
 
 ## Running a development server
+
+The server runs with: 
 
 ```bash
 node server
 ```
 
+The command above runs a development server with hot module replacement enabled for React. To watch also your node.js scripts and your SASS styles, you use the `gulp` default task:
+
+```bash
+gulp
+```
+
+The default task watches for changes of the server (using `nodemon`) and of SASS files (using `gulp watch`).
+It will also enable a livereload server to hot replace the freshly compiled CSS files (remember to install the [browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions)).
 
 ## Building
 

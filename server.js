@@ -20,7 +20,7 @@ if (app.get('env') === 'development') {
 	var webpackServer = new WebpackDevServer(webpack(config), {
 		publicPath: config.output.publicPath,
 		contentBase: 'http://localhost:3000',
-		// noInfo: true,
+		noInfo: true,
 		hot: true
 	}).listen(3001, 'localhost', function (err, result) {
 		if (err) {
