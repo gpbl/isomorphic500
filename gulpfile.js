@@ -13,17 +13,19 @@ var gulp         = require('gulp'),
     fs           = require('fs-extra'),
     webpack      = require("webpack"),
     webpackBuild = require('./webpack.config.build'),
+    Promise      = require('es6-promise').Promise,
     webpackDev   = require('./webpack.config.dev');
 
 var paths = {
-	build: 'build/',
-	app: 'app/',
-	sass: 'app/style/*.scss',
-	css: 'app/public/css',
-	components: 'app/components/**/*.jsx',
-	routes: 'app/routes/**/*.js',
-	views: 'app/views/**/*.ejs',
-	staticFiles: 'app/public/**/*'
+  build:   'build/',
+  app:     'app/',
+  css:     'app/public/css',
+  
+  sass:         'app/style/*.scss',
+  components:   'app/components/**/*.jsx',
+  routes:       'app/routes/**/*.js',
+  views:         'app/views/**/*.ejs',
+  staticFiles:  ['app/public/**/*', '!app/public/**/*.map']
 };
 
 gulp.task('serve', function(){
@@ -31,21 +33,21 @@ gulp.task('serve', function(){
 });
 
 gulp.task('sass', function () {
-	var filterCSS = filter('**/*.css');
-	return gulp.src(paths.sass)
-		.pipe(plumber())
-		.pipe(sass())
-		.on('error', function (err) { console.log(err.message); })
-		.pipe(filterCSS)
-		.pipe(autoprefixer())
-		.pipe(filterCSS.restore())
-		.pipe(gulp.dest(paths.css));
+  var filterCSS = filter('**/*.css');
+  return gulp.src(paths.sass)
+    .pipe(plumber())
+    .pipe(sass())
+    .on('error', function (err) { console.log(err.message); })
+    .pipe(filterCSS)
+    .pipe(autoprefixer())
+    .pipe(filterCSS.restore())
+    .pipe(gulp.dest(paths.css));
 });
 
 gulp.task('watch', function () {
-	var server = livereload();
-	gulp.watch(paths.sass, ['sass']);
-	gulp.watch(paths.css + '/main.css', server.changed);
+  var server = livereload();
+  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.css + '/main.css', server.changed);
 });
 
 gulp.task('default', ['serve', 'watch']);
@@ -55,45 +57,46 @@ gulp.task('build', ['clean:build', 'webpack:build', 'copy:build', 'copy:node-mod
 
 // Clean build directory
 gulp.task('clean:build', function (callback) {
-	fs.remove(paths.build, callback);
+  fs.remove(paths.build, callback);
 });
 
 // Create chunks and uglify with webpack
 gulp.task('webpack:build', ['clean:build'], function (callback) {
-	webpack(webpackBuild, function (err, stats) {
-		if (err) throw new gutil.PluginError("webpack", err);
-		gutil.log("[webpack]", stats.toString({
-			colors: true,
-			hash: false,
-			timings: false,
-			assets: true,
-			chunks: false,
-			chunkModules: false,
-			modules: false,
-			children: true
-		}));
-		callback();
-	});
+  webpack(webpackBuild, function (err, stats) {
+    if (err) throw new gutil.PluginError("webpack", err);
+    gutil.log("[webpack]", stats.toString({
+      colors: true,
+      hash: false,
+      timings: false,
+      assets: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false,
+      children: true
+    }));
+    callback();
+  });
 });
 
 // Copy the app to the build directory
 gulp.task('copy:build', ['clean:build'], function () {
-	var src = [
-		'package.json',
-		'server.js',
-		paths.app + '*.js',
-		paths.components,
-		paths.routes,
-		paths.views,
-		paths.staticFiles
-	];
+  var src = [
+    'package.json',
+    'server.js',
+    paths.app + '*.js',
+    paths.components,
+    paths.routes,
+    paths.views
+  ];
 
-	var filterViews = filter('**/*.ejs');
-	return gulp.src(src, { base: '.' })
-		.pipe(filterViews)
-		.pipe(replace(webpackDev.output.publicPath, webpackBuild.output.publicPath))
-		.pipe(filterViews.restore())
-		.pipe(gulp.dest(paths.build));
+  src = src.concat(paths.staticFiles);
+
+  var filterViews = filter('**/*.ejs');
+  return gulp.src(src, { base: '.' })
+    .pipe(filterViews)
+    .pipe(replace(webpackDev.output.publicPath, webpackBuild.output.publicPath))
+    .pipe(filterViews.restore())
+    .pipe(gulp.dest(paths.build));
 });
 
 
@@ -102,42 +105,42 @@ gulp.task('bust:build', ['bust-collect:build', 'bust-replace:build']);
 
 // Collect resources for cache busting
 gulp.task('bust-collect:build', ['webpack:build', 'copy:build'], function () {
-	return gulp.src(paths.staticFiles, { cwd: paths.build })
-		.pipe(cachebust.resources());
+  return gulp.src(paths.staticFiles, { cwd: paths.build })
+    .pipe(cachebust.resources());
 });
 
 // Replace collected resources
 gulp.task('bust-replace:build', ['bust-collect:build'], function () {
 
-	var src = [paths.views, paths.publicCSS + '*.css'];
+  var src = [paths.views, paths.publicCSS + '*.css'];
 
-	return gulp.src(src, { cwd: paths.build, base: paths.build })
-		.pipe(cachebust.references())
-		.pipe(gulp.dest(paths.build));
+  return gulp.src(src, { cwd: paths.build, base: paths.build })
+    .pipe(cachebust.references())
+    .pipe(gulp.dest(paths.build));
 });
 
 // Copy dependencies to build directory
 gulp.task('copy:node-modules:build', ['clean:build'], function (callback) {
 
-	var dest = paths.build + 'node_modules/';
-	fs.mkdirsSync(dest);
+  var dest = paths.build + 'node_modules/';
+  fs.mkdirsSync(dest);
 
-	var promises = [];
-	var promiseFromCopy = function (source, dest) {
-		return new Promise(function (resolve, reject) {
-			fs.copy(source, dest, function (err) {
-				if (err) reject(err);
-				else resolve(true);
-			});
-		});
-	};
+  var promises = [];
+  var promiseFromCopy = function (source, dest) {
+    return new Promise(function (resolve, reject) {
+      fs.copy(source, dest, function (err) {
+        if (err) reject(err);
+        else resolve(true);
+      });
+    });
+  };
 
-	var packages = require('./package.json').dependencies;
-	for (var pkg in packages) promises.push(promiseFromCopy('./node_modules/' + pkg, dest + pkg));
+  var packages = require('./package.json').dependencies;
+  for (var pkg in packages) promises.push(promiseFromCopy('./node_modules/' + pkg, dest + pkg));
 
-	Promise.all(promises).then(function () {
-		gutil.log("[node_modules]", 'Copied ' + Object.keys(packages).length + ' module(s).');
-		callback();
-	});
+  Promise.all(promises).then(function () {
+    gutil.log("[node_modules]", 'Copied ' + Object.keys(packages).length + ' module(s).');
+    callback();
+  });
 
 });
