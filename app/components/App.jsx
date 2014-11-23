@@ -6,14 +6,9 @@ var Router        = require('react-router');
 var RouteHandler  = Router.RouteHandler;
 var Link          = Router.Link;
 
-
 var data = require('../public/data/places');
 
 var App = React.createClass({
-
-  componentDidMount: function() {
-    console.log('componentDidMount');
-  },
 
   getDefaultProps: function () {
     return { places: data };

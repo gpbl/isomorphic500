@@ -5,6 +5,7 @@ var Router = require('react-router');
 
 var reactRoutes = require('./react-routes.jsx');
 
+// Render the current route with views/page.ejs 
 var routes = function (req, res, next) {
 	Router.run(reactRoutes, req.path, function (Handler) {
 		var handlerElement = React.createElement(Handler);

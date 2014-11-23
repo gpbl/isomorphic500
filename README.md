@@ -1,14 +1,16 @@
 # react-express-webpack-template
 
-A starting template for building a single page web application using React and Express. 
+A ready-to-use template for start building a single page web application using [react.js](http://www.reactjs.org) and [express](http://www.expressjs.com). Includes a small demo app.
 
 ### Features 
 
-* React components are rendered server side on first load, then mounted on browser
-* Development: webpack hot reload (for react components, using [react-hot-loader](https://github.com/gaearon/react-hot-loader)) and livereload (for CSS)
-* Technologies: Gulp, SASS (with autoprefixer), nodemon
+* React components are rendered server-side, then mounted on the browser.
+* Server and client share the same routes.
+* Hot reload for React components in development, livereload for CSS.
+* Works great as REST client of your API.
+* Includes: [react-router](https://github.com/rackt/react-router), [react-hot-loader](https://github.com/gaearon/react-hot-loader), [gulp](http://www.gulpjs.com), [SASS](http://sass-lang.com) and a cache buster.
 
-### Directory map
+### App structure
 
 ```bash
 │
@@ -23,6 +25,7 @@ A starting template for building a single page web application using React and E
 │   │   ├── Footer.jsx           # Example component creating a footer
 │   │   └── Header.jsx           # Example component creating a header
 │   │
+
 │   ├── index.js              # Main app script 
 │   │ 
 │   ├── public                # Contains the public (static) files for the client. They will be cache-busted.
@@ -62,47 +65,39 @@ npm install
 gem install sass
 ```
 
-## Running a development server
-
-The server runs with: 
+## Running the development server
 
 ```bash
+# Run the dev server on localhost:3000
+# Webpack dev server is on localhost:3001
 node server
-```
 
-The command above runs a development server with hot module replacement enabled for React. To watch also your node.js scripts and your SASS styles, you use the `gulp` default task:
-
-```bash
+# Or, with nodemon and watch scss
 gulp
 ```
 
-The default task watches for changes of the server (using `nodemon`) and of SASS files (using `gulp watch`).
-It will also enable a livereload server to hot replace the freshly compiled CSS files (remember to install the [browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions)).
+The gulp tasks enable a livereload server: remember to install the [browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions).
 
 ## Building
 
-Run the `gulp build` task to create a build. This task does the following:
+The build task:
 
-1. compile the client's js files with webpack. The entry point is [`app/client/main.jsx`](app/client/main.jsx)
-2. copy the app sources and apply some required substitutions (e.g. replace the public path of the webpack dev server with the build's public path)
-3. replace the links to the public files adding a cache busting suffix
-4. copy the npm dependencies for the production environment (no need to run `npm install` after the build)
+1. compiles the client's js files with webpack
+2. copies the app sources and apply some required substitutions
+3. enables a cache busting
+4. copies the npm dependencies
 
 ```bash
 # Create a build in the /build directory
 gulp build
 
-# Run the built server
+# Run the built server on localhost:8080
 PORT=8080;NODE_ENV=production node build/server
 ```
-
-### Cache busting
-
-The express server is configured to serve static files with a suffix to prevent the browser cache (cache busting). The client request `myimage-<hash>.png` and the server will answer with `myimage.png`.
 
 ## To do
 
 * Linting (needs to find a gulp plugin working with [jsxhint](https://github.com/STRML/JSXHint))
-* Tests
+* Tests examples
 * i18n support examples
 * gulp dist
