@@ -10,6 +10,18 @@ var data = require('../public/data/places');
 
 var App = React.createClass({
 
+  statics: {
+    title: function(params) {
+      return "Places in Italy";
+    }
+  },
+
+  componentDidMount: function() {
+    // confirm it works client-side
+    console.info("Application has been mounted.");
+  },
+
+
   getDefaultProps: function () {
     return { places: data };
   },

@@ -13,6 +13,13 @@ function findPlace(id) {
 var Place = React.createClass({
   mixins: [ Router.State ],
 
+  statics: {
+    title: function(params) {
+      var place = findPlace(params.id);
+      return place.name;
+    }
+  },
+
   imageUrl: function (id) {
     return '/images/' + id + '.jpg';
   },

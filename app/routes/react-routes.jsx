@@ -11,9 +11,9 @@ var Index = require('../components/Index.jsx');
 var Place = require('../components/Place.jsx');
 
 var routes = (
-  <Route handler={App}>
-    <DefaultRoute handler={Index}/>
-    <Route name="place" path="place/:id" handler={Place}/>
+  <Route name="places" path="/" handler={App}>
+    <DefaultRoute name="index" handler={Index}/>
+    <Route name="place" path="place/:id" handler={Place} />
   </Route>
 );
 
