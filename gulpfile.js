@@ -28,6 +28,7 @@ var paths = {
 };
 
 gulp.task('serve', function(){
+  gulp.start('sass');
   nodemon({'script': 'server.js', ext: 'js' });
 });
 
@@ -43,7 +44,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('watch', function () {
-   livereload.listen();
+  livereload.listen();
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.public + '/**/*.css', livereload.changed);
 });
