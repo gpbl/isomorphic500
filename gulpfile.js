@@ -101,7 +101,7 @@ gulp.task('copy:views', ['clean'],  function(){
 
 // copy public
 gulp.task('copy:public', ['clean', 'sass'],  function() {
-	var src = paths.public + '**/*';
+	var src = [paths.public + '**/*', '!**/*.map'];
 	var filterCSS = filter('**/*.css');
 
 	return gulp.src(src, { base: '.' })
@@ -143,7 +143,7 @@ gulp.task('bust', ['bust:collect', 'bust:replace']);
 
 // collect resources for cache busting
 gulp.task('bust:collect', ['sass', 'webpack', 'copy'], function () {
-	var src = [].concat(paths.public);
+	var src = [].concat(paths.public + '**/*');
   return gulp.src(src, { cwd: paths.build, base: paths.build + paths.public })
     .pipe(cachebust.resources());
 });
@@ -151,7 +151,7 @@ gulp.task('bust:collect', ['sass', 'webpack', 'copy'], function () {
 // replace collected resources
 gulp.task('bust:replace', ['bust:collect'], function () {
 	gutil.log("[bust:replace]", 'Busting ' + Object.keys(cachebust.mappings).length + ' asset(s)...');
-  return gulp.src(paths.public, { cwd: paths.build, base: paths.build })
+  return gulp.src(paths.views, { cwd: paths.build, base: paths.build })
     .pipe(cachebust.references())
     .pipe(gulp.dest(paths.build));
 });
