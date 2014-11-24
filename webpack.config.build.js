@@ -6,7 +6,7 @@ module.exports = {
 
   // Create also a "lib" chunk with common libraries, e.g. react.
   entry: {
-    lib: ['react'],
+    lib: ['react', 'react-router'],
     main: './app/client/main'
   },
 
@@ -37,14 +37,9 @@ module.exports = {
 
   module: {
     loaders: [{
-      test: /\.jsx$/,
-      loaders: ['jsx']
+      test: /\.jsx$/, loaders: ['jsx']
     }]
   },
 
-  externals: {
-    // Showdown is not is node_modules,
-    // so we tell Webpack to resolve it to a global
-    // 'showdown': 'window.Showdown'
-  }
+  externals: {}
 };
