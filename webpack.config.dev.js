@@ -39,10 +39,6 @@ module.exports = {
       }
     ]
   },
-
-  externals: {
-    // Showdown is not is node_modules,
-    // so we tell Webpack to resolve it to a global
-    // 'showdown': 'window.Showdown'
-  }
+  devtool: "#inline-source-map",
+  externals: { }
 };
