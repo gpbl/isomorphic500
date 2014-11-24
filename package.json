@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "private": "true",
   "description": "A starting kit for express with react.js",
-  "scripts": {
-    "start": "node ./app/server"
-  },
   "author": "Giampaolo Bellavite",
   "license": "MIT",
   "dependencies": {
