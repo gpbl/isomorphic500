@@ -11,13 +11,13 @@ var data = require('../public/data/places');
 var App = React.createClass({
 
   statics: {
-    title: function(params) {
+    documentTitle: function(params) {
       return "Places in Italy";
     }
   },
 
   componentDidMount: function() {
-    // confirm it works client-side
+    // confirm it works client-side :)
     console.info("Application has been mounted.");
   },
 

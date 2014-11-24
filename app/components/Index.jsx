@@ -5,7 +5,7 @@ var React = require('react');
 var Index = React.createClass({
 
   render: function () {
-    return <p>Select a place from the left.</p>;
+    return <p>Please select a place from the left.</p>;
   }
 });
 

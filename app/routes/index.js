@@ -1,9 +1,9 @@
 'use strict';
 
-var React         = require('react');
-var Router        = require('react-router');
-var reactRoutes   = require('./react-routes.jsx');
-var documentTitle = require('./helpers/document-title');
+var React       = require('react');
+var Router      = require('react-router');
+var reactRoutes = require('./react-routes.jsx');
+var title       = require('./helpers/document-title');
 
 // Render the current route server-side using views/page.ejs 
 var routes = function (req, res, next) {
@@ -11,14 +11,14 @@ var routes = function (req, res, next) {
 		
 		var handlerElement = React.createElement(Handler);
 		var html           = React.renderToString(handlerElement);
-		var title          = documentTitle(state.routes, state.params);
+		var title          = title(state.routes, state.params);
 
 		res.render('page', {
 			title: title,
 			html: html,
 			props: handlerElement.props
 		});
-		
+
 	});
 };
 

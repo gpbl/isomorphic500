@@ -14,7 +14,7 @@ var Place = React.createClass({
   mixins: [ Router.State ],
 
   statics: {
-    title: function(params) {
+    documentTitle: function(params) {
       var place = findPlace(params.id);
       return place.name;
     }
