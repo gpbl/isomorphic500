@@ -68,22 +68,23 @@ git clone https://github.com/gpbl/react-express-webpack-template.git
 cd react-express-webpack-template
 npm install
 
+# Make sure gulp is installed
+npm install --global gulp
+
 # Install SASS (if not available)
 gem install sass
+
 ```
 
 ## Running the development server
 
-```bash
-# Run the dev server on localhost:3000
-# Webpack dev server is on localhost:3001
-node server
+The default `gulp ` task will run the server on [localhost:3000](http://localhost:3000) and the webpack dev server on localhost:3001. 
 
-# Or, with nodemon and watch scss
-gulp
+```bash
+gulp serve
 ```
 
-The gulp tasks enable a livereload server: remember to install the [browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions).
+The task starts a livereload server: remember to install the [browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions).
 
 ## Building
 
