@@ -6,11 +6,12 @@ A starting template for building a single page web application using [react.js](
 
 * React components are rendered server-side, then mounted on the browser.
 * Server and client share the same routes.
-* Hot reload for React components in development, livereload for CSS.
+* Hot reload for React components and livereload for CSS.
 * Includes: [react-router](https://github.com/rackt/react-router), [react-hot-loader](https://github.com/gaearon/react-hot-loader), [gulp](http://www.gulpjs.com), [SASS](http://sass-lang.com) and a cache buster.
 
 ### Live reload awesomeness
 
+![Hot loader](https://cloud.githubusercontent.com/assets/120693/5174592/ddba6aca-7432-11e4-81bb-db1a62e8c9f3.gif)
 
 
 ## App structure
