@@ -104,7 +104,7 @@ PORT=8080;NODE_ENV=production node build/server
 
 ## To do
 
-
+* Not found / server error pages
 * Examples consuming a REST API
 * Examples for i18n
 * `gulp lint` and `gulp dist` tasks
