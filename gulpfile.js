@@ -10,27 +10,25 @@ var gulp         = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     livereload   = require('gulp-livereload'),
     jshint       = require('gulp-jshint'),
+    react        = require('gulp-react'),
     cachebust    = new require('gulp-cachebust')(),
     fs           = require('fs-extra'),
+    minifyCSS 		= require('gulp-minify-css'),
     webpack      = require("webpack"),
     webpackBuild = require('./webpack.config.build'),
     Promise      = require('es6-promise').Promise,
     webpackDev   = require('./webpack.config.dev');
 
 var paths = {
-  build:   'build/',
-  app:     'app/',
-  css:     'app/public/css',
-  
-  sass:         'app/style/*.scss',
-  components:   'app/components/**/*.jsx',
-  routes:       'app/routes/**/*.js',
-  views:         'app/views/**/*.ejs',
-  staticFiles:  ['app/public/**/*', '!app/public/**/*.map']
+		build: 		'build/',
+		public: 	'app/public/',
+		sass: 		'app/style/main.scss',
+		server: 	['package.json', 'server.js', 'app/*.js', 'app/routes/**/*', 'app/components/**/*.jsx'],
+		views: 		['app/views/**/*.ejs']
 };
 
 gulp.task('serve', function(){
-  nodemon({'script': 'server.js', ext: 'js html' });
+  nodemon({'script': 'server.js', ext: 'js' });
 });
 
 gulp.task('sass', function () {
@@ -38,31 +36,30 @@ gulp.task('sass', function () {
   return gulp.src(paths.sass)
     .pipe(plumber())
     .pipe(sass())
-    .on('error', function (err) { console.log(err.message); })
     .pipe(filterCSS)
     .pipe(autoprefixer())
     .pipe(filterCSS.restore())
-    .pipe(gulp.dest(paths.css));
+    .pipe(gulp.dest(paths.public + 'css'));
 });
 
 gulp.task('watch', function () {
-  var server = livereload();
+   livereload.listen();
   gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.css + '/main.css', server.changed);
+  gulp.watch(paths.public + '/**/*.css', livereload.changed);
 });
 
 gulp.task('default', ['serve', 'watch']);
 
 // Build for production
-gulp.task('build', ['clean:build', 'webpack:build', 'copy:build', 'copy:node-modules:build', 'bust:build']);
+gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust']);
 
 // Clean build directory
-gulp.task('clean:build', function (callback) {
+gulp.task('clean', function (callback) {
   fs.remove(paths.build, callback);
 });
 
-// Create chunks and uglify with webpack
-gulp.task('webpack:build', ['clean:build'], function (callback) {
+// create chunks and uglify with webpack
+gulp.task('webpack', ['clean'], function (callback) {
   webpack(webpackBuild, function (err, stats) {
     if (err) throw new gutil.PluginError("webpack", err);
     gutil.log("[webpack]", stats.toString({
@@ -79,49 +76,45 @@ gulp.task('webpack:build', ['clean:build'], function (callback) {
   });
 });
 
-// Copy the app to the build directory
-gulp.task('copy:build', ['clean:build'], function () {
-  var src = [
-    'package.json',
-    'server.js',
-    paths.app + '*.js',
-    paths.components,
-    paths.routes,
-    paths.views
-  ];
+// Copy the app
+gulp.task('copy', ['copy:server', 'copy:views', 'copy:public', 'copy:node_modules']);
 
-  src = src.concat(paths.staticFiles);
-
-  var filterViews = filter('**/*.ejs');
-  return gulp.src(src, { base: '.' })
-    .pipe(filterViews)
-    .pipe(replace(webpackDev.output.publicPath, webpackBuild.output.publicPath))
-    .pipe(filterViews.restore())
-    .pipe(gulp.dest(paths.build));
+// copy server files
+gulp.task('copy:server', ['clean'], function() {
+	return gulp.src(paths.server, { base: '.' })
+		.pipe(gulp.dest(paths.build));
 });
 
-
-// Cache busters
-gulp.task('bust:build', ['bust-collect:build', 'bust-replace:build']);
-
-// Collect resources for cache busting
-gulp.task('bust-collect:build', ['webpack:build', 'copy:build'], function () {
-  return gulp.src(paths.staticFiles, { cwd: paths.build })
-    .pipe(cachebust.resources());
+// copy views after replacing webpack's loaded scripts
+gulp.task('copy:views', ['clean'],  function(){
+	return gulp.src(paths.views, { base: '.' })
+	.pipe(replace(webpackDev.output.publicPath, webpackBuild.output.publicPath))
+	.pipe(gulp.dest(paths.build));
 });
 
-// Replace collected resources
-gulp.task('bust-replace:build', ['bust-collect:build'], function () {
+// // copy css files
+// gulp.task('copy:css', ['clean', 'sass'],  function(){
+// 	return gulp.src(paths.css, { base: '.' })
+// 		.pipe(minifyCSS({keepBreaks:true}))
+// 		.pipe(gulp.dest(paths.build));
+// });
 
-  var src = [paths.views, paths.publicCSS + '*.css'];
+// copy public
+gulp.task('copy:public', ['clean', 'sass'],  function() {
+	var src = paths.public + '**/*';
+	var filterCSS = filter('**/*.css');
 
-  return gulp.src(src, { cwd: paths.build, base: paths.build })
-    .pipe(cachebust.references())
-    .pipe(gulp.dest(paths.build));
+	return gulp.src(src, { base: '.' })
+
+		.pipe(filterCSS)
+    .pipe(minifyCSS({keepBreaks:true}))
+    .pipe(filterCSS.restore())
+
+		.pipe(gulp.dest(paths.build));
 });
 
-// Copy dependencies to build directory
-gulp.task('copy:node-modules:build', ['clean:build'], function (callback) {
+// copy npm dependencies
+gulp.task('copy:node_modules', ['clean'], function (callback) {
 
   var dest = paths.build + 'node_modules/';
   fs.mkdirsSync(dest);
@@ -129,10 +122,7 @@ gulp.task('copy:node-modules:build', ['clean:build'], function (callback) {
   var promises = [];
   var promiseFromCopy = function (source, dest) {
     return new Promise(function (resolve, reject) {
-      fs.copy(source, dest, function (err) {
-        if (err) reject(err);
-        else resolve(true);
-      });
+      fs.copy(source, dest, function (err) { err ? reject(err) : resolve(true); });
     });
   };
 
@@ -140,8 +130,29 @@ gulp.task('copy:node-modules:build', ['clean:build'], function (callback) {
   for (var pkg in packages) promises.push(promiseFromCopy('./node_modules/' + pkg, dest + pkg));
 
   Promise.all(promises).then(function () {
-    gutil.log("[node_modules]", 'Copied ' + Object.keys(packages).length + ' module(s).');
+    gutil.log("[copy:node_modules]", 'Copied ' + Object.keys(packages).length + ' module(s).');
     callback();
   });
 
 });
+
+
+// cache busters
+var bustSrc = 
+gulp.task('bust', ['bust:collect', 'bust:replace']);
+
+// collect resources for cache busting
+gulp.task('bust:collect', ['sass', 'webpack', 'copy'], function () {
+	var src = [].concat(paths.public);
+  return gulp.src(src, { cwd: paths.build, base: paths.build + paths.public })
+    .pipe(cachebust.resources());
+});
+
+// replace collected resources
+gulp.task('bust:replace', ['bust:collect'], function () {
+	gutil.log("[bust:replace]", 'Busting ' + Object.keys(cachebust.mappings).length + ' asset(s)...');
+  return gulp.src(paths.public, { cwd: paths.build, base: paths.build })
+    .pipe(cachebust.references())
+    .pipe(gulp.dest(paths.build));
+});
+
