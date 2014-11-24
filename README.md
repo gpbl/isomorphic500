@@ -24,8 +24,8 @@ A starting template for building a single page web application using [react.js](
 │   │ 
 │   ├── index.js        # Main script, runs the express app
 │   │ 
-│   ├── client          # Contains JS code running on the client
-│   │   └── main.jsx    # Entry point for the browser, mounts the <App /> component on document.body.
+│   ├── client          # Contains code running on the client
+│   │   └── main.jsx    # Entry point for the browser: mounts the <App /> component on document.body.
 │   │ 
 │   ├── views           # Container for ejs views, used by express
 │   │   └── page.ejs    # The main view, where the react components are rendered.
@@ -35,7 +35,7 @@ A starting template for building a single page web application using [react.js](
 │   │   ├── react-routes.jsx       # Defines the react-router for both server and client
 │   │   ├── cachebuster.js         # Used by express for serving cache-busted URLs
 │   │   └── helpers                # Container for route helpers
-│   │       └── document-title.js  # For example, this is used to get the <title> of a document
+│   │       └── document-title.js  # for example, this is used to get the <title> of the HTML document
 │   │ 
 │   ├── components      # React's components container
 │   │   ├── App.jsx     # The App component where the routes are mounted
