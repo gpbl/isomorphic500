@@ -48,7 +48,7 @@ gulp.task('watch', function () {
   gulp.watch(paths.public + '/**/*.css', livereload.changed);
 });
 
-gulp.task('default', ['serve', 'watch']);
+gulp.task('default', ['serve', 'sass', 'watch']);
 
 // Build for production
 gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust']);
