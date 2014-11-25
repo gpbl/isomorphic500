@@ -16,10 +16,10 @@ A starting template for building a single page web application using [react.js](
 
 ```bash
 # Clone the repository
-git clone https://github.com/gpbl/react-express-webpack-template.git
+git clone https://github.com/gpbl/isomorphic-react-template.git
 
 # Install dependencies
-cd react-express-webpack-template
+cd isomorphic-react-template
 npm install
 
 # Run the development server
