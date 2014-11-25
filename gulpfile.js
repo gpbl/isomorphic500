@@ -4,20 +4,16 @@ var gulp         = require('gulp'),
     gutil        = require("gulp-util"),
     filter       = require('gulp-filter'),
     replace      = require('gulp-replace'),
-    sass         = require('gulp-ruby-sass'),
-    plumber      = require('gulp-plumber'),
-    nodemon      = require('gulp-nodemon'),
     autoprefixer = require('gulp-autoprefixer'),
-    livereload   = require('gulp-livereload'),
     jshint       = require('gulp-jshint'),
     react        = require('gulp-react'),
     cachebust    = new require('gulp-cachebust')(),
     fs           = require('fs-extra'),
-    minifyCSS 		= require('gulp-minify-css'),
+    minifyCSS    = require('gulp-minify-css'),
+    sass     		 = require('gulp-ruby-sass'),
     webpack      = require("webpack"),
-    webpackBuild = require('./webpack.config.build'),
-    Promise      = require('es6-promise').Promise,
-    webpackDev   = require('./webpack.config.dev');
+    webpackBuild = require('./webpack.build'),
+    webpackDev   = require('./webpack.dev');
 
 var paths = {
 		build: 		'build/',
@@ -27,32 +23,18 @@ var paths = {
 		views: 		['app/views/**/*.ejs']
 };
 
-gulp.task('serve', function(){
-  gulp.start('sass');
-  nodemon({'script': 'server.js', ext: 'js' });
-});
+// Build for production
+gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust']);
 
 gulp.task('sass', function () {
   var filterCSS = filter('**/*.css');
   return gulp.src(paths.sass)
-    .pipe(plumber())
     .pipe(sass())
     .pipe(filterCSS)
     .pipe(autoprefixer())
     .pipe(filterCSS.restore())
     .pipe(gulp.dest(paths.public + 'css'));
 });
-
-gulp.task('watch', function () {
-  livereload.listen();
-  gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.public + '/**/*.css', livereload.changed);
-});
-
-gulp.task('default', ['serve', 'sass', 'watch']);
-
-// Build for production
-gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust']);
 
 // Clean build directory
 gulp.task('clean', function (callback) {
@@ -93,13 +75,6 @@ gulp.task('copy:views', ['clean'],  function(){
 	.pipe(gulp.dest(paths.build));
 });
 
-// // copy css files
-// gulp.task('copy:css', ['clean', 'sass'],  function(){
-// 	return gulp.src(paths.css, { base: '.' })
-// 		.pipe(minifyCSS({keepBreaks:true}))
-// 		.pipe(gulp.dest(paths.build));
-// });
-
 // copy public
 gulp.task('copy:public', ['clean', 'sass'],  function() {
 	var src = [paths.public + '**/*', '!**/*.map'];
@@ -115,6 +90,9 @@ gulp.task('copy:public', ['clean', 'sass'],  function() {
 });
 
 // copy npm dependencies
+/* jshint ignore: start */
+var  Promise      = require('es6-promise').Promise;
+/* jshint ignore: end */
 gulp.task('copy:node_modules', ['clean'], function (callback) {
 
   var dest = paths.build + 'node_modules/';
