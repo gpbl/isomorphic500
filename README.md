@@ -5,20 +5,37 @@ A starting template for building a single page web application using [react.js](
 ### Features 
 
 * React components are rendered server-side, then mounted on the browser.
-* Server and client share the same routes.
-* Hot reload for React components and livereload for CSS.
-* Includes: [react-router](https://github.com/rackt/react-router), [react-hot-loader](https://github.com/gaearon/react-hot-loader), [gulp](http://www.gulpjs.com), [SASS](http://sass-lang.com) and a cache buster.
+* Server and client share the same routes, thanks to [react-router](https://github.com/rackt/react-router).
+* Hot reload for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader).
 
 ### Live reload awesomeness
 
-![Hot loader](https://cloud.githubusercontent.com/assets/120693/5174592/ddba6aca-7432-11e4-81bb-db1a62e8c9f3.gif)
+![Hot Loader](https://cloud.githubusercontent.com/assets/120693/5181393/404b734c-7496-11e4-8b1a-4e0654e0780b.gif)
 
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/gpbl/react-express-webpack-template.git
+
+# Install dependencies
+cd react-express-webpack-template
+npm install
+
+# Run the development server
+./scripts/dev
+```
 
 ## App structure
 
 ```bash
 .
-├── server.js           # Runs the express server, with webpack on dev
+├── server.js      # Runs the express server
+├── server-dev.js  # Runs the express server, the webpack dev server, livereload, and watches for .scss changes
+|
+├── scripts
+│   ├── dev        # Useful scripts to run the development server
+│   └── prod       # ...or to test the production server
 │
 ├── app
 │   │ 
@@ -51,40 +68,34 @@ A starting template for building a single page web application using [react.js](
 │   └── style           # Container for .scss files
 │       └── main.scss
 │    
-├── gulpfile.js         # Gulp script
+├── gulpfile.js         # Contains the gulp tasks for the build
 │
-├── webpack.config.build.js # Config for webpack for the build task
-└── webpack.config.dev.js   # Config for webpack while development
+├── webpack.build.js    # Config for webpack for the build task
+└── webpack.dev.js      # Config for webpack while development
 
 ```
 
-### Setup
+## Development 
+
+You should be able to develop the app just by writing the React components in the [components](app/components) directory, and forget about the server side.
+
+Routes are a key part of the app: read the [react-router](https://github.com/rackt/react-router) documentation to understand how the routes handlers work. You change the routes in [routes/react-routes.jsx](app/routes/react-routes.jsx).
+
+The main component, which is mounted client-side and rendered server side, is [App.jsx](app/components/App.jsx). For the server-side rendering, you can pass the initial props to the routes handler via [routes/index.js](app/routes/index.js) – which works together with [views/page.ejs](app/views/page.ejs). The main `<App />` component is also mounted client-side via [client/main.jsx](app/client/main.jsx), which is the entry point for the browser.
+
+If you have some questions feel free to open an issue in the project, since this template is still under development. :)
+
+### Running the development server
+
+The default development server runs on [localhost:3000](http://localhost:3000) and the webpack dev server on localhost:3001. 
 
 ```bash
-# Clone the repository
-git clone https://github.com/gpbl/react-express-webpack-template.git
-
-# Install dependencies
-cd react-express-webpack-template
-npm install
-
-# Make sure gulp is installed
-npm install --global gulp
-
-# Install SASS (if not available)
-gem install sass
-
+./scripts/dev
 ```
 
-## Running the development server
-
-The default `gulp ` task will run the server on [localhost:3000](http://localhost:3000) and the webpack dev server on localhost:3001. 
-
-```bash
-gulp serve
-```
-
-The task starts a livereload server: remember to install the [browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions).
+The development server includes: 
+* a webpack dev server with hot modules replacement for react components
+* a livereload server watching the public files (install the [browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions)).
 
 ## Building
 
@@ -99,8 +110,8 @@ The build task:
 # Create a build in the /build directory
 gulp build
 
-# Run the built server on localhost:8080
-PORT=8080;NODE_ENV=production node build/server
+# Test the production server on localhost:8080
+PORT=8080 ./scripts/prod
 ```
 
 ## To do
