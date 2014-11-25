@@ -1,4 +1,4 @@
-# react-express-webpack-template
+# isomorphic-react-template
 
 A starting template for building a single page web application using [react.js](http://www.reactjs.org) and [express](http://www.expressjs.com). Includes a small demo app.
 
