@@ -77,7 +77,7 @@ npm install
 
 ## Development 
 
-You should be able to develop the app just by writing the React components in the [components](app/components) directory, and forget about the server side.
+You should be able to develop the app just by writing the React components in the [components](app/components) directory, and (mostly) forget about the server side.
 
 Routes are a key part of the app: read the [react-router](https://github.com/rackt/react-router) documentation to understand how the routes handlers work. You change the routes in [routes/react-routes.jsx](app/routes/react-routes.jsx).
 
