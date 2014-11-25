@@ -13,7 +13,7 @@
     "es6-promise": "^2.0.0",
     "express": "^4.10.2",
     "morgan": "^1.5.0",
-    "node-jsx": "^0.12.3",
+    "node-jsx": "^0.12.4",
     "react": "^0.12.1",
     "react-router": "^0.11.1",
     "serve-favicon": "^2.1.7"
@@ -25,16 +25,17 @@
     "gulp-cachebust": "0.0.3",
     "gulp-filter": "^1.0.2",
     "gulp-jshint": "^1.9.0",
-    "gulp-livereload": "^2.1.1",
     "gulp-minify-css": "^0.3.11",
     "gulp-nodemon": "^1.0.4",
-    "gulp-plumber": "^0.6.6",
     "gulp-react": "^2.0.0",
     "gulp-replace": "^0.5.0",
     "gulp-ruby-sass": "^0.7.1",
     "gulp-util": "^3.0.1",
     "jsx-loader": "^0.12.2",
+    "livereload": "^0.3.4",
+    "node-sass": "^1.2.3",
     "react-hot-loader": "^0.5.0",
+    "watch": "^0.13.0",
     "webpack": "^1.4.13",
     "webpack-dev-server": "^1.6.6"
   }
