@@ -1,4 +1,4 @@
-# react-express-webpack-template
+# isomorphic-react-template
 
 A starting template for building a single page web application using [react.js](http://www.reactjs.org) and [express](http://www.expressjs.com). Includes a small demo app.
 
@@ -16,10 +16,10 @@ A starting template for building a single page web application using [react.js](
 
 ```bash
 # Clone the repository
-git clone https://github.com/gpbl/react-express-webpack-template.git
+git clone https://github.com/gpbl/isomorphic-react-template.git
 
 # Install dependencies
-cd react-express-webpack-template
+cd isomorphic-react-template
 npm install
 
 # Run the development server
@@ -117,10 +117,10 @@ PORT=8080 ./scripts/prod
 ## To do
 
 * Not found / server error pages
-* Examples consuming a REST API
+* Examples consuming a REST API (maybe using [express-state](https://github.com/yahoo/express-state))
 * Examples for i18n
 * `gulp lint` and `gulp dist` tasks
 
 ## Credits
 
-The example app is borrowed from [react-router](https://github.com/rackt/react-router).
+The example app is inspired by the [react-router](https://github.com/rackt/react-router) examples.
