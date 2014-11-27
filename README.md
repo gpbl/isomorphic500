@@ -100,8 +100,8 @@ The development server includes:
 The build task:
 
 1. compiles the client's js files with webpack
-2. copies the app sources and apply some required substitutions
-3. enables a cache busting
+2. copies the app sources
+3. cache buster the public files
 4. copies the npm dependencies
 
 ```bash
