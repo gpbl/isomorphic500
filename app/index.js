@@ -23,7 +23,19 @@ var publicPath = path.join(__dirname, 'public');
 app.use(express.static(publicPath));
 app.get(cachebuster.path, cachebuster.remove, express.static(publicPath), cachebuster.restore);
 
+if (app.get('env') === 'development') {
+	// use webpack dev server for serving js files
+	app.use('/js', function (req, res) {
+		res.redirect('http://localhost:3001/js' + req.path);
+	});
+}
+
 // use react routes
 app.use('/', routes);
+
+// error pages
+app.use(function (err, req, res, next) {
+	// TODO: res.render("error"); 
+});
 
 module.exports = app;

@@ -22,18 +22,8 @@ var webpackServer = new WebpackDevServer(webpack(webpackConfig), {
 		"Access-Control-Allow-Origin": "*"
 	}
 }).listen(3001, 'localhost', function (err, result) {
-	if (err) {
-		console.log(err);
-		return;
-	}
-	debug('Webpack server listening on port 3001');
-
-	// Use the webpack dev server to serve /js files, using a redirect
-	// (assuming the last app route is the react-router)
-	var lastRoute = app._router.stack.pop();
-	app.use('/js', function(req, res) { res.redirect('http://localhost:3001/js' + req.path); });
-	app._router.stack.push(lastRoute);
-
+	if (err) console.log(err);
+	else 	debug('Webpack server listening on port 3001');
 });
 
 // Render scss files
