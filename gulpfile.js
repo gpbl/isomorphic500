@@ -13,7 +13,8 @@ var gulp         = require('gulp'),
     sass         = require('gulp-ruby-sass'),
     webpack      = require("webpack"),
     webpackBuild = require('./webpack.build'),
-    webpackDev   = require('./webpack.dev');
+    webpackDev   = require('./webpack.dev'),
+    notifier     = require('node-notifier');
 
 var paths = {
     build:    'build/',
@@ -24,7 +25,17 @@ var paths = {
 };
 
 // Build for production
-gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust']);
+gulp.task('build', [/*'clean', 'sass', 'webpack', 'copy', 'bust'*/], function () {
+  var pkg = require('./package.json');
+  notifier.notify({
+    icon: null,
+    contentImage: __dirname + '/app/public/images/favicon.png',
+    title: pkg.name,
+    sound: 'Glass',
+    message: 'Build: done.',
+    open: 'file://' + __dirname + '/' + paths.build
+  });
+});
 
 gulp.task('sass', function () {
   var filterCSS = filter('**/*.css');
@@ -60,7 +71,7 @@ gulp.task('webpack', ['clean'], function (callback) {
 });
 
 // Copy the app
-gulp.task('copy', ['copy:server', 'copy:public', 'copy:node_modules']);
+gulp.task('copy', ['copy:server', 'copy:public']);
 
 // copy server files
 gulp.task('copy:server', ['clean'], function() {
@@ -80,32 +91,6 @@ gulp.task('copy:public', ['clean', 'sass'],  function() {
     .pipe(filterCSS.restore())
 
     .pipe(gulp.dest(paths.build));
-});
-
-// copy npm dependencies
-/* jshint ignore: start */
-var  Promise      = require('es6-promise').Promise;
-/* jshint ignore: end */
-gulp.task('copy:node_modules', ['clean'], function (callback) {
-
-  var dest = paths.build + 'node_modules/';
-  fs.mkdirsSync(dest);
-
-  var promises = [];
-  var promiseFromCopy = function (source, dest) {
-    return new Promise(function (resolve, reject) {
-      fs.copy(source, dest, function (err) { err ? reject(err) : resolve(true); });
-    });
-  };
-
-  var packages = require('./package.json').dependencies;
-  for (var pkg in packages) promises.push(promiseFromCopy('./node_modules/' + pkg, dest + pkg));
-
-  Promise.all(promises).then(function () {
-    gutil.log("[copy:node_modules]", 'Copied ' + Object.keys(packages).length + ' module(s).');
-    callback();
-  });
-
 });
 
 
