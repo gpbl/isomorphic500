@@ -49,7 +49,7 @@ npm install
 │   │ 
 │   ├── routes
 │   │   ├── index.js               # Renders a route server side (similar to client/main.jsx)
-│   │   ├── react-routes.jsx       # Defines the react-router for both server and client
+│   │   ├── routes.jsx             # Defines the react-router handlers for both server and client
 │   │   ├── cachebuster.js         # Used by express for serving cache-busted URLs
 │   │ 
 │   ├── components      # React's components container
