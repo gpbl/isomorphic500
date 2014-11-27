@@ -5,6 +5,7 @@ var Router        = require('react-router');
 var DocumentTitle = require('react-document-title');
 
 var places        = require('../public/data/places');
+var NotFound      = require('./NotFound.jsx');
 
 function findPlace(id) {
   for (var i = 0; i < places.length; i++) {
@@ -13,26 +14,17 @@ function findPlace(id) {
 }
 
 var Place = React.createClass({
-  mixins: [ Router.State ],
-
-  statics: {
-    documentTitle: function(params) {
-      var place = findPlace(params.id);
-      return place.name;
-    }
-  },
-
-  imageUrl: function (id) {
-    return '/images/' + id + '.jpg';
-  },
 
   render: function () {
     var place = findPlace(this.getParams().id);
+
+    if (!place) return <NotFound />;
+
     return (
       <DocumentTitle title={ place.name }>
         <div className="place">
           <h2>{ place.name }</h2>
-          <img src={this.imageUrl(place.id)}/>
+          <img src={ '/images/' + place.id + '.jpg' }/>
         </div>
       </DocumentTitle>
     );
