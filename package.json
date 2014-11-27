@@ -1,8 +1,8 @@
 {
-  "name": "myApp",
+  "name": "isomorphic-react-template",
   "version": "1.0.0",
   "private": "true",
-  "description": "A starting kit for express with react.js",
+  "description": "Isomorphic single page app template with react.js, react-router and react-hot-reload",
   "author": "Giampaolo Bellavite",
   "license": "MIT",
   "dependencies": {
