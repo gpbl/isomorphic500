@@ -1,8 +1,10 @@
 'use strict';
 
-var React  = require('react');
-var Router = require('react-router');
-var places = require('../public/data/places');
+var React         = require('react');
+var Router        = require('react-router');
+var DocumentTitle = require('react-document-title');
+
+var places        = require('../public/data/places');
 
 function findPlace(id) {
   for (var i = 0; i < places.length; i++) {
@@ -27,10 +29,12 @@ var Place = React.createClass({
   render: function () {
     var place = findPlace(this.getParams().id);
     return (
-      <div className="place">
-        <h2>{ place.name }</h2>
-        <img src={this.imageUrl(place.id)}/>
-      </div>
+      <DocumentTitle title={ place.name }>
+        <div className="place">
+          <h2>{ place.name }</h2>
+          <img src={this.imageUrl(place.id)}/>
+        </div>
+      </DocumentTitle>
     );
   }
 });

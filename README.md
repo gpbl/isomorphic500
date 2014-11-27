@@ -51,8 +51,6 @@ npm install
 │   │   ├── index.js               # Renders a route server side (similar to client/main.jsx)
 │   │   ├── react-routes.jsx       # Defines the react-router for both server and client
 │   │   ├── cachebuster.js         # Used by express for serving cache-busted URLs
-│   │   └── helpers                # Container for route helpers
-│   │       └── document-title.js  # for example, this is used to get the <title> of the HTML document
 │   │ 
 │   ├── components      # React's components container
 │   │   ├── App.jsx     # The App component where the routes are mounted

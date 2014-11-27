@@ -2,6 +2,7 @@
 
 var React         = require('react');
 var Router        = require('react-router');
+var DocumentTitle = require('react-document-title');
 
 var RouteHandler  = Router.RouteHandler;
 var Link          = Router.Link;
@@ -9,18 +10,6 @@ var Link          = Router.Link;
 var data = require('../public/data/places');
 
 var App = React.createClass({
-
-  statics: {
-    documentTitle: function(params) {
-      return "Places in Italy";
-    }
-  },
-
-  componentDidMount: function() {
-    // confirm it works client-side :)
-    console.info("Application has been mounted.");
-  },
-
 
   getDefaultProps: function () {
     return { places: data };
@@ -35,15 +24,17 @@ var App = React.createClass({
       );
     });
     return (
-      <div className="app">
-        <h1>Some places in Italy</h1>
-        <ul className="master">
-          { links }
-        </ul>
-        <div className="detail">
-          <RouteHandler/>
+      <DocumentTitle title="Some places in Italy">
+        <div className="app">
+          <h1>Some places in Italy</h1>
+          <ul className="master">
+            { links }
+          </ul>
+          <div className="detail">
+            <RouteHandler/>
+          </div>
         </div>
-      </div>
+      </DocumentTitle>
     );
   }
 });
