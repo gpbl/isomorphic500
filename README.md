@@ -4,7 +4,7 @@ A starting template for building a single page web application using [react.js](
 
 ### Features 
 
-* React components are rendered server-side, then mounted on the browser.
+* React components rendered server-side and mounted then on the browser.
 * Server and client share the same routes, thanks to [react-router](https://github.com/rackt/react-router).
 * Hot reload for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader).
 
@@ -79,7 +79,7 @@ You should be able to develop the app just by writing the React components in th
 
 Routes are a key part of the app: read the [react-router](https://github.com/rackt/react-router) documentation to understand how the routes handlers work. You change the routes in [routes/react-routes.jsx](app/routes/react-routes.jsx).
 
-The main component, which is mounted client-side and rendered server side, is [App.jsx](app/components/App.jsx). For the server-side rendering, you can pass the initial props to the routes handler via [routes/index.js](app/routes/index.js) – which works together with [views/page.ejs](app/views/page.ejs). The main `<App />` component is also mounted client-side via [client/main.jsx](app/client/main.jsx), which is the entry point for the browser.
+The main component is [App.jsx](app/components/App.jsx). For the server-side rendering, you can pass the initial props to the routes handler to [routes/index.js](app/routes/index.js) – which works together with [views/page.ejs](app/views/page.ejs). The `<App />` component is mounted with [client/main.jsx](app/client/main.jsx), which is the entry point for the browser.
 
 If you have some questions feel free to open an issue in the project, since this template is still under development. :)
 
