@@ -14,6 +14,7 @@ function findPlace(id) {
 }
 
 var Place = React.createClass({
+  mixins: [ Router.State ],
 
   render: function () {
     var place = findPlace(this.getParams().id);
