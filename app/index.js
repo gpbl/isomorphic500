@@ -35,7 +35,13 @@ app.use('/', routes);
 
 // error pages
 app.use(function (err, req, res, next) {
-	// TODO: res.render("error"); 
+	res.status(500);
+	if (app.get('env') === 'development') {
+		res.send('<pre>' + err.stack + '</pre>');
+	}
+	else {
+		res.render("error"); 
+	}
 });
 
 module.exports = app;
