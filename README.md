@@ -114,13 +114,6 @@ gulp build
 PORT=8080 ./scripts/prod
 ```
 
-## To do
-
-* Not found / server error pages
-* Examples consuming a REST API (maybe using [express-state](https://github.com/yahoo/express-state))
-* Examples for i18n
-* `gulp lint` and `gulp dist` tasks
-
 ## Credits
 
 The example app is inspired by the [react-router](https://github.com/rackt/react-router) examples.
