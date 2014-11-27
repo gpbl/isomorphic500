@@ -2,12 +2,11 @@
 
 var React         = require('react');
 var Router        = require('react-router');
-var reactRoutes   = require('./react-routes.jsx');
 var DocumentTitle = require('react-document-title');
+var routes        = require('./routes.jsx');
 
-// Render the current route server-side using views/page.ejs 
-var routes = function (req, res, next) {
-  Router.run(reactRoutes, req.path, function (Handler, state) {
+module.exports = function (req, res, next) {
+  Router.run(routes, req.url, function (Handler, state) {
     
     var handlerElement = React.createElement(Handler);
     var html           = React.renderToString(handlerElement);
@@ -18,4 +17,3 @@ var routes = function (req, res, next) {
   });
 };
 
-module.exports = routes;
