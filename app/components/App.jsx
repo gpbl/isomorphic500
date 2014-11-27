@@ -30,6 +30,7 @@ var App = React.createClass({
           <h1>{ title }</h1>
           <ul className="master">
             { links }
+            <Link to="index"><small>(back to index)</small></Link>
           </ul>
           <div className="detail">
             <RouteHandler />
