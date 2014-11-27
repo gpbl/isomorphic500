@@ -24,9 +24,20 @@ var paths = {
     views:    ['app/views/**/*.ejs']
 };
 
+var pkg = require('./package.json');
+
+function notifyError(err) {
+  if (!err) { return; }
+  gutil.log(err.message);
+  gutil.beep();
+  notifier.notify({
+    title: 'Building ' + pkg.name,
+    message: err.message
+  });
+}
+
 // Build for production
-gulp.task('build', [/*'clean', 'sass', 'webpack', 'copy', 'bust'*/], function () {
-  var pkg = require('./package.json');
+gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust'], function () {
   notifier.notify({
     icon: null,
     contentImage: __dirname + '/app/public/images/favicon.png',
@@ -35,14 +46,18 @@ gulp.task('build', [/*'clean', 'sass', 'webpack', 'copy', 'bust'*/], function ()
     message: 'Build: done.',
     open: 'file://' + __dirname + '/' + paths.build
   });
+  gutil.log('[build] Run `./scripts/prod` to test the built app.')
+
 });
 
 gulp.task('sass', function () {
   var filterCSS = filter('**/*.css');
   return gulp.src(paths.sass)
     .pipe(sass())
+    .on('error', notifyError)
     .pipe(filterCSS)
     .pipe(autoprefixer())
+    .on('error', notifyError)
     .pipe(filterCSS.restore())
     .pipe(gulp.dest(paths.public + 'css'));
 });
@@ -55,7 +70,7 @@ gulp.task('clean', function (callback) {
 // create chunks and uglify with webpack
 gulp.task('webpack', ['clean'], function (callback) {
   webpack(webpackBuild, function (err, stats) {
-    if (err) throw new gutil.PluginError("webpack", err);
+    if (err) return notifyError(err);
     gutil.log("[webpack]", stats.toString({
       colors: true,
       hash: false,
