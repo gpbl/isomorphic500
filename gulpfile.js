@@ -46,8 +46,7 @@ gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust'], function () {
     message: 'Build: done.',
     open: 'file://' + __dirname + '/' + paths.build
   });
-  gutil.log('[build] Run `./scripts/prod` to test the built app.')
-
+  gutil.log('[build] Run `./scripts/prod` to test the built app.');
 });
 
 gulp.task('sass', function () {

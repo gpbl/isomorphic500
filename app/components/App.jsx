@@ -7,7 +7,8 @@ var DocumentTitle = require('react-document-title');
 var RouteHandler  = Router.RouteHandler;
 var Link          = Router.Link;
 
-var data = require('../public/data/places');
+var data  = require('../public/data/places');
+var title = "Some places in Italy";
 
 var App = React.createClass({
 
@@ -24,14 +25,14 @@ var App = React.createClass({
       );
     });
     return (
-      <DocumentTitle title="Some places in Italy">
+      <DocumentTitle title={ title }>
         <div className="app">
-          <h1>Some places in Italy</h1>
+          <h1>{ title }</h1>
           <ul className="master">
             { links }
           </ul>
           <div className="detail">
-            <RouteHandler/>
+            <RouteHandler />
           </div>
         </div>
       </DocumentTitle>
