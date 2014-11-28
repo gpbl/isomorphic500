@@ -1,18 +1,12 @@
 # isomorphic-react-template
 
-A starting template for building a single page web application using [react.js](http://www.reactjs.org) and [express](http://www.expressjs.com). Includes a small demo app. For some background about isomorphic single page apps, start with [Isomorphic Flux](https://speakerdeck.com/mridgway/isomorphic-flux).
+A starting template for building a single page web application using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com). Includes a small demo app. For some background about isomorphic single page apps, start with [Isomorphic Flux](https://speakerdeck.com/mridgway/isomorphic-flux).
 
 ### Features 
 
-* React components rendered server-side and mounted then on the browser.
+* React components are rendered server-side and mounted on the browser.
 * Server and client share the same routes, thanks to [react-router](https://github.com/rackt/react-router).
-* Hot reload for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader) and [webpack](http://webpack.github.io)
-
-### Live reload awesomeness
-
-![Hot Loader](https://cloud.githubusercontent.com/assets/120693/5181393/404b734c-7496-11e4-8b1a-4e0654e0780b.gif)
-
-(also for CSS)
+* Hot reload for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader) and [webpack](http://webpack.github.io). See [video](http://vimeo.com/100010922)
 
 ### Setup
 
@@ -34,7 +28,7 @@ npm install
 .
 ├── server.js      # Runs the express server
 ├── server-dev.js  # Runs the express server, the webpack dev server, livereload, and watches for .scss changes
-|
+│
 ├── scripts
 │   ├── dev        # Useful scripts to run the development server
 │   └── prod       # ...or to test the production server
@@ -52,7 +46,7 @@ npm install
 │   ├── routes
 │   │   ├── index.js               # Renders a route server side (similar to client/main.jsx)
 │   │   ├── routes.jsx             # Defines the react-router handlers for both server and client
-│   │   ├── cachebuster.js         # Used by express for serving cache-busted URLs
+│   │   └── cachebuster.js         # Used by express for serving cache-busted URLs
 │   │ 
 │   ├── components      # React's components container
 │   │   ├── App.jsx     # The App component where the routes are mounted
