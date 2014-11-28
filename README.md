@@ -6,7 +6,7 @@ A starting template for building an isomorphic single page web application using
 
 * React components are rendered server-side and mounted on the browser.
 * Server and client share the same routes, thanks to [react-router](https://github.com/rackt/react-router).
-* Hot reload for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader) and [webpack](http://webpack.github.io). See [video](http://vimeo.com/100010922)
+* Hot reload for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader) and [webpack](http://webpack.github.io). See [video](http://vimeo.com/100010922).
 
 ### Setup
 
