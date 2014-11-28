@@ -1,16 +1,18 @@
 # isomorphic-react-template
 
-A starting template for building a single page web application using [react.js](http://www.reactjs.org) and [express](http://www.expressjs.com). Includes a small demo app.
+A starting template for building a single page web application using [react.js](http://www.reactjs.org) and [express](http://www.expressjs.com). Includes a small demo app. For some background about isomorphic single page apps, start with [Isomorphic Flux](https://speakerdeck.com/mridgway/isomorphic-flux).
 
 ### Features 
 
 * React components rendered server-side and mounted then on the browser.
 * Server and client share the same routes, thanks to [react-router](https://github.com/rackt/react-router).
-* Hot reload for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader).
+* Hot reload for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader) and [webpack](http://webpack.github.io)
 
 ### Live reload awesomeness
 
 ![Hot Loader](https://cloud.githubusercontent.com/assets/120693/5181393/404b734c-7496-11e4-8b1a-4e0654e0780b.gif)
+
+(also for CSS)
 
 ### Setup
 
