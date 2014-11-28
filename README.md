@@ -1,6 +1,6 @@
 # isomorphic-react-template
 
-A starting template for building a single page web application using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com). Includes a small demo app. For some background about isomorphic single page apps, start with [Isomorphic Flux](https://speakerdeck.com/mridgway/isomorphic-flux).
+A starting template for building an isomorphic single page web application using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com). Includes a small demo app. For some background, start with [Isomorphic Flux](https://speakerdeck.com/mridgway/isomorphic-flux).
 
 ### Features 
 
