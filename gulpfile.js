@@ -12,8 +12,8 @@ var gulp         = require('gulp'),
     minifyCSS    = require('gulp-minify-css'),
     sass         = require('gulp-ruby-sass'),
     webpack      = require("webpack"),
-    webpackBuild = require('./webpack.build'),
-    webpackDev   = require('./webpack.dev'),
+    webpackBuild = require('./webpack.config'),
+    webpackDev   = require('./webpack.config.dev'),
     notifier     = require('node-notifier');
 
 var paths = {

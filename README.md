@@ -64,8 +64,8 @@ npm install
 │    
 ├── gulpfile.js         # Contains the gulp tasks for the build
 │
-├── webpack.build.js    # Config for webpack for the build task
-└── webpack.dev.js      # Config for webpack while development
+├── webpack.config.js    # Config for webpack for the build task
+└── webpack.config.dev.js      # Config for webpack while development
 
 ```
 
