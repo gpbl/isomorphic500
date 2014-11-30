@@ -1,1 +1,1 @@
-NODE_ENV=production node build/server.js
+NODE_ENV=production node build/app.js

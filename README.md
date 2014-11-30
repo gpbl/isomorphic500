@@ -1,12 +1,18 @@
 # isomorphic-react-template
 
-A starting template for building an isomorphic single page web application using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com). Includes a small demo app. For some background, start with [Isomorphic Flux](https://speakerdeck.com/mridgway/isomorphic-flux).
+I am also trying to have a starting template for my projects. This is my template for an isomorphic single page web application using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com). Includes a small demo app.
 
-### Features 
+### Main goals 
 
-* React components are rendered server-side and mounted on the browser.
-* Server and client share the same routes, thanks to [react-router](https://github.com/rackt/react-router).
-* Hot reload for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader) and [webpack](http://webpack.github.io). See [video](http://vimeo.com/100010922).
+- [x] React components are rendered on the server first, then mounted on the client.
+- [x] Share the same routes server and client-side with [react-router](https://github.com/rackt/react-router).
+- [ ] The initial state of the app can be fetched consuming REST APIs (in progress).
+- [ ] Make it working with a Flux architecture ([in progress](https://github.com/gpbl/isomorphic-react-template/issues/4)).
+- [ ] i18n made easy  ([todo](https://github.com/gpbl/isomorphic-react-template/issues/2))
+- [x] Have a nice build script with cache busting.
+- [x] Live development for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader) and for scss.
+
+### Inspirations
 
 ### Setup
 
@@ -27,23 +33,22 @@ npm install
 ```bash
 .
 ├── app.js         # Run the express server
+│
 ├── server.jsx     # Send the server-rendered HTML document as response
 ├── client.jsx     # Entry point for the browser: mounts the <App /> component on document.body.
+├── routes.jsx     # Define the react-router handlers 
 │
-├── routes
-│   ├── index.js               # Renders a route server side (similar to client/main.jsx)
-│   ├── routes.jsx             # Defines the react-router handlers for both server and client
-│   └── cachebuster.js         # Used by express for serving cache-busted URLs
+├── cachebuster.js # Used by express in production for serving cache-busted URLs
 │ 
-├── components      # React's components container
-│   ├── App.jsx     # The App component where the routes are mounted
-│   ├── Html.jsx    # Renders the whole HTML document server side (via server.jsx)
-│   ├── Index.jsx   # The "index" route (as example)
-│   └── Place.jsx   # The "place" route (as example)
-│ 
-├── public          # Container for the static files. Cache-busted on build.
+├── components     # React's components container
+│   ├── App.jsx    # The App component where the routes are mounted
+│   ├── Html.jsx   # Renders the whole HTML document server side (via server.jsx)
+│   ├── Index.jsx  # The "index" route (as example)
+│   └── Place.jsx  # The "place" route (as example) 
+│
 ├── style           # Container for .scss files
-│   └── main.scss
+│
+├── public          # Container for the static files. Cache-busted on build.
 │
 ├── scripts
 │   ├── dev        # Useful scripts to run the development server
@@ -59,11 +64,9 @@ npm install
 
 ## Development 
 
-You should be able to develop the app just by writing the React components in the [components](app/components) directory, and (mostly) forget about the server side.
+Routes are a key part of the app: read the [react-router](https://github.com/rackt/react-router) documentation to understand how the routes handlers work. You change the routes in [routes.jsx](routes.jsx).
 
-Routes are a key part of the app: read the [react-router](https://github.com/rackt/react-router) documentation to understand how the routes handlers work. You change the routes in [routes/react-routes.jsx](app/routes/react-routes.jsx).
-
-The main component is [App.jsx](app/components/App.jsx). For the server-side rendering, you can pass the initial props to the routes handler to [routes/index.js](app/routes/index.js) – which works together with [views/page.ejs](app/views/page.ejs). The `<App />` component is mounted with [client/main.jsx](app/client/main.jsx), which is the entry point for the browser.
+The main component is [App.jsx](components/App.jsx). The `<App />` component is mounted with [client.jsx](client.jsx), which is the entry point for the browser.
 
 If you have some questions feel free to open an issue in the project, since this template is still under development. :)
 

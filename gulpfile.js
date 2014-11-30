@@ -20,8 +20,7 @@ var paths = {
     build:    'build/',
     public:   'public/',
     sass:     'style/main.scss',
-    server:   ['package.json', 'server.js', '*.js', 'routes/**/*', 'components/**/*.jsx', 'views/**/*'],
-    views:    ['views/**/*.ejs']
+    server:   ['package.json', 'app.js', '*.jsx', 'cachebuster.js', 'components/**/*.jsx']
 };
 
 var pkg = require('./package.json');
@@ -122,7 +121,7 @@ gulp.task('bust:collect', ['sass', 'webpack', 'copy'], function () {
 // replace collected resources
 gulp.task('bust:replace', ['bust:collect'], function () {
   gutil.log("[bust:replace]", 'Busting ' + Object.keys(cachebust.mappings).length + ' asset(s)...');
-  return gulp.src(paths.views, { cwd: paths.build, base: paths.build })
+  return gulp.src(paths.server, { cwd: paths.build, base: paths.build })
     .pipe(cachebust.references())
     .pipe(gulp.dest(paths.build));
 });
