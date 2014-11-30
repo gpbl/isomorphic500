@@ -8,10 +8,6 @@ var livereload       = require('livereload');
 var fs               = require('fs');
 var sass             = require('node-sass');
 
-// Start the main server
-var server           = require('./server');
-var app           = require('./app');
-
 // Run the webpack dev server
 var webpackServer = new WebpackDevServer(webpack(webpackConfig), {
 	publicPath: webpackConfig.output.publicPath,
@@ -29,8 +25,8 @@ var webpackServer = new WebpackDevServer(webpack(webpackConfig), {
 // Render scss files
 var renderSass = function(filename) {
 	sass.renderFile({
-		file: __dirname + '/app/style/main.scss',
-		outFile: __dirname + '/app/public/css/main.css',
+		file: __dirname + '/style/main.scss',
+		outFile: __dirname + '/public/css/main.css',
 		sourceMap: true,
 		success: function (css) { if (filename) debug('Changed '+ filename); },
 		error: function (error) { console.log(error); }
@@ -38,7 +34,7 @@ var renderSass = function(filename) {
 };
 
 // Watch for scss changes
-fs.watch(__dirname + '/app/style', function (event, filename) {
+fs.watch(__dirname + '/style', function (event, filename) {
 	var ext = filename.split('/').pop().split('.').pop();
 	if (ext !== 'scss') return;
 	renderSass(filename);
@@ -49,4 +45,4 @@ renderSass();
 
 // Watch public dir with livereload
 var lr = livereload.createServer();
-lr.watch(__dirname + '/app/public');
+lr.watch(__dirname + '/public');

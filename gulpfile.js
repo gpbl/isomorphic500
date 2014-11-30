@@ -18,10 +18,10 @@ var gulp         = require('gulp'),
 
 var paths = {
     build:    'build/',
-    public:   'app/public/',
-    sass:     'app/style/main.scss',
-    server:   ['package.json', 'server.js', 'app/*.js', 'app/routes/**/*', 'app/components/**/*.jsx', 'app/views/**/*'],
-    views:    ['app/views/**/*.ejs']
+    public:   'public/',
+    sass:     'style/main.scss',
+    server:   ['package.json', 'server.js', '*.js', 'routes/**/*', 'components/**/*.jsx', 'views/**/*'],
+    views:    ['views/**/*.ejs']
 };
 
 var pkg = require('./package.json');
@@ -40,7 +40,7 @@ function notifyError(err) {
 gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust'], function () {
   notifier.notify({
     icon: null,
-    contentImage: __dirname + '/app/public/images/favicon.png',
+    contentImage: __dirname + '/public/images/favicon.png',
     title: pkg.name,
     sound: 'Glass',
     message: 'Build: done.',

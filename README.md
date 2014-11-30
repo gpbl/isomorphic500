@@ -27,45 +27,34 @@ npm install
 ```bash
 .
 ├── server.js      # Runs the express server
-├── server-dev.js  # Runs the express server, the webpack dev server, livereload, and watches for .scss changes
+├── client.jsx     # Entry point for the browser: mounts the <App /> component on document.body.
+│
+├── views           # Container for ejs views, used by express
+│   └── page.ejs    # The main view, where the react components are rendered.
+│ 
+├── routes
+│   ├── index.js               # Renders a route server side (similar to client/main.jsx)
+│   ├── routes.jsx             # Defines the react-router handlers for both server and client
+│   └── cachebuster.js         # Used by express for serving cache-busted URLs
+│ 
+├── components      # React's components container
+│   ├── App.jsx     # The App component where the routes are mounted
+│   ├── Index.jsx   # The "index" route (as example)
+│   └── Place.jsx   # The "place" route (as example)
+│ 
+├── public          # Container for the static files. Cache-busted on build.
+├── style           # Container for .scss files
+│   └── main.scss
 │
 ├── scripts
 │   ├── dev        # Useful scripts to run the development server
 │   └── prod       # ...or to test the production server
 │
-├── app
-│   │ 
-│   ├── index.js        # Main script, runs the express app
-│   │ 
-│   ├── client          # Contains code running on the client
-│   │   └── main.jsx    # Entry point for the browser: mounts the <App /> component on document.body.
-│   │ 
-│   ├── views           # Container for ejs views, used by express
-│   │   └── page.ejs    # The main view, where the react components are rendered.
-│   │ 
-│   ├── routes
-│   │   ├── index.js               # Renders a route server side (similar to client/main.jsx)
-│   │   ├── routes.jsx             # Defines the react-router handlers for both server and client
-│   │   └── cachebuster.js         # Used by express for serving cache-busted URLs
-│   │ 
-│   ├── components      # React's components container
-│   │   ├── App.jsx     # The App component where the routes are mounted
-│   │   ├── Index.jsx   # The "index" route (as example)
-│   │   └── Place.jsx   # The "place" route (as example)
-│   │ 
-│   ├── public          # Container for the static files. Cache-busted on build.
-│   │   ├── css
-│   │   ├── data
-│   │   ├── images
-│   │   └── js
-│   │ 
-│   └── style           # Container for .scss files
-│       └── main.scss
-│    
-├── gulpfile.js         # Contains the gulp tasks for the build
+├── dev-tools.js   # Runs the webpack dev server, livereload, and watches for .scss changes
+├── gulpfile.js    # Contains the gulp tasks for the build
 │
-├── webpack.config.js    # Config for webpack for the build task
-└── webpack.config.dev.js      # Config for webpack while development
+├── webpack.config.js    			 # Webpack config for the build task
+└── webpack.config.dev.js      # Webpack config for development
 
 ```
 

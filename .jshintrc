@@ -1,8 +1,6 @@
 {
-  "bitwise"   : false,  // Prohibits the use of bitwise operators (not confuse & with &&)
   "curly"     : false,  // Requires to always put curly braces around blocks in loops and conditionals
   "eqeqeq"    : true,   // Prohibits the use of == and != in favor of === and !==
-  "eqnull"    : true,   // Suppresses warnings about == null comparisons
   "immed"     : true,   // Requires immediate invocations to be wrapped in parens e.g. `(function () { } ());`
   "latedef"   : true,   // Prohibits the use of a variable before it was defined
   "newcap"    : false,  // Requires to capitalize names of constructor functions
