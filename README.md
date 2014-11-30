@@ -30,7 +30,7 @@ npm install
 
 ```bash
 .
-├── app.js         # Run the express server
+├── [app.js](app.js)         # Run the express server
 │
 ├── server.jsx     # Send the server-rendered HTML document as response
 ├── client.jsx     # Entry point for the browser: mounts the <App /> component on document.body.
