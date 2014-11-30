@@ -1,6 +1,6 @@
 # isomorphic-react-template
 
-I am also trying to have a starting template for my projects. This is my template for an isomorphic single page web application using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com). Includes a small demo app.
+I am also trying to build a starting template for an isomorphic single page app using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com) with a [Flux](http://facebook.github.io/flux/) architecture.
 
 ### Main goals 
 
@@ -11,8 +11,6 @@ I am also trying to have a starting template for my projects. This is my templat
 - [ ] i18n made easy  ([todo](https://github.com/gpbl/isomorphic-react-template/issues/2))
 - [x] Have a nice build script with cache busting.
 - [x] Live development for React components with [react-hot-loader](https://github.com/gaearon/react-hot-loader) and for scss.
-
-### Inspirations
 
 ### Setup
 
