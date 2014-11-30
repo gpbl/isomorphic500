@@ -70,15 +70,14 @@ If you have some questions feel free to open an issue in the project, since this
 
 ### Running the development server
 
-The default development server runs on [localhost:3000](http://localhost:3000) and the webpack dev server on localhost:3001. 
-
 ```bash
 ./scripts/dev
+open http://localhost:3000
 ```
 
-The development server includes: 
-* a webpack dev server with hot modules replacement for react components
-* a livereload server watching the public files (install the [browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions)).
+* it watches for js changes with nodemon
+* it runs a webpack dev server with hot modules replacement for react components
+* it starts a livereload server watching the public files (install the [browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions)).
 
 ## Building
 

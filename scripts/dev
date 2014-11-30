@@ -1,1 +1,1 @@
-DEBUG=app node server-dev
+NOD_ENV=development;DEBUG=app ./node_modules/nodemon/bin/nodemon.js ./app.js
