@@ -26,12 +26,10 @@ npm install
 
 ```bash
 .
-├── server.js      # Runs the express server
+├── app.js         # Run the express server
+├── server.jsx     # Send the server-rendered HTML document as response
 ├── client.jsx     # Entry point for the browser: mounts the <App /> component on document.body.
 │
-├── views           # Container for ejs views, used by express
-│   └── page.ejs    # The main view, where the react components are rendered.
-│ 
 ├── routes
 │   ├── index.js               # Renders a route server side (similar to client/main.jsx)
 │   ├── routes.jsx             # Defines the react-router handlers for both server and client
@@ -39,6 +37,7 @@ npm install
 │ 
 ├── components      # React's components container
 │   ├── App.jsx     # The App component where the routes are mounted
+│   ├── Html.jsx    # Renders the whole HTML document server side (via server.jsx)
 │   ├── Index.jsx   # The "index" route (as example)
 │   └── Place.jsx   # The "place" route (as example)
 │ 
