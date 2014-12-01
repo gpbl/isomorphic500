@@ -2,22 +2,23 @@
 
 var React         = require('react');
 var Router        = require('react-router');
-var Route         = Router.Route;
-var DefaultRoute  = Router.DefaultRoute;
-var NotFoundRoute = Router.NotFoundRoute;
 
-/* Components */
-var App      = require('./components/App.jsx');
-var Index    = require('./components/Index.jsx');
-var Place    = require('./components/Place.jsx');
-var NotFound = require('./components/NotFound.jsx');
+var App          = require('./components/App.jsx');
+var HomePage     = require('./components/HomePage.jsx');
+var NotFoundPage = require('./components/NotFoundPage.jsx');
+var UserPage     = require('./components/UserPage.jsx');
+var RepoPage     = require('./components/RepoPage.jsx');
 
 var routes = (
-  <Route name="places" path="/" handler={App}>
-    <DefaultRoute name="index" handler={Index} />
-    <Route name="place" path="place/:id" handler={Place} />
-    <NotFoundRoute name="notfound" handler={ NotFound }/>
-  </Route>
+  <Router.Route name="app" path="/" handler={ App }>
+    
+    <Router.Route name="user" path=":login" handler={ UserPage } />
+    <Router.Route name="repo" path=":login/:name" handler={ RepoPage } />
+
+    <Router.DefaultRoute name="index" handler={ HomePage } />
+    <Router.NotFoundRoute name="notfound" handler={ NotFoundPage }/>
+  
+  </Router.Route>
 );
 
 module.exports = routes;

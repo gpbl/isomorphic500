@@ -9,5 +9,6 @@
   "undef"     : true,   // Require non-global variables to be declared (prevents global leaks)
   "expr"      : true,   // if ExpressionStatement should be allowed as Programs
 
-  "node"      : true   // Environment Node.js
+  "node"      : true,   // Environment Node.js
+  "browser"   : true   // Environment Node.js
 }

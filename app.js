@@ -29,6 +29,7 @@ if (app.get('env') === 'production') {
 if (app.get('env') === 'development') {
   // run livereload and webpack dev server
   require('./dev-tools');
+  app.use(require('cors')());
   // use webpack dev server for serving js files
   app.use('/js', function (req, res) {
     res.redirect('http://localhost:3001/js' + req.path);

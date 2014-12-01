@@ -11,7 +11,8 @@ module.exports = function (req, res, next) {
   Router.run(routes, req.url, function (Handler, state) {
     
     var title  = DocumentTitle.rewind();
-    var markup = React.renderToString(<Handler />);
+    // var markup = React.renderToString(<Handler />);
+    var markup = '';
     var html   = React.renderToStaticMarkup(<Html title={title} markup={markup} />);
 
     // TODO: send 404 status code 
