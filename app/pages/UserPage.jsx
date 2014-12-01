@@ -12,8 +12,7 @@ var errorStore  = require('../stores/errorStore');
 var userStarredReposStore   = require('../stores/userStarredReposStore');
 var userStarredReposActions = require('../actions/userStarredReposActions');
 
-
-var User       				= require('./User.jsx');
+var User 	= require('../components/User.jsx');
 
 var UserPage = React.createClass({
 	mixins: [

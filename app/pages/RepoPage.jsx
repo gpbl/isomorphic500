@@ -7,7 +7,7 @@ var Router          = require('react-router');
 var repoStore 			= require('../stores/repoStore');
 var repoActions 		= require('../actions/repoActions');
 
-var Repo      = require('./Repo.jsx');
+var Repo      = require('../components/Repo.jsx');
 
 var RepoPage = React.createClass({
 	mixins: [

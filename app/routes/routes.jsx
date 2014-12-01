@@ -3,11 +3,11 @@
 var React         = require('react');
 var Router        = require('react-router');
 
-var App          = require('./components/App.jsx');
-var HomePage     = require('./components/HomePage.jsx');
-var NotFoundPage = require('./components/NotFoundPage.jsx');
-var UserPage     = require('./components/UserPage.jsx');
-var RepoPage     = require('./components/RepoPage.jsx');
+var App          = require('../pages/App.jsx');
+var HomePage     = require('../pages/HomePage.jsx');
+var NotFoundPage = require('../pages/NotFoundPage.jsx');
+var UserPage     = require('../pages/UserPage.jsx');
+var RepoPage     = require('../pages/RepoPage.jsx');
 
 var routes = (
   <Router.Route name="app" path="/" handler={ App }>
