@@ -14,7 +14,6 @@ var userStarredReposActions = require('../actions/userStarredReposActions');
 
 
 var User       				= require('./User.jsx');
-var UserStarredRepos  = require('./UserStarredRepos.jsx');
 
 var UserPage = React.createClass({
 	mixins: [
