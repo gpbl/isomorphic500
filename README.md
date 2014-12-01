@@ -1,6 +1,10 @@
 # isomorphic-react-template
 
-I am also trying to build a starting template for an isomorphic single page app using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com) with a [Flux](http://facebook.github.io/flux/) architecture.
+A starting template for building an isomorphic single page app using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com) with a [Flux](http://facebook.github.io/flux/) architecture.
+
+**Work in progress notice**
+
+> This version does not include yet Flux. My efforts for making it working with Flux are in the [reflux branch](https://github.com/gpbl/isomorphic-react-template/tree/reflux).
 
 ### Main goals 
 
