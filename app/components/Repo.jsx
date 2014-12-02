@@ -8,7 +8,7 @@ var Repo = React.createClass({
 		repo: React.PropTypes.object.isRequired
 	},
 
-  render: function () {
+  render() {
   	var repo = this.props.repo;
     return (
 	    <div>

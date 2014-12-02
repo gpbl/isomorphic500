@@ -7,7 +7,7 @@ var User = React.createClass({
 		user: React.PropTypes.object.isRequired
 	},
 
-  render: function () {
+  render() {
   	var user = this.props.user;
     return (
     	<div>

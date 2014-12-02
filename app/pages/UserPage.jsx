@@ -22,7 +22,7 @@ var UserPage = React.createClass({
 		Router.State
 	],
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			user: null,
 			isLoading: true,
@@ -30,20 +30,20 @@ var UserPage = React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount() {
 		this.requestData();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps(nextProps) {
 		this.requestData();
 	},
 
-	requestData: function(){
+	requestData(){
 		this.requestUser();
 		this.requestStarredRepos();
 	},
 
-	requestUser: function () {
+	requestUser () {
 		var login = this.getParams().login;
 		if (userStore.get(login)) {
 			this.onRequestComplete(userStore.get(login));
@@ -55,7 +55,7 @@ var UserPage = React.createClass({
 		}
 	},
 
-	requestStarredRepos: function(){
+	requestStarredRepos(){
 		var login = this.getParams().login;
 		if (userStarredReposStore.get(login)) {
       this.onStarredReposRequestComplete(userStarredReposStore.get(login));
@@ -68,7 +68,7 @@ var UserPage = React.createClass({
     }
 	},
 
-	onRequestComplete: function (user) {
+	onRequestComplete (user) {
 		this.setState({
 			user: user,
 			isLoading: false,
@@ -76,20 +76,20 @@ var UserPage = React.createClass({
 		});
 	},
 
-	onStarredReposRequestComplete: function (repos) {
+	onStarredReposRequestComplete (repos) {
 		this.setState({
 			starredRepos: repos,
 			isLoadingStarredRepos: false
 		});
 	},
 
-	onRequestError: function(message) {
+	onRequestError(message) {
 		this.setState({
 			errorMessage: message
 		});
 	},
 
-	renderStarredRepos: function() {
+	renderStarredRepos() {
 		if (this.state.starredRepos.length === 0) {
 			return <p>No starred repos :-(</p>;
 		}
@@ -110,7 +110,7 @@ var UserPage = React.createClass({
 		}
 	},
 
-  render: function () {
+  render () {
   	
   	if (this.state.errorMessage)	
   		return (<p>{ this.state.errorMessage} </p>);

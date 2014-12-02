@@ -8,7 +8,7 @@
   "strict"    : true,   // Requires all functions to run in ECMAScript 5's strict mode
   "undef"     : true,   // Require non-global variables to be declared (prevents global leaks)
   "expr"      : true,   // if ExpressionStatement should be allowed as Programs
-
+  "esnext"    : true,
   "node"      : true,   // Environment Node.js
   "browser"   : true   // Environment Node.js
 }

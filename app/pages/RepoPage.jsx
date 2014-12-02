@@ -1,74 +1,72 @@
 'use strict';
 
-var React           = require('react');
-var Reflux          = require('reflux');
-var Router          = require('react-router');
+var React  = require('react');
+var Reflux = require('reflux');
+var Router = require('react-router');
 
-var repoStore 			= require('../stores/repoStore');
-var repoActions 		= require('../actions/repoActions');
-
-var Repo      = require('../components/Repo.jsx');
+var repoStore   = require('../stores/repoStore');
+var repoActions = require('../actions/repoActions');
+var Repo        = require('../components/Repo.jsx');
 
 var RepoPage = React.createClass({
-	mixins: [
-		Reflux.listenTo(repoStore, 'onRequestComplete'),
-		Router.State
-	],
+  mixins: [
+    Reflux.listenTo(repoStore, 'onRequestComplete', 'initialCallback'),
+    Router.State
+  ],
 
-	getInitialState: function() {
-		return {
-			repo: null,
-			isLoading: true
-		};
-	},
+  getInitialState() {
+    return {
+      repo: null,
+      isLoading: true
+    };
+  },
 
-	getRepoFullName: function() {
-		var params = this.getParams();
-		return params.login + '/' + params.name;
-	},
+  getRepoFullName() {
+    var params = this.getParams();
+    return params.login + '/' + params.name;
+  },
 
-	componentDidMount: function() {
-		this.requestRepo();
-	},
+  componentDidMount() {
+    this.requestRepo();
+  },
 
-	componentWillReceiveProps: function(nextProps) {
-		this.requestRepo();
-	},
+  componentWillReceiveProps(nextProps) {
+    this.requestRepo();
+  },
 
-	requestRepo: function() {
-		var fullName = this.getRepoFullName();
-		if (repoStore.get(fullName)) {
-			// Load directly from the store without requesting it again
-			this.setState({
-				repo: repoStore.get(fullName),
-				isLoading: false
-			});
-		}
-		else {
-			this.setState({
-				isLoading: true
-			});
-			repoActions.request(fullName);
-		}
-	},
+  requestRepo() {
+    var fullName = this.getRepoFullName();
+    if (repoStore.get(fullName)) {
+      // Load directly from the store without requesting it again
+      this.setState({
+        repo: repoStore.get(fullName),
+        isLoading: false
+      });
+    } else {
+      this.setState({
+        isLoading: true
+      });
+      repoActions.request(fullName);
+    }
+  },
 
-	onRequestComplete: function(repo) {
-		this.setState({
-			repo: repo,
-			isLoading: false
-		});
-	},
+  onRequestComplete(repo) {
+    this.setState({
+      repo: repo,
+      isLoading: false
+    });
+  },
 
-  render: function () {
+  render() {
 
-  	if (this.state.isLoading)
-  		return (<p>Loading repo...</p>);
-  	
-  	// No errors
+    if (this.state.isLoading)
+      return (<p>Loading repo...</p>);
+    
+    // No errors
     return (
-    	<div>
-	    	<Repo repo={ this.state.repo } />
-  		</div>
+      <div>
+        <Repo repo={ this.state.repo } />
+      </div>
     );
   }
 });

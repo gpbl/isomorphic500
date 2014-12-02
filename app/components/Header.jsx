@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 var Router = require('react-router');
 
 var Header = React.createClass({
@@ -11,42 +11,41 @@ var Header = React.createClass({
 	],
 
 	propTypes: {
-		userOrRepository: React.PropTypes.string
+		loginOrRepo: React.PropTypes.string
 	},
 
-	getInitialState: function () {
+	getInitialState() {
     return {
-    	userOrRepository: this.props.userOrRepository
+    	loginOrRepo: this.props.loginOrRepo
     };
   },
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
   	this.setState(nextProps);
   },
 
-	render: function() {
+	render() {
 		return (
 			<div>
 				<input type="text" 
 							 placeholder="login or login/repository"
-               valueLink={ this.linkState('userOrRepository') } 
+               valueLink={ this.linkState('loginOrRepo') } 
                onBlur={ this.handleBlur } 
                onKeyUp={ this.handleKeyUp } />
 			</div>
 		);
 	},
 
-  handleKeyUp: function (e) {
-    if (e.keyCode === 13) {
-      this.transitionTo('/' + this.state.userOrRepository);
-      e.target.blur();
+  handleKeyUp(e) {
+      if (e.keyCode === 13) {
+        this.transitionTo('/' + this.state.loginOrRepo);
+        e.target.blur();
+      }
+    },
+
+    handleBlur(e) {
+      this.transitionTo('/' + this.state.loginOrRepo);
     }
-  },
-
-  handleBlur: function (e) {
-    this.transitionTo('/' + this.state.userOrRepository);
-  }
-
 });
 
 module.exports = Header;

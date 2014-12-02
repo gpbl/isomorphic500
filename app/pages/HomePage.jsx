@@ -9,7 +9,7 @@ var Home = React.createClass({
       <p>
         Set a repository or try
         with <Router.Link to="repo" params={{ login: 'facebook', name: 'react'}}>facebook/react
-        </Router.Link> or <Router.Link to="user" params={{ login: 'gpbl' }}>gpbl</Router.Link>
+        </Router.Link> or <Router.Link to="user" params={{ login: 'gpbl' }}>gpbl</Router.Link>.
       </p>
      );
   }

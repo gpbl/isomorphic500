@@ -1,37 +1,37 @@
 'use strict';
 
-var React            = require('react');
-var Router           = require('react-router');
-var DocumentTitle    = require('react-document-title');
-var Header           = require('../components/Header.jsx');
+var React  = require('react');
+var Router = require('react-router');
+var Header = require('../components/Header.jsx');
+var mui    = require('material-ui');
+
+var DocumentTitle = require('react-document-title');
 
 var App = React.createClass({
 
-  mixins: [
-    Router.State
-  ],
+  mixins: [Router.State],
 
-  getInitialState: function() {
+  getInitialState() {
     return this.getCurrentState();
   },
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState(this.getCurrentState());
   },
 
-  getCurrentState: function() {
+  getCurrentState() {
     return {
-      userOrRepository: this.getPathname().replace('/', '')
+      loginOrRepo: this.getPathname().replace('/', '')
     };
   },
 
-  render: function () {
+  render () {
     return (
       <DocumentTitle title="Repobrowser">
-        <div>
-          <Header userOrRepository={ this.state.userOrRepository } />
+        <mui.AppCanvas predefinedLayout={1}>
+          <Header loginOrRepo={ this.state.loginOrRepo } />
           <Router.RouteHandler />
-        </div>
+        </mui.AppCanvas>
       </DocumentTitle>
     );
   },
