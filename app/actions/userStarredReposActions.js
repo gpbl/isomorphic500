@@ -1,7 +1,7 @@
 'use strict';
 
 var Reflux       = require('reflux');
-var repoApi      = require('../utils/repoApi');
+var repoApi      = require('../api/repoApi');
 var camelizeKeys = require('humps').camelizeKeys;
 
 var UserStarredReposActions = Reflux.createActions([
