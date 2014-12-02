@@ -1,16 +1,23 @@
 'use strict';
 var React = require('react');
-var Router = require('react-router');
+var { Link } = require('react-router');
+var Explore = require('../components/Explore.jsx');
 
 var Home = React.createClass({
 
-  render: function () {
+  render() {
     return (
-      <p>
-        Set a repository or try
-        with <Router.Link to="repo" params={{ login: 'facebook', name: 'react'}}>facebook/react
-        </Router.Link> or <Router.Link to="user" params={{ login: 'gpbl' }}>gpbl</Router.Link>.
-      </p>
+    	<div className="mui-app-content-canvas">
+    		<div className="full-width-section">
+          <h3 className="mui-font-weight-light">
+            Set a repository or try
+            with <Link to="repo" params={{ login: 'facebook', name: 'react'}}>facebook/react
+            </Link> or <Link to="user" params={{ login: 'gpbl' }}>gpbl</Link>.
+          </h3>
+          <br/>
+          <Explore />
+	      </div>
+      </div>
      );
   }
 });

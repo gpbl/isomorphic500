@@ -15,7 +15,7 @@ var routes = (
     <Router.Route name="user" path=":login" handler={ UserPage } />
     <Router.Route name="repo" path=":login/:name" handler={ RepoPage } />
 
-    <Router.DefaultRoute name="index" handler={ HomePage } />
+    <Router.DefaultRoute name="home" handler={ HomePage } />
     <Router.NotFoundRoute name="notfound" handler={ NotFoundPage }/>
   
   </Router.Route>

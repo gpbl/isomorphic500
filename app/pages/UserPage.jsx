@@ -119,14 +119,18 @@ var UserPage = React.createClass({
   		return (<p>Loading user...</p>);
 
   	else 
-  		return (<div>
-  				<User user={ this.state.user } />
-  				<h2>Starred repos</h2>
-  				{ this.state.isLoadingStarredRepos ? 
-  					<p>Loading starred repos...</p> : 
-	  				this.renderStarredRepos()
-      		}
-  			</div>);
+  		return (
+  			<div className="mui-app-content-canvas">
+ 		   		<div className="full-width-section">
+	  				<User user={ this.state.user } />
+	  				<h2 className="mui-font-style-title">Starred repos</h2>
+	  				{ this.state.isLoadingStarredRepos ? 
+	  					<p>Loading starred repos...</p> : 
+		  				this.renderStarredRepos()
+	      		}
+	      	</div>
+	  		</div>
+	  	);
 
   }
 

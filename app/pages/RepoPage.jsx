@@ -3,7 +3,7 @@
 var React  = require('react');
 var Reflux = require('reflux');
 var Router = require('react-router');
-
+var DocumentTitle = require('react-document-title');
 var repoStore   = require('../stores/repoStore');
 var repoActions = require('../actions/repoActions');
 var Repo        = require('../components/Repo.jsx');
@@ -64,9 +64,11 @@ var RepoPage = React.createClass({
     
     // No errors
     return (
+      <DocumentTitle title={this.getRepoFullName()}>
       <div>
         <Repo repo={ this.state.repo } />
       </div>
+      </DocumentTitle>
     );
   }
 });

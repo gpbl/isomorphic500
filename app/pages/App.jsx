@@ -1,15 +1,14 @@
 'use strict';
 
 var React  = require('react');
-var Router = require('react-router');
-var Header = require('../components/Header.jsx');
+var {RouteHandler, State, Navigation} = require('react-router');
 var mui    = require('material-ui');
 
 var DocumentTitle = require('react-document-title');
 
 var App = React.createClass({
 
-  mixins: [Router.State],
+  mixins: [State, Navigation],
 
   getInitialState() {
     return this.getCurrentState();
@@ -25,12 +24,30 @@ var App = React.createClass({
     };
   },
 
+  onGithubTouchTap: function(){
+    document.location.href = 'http://github.com/gpbl/isomorphic-react-template';
+  },
+
+  onHomeTap: function() {
+    this.transitionTo('home');
+  },
+
   render () {
+    var title = "Repobrowser";
     return (
-      <DocumentTitle title="Repobrowser">
+      <DocumentTitle title={ title }>
         <mui.AppCanvas predefinedLayout={1}>
-          <Header loginOrRepo={ this.state.loginOrRepo } />
-          <Router.RouteHandler />
+          <mui.AppBar
+            title={ title }
+            showMenuIconButton={false}
+            className="mui-dark-theme"
+            zDepth={0}>
+             <mui.IconButton className="github-icon-button" icon="mui-icon-github" onTouchTap={this.onGithubTouchTap} />
+             <mui.IconButton style={{float: "right"}} icon="action-home" onTouchTap={this.onHomeTap} />
+
+          </mui.AppBar>
+          <RouteHandler />
+
         </mui.AppCanvas>
       </DocumentTitle>
     );
