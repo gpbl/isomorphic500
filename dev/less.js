@@ -6,6 +6,10 @@ var fs    = require('fs');
 var renderLess = function (changedFileName) {
   fs.readFile('./style/main.less', function (err, data) {
     var dataString = data.toString();
+    if (!dataString) {
+      console.log('[Less] main.less is empty.');
+      return;
+    }
     less.render(dataString, {
       paths: [__dirname + '/../style'],
       filename: 'main.less',
@@ -14,7 +18,7 @@ var renderLess = function (changedFileName) {
       }
     }, function (err, output) {
       if (err) {
-        console.log(err.type + ' Error: ' + err.message + ' in ' + err.filename + ':' + err.index + ':' + err.line);
+        console.log('[Less] ' + err.type + ' Error: ' + err.message + ' in ' + err.filename + ':' + err.index + ':' + err.line);
         return;
       }
       fs.writeFileSync('../public/css/main.css', output.css, 'utf8');
