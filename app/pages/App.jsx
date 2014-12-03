@@ -1,28 +1,12 @@
 'use strict';
 
 var React  = require('react');
-var {RouteHandler, State, Navigation} = require('react-router');
+var {RouteHandler} = require('react-router');
 var mui    = require('material-ui');
 
 var DocumentTitle = require('react-document-title');
 
 var App = React.createClass({
-
-  mixins: [State, Navigation],
-
-  getInitialState() {
-    return this.getCurrentState();
-  },
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.getCurrentState());
-  },
-
-  getCurrentState() {
-    return {
-      loginOrRepo: this.getPathname().replace('/', '')
-    };
-  },
 
   onGithubTouchTap: function(){
     document.location.href = 'http://github.com/gpbl/isomorphic-react-template';
