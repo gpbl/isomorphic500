@@ -43,6 +43,6 @@ module.exports = {
       { test: /\.styl$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader') }
     ]
   },
-  devtool: "#inline-source-map",
+  // devtool: "#inline-source-map",
   externals: { }
 };
