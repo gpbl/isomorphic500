@@ -20,6 +20,6 @@ cachebuster.restore = function (req, res, next) {
 };
 
 // Regexp for detecting busted files (e.g. /images/myimage.<hash>.png)
-cachebuster.path = /\/(js|css|images)\/.*(\.[\w\d]{8})\..*$/;
+cachebuster.path = /\/(static|images)\/.*(\.[\w\d]{8})\..*$/;
 
 module.exports = cachebuster;

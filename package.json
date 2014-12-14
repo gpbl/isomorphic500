@@ -18,6 +18,8 @@
     "react-router": "^0.11.4"
   },
   "devDependencies": {
+    "css-loader": "^0.9.0",
+    "extract-text-webpack-plugin": "^0.3.5",
     "fs-extra": "^0.12.0",
     "gulp": "^3.8.10",
     "gulp-autoprefixer": "^2.0.0",
@@ -32,10 +34,14 @@
     "gulp-util": "^3.0.1",
     "jsx-loader": "^0.12.2",
     "livereload": "^0.3.4",
+    "nib": "^1.0.4",
     "node-notifier": "^4.0.2",
     "node-sass": "^1.2.3",
     "nodemon": "^1.2.1",
     "react-hot-loader": "^0.5.0",
+    "style-loader": "^0.8.2",
+    "stylus": "^0.49.3",
+    "stylus-loader": "^0.5.0",
     "watch": "^0.13.0",
     "webpack": "^1.4.13",
     "webpack-dev-server": "^1.6.6"

@@ -9,8 +9,6 @@ var gulp         = require('gulp'),
     react        = require('gulp-react'),
     cachebust    = new require('gulp-cachebust')(),
     fs           = require('fs-extra'),
-    minifyCSS    = require('gulp-minify-css'),
-    sass         = require('gulp-ruby-sass'),
     webpack      = require("webpack"),
     webpackBuild = require('./webpack.config'),
     webpackDev   = require('./webpack.config.dev'),
@@ -19,7 +17,6 @@ var gulp         = require('gulp'),
 var paths = {
     build:    'build/',
     public:   'public/',
-    sass:     'style/main.scss',
     server:   ['package.json', 'app.js', '*.jsx', 'cachebuster.js', 'components/**/*.jsx']
 };
 
@@ -36,7 +33,7 @@ function notifyError(err) {
 }
 
 // Build for production
-gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust'], function () {
+gulp.task('build', ['clean', 'webpack', 'copy', 'bust'], function () {
   notifier.notify({
     icon: null,
     contentImage: __dirname + '/public/images/favicon.png',
@@ -46,18 +43,6 @@ gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust'], function () {
     open: 'file://' + __dirname + '/' + paths.build
   });
   gutil.log('[build] Run `./scripts/prod` to test the built app.');
-});
-
-gulp.task('sass', function () {
-  var filterCSS = filter('**/*.css');
-  return gulp.src(paths.sass)
-    .pipe(sass())
-    .on('error', notifyError)
-    .pipe(filterCSS)
-    .pipe(autoprefixer())
-    .on('error', notifyError)
-    .pipe(filterCSS.restore())
-    .pipe(gulp.dest(paths.public + 'css'));
 });
 
 // Clean build directory
@@ -93,16 +78,10 @@ gulp.task('copy:server', ['clean'], function() {
 });
 
 // copy public
-gulp.task('copy:public', ['clean', 'sass'],  function() {
+gulp.task('copy:public', ['clean'],  function() {
   var src = [paths.public + '**/*', '!**/*.map'];
-  var filterCSS = filter('**/*.css');
 
   return gulp.src(src, { base: '.' })
-
-    .pipe(filterCSS)
-    .pipe(minifyCSS({keepBreaks:true}))
-    .pipe(filterCSS.restore())
-
     .pipe(gulp.dest(paths.build));
 });
 
@@ -112,7 +91,7 @@ var bustSrc =
 gulp.task('bust', ['bust:collect', 'bust:replace']);
 
 // collect resources for cache busting
-gulp.task('bust:collect', ['sass', 'webpack', 'copy'], function () {
+gulp.task('bust:collect', ['webpack', 'copy'], function () {
   var src = [].concat(paths.public + '**/*');
   return gulp.src(src, { cwd: paths.build, base: paths.build + paths.public })
     .pipe(cachebust.resources());
