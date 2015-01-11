@@ -1,5 +1,4 @@
 node_modules
-build
-.sass-cache
-app/public/css/main.css
-app/public/css/main.css.map
+public
+server/webpack-stats.json
+server/markup.generated.js
