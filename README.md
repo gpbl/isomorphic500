@@ -1,24 +1,12 @@
 # isomorphic-500px
 
-## Project goals
+An isomorphic, REST-based React app showing nice 500px photos.
 
-#### App features
+Notable features: 
 
-- isomorphic React app
-- REST-based
-- i18n: locale hot switching
-
-#### Development environment
-
-- code in ES6 with [6to5](http://6to5.org)
-- [react-hot-loader](https://github.com/gaearon/react-hot-loader)
-- Sass with CSS hot-reload
+- locale hot switching with [react-intl](https://github.com/yahoo/react-intl)
+- code written in ES6 with [6to5](http://6to5.org)
+- components live-reload thanks to [react-hot-loader](https://github.com/gaearon/react-hot-loader)
+- styles in Sass with hot-reload
 - notification on compile errors
-- no gulp/grunt
-
-#### Deploy
-
-- webpack: split code in bundles (e.g. i18n)
-- webpack: inline SVG icons 
-- hash-based cache busting
-- deploy script with [deploy](https://github.com/tj/deploy)
+- no gulp/grunt, no build version
