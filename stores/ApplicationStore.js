@@ -21,9 +21,7 @@ export default createStore({
     var pageName = route.config.page;
     var page = this.pages[pageName];
 
-    if (pageName === this.getCurrentPageName()) {
-      return;
-    }
+    if (pageName === this.getCurrentPageName()) return;
 
     this.currentPageName = pageName;
     this.currentPage = page;
