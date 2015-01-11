@@ -6,12 +6,12 @@ var outputPath = path.join(__dirname, '../server');
 
 module.exports = {
   name: 'server-side rendering',
-  entry: './server/main.jsx',
+  entry: './server/html.jsx',
   target: 'node',
   output: {
     path: outputPath,
     // the following file must be called from server-side rendering
-    filename: 'main.generated.js',
+    filename: 'html.generated.js',
     libraryTarget: 'commonjs2'
   },
   externals: /^[a-z\-0-9]+$/,
