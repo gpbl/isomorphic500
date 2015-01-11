@@ -1,7 +1,7 @@
 import createStore from 'fluxible-app/utils/createStore';
 import routes from '../config/routes';
 
-const ApplicationStore = createStore({
+export default createStore({
   storeName: 'ApplicationStore',
 
   handlers: {
@@ -67,6 +67,3 @@ const ApplicationStore = createStore({
   }
 
 });
-
-
-export default ApplicationStore;
