@@ -8,7 +8,7 @@ var productionEnv = require('./plugins/productionEnv');
 // webpack configuration for the browsers
 module.exports = {
   name: "client",
-  entry: "./client/main.jsx",
+  entry: "./client.js",
   output: {
     path: assetsPath,
     filename: "[hash].js",
