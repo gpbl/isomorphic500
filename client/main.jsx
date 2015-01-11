@@ -1,5 +1,5 @@
 import React from 'react';
-import Application from '../app/Application.jsx';
+import Application from '../components/Application.jsx';
 
 React.render(
   <Application url={ location.pathname + (location.search || '') } />,
