@@ -1,0 +1,25 @@
+{
+  "name": "isomorphic-500px",
+  "version": "0.1.0",
+  "description": "Isomorphic 500px webclient",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gpbl/isomorphic-react-template.git"
+  },
+  "keywords": [
+    "react",
+    "isomorphic",
+    "flux",
+    "500px"
+  ],
+  "author": "gpbl <io@gpbl.org> (https://github.com/gpbl)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gpbl/isomorphic-react-template/issues"
+  },
+  "homepage": "https://github.com/gpbl/isomorphic-react-template"
+}
