@@ -2,9 +2,10 @@
   "name": "isomorphic-500px",
   "version": "0.1.0",
   "description": "Isomorphic 500px webclient",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "webpack --config webpack/server-side.config.js --progress --colors && node server"
+    "start": "webpack --config webpack/server-side.config.js --progress --colors && NODE_ENV=development node server",
+    "prod": "webpack -p && NODE_ENV=production;PORT=8080 node server"
   },
   "repository": {
     "type": "git",
