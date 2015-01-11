@@ -12,8 +12,9 @@
 
 - code in ES6 with [6to5](http://6to5.org)
 - [react-hot-loader](https://github.com/gaearon/react-hot-loader)
-- Sass, with CSS hot-reload
-- no gulp
+- Sass with CSS hot-reload
+- notification on compile errors
+- no gulp/grunt
 
 #### Deploy
 
