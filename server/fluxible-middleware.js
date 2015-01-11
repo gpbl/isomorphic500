@@ -2,7 +2,7 @@
 // Creates a new context for each request.
 
 import { navigateAction } from 'flux-router-component';
-import fluxibleApp from './fluxible-app';
+import fluxibleApp from '../app';
 
 export default function (req, res, next) {
 
@@ -18,7 +18,6 @@ export default function (req, res, next) {
       else next(err);
       return;
     }
-
     res.expose(fluxibleApp.dehydrate(context), 'App');
 
     // where the mainScript (client) is located according to the last webpack's 
