@@ -14,7 +14,6 @@ const Html = React.createClass({
   render() {
     const { context, state, markup, mainScript, css } = this.props;
     const title = context.getStore(ApplicationStore).getPageTitle();
-    // const title = "booh"
     return (
       <html>
         <title>{ title }</title>
