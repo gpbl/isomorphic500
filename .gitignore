@@ -1,4 +1,4 @@
 node_modules
 public
 server/webpack-stats.json
-server/markup.generated.js
+server/main.generated.js
