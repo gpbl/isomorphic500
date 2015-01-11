@@ -30,11 +30,10 @@ hot.plugins.push(
 // use full server url
 hot.output.publicPath = serverUrl + hot.output.publicPath;
 
-hot.module.loaders = [{
-  test: /\.js(x)$/,
-  exclude: /node_modules/,
-  loaders: ['6to5-loader', 'react-hot']
-}]
+hot.module.loaders = [
+  { test: /\.js(x)$/, exclude: /node_modules/, loaders: ['6to5-loader', 'react-hot'] },
+  { test: /\.scss$/, loader: 'style!css!sass?outputStyle=expanded' }
+];
 
 // enable source maps
 hot.devtool = 'eval';

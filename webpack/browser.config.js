@@ -10,13 +10,14 @@ module.exports = {
   name: "browser",
   entry: "./browser/main.jsx",
   output: {
-    path: shared.assetsPath,
+    path: assetsPath,
     filename: "[hash].js",
-    publicPath: shared.publicPath
+    publicPath: publicPath
   },
   module: {
     loaders: [
-      { test: /\.js(x)$/, exclude: /node_modules/, loader: '6to5-loader' }
+      { test: /\.js(x)$/, exclude: /node_modules/, loader: '6to5-loader' },
+      { test: /\.scss$/, loader: 'style!css!sass' }
     ]
   },
   plugins: [

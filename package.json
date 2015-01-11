@@ -34,8 +34,11 @@
   "devDependencies": {
     "6to5-loader": "^2.0.0",
     "chalk": "^0.5.1",
+    "css-loader": "^0.9.1",
     "node-notifier": "^4.0.3",
     "react-hot-loader": "^1.0.7",
+    "sass-loader": "^0.3.1",
+    "style-loader": "^0.8.2",
     "webpack": "^1.4.15",
     "webpack-dev-server": "^1.7.0"
   }
