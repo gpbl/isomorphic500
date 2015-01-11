@@ -5,8 +5,10 @@ import proxy from 'proxy-middleware';
 import compress from 'compression';
 import locale from 'locale';
 import expstate from 'express-state';
-import fluxible from './fluxible-middleware';
 
+import { navigateAction } from 'flux-router-component';
+
+import app from '../app';
 import config from '../config/app';
 
 const server = express();
@@ -24,7 +26,37 @@ const publicPath = resolve(__dirname, '../public');
 server.use(express.static(publicPath, { maxAge: 365*24*60*60 }));
 
 // render fluxible app
-server.use(fluxible);
+server.use(function (req, res, next) {
+
+  const context = app.createContext();
+  const actionContext = context.getActionContext();
+
+  actionContext.executeAction(navigateAction, { url: req.url }, (err) => {
+    if (err) {
+      if (err.status && err.status === 404) next();
+      else next(err);
+      return;
+    }
+
+    // dehydrate app status
+    res.expose(app.dehydrate(context), 'App');
+
+    // where the mainScript (client) is located according to the last webpack's 
+    // build (webpack/browser.config in production or webpack/hot.config in dev)
+    import stats from './webpack-stats.json';
+    res.locals.mainScript = `${stats.publicPath}${stats.mainChunk}`;
+
+    // pass context through locals
+    res.locals.context = context.getComponentContext();
+
+    // use html from webpack-compiled html.jsx
+    import html from './html.generated';
+
+    res.status(200).send(html(req, res));
+
+  });
+});
+
 
 server.use((req, res, next) => {
   res.status(404).send("Not found.");
