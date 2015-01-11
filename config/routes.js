@@ -5,7 +5,7 @@ export default {
     method: 'get',
     page: 'home',
     label: 'Home',
-    action(context, payload, done) {
+    action: function(context, payload, done) {
       context.dispatch('UPDATE_PAGE_TITLE', {
         pageTitle: 'Home | flux-examples | routing'
       });
@@ -18,7 +18,7 @@ export default {
     method: 'get',
     page: 'about',
     label: 'About',
-    action(context, payload, done) {
+    action: function(context, payload, done) {
       context.dispatch('UPDATE_PAGE_TITLE', {
         pageTitle: 'About | flux-examples | routing'
       });
@@ -30,7 +30,7 @@ export default {
     path: '/page/:id',
     method: 'get',
     page: 'page',
-    action(context, payload, done) {
+    action: function(context, payload, done) {
       context.dispatch('LOAD_PAGE', {
         id: payload.params.id
       });
