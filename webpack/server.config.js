@@ -6,18 +6,19 @@ var outputPath = path.join(__dirname, '../server');
 
 module.exports = {
   name: 'server-side rendering',
-  entry: './server/markup.jsx',
+  entry: './server/main.jsx',
   target: 'node',
   output: {
     path: outputPath,
     // the following file must be called from server-side rendering
-    filename: 'markup.generated.js',
+    filename: 'main.generated.js',
     libraryTarget: 'commonjs2'
   },
   externals: /^[a-z\-0-9]+$/,
   module: {
     loaders: [
-      { test: /\.js(x)$/, exclude: /node_modules/, loader: '6to5-loader' },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: '6to5-loader' },
+      { test: /\.json$/, loader: 'json-loader' }, // used to load webpack-stats.json
       { test: /\.scss$/, loader: path.join(__dirname, "../server/helpers/style-collector") + '!css!sass' }
     ]
   }

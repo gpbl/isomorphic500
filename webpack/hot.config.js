@@ -1,14 +1,14 @@
 // configuration for webpack with webpack-dev-server HMR
 
-var browser = require('./browser.config');
+var client = require('./client.config');
 var webpack = require('webpack');
 var writeStats = require('./plugins/writeStats');
 var notifyStats = require('./plugins/notifyStats');
 
 var serverUrl = 'http://localhost:3001';
 
-// start using the webpack's browser config
-var hot = browser;
+// start using the webpack's client config
+var hot = client;
 
 hot.name = 'hot';
 
@@ -16,7 +16,7 @@ hot.name = 'hot';
 hot.entry = [
   'webpack-dev-server/client?' + serverUrl,
   'webpack/hot/only-dev-server',
-  browser.entry
+  client.entry
 ]
 
 // enable hot module replacement
@@ -30,7 +30,7 @@ hot.plugins = [
 hot.output.publicPath = serverUrl + hot.output.publicPath;
 
 hot.module.loaders = [
-  { test: /\.js(x)$/, exclude: /node_modules/, loaders: ['6to5-loader', 'react-hot'] },
+  { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['6to5-loader', 'react-hot'] },
   { test: /\.scss$/, loader: 'style!css!sass?outputStyle=expanded' }
 ];
 

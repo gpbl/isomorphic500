@@ -7,8 +7,8 @@ var productionEnv = require('./plugins/productionEnv');
 
 // webpack configuration for the browsers
 module.exports = {
-  name: "browser",
-  entry: "./browser/main.jsx",
+  name: "client",
+  entry: "./client/main.jsx",
   output: {
     path: assetsPath,
     filename: "[hash].js",
@@ -16,7 +16,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js(x)$/, exclude: /node_modules/, loader: '6to5-loader' },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: '6to5-loader' },
       { test: /\.scss$/, loader: 'style!css!sass' }
     ]
   },
