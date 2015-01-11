@@ -1,3 +1,4 @@
+// From: https://github.com/webpack/react-webpack-server-side-example
 exports.collect = function(fn) {
   var stuff = [];
   function add(css) {

@@ -1,3 +1,4 @@
+// From: https://github.com/webpack/react-webpack-server-side-example
 module.exports = function() {};
 module.exports.pitch = function(req) {
   this.cacheable();
