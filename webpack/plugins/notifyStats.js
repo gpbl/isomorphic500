@@ -34,9 +34,9 @@ module.exports = function (stats) {
   else if (json.warnings.length > 0)
     json.warnings.forEach(notifyWarning);
   else
-    // just output the stats
+  // just output the stats
     console.log('\n' + stats.toString({
-      chunks: false,
-      colors: true
+    chunks: false,
+    colors: true
   }));
 };

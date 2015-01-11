@@ -1,7 +1,9 @@
 // configuration for webpack with webpack-dev-server HMR
+
 var browser = require('./browser.config');
 var webpack = require('webpack');
-var notify = require('./notify');
+var writeStats = require('./plugins/writeStats');
+var notifyStats = require('./plugins/notifyStats');
 
 var serverUrl = 'http://localhost:3001';
 
@@ -18,14 +20,11 @@ hot.entry = [
 ]
 
 // enable hot module replacement
-hot.plugins.push(new webpack.HotModuleReplacementPlugin());
-
-// notify for errors or warnings
-hot.plugins.push(
-  function (compiler) {
-    this.plugin('done', notify);
-  }
-);
+hot.plugins = [
+  new webpack.HotModuleReplacementPlugin(),
+  function() { this.plugin('done', notifyStats) },
+  function() { this.plugin('done', writeStats) }
+];
 
 // use full server url
 hot.output.publicPath = serverUrl + hot.output.publicPath;
