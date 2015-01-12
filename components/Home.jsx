@@ -8,7 +8,6 @@ const Home = React.createClass({
     storeListeners: [PhotosStore]
   },
   getInitialState() {
-    console.log('getInitialState of Home.jsx', this.getStore(PhotosStore).getState().photos.length, 'photos');
     return this.getStore(PhotosStore).getState();
   },
   onChange() {
@@ -20,8 +19,8 @@ const Home = React.createClass({
       <div>
         <p>Welcome to the home page!</p>;
         { 
-          this.state.photos.map((photo) => {
-            return <p>{ photo.title }</p>;
+          this.state.photos.map((photo, i) => {
+            return <p key={i}>{ photo.title }</p>;
           })
         }
       </div>
