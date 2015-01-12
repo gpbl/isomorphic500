@@ -1,3 +1,5 @@
+import getPhotos from '../actions/getPhotos';
+
 export default {
 
   home: {
@@ -9,7 +11,7 @@ export default {
       context.dispatch('UPDATE_PAGE_TITLE', {
         pageTitle: 'Home | flux-examples | routing'
       });
-      done();
+      context.executeAction(getPhotos, {}, done);
     }
   },
 
