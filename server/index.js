@@ -47,17 +47,16 @@ server.use(function (req, res, next) {
     xhrContext: { _csrf: req.csrfToken(), lang: 'en-US' }
   });
 
-  const actionContext = context.getActionContext();
+  // const actionContext = context.getActionContext();
 
-  actionContext.executeAction(navigateAction, { url: req.url }, (err) => {
+  context.executeAction(navigateAction, { url: req.url }, (err) => {
     
     if (err) {
       if (err.status && err.status === 404) next();
       else next(err);
       return;
     }
-    console.log('dehydrate app status', context._dispatcher.storeInstances.PhotosStore.photos.length)
-    
+
     // dehydrate app status
     res.locals.state = 'window.App=' + serialize(app.dehydrate(context), 'App');
 
@@ -74,7 +73,6 @@ server.use(function (req, res, next) {
     // console.log('locals', res.locals.context);
     // use html from webpack-compiled html.jsx
     import html from './html.generated';
-    console.log(serialize(app.dehydrate(context), 'App'));
     res.status(200).send(html(req, res));
 
   });
