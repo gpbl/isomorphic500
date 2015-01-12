@@ -11,7 +11,7 @@ const Home = React.createClass({
     return this.getStore(PhotosStore).getState();
   },
   onChange() {
-    const state = this.getStore(CustomersStore).getState();
+    const state = this.getStore(PhotosStore).getState();
     this.setState(state);
   },
   render() {
