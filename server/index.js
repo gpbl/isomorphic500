@@ -4,42 +4,63 @@ import express from 'express';
 import proxy from 'proxy-middleware';
 import compress from 'compression';
 import locale from 'locale';
-import expstate from 'express-state';
+import serialize from 'serialize-javascript';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import csurf from 'csurf';
 
-import { navigateAction } from 'flux-router-component';
-
-import app from '../app';
 import config from '../config/app';
 
+// fluxible app stuff
+import { navigateAction } from 'flux-router-component';
+import fetchrPlugin from 'fluxible-plugin-fetchr';
+import app from '../app';
+import flickrService from '../services/flickr';
+
+// initialize express
 const server = express();
 const morgan = require('morgan');
-
-// used to rehydrate the store states
-expstate.extend(server);
-
 server.use(morgan(server.get('env') === 'production' ? 'combined' : 'dev'));
+server.use(bodyParser.json());
+server.use(cookieParser());
 server.use(locale(config.locales));
 server.use(compress());
+server.use(csurf({ cookie: true }));
 
 // static files
 const publicPath = resolve(__dirname, '../public');
 server.use(express.static(publicPath, { maxAge: 365*24*60*60 }));
 
+// setup the fetchr middleware
+const fetchrInstance = fetchrPlugin({ xhrPath: '/api' });
+fetchrInstance.registerService(flickrService);
+app.plug(fetchrInstance);
+
+server.use(fetchrInstance.getXhrPath(), fetchrInstance.getMiddleware());
+
 // render fluxible app
 server.use(function (req, res, next) {
 
-  const context = app.createContext();
+  // create a fluxible-app context for each request
+  // (the argument is needed by the fetchr plugin)
+  const context = app.createContext({
+    req: req, 
+    xhrContext: { _csrf: req.csrfToken(), lang: 'en-US' }
+  });
+
   const actionContext = context.getActionContext();
 
   actionContext.executeAction(navigateAction, { url: req.url }, (err) => {
+    
     if (err) {
       if (err.status && err.status === 404) next();
       else next(err);
       return;
     }
-
+    console.log('dehydrate app status', context._dispatcher.storeInstances.PhotosStore.photos.length)
+    
     // dehydrate app status
-    res.expose(app.dehydrate(context), 'App');
+    res.locals.state = 'window.App=' + serialize(app.dehydrate(context), 'App');
 
     // where the mainScript (client) is located according to the last webpack's 
     // build (webpack/browser.config in production or webpack/hot.config in dev)
@@ -48,10 +69,13 @@ server.use(function (req, res, next) {
 
     // pass context through locals
     res.locals.context = context.getComponentContext();
+    
+    // res.expose(app.dehydrate(res.locals.context), 'Page');
 
+    // console.log('locals', res.locals.context);
     // use html from webpack-compiled html.jsx
     import html from './html.generated';
-
+    console.log(serialize(app.dehydrate(context), 'App'));
     res.status(200).send(html(req, res));
 
   });
