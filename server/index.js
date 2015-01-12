@@ -26,6 +26,9 @@ server.use(locale(config.locales));
 server.use(compress());
 server.use(csurf({ cookie: true }));
 
+if (server.get('env') === 'development')
+  require('../webpack/dev-server')(server);
+
 // static files
 const publicPath = resolve(__dirname, '../public');
 server.use(express.static(publicPath, { maxAge: 365*24*60*60 }));
@@ -36,6 +39,8 @@ fetchrInstance.registerService(flickrService);
 app.plug(fetchrInstance);
 
 server.use(fetchrInstance.getXhrPath(), fetchrInstance.getMiddleware());
+
+
 
 // render fluxible app
 server.use(function (req, res, next) {
@@ -89,9 +94,6 @@ server.use((err, req, res, next) => {
 });
 
 server.set('port', process.env.PORT || 3000);
-
-if (server.get('env') === 'development')
-  require('../webpack/dev-server');
 
 server.listen(server.get('port'), () => {
   console.log(`Express ${server.get('env')} server listening on ${server.get('port')}`);
