@@ -11,6 +11,7 @@ module.exports = {
   output: {
     path: outputPath,
     // the following file must be called from server-side rendering
+    // to know the hashed filename for the main js script
     filename: 'html.generated.js',
     libraryTarget: 'commonjs2'
   },
