@@ -5,7 +5,7 @@ const Html = React.createClass({
 
   propTypes: {
     context: React.PropTypes.object.isRequired, // fluxible context
-    state: React.PropTypes.object.isRequired, // dehydrated state
+    state: React.PropTypes.string.isRequired, // dehydrated state
     markup: React.PropTypes.string.isRequired, // content of mountNode
     mainScript: React.PropTypes.string.isRequired, // client entry file
     css: React.PropTypes.string.isRequired // inline css
