@@ -10,7 +10,7 @@ export default createStore({
   
   handleReceivePhotos(photos) {
     this.photos = photos;
-    this.emit('change');
+    this.emitChange();
   },
   
   handlers: {

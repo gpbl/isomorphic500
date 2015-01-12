@@ -10,7 +10,7 @@ export default createStore({
   
   handleTimeChange(payload) {
     this.time = new Date();
-    this.emit('change');
+    this.emitChange();
   },
   
   handlers: {
