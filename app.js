@@ -15,5 +15,6 @@ fluxibleApp.plug(routrPlugin({
 fluxibleApp.registerStore(require('./stores/ApplicationStore'));
 fluxibleApp.registerStore(require('./stores/TimeStore'));
 fluxibleApp.registerStore(require('./stores/PageStore'));
+fluxibleApp.registerStore(require('./stores/PhotosStore'));
 
 export default fluxibleApp;
