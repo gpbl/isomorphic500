@@ -1,7 +1,6 @@
 import { resolve } from 'path';
 
 import express from 'express';
-import proxy from 'proxy-middleware';
 import compress from 'compression';
 import locale from 'locale';
 import serialize from 'serialize-javascript';
