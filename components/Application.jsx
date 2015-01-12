@@ -37,7 +37,7 @@ var Application = React.createClass({
     var content = '';
     switch (this.state.currentPageName) {
       case 'home':
-        content = <Home/>;
+        content = <Home context={this.props.context}/>;
         break;
       case 'about':
         content = <About/>;
