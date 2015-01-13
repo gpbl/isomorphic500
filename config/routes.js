@@ -34,8 +34,6 @@ export default {
       context.dispatch('UPDATE_PAGE_TITLE', {
         pageTitle: 'About | flux-examples | routing'
       });
-      console.log('payload.navigate');
-      // debugger;
       const locale = payload.navigate.locale;
       if(!locale) done()
       else context.executeAction(getI18n, {locale: locale}, done);
