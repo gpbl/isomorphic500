@@ -1,12 +1,13 @@
 import React from 'react';
-import i18nLoader from './i18n/loader';
 
-const hasIntl = typeof (Intl) !== "undefined";
-const lang = document.documentElement.getAttribute('lang');
+import i18nLoader from './i18n/loader';
+import i18nHotReload from './i18n/hotReload';
 
 require('./style/main.scss');
 
 function renderApp() {
+
+  const lang = document.documentElement.getAttribute('lang');
 
   i18nLoader(lang, function () {
 
@@ -17,7 +18,7 @@ function renderApp() {
       if (err) throw err;
 
       // enable hotLoader for i18n
-      require('./i18n/hotLoader')(context.getComponentContext());
+      i18nHotReload(context.getComponentContext());
 
       window.context = context;
       const AppComponent = app.getAppComponent();
@@ -37,8 +38,8 @@ function renderApp() {
 
 }
 
-if (!hasIntl) {
-  // shim Intl for browser not supporting it
+// shim Intl for browser not supporting it
+if (typeof (Intl) === 'undefined') {
   require.ensure(['intl/Intl'], (require) => {
     require('intl/Intl');
     renderApp();
@@ -46,4 +47,3 @@ if (!hasIntl) {
 } else {
   renderApp();
 }
-

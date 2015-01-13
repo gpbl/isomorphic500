@@ -1,3 +1,5 @@
+// hot reload i18n files
+// (files must be added by hand here)
 if (module.hot) {
   export default function(context) {
     
