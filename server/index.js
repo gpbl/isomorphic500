@@ -74,7 +74,8 @@ server.use(function (req, res, next) {
     // console.log('locals', res.locals.context);
     // use html from webpack-compiled html.jsx
     import html from './html.generated';
-    res.status(200).send(html(req, res));
+    
+    res.status(200).send('<!DOCTYPE html>' + html(req, res));
 
   });
 });
