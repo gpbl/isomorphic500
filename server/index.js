@@ -12,9 +12,7 @@ import config from '../config/app';
 
 // fluxible app stuff
 import { navigateAction } from 'flux-router-component';
-import fetchrPlugin from 'fluxible-plugin-fetchr';
 import app from '../app';
-import flickrService from '../services/flickr';
 
 // initialize express
 const server = express();
@@ -33,13 +31,13 @@ if (server.get('env') === 'development')
 const publicPath = resolve(__dirname, '../public');
 server.use(express.static(publicPath, { maxAge: 365*24*60*60 }));
 
-// setup the fetchr middleware
-const fetchrInstance = fetchrPlugin({ xhrPath: '/api' });
-fetchrInstance.registerService(flickrService);
-app.plug(fetchrInstance);
-
-server.use(fetchrInstance.getXhrPath(), fetchrInstance.getMiddleware());
-
+// get access to the fetchr plugin instance (fetchr is plugged in ../app.js)
+const fetchrPlugin = app.getPlugin('FetchrPlugin');
+// register our services 
+fetchrPlugin.registerService(require('../services/flickr'));
+fetchrPlugin.registerService(require('../services/i18n'));
+// and set up the fetchr middleware
+server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
 
 // render fluxible app
@@ -52,9 +50,9 @@ server.use(function (req, res, next) {
     xhrContext: { _csrf: req.csrfToken(), lang: 'en-US' }
   });
 
-  // const actionContext = context.getActionContext();
+  const actionContext = context.getActionContext();
 
-  context.executeAction(navigateAction, { url: req.url }, (err) => {
+  actionContext.executeAction(navigateAction, { url: req.url }, (err) => {
     
     if (err) {
       if (err.status && err.status === 404) next();
@@ -73,8 +71,6 @@ server.use(function (req, res, next) {
     // pass context through locals
     res.locals.context = context.getComponentContext();
     
-    // res.expose(app.dehydrate(res.locals.context), 'Page');
-
     // console.log('locals', res.locals.context);
     // use html from webpack-compiled html.jsx
     import html from './html.generated';

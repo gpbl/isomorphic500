@@ -1,4 +1,5 @@
 import getPhotos from '../actions/getPhotos';
+import getIntl from '../actions/getI18n';
 
 export default {
 
@@ -11,7 +12,9 @@ export default {
       context.dispatch('UPDATE_PAGE_TITLE', {
         pageTitle: 'Home | flux-examples | routing'
       });
-      context.executeAction(getPhotos, {}, done);
+      context.executeAction(getPhotos, {}, function() {
+        context.executeAction(getIntl, {locale: 'en'}, done);
+      });
     }
   },
 

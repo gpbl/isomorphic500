@@ -1,20 +1,21 @@
 import React from 'react';
-import FluxibleApp from 'fluxible-app';
+import fluxibleApp from 'fluxible-app';
 import routrPlugin from 'fluxible-plugin-routr';
+import fetchrPlugin from 'fluxible-plugin-fetchr';
 
 import Application from './components/Application.jsx';
 
-const fluxibleApp = new FluxibleApp({
+const app = new fluxibleApp({
   appComponent: React.createFactory(Application)
 });
 
-fluxibleApp.plug(routrPlugin({
-  routes: require('./config/routes')
-}));
+app.plug(routrPlugin({ routes: require('./config/routes') }));
+app.plug(fetchrPlugin({ xhrPath: '/api' }));
 
-fluxibleApp.registerStore(require('./stores/ApplicationStore'));
-fluxibleApp.registerStore(require('./stores/TimeStore'));
-fluxibleApp.registerStore(require('./stores/PageStore'));
-fluxibleApp.registerStore(require('./stores/PhotosStore'));
+app.registerStore(require('./stores/ApplicationStore'));
+app.registerStore(require('./stores/TimeStore'));
+app.registerStore(require('./stores/PageStore'));
+app.registerStore(require('./stores/PhotosStore'));
+app.registerStore(require('./stores/I18nStore'));
 
-export default fluxibleApp;
+export default app;
