@@ -27,7 +27,7 @@ export default function (app) {
   app.use(config.output.publicPath, proxy(url.parse(proxyUrl)));
 
   server.listen(3001, 'localhost', () => {
-    console.log(`Webpack development server listening on 3001`);
+    console.log(`Webpack development server listening on 3001 (will proxy ${config.output.publicPath})`);
   });
 
 }
