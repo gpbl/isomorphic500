@@ -26,7 +26,7 @@ export default createStore({
     this.currentPageName = pageName;
     this.currentPage = page;
     this.currentRoute = route;
-    this.emit('change');
+    this.emitChange();
   },
   
   updatePageTitle(title) {
