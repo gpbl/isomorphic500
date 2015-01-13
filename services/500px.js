@@ -1,6 +1,5 @@
 import superagent from 'superagent';
-
-const apiKey = 'CLmpqnpwGLKetORtjc5gb9tC2hllfd6cqdfzHqFD';
+import apiKey from './key.js';
 const apiRoot = 'https://api.500px.com/v1/';
 
 export default {
