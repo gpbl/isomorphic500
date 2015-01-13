@@ -1,5 +1,5 @@
 import getPhotos from '../actions/getPhotos';
-import getIntl from '../actions/getI18n';
+import getI18n from '../actions/getI18n';
 
 export default {
 
@@ -10,11 +10,16 @@ export default {
     label: 'Home',
     action: function(context, payload, done) {
       context.dispatch('UPDATE_PAGE_TITLE', {
-        pageTitle: 'Home | flux-examples | routing'
+        pageTitle: 'Home Page'
       });
-      context.executeAction(getPhotos, {}, function() {
-        context.executeAction(getIntl, {locale: 'en'}, done);
+      const locale = payload.navigate.locale;
+      const photosPromise = new Promise((resolve, reject) => {
+        context.executeAction(getPhotos, {}, resolve);
       });
+      const i18nPromise = new Promise((resolve, reject) => {
+        context.executeAction(getI18n, {locale: locale}, resolve);
+      });
+      Promise.all([photosPromise, i18nPromise]).then(() => { done() }); 
     }
   },
 
