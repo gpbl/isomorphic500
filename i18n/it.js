@@ -5,6 +5,7 @@ export default {
       welcome: 'Benvenuto nella home page!'
     },
     localeSwitcher: {
+      label: 'Lingua:',
       it: 'Italiano',
       en: 'English'
     }
