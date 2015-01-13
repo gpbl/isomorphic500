@@ -22,16 +22,18 @@ const Html = React.createClass({
 
     return (
       <html lang={ locale }>
-        <title>{ title }</title>
-        <meta name="viewport" content="width=device-width, user-scalable=no" />
-        { 
-          webpackStats.mainChunks.map((chunkName) => {
-            if (last(chunkName.split('.')) === 'css') {
-              const href = `${webpackStats.publicPath}${chunkName}`;
-              return <link rel="stylesheet"  type="text/css" href={ href } />;
-            }
-          })
-        }
+        <head>
+          <title>{ title }</title>
+          <meta name="viewport" content="width=device-width, user-scalable=no" />
+          { 
+            webpackStats.mainChunks.map((chunkName) => {
+              if (last(chunkName.split('.')) === 'css') {
+                const href = `${webpackStats.publicPath}${chunkName}`;
+                return <link rel="stylesheet"  type="text/css" href={ href } />;
+              }
+            })
+          }
+        </head>
         <body>
           <div id="mountNode" dangerouslySetInnerHTML={{__html: markup}} />
           <script dangerouslySetInnerHTML={{__html: state}}></script>
