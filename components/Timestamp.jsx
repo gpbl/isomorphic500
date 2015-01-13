@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoreMixin } from 'fluxible-app';
+import { StoreMixin } from 'fluxible';
 import updateTime from '../actions/updateTime';
 import TimeStore from '../stores/TimeStore';
 

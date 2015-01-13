@@ -1,6 +1,6 @@
 import React from 'react';
 import IntlMixin from 'react-intl';
-import { StoreMixin } from 'fluxible-app';
+import { StoreMixin } from 'fluxible';
 import PhotosStore from '../stores/PhotosStore';
 
 const Home = React.createClass({

@@ -43,7 +43,7 @@ server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 // render fluxible app
 server.use(function (req, res, next) {
 
-  // create a fluxible-app context for each request
+  // create a fluxible context for each request
   // (the argument is needed by the fetchr plugin)
   const context = app.createContext({
     req: req, 

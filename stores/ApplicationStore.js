@@ -1,4 +1,4 @@
-import createStore from 'fluxible-app/utils/createStore';
+import createStore from 'fluxible/utils/createStore';
 import routes from '../config/routes';
 
 export default createStore({

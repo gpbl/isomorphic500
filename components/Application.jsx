@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouterMixin } from 'flux-router-component';
-import { StoreMixin } from 'fluxible-app';
+import { StoreMixin } from 'fluxible';
 
 import Navigation from './Navigation.jsx';
 import Home from './Home.jsx';

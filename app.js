@@ -1,11 +1,11 @@
 import React from 'react';
-import fluxibleApp from 'fluxible-app';
+import Fluxible from 'fluxible';
 import routrPlugin from 'fluxible-plugin-routr';
 import fetchrPlugin from 'fluxible-plugin-fetchr';
 
 import Application from './components/Application.jsx';
 
-const app = new fluxibleApp({
+const app = new Fluxible({
   appComponent: React.createFactory(Application)
 });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PageStore from '../stores/PageStore';
-import { StoreMixin } from 'fluxible-app';
+import { StoreMixin } from 'fluxible';
 
 const Page = React.createClass({
 
