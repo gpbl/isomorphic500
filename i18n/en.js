@@ -3,6 +3,10 @@ export default {
   messages: {
     home: {
       welcome: 'Welcome to the home page!'
+    },
+    localeSwitcher: {
+      it: 'Italiano',
+      en: 'English'
     }
   }
 }

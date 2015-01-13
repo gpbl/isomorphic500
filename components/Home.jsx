@@ -1,10 +1,9 @@
 import React from 'react';
 import IntlMixin from 'react-intl';
-
 import { StoreMixin } from 'fluxible-app';
 import PhotosStore from '../stores/PhotosStore';
-import config from '../config/app';
-import getIntl from '../actions/getI18n';
+
+import LocaleSwitcher from './LocaleSwitcher.jsx';
 
 const Home = React.createClass({
   mixins: [StoreMixin, IntlMixin],
@@ -22,22 +21,13 @@ const Home = React.createClass({
     this.setState(state);
   },
 
-  handleLocaleChange(e) {
-    this.props.context.executeAction(getIntl, {locale: e.target.value});
-  },
-
   render() {
     return (
       <div>
-        <p>{ this.getIntlMessage('home.welcome') }</p>;
-        <select onChange={this.handleLocaleChange}>
-          {
-            config.locales.map((locale) => {
-              return <option key={locale} value={locale}>{locale}</option>
-            })
-          }
+        <p>{ this.getIntlMessage('home.welcome') }</p>
 
-        </select>
+        <LocaleSwitcher context={this.props.context} />
+
         { 
           this.state.photos.map((photo, i) => {
             return <p key={i}>{ photo.title }</p>;
