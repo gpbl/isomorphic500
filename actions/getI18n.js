@@ -11,7 +11,7 @@ const action = function (context, payload, done) {
       data.currentLocale = payload.locale;
       context.dispatch('RECEIVE_I18N_SUCCESS', data);
     }
-    done();
+    done && done();
   });
 };
 

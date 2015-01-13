@@ -16,11 +16,10 @@ module.exports = {
     publicPath: shared.publicPath
   },
   module: {
-    loaders: [
+    loaders: shared.loaders.concat([
       { test: /\.jsx?$/, exclude: /node_modules/, loader: '6to5-loader' },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract("style-loader", "css!autoprefixer?browsers=last 2 version!sass") },
-      { test: /\.jpg$/, loader: 'file-loader' }
-    ]
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract("style-loader", "css!autoprefixer?browsers=last 2 version!sass") }
+    ])
   },
   plugins: [
     new ExtractTextPlugin("[name]-[chunkhash].css"),
