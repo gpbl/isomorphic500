@@ -1,3 +1,26 @@
+$baseUnit: 12px;
+
 body {
-  font-family: "Avenir Next", sans-serif;
+  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+}
+
+img {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.home__thumbs img {
+  float: left;
+}
+
+.locale-switcher {
+  text-align: right;
+  position: absolute;
+  top: $baseUnit;
+  right: $baseUnit;
+  select {
+    font-size: 1em;
+    font-family: inherit;
+  }
 }
