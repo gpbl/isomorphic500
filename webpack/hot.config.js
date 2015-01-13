@@ -22,6 +22,7 @@ hot.entry = [
 
 // enable hot module replacement
 hot.plugins = [
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   new webpack.HotModuleReplacementPlugin(),
   function() { this.plugin('done', notifyStats) },
   function() { this.plugin('done', writeStats) }

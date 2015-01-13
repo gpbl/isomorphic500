@@ -3,16 +3,16 @@ var path = require('path');
 var assetsPath = path.join(__dirname, '../public/assets');
 var writeStats = require('./plugins/writeStats');
 var productionEnv = require('./plugins/productionEnv');
-
+var webpack = require('webpack');
 var shared = require('./shared');
 
 // webpack configuration for the browsers
 module.exports = {
-  name: "client",
-  entry: "./client.js",
+  name: 'client',
+  entry: './client.js',
   output: {
     path: assetsPath,
-    filename: "[hash].js",
+    filename: '[name]-[chunkhash].js',
     publicPath: shared.publicPath
   },
   module: {
@@ -23,6 +23,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     productionEnv, 
     function() { this.plugin('done', writeStats) }
   ]
