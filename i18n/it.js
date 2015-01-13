@@ -1,5 +1,5 @@
 export default {
-  locales: ['en'],
+  locales: ['it'],
   messages: {
     home: {
       welcome: 'Benvenuto nella home page!'
