@@ -1,6 +1,7 @@
 import getPhotos from '../actions/getPhotos';
 import getI18n from '../actions/getI18n';
 
+
 export default {
 
   home: {
@@ -17,7 +18,8 @@ export default {
         context.executeAction(getPhotos, {}, resolve);
       });
       const i18nPromise = new Promise((resolve, reject) => {
-        context.executeAction(getI18n, {locale: locale}, resolve);
+        if (!locale) resolve();
+        else context.executeAction(getI18n, {locale: locale}, resolve);
       });
       Promise.all([photosPromise, i18nPromise]).then(() => { done() }); 
     }
@@ -32,7 +34,11 @@ export default {
       context.dispatch('UPDATE_PAGE_TITLE', {
         pageTitle: 'About | flux-examples | routing'
       });
-      done();
+      console.log('payload.navigate');
+      // debugger;
+      const locale = payload.navigate.locale;
+      if(!locale) done()
+      else context.executeAction(getI18n, {locale: locale}, done);
     }
   },
 
