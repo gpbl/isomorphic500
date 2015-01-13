@@ -23,7 +23,7 @@ const server = new WebpackDevServer(compiler, options);
 export default function (app) {
 
   const proxyUrl = `${config.serverUrl}${config.output.publicPath}`;
-  console.log('proxyUrl', proxyUrl, 'pp', config.output.publicPath);
+
   app.use(config.output.publicPath, proxy(url.parse(proxyUrl)));
 
   server.listen(3001, 'localhost', () => {
