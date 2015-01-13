@@ -20,6 +20,13 @@ hot.entry = [
   client.entry
 ]
 
+hot.module.loaders = shared.loaders.concat([
+  { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['6to5-loader', 'react-hot'] },
+  // { test: /\.scss$/, loader: ExtractTextPlugin.extract("style-loader", "css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded") },
+  { test: /\.scss$/, loader: 'style!css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded' }
+]);
+
+
 // enable hot module replacement
 hot.plugins = [
   new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -27,14 +34,6 @@ hot.plugins = [
   function() { this.plugin('done', notifyStats) },
   function() { this.plugin('done', writeStats) }
 ];
-
-// // use full server url
-// hot.output.publicPath = serverUrl + hot.output.publicPath;
-
-hot.module.loaders = shared.loaders.concat([
-  { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['6to5-loader', 'react-hot'] },
-  { test: /\.scss$/, loader: 'style!css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded' }
-]);
 
 // enable source maps
 hot.devtool = 'eval';

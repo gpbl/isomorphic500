@@ -37,7 +37,6 @@ var Application = React.createClass({
   },
 
   render() {
-    require('../style/main.scss');
     const i18n = {
       messages: this.state.messages,
       locales: this.state.locales

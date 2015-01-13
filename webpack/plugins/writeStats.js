@@ -5,10 +5,10 @@ var filepath = path.join(__dirname, '../../server', 'webpack-stats.json');
 
 module.exports = function (stats) {
   var json = stats.toJson();
-  var mainChunk = json.assetsByChunkName.main;
-  if (mainChunk instanceof Array) mainChunk = mainChunk[0];
+  var mainChunks = json.assetsByChunkName.main;
+  if (!(mainChunks instanceof Array)) mainChunks = [mainChunks];
   fs.writeFileSync(filepath, JSON.stringify({
-    mainChunk: mainChunk,
+    mainChunks: mainChunks,
     publicPath: this.options.output.publicPath
   }));
 };

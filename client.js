@@ -4,6 +4,8 @@ import i18nLoader from './i18n/loader';
 const hasIntl = typeof (Intl) !== "undefined";
 const lang = document.documentElement.getAttribute('lang');
 
+require('./style/main.scss');
+
 function renderApp() {
 
   i18nLoader(lang, function () {

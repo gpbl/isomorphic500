@@ -4,7 +4,7 @@
   "description": "Isomorphic 500px webclient",
   "main": "server.js",
   "scripts": {
-    "start": "webpack --config webpack/server.config.js --progress --colors && NODE_ENV=development node server",
+    "start": "NODE_ENV=development node server",
     "prod": "webpack -p && NODE_ENV=production;PORT=8080 node server"
   },
   "repository": {
@@ -48,6 +48,7 @@
     "autoprefixer-loader": "^1.0.0",
     "chalk": "^0.5.1",
     "css-loader": "^0.9.1",
+    "extract-text-webpack-plugin": "^0.3.8",
     "node-notifier": "^4.0.3",
     "proxy-middleware": "^0.9.0",
     "react-hot-loader": "^1.0.7",

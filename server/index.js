@@ -7,6 +7,7 @@ import serialize from 'serialize-javascript';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import csurf from 'csurf';
+import React from 'react';
 
 import config from '../config/app';
 
@@ -39,7 +40,6 @@ fetchrPlugin.registerService(require('../services/i18n'));
 // and set up the fetchr middleware
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
-
 // render fluxible app
 server.use(function (req, res, next) {
 
@@ -61,22 +61,33 @@ server.use(function (req, res, next) {
     }
 
     // dehydrate app status
-    res.locals.state = 'window.App=' + serialize(app.dehydrate(context), 'App');
-
-    // where the mainScript (client) is located according to the last webpack's 
-    // build (webpack/browser.config in production or webpack/hot.config in dev)
-    import stats from './webpack-stats.json';
-    res.locals.mainScript = `${stats.publicPath}${stats.mainChunk}`;
+    const exposed = `window.App=${serialize(app.dehydrate(context), 'App')};`;
 
     // pass context through locals
     res.locals.context = context.getComponentContext();
     
-    // console.log('locals', res.locals.context);
-    // use html from webpack-compiled html.jsx
-    import html from './html.generated';
-    
-    res.status(200).send('<!DOCTYPE html>' + html(req, res));
+    const AppComponent = app.getAppComponent();
+    const HtmlComponent = React.createFactory(require('../components/Html.jsx'));
 
+    if(server.get('env') === 'development') 
+      // do not cache HtmlComponent (useful for hot reload)
+      delete require.cache[require.resolve('../components/Html.jsx')];
+
+    var html;
+    try {
+      html = React.renderToStaticMarkup(
+        HtmlComponent({
+          locale: req.locale,
+          state: exposed,
+          context: context.getComponentContext(),
+          markup: React.renderToString(AppComponent({
+            context: context.getComponentContext()
+          }))
+        })
+      );
+    }
+    catch(e) { next(e); return; }
+    res.status(200).send('<!DOCTYPE html>' + html);
   });
 });
 
