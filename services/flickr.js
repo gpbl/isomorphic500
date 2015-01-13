@@ -11,7 +11,7 @@ export default {
 
   name: 'flickr',
 
-  read: function (req, resource, params, config, callback) {
+  read(req, resource, params, config, callback) {
     
     const params = {
       api_key: apiKey,
