@@ -52,7 +52,7 @@ server.use(function (req, res, next) {
 
   const actionContext = context.getActionContext();
 
-  actionContext.executeAction(navigateAction, { url: req.url }, (err) => {
+  actionContext.executeAction(navigateAction, { url: req.url, locale: req.locale }, (err) => {
     
     if (err) {
       if (err.status && err.status === 404) next();
