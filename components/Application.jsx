@@ -1,6 +1,7 @@
 import React from 'react';
 import { RouterMixin } from 'flux-router-component';
 import { StoreMixin } from 'fluxible';
+import { assign } from 'lodash';
 
 import Navigation from './Navigation.jsx';
 import Home from './Home.jsx';
@@ -10,7 +11,6 @@ import LocaleSwitcher from './LocaleSwitcher.jsx';
 
 import ApplicationStore from '../stores/ApplicationStore';
 import I18nStore from '../stores/I18nStore';
-import { assign } from 'lodash';
 var Application = React.createClass({
   
   mixins: [RouterMixin, StoreMixin],
