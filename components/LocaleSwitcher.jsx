@@ -30,11 +30,16 @@ const LocaleSwitcher = React.createClass({
 
   render() {
     return (
-      <select value={this.state.currentLocale} onChange={this.handleLocaleChange}>
+      <select 
+          value={this.state.currentLocale} 
+          onChange={this.handleLocaleChange}>
         {
           config.locales.map((locale) => {
+            // bug with server side rendering:
+            // https://github.com/facebook/react/issues/1398
             return (
-              <option key={locale} value={locale}>
+              <option key={locale} value={locale} 
+                selected={this.state.currentLocale === locale}>
                 { this.getIntlMessage(`localeSwitcher.${locale}`) }
               </option>
             )
