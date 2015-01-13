@@ -34,7 +34,7 @@ server.use(express.static(publicPath, { maxAge: 365*24*60*60 }));
 // get access to the fetchr plugin instance (fetchr is plugged in ../app.js)
 const fetchrPlugin = app.getPlugin('FetchrPlugin');
 // register our services 
-fetchrPlugin.registerService(require('../services/flickr'));
+fetchrPlugin.registerService(require('../services/500px'));
 fetchrPlugin.registerService(require('../services/i18n'));
 // and set up the fetchr middleware
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());

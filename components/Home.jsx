@@ -30,7 +30,7 @@ const Home = React.createClass({
 
         { 
           this.state.photos.map((photo, i) => {
-            return <p key={i}>{ photo.title }</p>;
+            return <p key={i}>{ photo.name }</p>;
           })
         }
       </div>
