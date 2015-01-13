@@ -23,6 +23,7 @@ export default function(req, res) {
 
   return React.renderToStaticMarkup(
     <Html state={state}
+      locale={req.locale}
       css={css}
       context={context}
       markup={markup}
