@@ -15,8 +15,13 @@ function renderApp() {
 
     app.rehydrate(dehydratedState, function (err, context) {
       if (err) throw err;
+
+      // enable hotLoader for i18n
+      require('./i18n/hotLoader')(context.getComponentContext());
+
       window.context = context;
       const AppComponent = app.getAppComponent();
+
       React.render(
         AppComponent({
           context: context.getComponentContext()
@@ -25,8 +30,8 @@ function renderApp() {
           console.log('Application rendered on mountNode.');
         }
       );
-    });
 
+    });
 
   });
 
@@ -41,3 +46,4 @@ if (!hasIntl) {
 } else {
   renderApp();
 }
+
