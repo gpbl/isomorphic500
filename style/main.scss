@@ -1,7 +1,20 @@
 $baseUnit: 12px;
 
+$colorText: #E8E8E8;
+
 body {
+  color: $colorText;
+  background-color: black;
   font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-weight: 600;
 }
 
 img {
@@ -12,6 +25,10 @@ img {
 
 .home__thumbs img {
   float: left;
+}
+
+.box {
+  padding: $baseUnit;
 }
 
 .locale-switcher {

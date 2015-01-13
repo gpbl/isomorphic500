@@ -2,7 +2,7 @@ export default {
   locales: ['en'],
   messages: {
     home: {
-      welcome: 'Welcome to the home page!'
+      welcome: 'Simple app for browsing 500px main categories.'
     },
     localeSwitcher: {
       label: 'Language:',

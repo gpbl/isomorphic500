@@ -53,14 +53,7 @@ var Application = React.createClass({
     //render content
     return (
       <div>
-
         <LocaleSwitcher {...i18n}  context={this.props.context} />
-
-        <Navigation 
-          selected={this.state.currentPageName} 
-          links={this.state.pages} 
-          context={this.props.context}/>
-
         { content }
       </div>
     );

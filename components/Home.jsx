@@ -22,9 +22,15 @@ const Home = React.createClass({
 
   render() {
     return (
-      <div>
-        <p>{ this.getIntlMessage('home.welcome') }</p>
-        { this.formatNumber(100.95) }
+      <div className="box">
+        <h1>Isomorphic-500</h1>
+        <p>
+            { this.getIntlMessage('home.welcome') }
+            <a href="https://github.com/gpbl/isomorphic-500">Github</a>
+        </p>
+        
+          { this.formatNumber(100.95) }
+        
         <p>{ moment().format('LL') }</p>
         <div className="home__thumbs">
           { 
