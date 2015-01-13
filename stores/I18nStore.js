@@ -11,11 +11,13 @@ export default createStore({
   initialize(dispatcher) {
     this.locales = [];
     this.messages = {};
+    this.currentLocale = null;
   },
   
-  updateLocale(i18n) {
-    this.locales = i18n.locales;
-    this.messages = i18n.messages;
+  updateLocale(data) {
+    this.locales = data.locales;
+    this.messages = data.messages;
+    this.currentLocale = data.currentLocale;
     this.emitChange();
   },
 
@@ -28,7 +30,8 @@ export default createStore({
   getState() {
     return {
       locales: this.locales,
-      messages: this.messages
+      messages: this.messages,
+      currentLocale: this.currentLocale
     };
   },
 
@@ -39,6 +42,7 @@ export default createStore({
   rehydrate(state) {
     this.locales = state.locales;
     this.messages = state.messages;
+    this.currentLocale = state.currentLocale
   }
 
 });
