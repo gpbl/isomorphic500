@@ -13,8 +13,6 @@ app.plug(routrPlugin({ routes: require('./config/routes') }));
 app.plug(fetchrPlugin({ xhrPath: '/api' }));
 
 app.registerStore(require('./stores/ApplicationStore'));
-app.registerStore(require('./stores/TimeStore'));
-app.registerStore(require('./stores/PageStore'));
 app.registerStore(require('./stores/PhotosStore'));
 app.registerStore(require('./stores/I18nStore'));
 

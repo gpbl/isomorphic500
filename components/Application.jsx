@@ -5,8 +5,6 @@ import { StoreMixin } from 'fluxible-app';
 import Navigation from './Navigation.jsx';
 import Home from './Home.jsx';
 import About from './About.jsx';
-import Page from './Page.jsx';
-import Timestamp from './Timestamp.jsx';
 import ApplicationStore from '../stores/ApplicationStore';
 import I18nStore from '../stores/I18nStore';
 import { assign } from 'lodash';
@@ -49,17 +47,16 @@ var Application = React.createClass({
       case 'about':
         content = <About/>;
         break;
-      case 'page':
-        content = <Page context={this.props.context}/>;
-        break;
     }
     //render content
     return (
       <div>
-         <Navigation selected={this.state.currentPageName} links={this.state.pages} context={this.props.context}/>
+        <Navigation 
+          selected={this.state.currentPageName} 
+          links={this.state.pages} 
+          context={this.props.context}/>
 
         { content }
-        <Timestamp context={this.props.context}/>
       </div>
     );
   }
