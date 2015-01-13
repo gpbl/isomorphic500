@@ -6,7 +6,7 @@ var productionEnv = require('./plugins/productionEnv');
 var webpack = require('webpack');
 var shared = require('./shared');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-// webpack configuration for the browsers
+
 module.exports = {
   name: 'client',
   entry: './client.js',
