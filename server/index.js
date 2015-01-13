@@ -69,10 +69,6 @@ server.use(function (req, res, next) {
     const AppComponent = app.getAppComponent();
     const HtmlComponent = React.createFactory(require('../components/Html.jsx'));
 
-    if(server.get('env') === 'development') 
-      // do not cache HtmlComponent (useful for hot reload)
-      delete require.cache[require.resolve('../components/Html.jsx')];
-
     var html;
     try {
       html = React.renderToStaticMarkup(
