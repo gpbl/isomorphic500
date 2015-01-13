@@ -3,8 +3,6 @@ import IntlMixin from 'react-intl';
 import { StoreMixin } from 'fluxible-app';
 import PhotosStore from '../stores/PhotosStore';
 
-import LocaleSwitcher from './LocaleSwitcher.jsx';
-
 const Home = React.createClass({
   mixins: [StoreMixin, IntlMixin],
   
@@ -25,14 +23,13 @@ const Home = React.createClass({
     return (
       <div>
         <p>{ this.getIntlMessage('home.welcome') }</p>
-
-        <LocaleSwitcher context={this.props.context} />
-
-        { 
-          this.state.photos.map((photo, i) => {
-            return <p key={i}>{ photo.name }</p>;
-          })
-        }
+        <div className="home__thumbs">
+          { 
+            this.state.photos.map((photo, i) => {
+              return <img key={i} src={photo.image_url} />;
+            })
+          }
+        </div>
       </div>
     );
   }

@@ -5,6 +5,9 @@ import { StoreMixin } from 'fluxible-app';
 import Navigation from './Navigation.jsx';
 import Home from './Home.jsx';
 import About from './About.jsx';
+
+import LocaleSwitcher from './LocaleSwitcher.jsx';
+
 import ApplicationStore from '../stores/ApplicationStore';
 import I18nStore from '../stores/I18nStore';
 import { assign } from 'lodash';
@@ -51,6 +54,9 @@ var Application = React.createClass({
     //render content
     return (
       <div>
+
+        <LocaleSwitcher {...i18n}  context={this.props.context} />
+
         <Navigation 
           selected={this.state.currentPageName} 
           links={this.state.pages} 
