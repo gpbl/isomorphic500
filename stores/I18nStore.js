@@ -4,8 +4,8 @@ export default createStore({
   storeName: 'I18nStore',
 
   handlers: {
-    'RECEIVE_INTL_SUCCESS': 'updateLocale',
-    'RECEIVE_INTL_FAILURE': 'handleReceiveFailure'
+    'RECEIVE_I18N_SUCCESS': 'updateLocale',
+    'RECEIVE_I18N_FAILURE': 'handleReceiveFailure'
   },
   
   initialize(dispatcher) {
