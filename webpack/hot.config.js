@@ -22,7 +22,6 @@ hot.entry = [
 
 hot.module.loaders = shared.loaders.concat([
   { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['6to5-loader', 'react-hot'] },
-  // { test: /\.scss$/, loader: ExtractTextPlugin.extract("style-loader", "css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded") },
   { test: /\.scss$/, loader: 'style!css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded' }
 ]);
 
@@ -31,6 +30,7 @@ hot.module.loaders = shared.loaders.concat([
 hot.plugins = [
   new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   new webpack.HotModuleReplacementPlugin(),
+  new webpack.NewWatchingPlugin(),
   function() { this.plugin('done', notifyStats) },
   function() { this.plugin('done', writeStats) }
 ];
