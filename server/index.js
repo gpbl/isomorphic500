@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 
 import express from 'express';
 import compress from 'compression';
@@ -7,9 +6,12 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import csurf from 'csurf';
 
+import { resolve } from 'path';
+import { map } from 'lodash';
+import requireDir from 'require-dir';
+
 import app from '../app';
 import config from '../config/app';
-
 
 // initialize express
 const server = express();
@@ -31,12 +33,11 @@ const publicPath = resolve(__dirname, '../public');
 server.use(express.static(publicPath, { maxAge: 365*24*60*60 }));
 
 // configure fetchr (for doing api calls server and client-side)
-const fetchrPlugin = app.getPlugin('FetchrPlugin');
-fetchrPlugin.registerService(require('../services/500px'));
-fetchrPlugin.registerService(require('../services/i18n'));
+const fetchr = app.getPlugin('FetchrPlugin');
+map(requireDir('../services/'), service => fetchr.registerService(service) );
 
-// set up fetcher middleware
-server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
+// set up fetchr middleware
+server.use(fetchr.getXhrPath(), fetchr.getMiddleware());
 
 // fluxible server-side rendering middleware
 server.use(require('./fluxible-middleware'));

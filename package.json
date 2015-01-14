@@ -40,6 +40,7 @@
     "morgan": "^1.5.1",
     "react": "^0.12.2",
     "react-intl": "^1.0.2",
+    "require-dir": "^0.1.0",
     "serialize-javascript": "^1.0.0",
     "superagent": "^0.21.0"
   },
