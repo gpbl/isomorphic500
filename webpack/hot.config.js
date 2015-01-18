@@ -30,7 +30,6 @@ hot.module.loaders = shared.loaders.concat([
 hot.plugins = [
   new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   new webpack.HotModuleReplacementPlugin(),
-  new webpack.NewWatchingPlugin(),
   function() { this.plugin('done', notifyStats) },
   function() { this.plugin('done', writeStats) }
 ];
