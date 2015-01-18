@@ -1,11 +1,12 @@
 // hot reload i18n files
 // (files must be added by hand here)
+
+import I18nStore from '../stores/I18nStore';
+import getI18n from '../actions/getI18n';
+
 if (module.hot) {
   export default function(context) {
     
-    import I18nStore from '../stores/I18nStore';
-    import getI18n from '../actions/getI18n';
-
     require('./en');
     require('./it');
     

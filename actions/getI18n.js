@@ -1,5 +1,5 @@
 // action to get i18n messages
-
+import i18nLoader from '../i18n/loader';
 import { RECEIVE_I18N_FAILURE, RECEIVE_I18N_SUCCESS} from './';
 
 const action = function (context, payload, done) {
@@ -20,7 +20,6 @@ const action = function (context, payload, done) {
 export default function(context, payload, done) {
   if (typeof(window) !== 'undefined') {
     // on the browser, load locale data first
-    import i18nLoader from '../i18n/loader';
     i18nLoader(payload.locale, () => {
       action(context, payload, done);  
     });
