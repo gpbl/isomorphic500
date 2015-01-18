@@ -1,5 +1,5 @@
 {
-  "name": "isomorphic-500px",
+  "name": "isomorphic-500",
   "version": "0.1.0",
   "description": "Isomorphic 500px webclient",
   "main": "server.js",
@@ -13,6 +13,9 @@
   },
   "keywords": [
     "react",
+    "webpack",
+    "intl",
+    "react-intl",
     "isomorphic",
     "flux",
     "500px"
