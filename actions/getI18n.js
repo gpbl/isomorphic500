@@ -1,17 +1,17 @@
 // action to get i18n messages
 
-import actions from './';
+import { RECEIVE_I18N_FAILURE, RECEIVE_I18N_SUCCESS} from './';
 
 const action = function (context, payload, done) {
   context.service.read('i18n', payload, {}, function (err, data) {
     if (err) {
-      context.dispatch(actions.RECEIVE_I18N_FAILURE, {
+      context.dispatch(RECEIVE_I18N_FAILURE, {
         payload: payload,
         err: err
       });
     } else {
       data.currentLocale = payload.locale;
-      context.dispatch(actions.RECEIVE_I18N_SUCCESS, data);
+      context.dispatch(RECEIVE_I18N_SUCCESS, data);
     }
     done && done();
   });

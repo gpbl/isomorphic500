@@ -1,13 +1,13 @@
 import createStore from 'fluxible/utils/createStore';
 
-import actions from '../actions';
+import { RECEIVE_I18N_SUCCESS, RECEIVE_I18N_FAILURE } from '../actions';
 
 export default createStore({
   storeName: 'I18nStore',
 
   handlers: {
-    [actions.RECEIVE_I18N_SUCCESS]: 'updateLocale',
-    [actions.RECEIVE_I18N_FAILURE]: 'handleReceiveFailure'
+    [RECEIVE_I18N_SUCCESS]: 'updateLocale',
+    [RECEIVE_I18N_FAILURE]: 'handleReceiveFailure'
   },
   
   initialize(dispatcher) {

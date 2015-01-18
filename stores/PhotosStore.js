@@ -1,5 +1,7 @@
 import createStore from 'fluxible/utils/createStore';
 
+import { RECEIVE_PHOTOS } from '../actions';
+
 export default createStore({
 
   storeName: 'PhotosStore',
@@ -14,7 +16,7 @@ export default createStore({
   },
   
   handlers: {
-    'RECEIVE_PHOTOS': 'handleReceivePhotos'
+    [RECEIVE_PHOTOS]: 'handleReceivePhotos'
   },
   
   getState() {
