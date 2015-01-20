@@ -21,24 +21,16 @@ const Home = React.createClass({
   },
 
   render() {
+
+    if (require('../utils/env').BROWSER) {
+      require('../style/components/home.scss');
+    }
+
+    const bg = this.state.photos[0].image_url;
+
     return (
-      <div className="box">
-        <h1>Isomorphic-500</h1>
-        <p>
-            { this.getIntlMessage('home.welcome') }
-            <a href="https://github.com/gpbl/isomorphic-500">Github</a>
-        </p>
+      <div className="home" style={{backgroundImage: `url(${bg})`}}>
         
-          { this.formatNumber(100.95) }
-        
-        <p>{ moment().format('LL') }</p>
-        <div className="home__thumbs">
-          { 
-            this.state.photos.map((photo, i) => {
-              return <img key={i} src={photo.image_url} />;
-            })
-          }
-        </div>
       </div>
     );
   }

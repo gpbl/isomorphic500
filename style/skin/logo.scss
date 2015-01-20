@@ -1,0 +1,12 @@
+$logoWidth: 260px;
+$logoHeight: 100px;
+
+.logo {
+  display: inline-block;
+  width: $logoWidth/3;
+  height: $logoHeight/3;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../../assets/images/logo.svg');
+}
