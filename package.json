@@ -6,10 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=development node server",
     "prod": "NODE_ENV=production;PORT=8080 node server",
-   
-    "copy-assets": "rm -rf public && mkdir -p public/assets && cp -a assets public/",
-    "webpack": "webpack -p --optimize-dedupe --progress --colors",
-    "build": "npm run copy-assets && npm run webpack"
+    "build": "webpack -p --optimize-dedupe --progress --colors"
   },
   "repository": {
     "type": "git",

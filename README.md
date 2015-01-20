@@ -10,3 +10,12 @@ Notable features:
 - notification on compile errors
 - no gulp/grunt, no "build" version
 - locale hot switching working for [react-intl](https://github.com/yahoo/react-intl) and [moment.js](http://momentjs.com) with lazy load
+
+
+## Scripts
+
+```
+npm start          # run development environment
+npm run build      # compiles webpack for production
+npm run prod       # run prod version on localhost:8080
+```
