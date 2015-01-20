@@ -1,43 +1,17 @@
-$baseUnit: 12px;
+@import "colors";
+@import "units";
 
-$colorText: #E8E8E8;
+* {
+  box-sizing: border-box;
+}
 
 body {
   color: $colorText;
-  background-color: black;
-  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+  background-color: $colorBody;
+  font-family: "Helvetica Neue", sans-serif;
 }
 
 body, h1, h2, h3, h4, h5, h6, p, ul {
   margin: 0;
   padding: 0;
-}
-
-h1 {
-  font-weight: 600;
-}
-
-img {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-}
-
-.home__thumbs img {
-  float: left;
-}
-
-.box {
-  padding: $baseUnit;
-}
-
-.locale-switcher {
-  text-align: right;
-  position: absolute;
-  top: $baseUnit;
-  right: $baseUnit;
-  select {
-    font-size: 1em;
-    font-family: inherit;
-  }
 }
