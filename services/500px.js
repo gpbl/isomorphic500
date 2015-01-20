@@ -8,7 +8,13 @@ export default {
 
   read(req, resource, params, config, callback) {
     const url = `${apiRoot}/photos?consumer_key=${apiKey}`;
-    superagent.get(url).end((err, res) => {
+    superagent.get(url)
+      .query({
+        feature: 'upcoming',
+        only: 'Nature,Landscapes',
+        image_size: 4
+      })
+      .end((err, res) => {
       const photos = !err ? res.body.photos : null;
       callback(err, photos);
     });
