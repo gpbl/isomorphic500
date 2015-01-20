@@ -2,10 +2,12 @@ import React from 'react';
 import IntlMixin from 'react-intl';
 import { StoreMixin } from 'fluxible';
 
-import I18nStore from '../stores/I18nStore';
+import I18nStore from '../../stores/I18nStore';
 
-import config from '../config/app';
-import getIntl from '../actions/getI18n';
+import config from '../../config/app';
+import getIntl from '../../actions/getI18n';
+import env from '../../utils/env';
+
 
 const LocaleSwitcher = React.createClass({
 
@@ -29,6 +31,7 @@ const LocaleSwitcher = React.createClass({
   },
 
   render() {
+    
     return (
       <div className="locale-switcher">
         <label>
