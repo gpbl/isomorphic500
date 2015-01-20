@@ -1,7 +1,9 @@
 import React from 'react';
-
 import i18nLoader from './i18n/loader';
+
 import i18nHotReload from './i18n/hotReload';
+
+import app from './app';
 
 require('./style/main.scss');
 
@@ -11,14 +13,14 @@ function renderApp() {
 
   i18nLoader(lang, function () {
 
-    import app from './app';
     const dehydratedState = window.App;
 
     app.rehydrate(dehydratedState, function (err, context) {
       if (err) throw err;
 
       // enable hotLoader for i18n
-      i18nHotReload(context.getComponentContext());
+      if (process.env.NODE_ENV === 'development')
+        i18nHotReload(context.getComponentContext());
 
       window.context = context;
       const AppComponent = app.getAppComponent();
