@@ -1,0 +1,18 @@
+@import "../units";
+
+.navbar {
+  height: $navBarHeight;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: $zIndexNavbar;
+  padding: $baseUnit;
+  background: linear-gradient(to bottom, rgba(black, .75) 20%, rgba(black, 0) 100%); 
+}
+
+  .navbar__locale {
+    position: absolute;
+    right: $baseUnit;
+    top: $baseUnit;
+  }
