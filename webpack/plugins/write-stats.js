@@ -1,3 +1,5 @@
+// write webpack stats (they are used to determine entry point in server/index.js)
+
 var fs = require('fs');
 var path = require('path');
 
