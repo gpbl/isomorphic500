@@ -16,6 +16,7 @@ import config from '../config/app';
 // initialize express
 const server = express();
 const morgan = require('morgan');
+const debug = require('debug')('App:Server');
 
 server.use(morgan(server.get('env') === 'production' ? 'combined' : 'dev'));
 server.use(bodyParser.json());
@@ -55,5 +56,5 @@ server.use((err, req, res, next) => {
 server.set('port', process.env.PORT || 3000);
 
 server.listen(server.get('port'), () => {
-  console.log(`Express ${server.get('env')} server listening on ${server.get('port')}`);
+  debug('Express %s server listening on %d', server.get('env'), server.get('port'));
 });

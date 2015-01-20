@@ -8,6 +8,7 @@ import proxy from 'proxy-middleware';
 import url from 'url';
 
 const compiler = webpack(config);
+const debug = require('debug')('App:WebpackDevServer');
 
 const options = {
   contentBase: 'http://localhost:3001',
@@ -26,6 +27,6 @@ export default function (app) {
   const proxyUrl = `http://localhost:3001${config.output.publicPath}`;
   app.use(config.output.publicPath, proxy(url.parse(proxyUrl)));
   server.listen(3001, 'localhost', () => {
-    console.log(`Webpack development server listening on 3001 (will proxy ${config.output.publicPath})`);
+    debug(`Webpack development server listening on %d (will proxy %s)`, 3001, config.output.publicPath);
   });
 }
