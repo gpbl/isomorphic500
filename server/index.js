@@ -13,10 +13,11 @@ import requireDir from 'require-dir';
 import app from '../app';
 import config from '../config/app';
 
+const debug = require('debug')('App:Server');
+
 // initialize express
 const server = express();
 const morgan = require('morgan');
-const debug = require('debug')('App:Server');
 
 server.use(morgan(server.get('env') === 'production' ? 'combined' : 'dev'));
 server.use(bodyParser.json());
