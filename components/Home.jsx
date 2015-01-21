@@ -1,8 +1,10 @@
 import React from 'react';
 import IntlMixin from 'react-intl';
 import { StoreMixin } from 'fluxible';
+import { assign, random } from 'lodash';
+import { BROWSER } from '../utils/env';
 import PhotosStore from '../stores/PhotosStore';
-import moment from 'moment';
+import Caption from './photos/Caption.jsx';
 
 const Home = React.createClass({
   mixins: [StoreMixin, IntlMixin],
@@ -12,25 +14,32 @@ const Home = React.createClass({
   },
 
   getInitialState() {
-    return this.getStore(PhotosStore).getState();
+    return this.getState();
   },
 
   onChange() {
-    const state = this.getStore(PhotosStore).getState();
-    this.setState(state);
+    this.setState(this.getState());
+  },
+
+  getState() {
+    const storeState = this.getStore(PhotosStore).getState();
+    return assign(storeState, {
+      currentIndex: 0
+    });
   },
 
   render() {
+    if (BROWSER) require('../style/components/home.scss');
 
-    if (require('../utils/env').BROWSER) {
-      require('../style/components/home.scss');
-    }
-
-    const bg = this.state.photos[0].image_url;
+    const { currentIndex, photos } = this.state;
+    const photo = photos[currentIndex];
 
     return (
-      <div className="home" style={{backgroundImage: `url(${bg})`}}>
-        
+      <div className="home" 
+        style={{backgroundImage: `url(${photo.image_url})`}}>
+        <div className="home__caption">
+          <Caption photo={photo} />
+        </div>
       </div>
     );
   }

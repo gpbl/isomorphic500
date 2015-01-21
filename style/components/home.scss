@@ -1,3 +1,5 @@
+@import "../units";
+
 .home {
   position: absolute;
   top: 0;
@@ -9,3 +11,11 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+  .home__caption {
+    position: absolute;
+    bottom: $baseUnit;
+    right: $baseUnit;
+    background-color: rgba(black, 0.5);
+    padding: $baseUnit;
+  }
