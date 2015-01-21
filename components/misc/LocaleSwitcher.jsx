@@ -8,6 +8,7 @@ import config from '../../config/app';
 import getIntl from '../../actions/getI18n';
 import env from '../../utils/env';
 
+import Select from '../form/Select.jsx';
 
 const LocaleSwitcher = React.createClass({
 
@@ -35,23 +36,22 @@ const LocaleSwitcher = React.createClass({
     return (
       <div className="locale-switcher">
         <label>
-          {this.getIntlMessage(`localeSwitcher.label`)}&nbsp;
-        <select 
-            value={this.state.currentLocale} 
-            onChange={this.handleLocaleChange}>
-          {
-            config.locales.map((locale) => {
-              // bug with server side rendering:
-              // https://github.com/facebook/react/issues/1398
-              return (
-                <option key={locale} value={locale} 
-                  selected={this.state.currentLocale === locale}>
-                  { this.getIntlMessage(`localeSwitcher.${locale}`) }
-                </option>
-              )
-            })
-          }
-        </select>
+          <Select 
+              value={this.state.currentLocale} 
+              onChange={this.handleLocaleChange}>
+            {
+              config.locales.map((locale) => {
+                // bug with server side rendering:
+                // https://github.com/facebook/react/issues/1398
+                return (
+                  <option key={locale} value={locale} 
+                    selected={this.state.currentLocale === locale}>
+                    { this.getIntlMessage(`localeSwitcher.${locale}`) }
+                  </option>
+                )
+              })
+            }
+          </Select>
         </label>
       </div>
     );
