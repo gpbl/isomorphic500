@@ -40,6 +40,7 @@ module.exports = {
 
     // write stats to the server directory
     function() { this.plugin('done', writeStats) }
-  ]
+  ],
+  devtool: 'eval'
 }
 
