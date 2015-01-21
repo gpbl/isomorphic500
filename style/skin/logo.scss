@@ -9,4 +9,8 @@ $logoHeight: 100px;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url('../../assets/images/logo.svg');
+  transition: all 0.2s;
+  &:hover {
+    filter: brightness(0.8);
+  }
 }
