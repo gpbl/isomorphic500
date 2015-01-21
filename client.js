@@ -1,8 +1,6 @@
 import React from 'react';
 import i18nLoader from './i18n/loader';
-
 import i18nHotReload from './i18n/hotReload';
-
 import app from './app';
 
 require('./style/main.scss');
@@ -40,12 +38,13 @@ function renderApp() {
 
 }
 
-// shim Intl for browser not supporting it
-if (typeof (Intl) === 'undefined') {
-  require.ensure(['intl/Intl'], (require) => {
-    require('intl/Intl');
-    renderApp();
-  }, 'intl');
-} else {
+// intl stuff
+import IntlMessageFormat from 'intl-messageformat';
+window.IntlMessageFormat = IntlMessageFormat;
+
+// load IntlPolyfill for intl-messageformat
+require.ensure(['intl/Intl'], (require) => {
+  var IntlPolyfill = require('intl/Intl');
+  window.IntlPolyfill = IntlPolyfill;
   renderApp();
-}
+}, 'intl');
