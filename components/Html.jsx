@@ -26,10 +26,10 @@ const Html = React.createClass({
           <title>{ title }</title>
           <meta name="viewport" content="width=device-width, user-scalable=no" />
           { 
-            webpackStats.mainChunks.map((chunkName) => {
+            webpackStats.mainChunks.map((chunkName, i) => {
               if (last(chunkName.split('.')) === 'css') {
                 const href = `${webpackStats.publicPath}${chunkName}`;
-                return <link rel="stylesheet"  type="text/css" href={ href } />;
+                return <link key={i} rel="stylesheet"  type="text/css" href={ href } />;
               }
             })
           }
@@ -38,10 +38,10 @@ const Html = React.createClass({
           <div id="mountNode" dangerouslySetInnerHTML={{__html: markup}} />
           <script dangerouslySetInnerHTML={{__html: state}}></script>
           { 
-            webpackStats.mainChunks.map((chunkName) => {
+            webpackStats.mainChunks.map((chunkName, i) => {
               if (last(chunkName.split('.')) === 'js') {
                 const src = `${webpackStats.publicPath}${chunkName}`;
-                return <script src={src} />;
+                return <script key={i} src={src} />;
               }
             })
           }
