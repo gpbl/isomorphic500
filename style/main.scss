@@ -1,5 +1,6 @@
 @import "colors";
 @import "units";
+@import "typo";
 
 * {
   box-sizing: border-box;
@@ -8,7 +9,8 @@
 body {
   color: $colorText;
   background-color: $colorBody;
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: $baseFont;
+  font-size: $baseFontSize;
 }
 
 body, h1, h2, h3, h4, h5, h6, p, ul {
