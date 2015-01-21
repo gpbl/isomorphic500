@@ -1,0 +1,44 @@
+@import "../../units";
+@import "../../colors";
+@import "../../typo";
+
+.select {
+  display: inline-block;
+  position: relative;
+  &:before {
+    // arrow
+    border-color: darken($colorText, 10) transparent transparent transparent;
+    border-style: solid;
+    border-width: 4px;
+    bottom: 0;
+    right: 6px;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: calc(50% - 2px);
+    transition: all $duration;
+  }
+  &:hover:before {
+    border-top-color: $colorText;
+  }
+}
+
+  .select__field {
+    cursor: pointer;
+    background-color: transparent;
+    -webkit-appearance: none;
+    color: darken($colorText, 10);
+    font-size: inherit;
+    border: 0;
+    display: block;
+    line-height: 2rem;
+    padding-right: ($baseUnit/2 + 12px);
+    padding-left: $baseUnit/2;
+    margin: 0;
+    position: relative;
+    font-family: $baseFont;
+    transition: all $duration;
+    &:hover {
+      color: $colorText;
+    }
+  }
