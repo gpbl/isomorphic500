@@ -7,11 +7,11 @@ module.exports = {
   // Create also a "lib" chunk with common libraries, e.g. react.
   entry: {
     lib: ['react', 'react-router'],
-    main: './client.jsx'
+    main: './app/routes/client.jsx'
   },
 
   output: {
-    path: './build/public/js',
+    path: './public/js',
     publicPath: '/js/',
     filename: 'main.js'
   },
@@ -36,9 +36,11 @@ module.exports = {
   },
 
   module: {
-    loaders: [{
-      test: /\.jsx$/, loaders: ['jsx']
-    }]
+    loaders: [
+      {
+        test: /\.jsx$/, loaders: ['jsx-loader?harmony']
+      }
+    ]
   },
 
   externals: {}

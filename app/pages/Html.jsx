@@ -13,7 +13,7 @@ render: function() {
         <script src="/js/lib.js"></script>
         <script src="/js/main.js"></script>
       </head>
-      <body dangerouslySetInnerHTML={{__html: this.props.markup}}></body>
+      <body>{this.props.children}</body>
       </html>
   );
 }

@@ -8,13 +8,13 @@ var routes = require('./routes.jsx');
 var Html   = require('../pages/Html.jsx');
 
 module.exports = function (req, res, next) {
-  Router.run(routes, req.url, function (Handler, state) {
-    
+  Router.run(routes, req.path, function (Handler, state) {
     var title  = DocumentTitle.rewind();
     // TODO: the next big thing...
     // var markup = React.renderToString(<Handler />);
-    var markup = '';
-    var html   = React.renderToStaticMarkup(<Html title={title} markup={markup} />);
+
+    // var markup = '';
+    var html   = React.renderToStaticMarkup(<Html title={title}><Handler /></Html>);
 
     // TODO: send 404 status code 
     // (see: https://github.com/gpbl/isomorphic-react-template/issues/3)

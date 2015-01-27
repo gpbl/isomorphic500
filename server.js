@@ -36,7 +36,7 @@ if (server.get('env') === 'development') {
 }
 
 // use react routes
-server.use('/', routes);
+server.get('/*', routes);
 
 // error pages
 server.use(function (err, req, res, next) {
