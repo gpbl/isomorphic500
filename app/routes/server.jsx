@@ -12,9 +12,9 @@ module.exports = function (req, res, next) {
     var title  = DocumentTitle.rewind();
 
     var html   = React.renderToStaticMarkup(
-        <Html title={title}>
-            <Handler />
-        </Html>
+      <Html title={title}>
+        <Handler />
+      </Html>
     );
 
     // TODO: send 404 status code 
