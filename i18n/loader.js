@@ -14,7 +14,7 @@ const loaders = {};
 loaders.it = function(done) {
   require.ensure([
     'intl/locale-data/jsonp/it.js',
-    'intl-messageformat/dist/locale-data/it.js';
+    'intl-messageformat/dist/locale-data/it.js',
     'moment/locale/it.js'
   ], (require) => {
     require('intl/locale-data/jsonp/it.js');
