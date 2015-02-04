@@ -6,6 +6,8 @@ A starting template for building an isomorphic single page app using [react.js](
 
 > This version does not include yet Flux. My efforts for making it working with Flux are in the [reflux branch](https://github.com/gpbl/isomorphic-react-template/tree/reflux).
 
+> There's also my [fluxible](https://github.com/yahoo/fluxible) take in the [fluxible-app branch](https://github.com/gpbl/isomorphic-react-template/tree/fluxible-app), where I'm trying to get an isomorphic app for browsing 500px photos.
+
 ### Main goals 
 
 - [x] React components are rendered on the server first, then mounted on the client.
