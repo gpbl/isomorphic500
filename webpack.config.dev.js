@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   // Entry point for static analyzer:
@@ -17,12 +18,13 @@ module.exports = {
     filename: 'main.js',
 
     // Path to use in HTML
-    publicPath: 'http://localhost:3001/js/'
+    publicPath: 'http://localhost:3001/static/'
   },
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('lib', 'lib.js')
+    new webpack.optimize.CommonsChunkPlugin('lib', 'lib.js'),
+    new ExtractTextPlugin("[name].css"),
   ],
 
   resolve: {
@@ -36,9 +38,11 @@ module.exports = {
       {
         test: /\.jsx$/,
         loaders: ['react-hot', 'jsx']
-      }
+      },
+      // Pass stylus files through loaders to generate required css files.
+      { test: /\.styl$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader') }
     ]
   },
-  devtool: "#inline-source-map",
+  // devtool: "#inline-source-map",
   externals: { }
 };

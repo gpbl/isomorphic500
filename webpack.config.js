@@ -1,6 +1,7 @@
 // Webpack configuration to use with the build task.
 
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -11,8 +12,8 @@ module.exports = {
   },
 
   output: {
-    path: './build/public/js',
-    publicPath: '/js/',
+    path: './build/public/static',
+    publicPath: '/static/',
     filename: 'main.js'
   },
 
@@ -28,7 +29,8 @@ module.exports = {
       compress: {
         warnings: false
       }
-    })
+    }),
+    new ExtractTextPlugin("[name].css"),
   ],
 
   resolve: {
@@ -38,7 +40,10 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx$/, loaders: ['jsx']
-    }]
+    }, 
+    // Pass stylus files through loaders to generate required css files.
+      { test: /\.styl$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader') }
+    ]
   },
 
   externals: {}

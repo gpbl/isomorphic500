@@ -30,8 +30,8 @@ if (app.get('env') === 'development') {
   // run livereload and webpack dev server
   require('./dev-tools');
   // use webpack dev server for serving js files
-  app.use('/js', function (req, res) {
-    res.redirect('http://localhost:3001/js' + req.path);
+  app.use('/static', function (req, res) {
+    res.redirect('http://localhost:3001/static' + req.path);
   });
 }
 
