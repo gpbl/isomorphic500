@@ -24,7 +24,7 @@ var webpackServer = new WebpackDevServer(webpack(webpackConfig), {
 
 // Render scss files
 var renderSass = function(filename) {
-  sass.renderFile({
+  sass.render({
     file: __dirname + '/style/main.scss',
     outFile: __dirname + '/public/css/main.css',
     sourceMap: true,
