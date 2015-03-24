@@ -2,13 +2,9 @@
 
 [![Join the chat at https://gitter.im/gpbl/isomorphic-react-template](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gpbl/isomorphic-react-template?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-A starting template for building an isomorphic single page app using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com) with a [Flux](http://facebook.github.io/flux/) architecture.
+A starting template for building an isomorphic single page app using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com).
 
-**Work in progress notice**
-
-> This version does not include yet Flux. My efforts for making it working with Flux are in the [reflux branch](https://github.com/gpbl/isomorphic-react-template/tree/reflux).
-
-> There's also my [fluxible](https://github.com/yahoo/fluxible) take in the [fluxible-app branch](https://github.com/gpbl/isomorphic-react-template/tree/fluxible-app), where I'm trying to get an isomorphic app for browsing 500px photos.
+This project is moving forward: see the [next steps](https://github.com/gpbl/isomorphic-react-template/issues/19).
 
 ### Main goals 
 
