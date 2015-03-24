@@ -1,5 +1,7 @@
 # isomorphic-react-template
 
+[![Join the chat at https://gitter.im/gpbl/isomorphic-react-template](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gpbl/isomorphic-react-template?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A starting template for building an isomorphic single page app using [react.js](http://www.reactjs.org) on [express](http://www.expressjs.com) with a [Flux](http://facebook.github.io/flux/) architecture.
 
 **Work in progress notice**
