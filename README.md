@@ -6,7 +6,7 @@ A starting template for building an isomorphic single page app using [react.js](
 
 This project is moving forward: see the [next steps](https://github.com/gpbl/isomorphic-react-template/issues/19).
 
-### Main goals 
+### Main goals
 
 - [x] React components are rendered on the server first, then mounted on the client.
 - [x] Share the same routes server and client-side with [react-router](https://github.com/rackt/react-router).
@@ -27,7 +27,7 @@ cd isomorphic-react-template
 npm install
 
 # Run the development server
-./scripts/dev
+npm start
 ```
 
 ## App structure
@@ -38,15 +38,15 @@ npm install
 │
 ├── server.jsx     # Send the server-rendered HTML document as response
 ├── client.jsx     # Entry point for the browser: mounts the <App /> component on document.body.
-├── routes.jsx     # Define the react-router handlers 
+├── routes.jsx     # Define the react-router handlers
 │
 ├── cachebuster.js # Used by express in production for serving cache-busted URLs
-│ 
+│
 ├── components     # React's components container
 │   ├── App.jsx    # The App component where the routes are mounted
 │   ├── Html.jsx   # Renders the whole HTML document server side (via server.jsx)
 │   ├── Index.jsx  # The "index" route (as example)
-│   └── Place.jsx  # The "place" route (as example) 
+│   └── Place.jsx  # The "place" route (as example)
 │
 ├── style           # Container for .scss files
 │
@@ -64,7 +64,7 @@ npm install
 
 ```
 
-## Development 
+## Development
 
 Routes are a key part of the app: read the [react-router](https://github.com/rackt/react-router) documentation to understand how the routes handlers work. You change the routes in [routes.jsx](routes.jsx).
 
