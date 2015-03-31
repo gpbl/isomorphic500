@@ -6,7 +6,7 @@ opinionated!
 
 ## Static files
 
-Client-side scripts (i.e. those loading the app on the browser), CSS files and assets (e.g. images) are always compiled, parsed and hashed (to avoid client-side caching) with Webpack.
+Static files, like images, are loaded and hashed with Webpack, to avoid client-side cache.
 
 On development, they are served using the [Webpack Dev Server](https://github.com/webpack/webpack-dev-server), so they can work with the hot module replacement.
 
@@ -14,6 +14,10 @@ In the production version, they are placed in a `public/assets` directory, then 
 
 
 ## Development
+
+### Webpack
+
+I use webpack as module bundler and assets loader. The entry file for the  client-side app is [app/client.js](app/client.js).
 
 ### ES6
 
@@ -23,7 +27,7 @@ During development with Sublime Text, I use [babel-sublime](https://github.com/b
 
 ### Linting
 
-I use [eslint](http://eslint.org) to lint my scripts, using the [this config](.eslintrc). I configured Sublime Text with [SublimeLinter](https://github.com/roadhump/SublimeLinter-eslint) to have a live linting on development.
+I use [eslint](http://eslint.org) with [this config](.eslintrc). I configured Sublime Text with [SublimeLinter](https://github.com/roadhump/SublimeLinter-eslint) to have a live linting while writing the code.
 
 Also, you can run:
 

@@ -6,7 +6,7 @@
 import fs from "fs";
 import path from "path";
 
-const filepath = path.join(__dirname, "../app", "webpack-stats.json");
+const filepath = path.join(__dirname, "../app/server", "webpack-stats.json");
 
 // Write only a relevant subset of the stats and attach the public path to it
 
