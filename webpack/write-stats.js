@@ -31,10 +31,12 @@ function writeStats(stats) {
       .map(chunk => `${publicPath}${chunk}`); // add public path to it
   }
 
-  const main = getChunks("main");
+  const script = getChunks("main", "js");
+  const css = getChunks("main", "css");
 
   const content = {
-    main: main
+    script: script,
+    css: css
   };
 
   fs.writeFileSync(filepath, JSON.stringify(content));

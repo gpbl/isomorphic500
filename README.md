@@ -1,6 +1,27 @@
-isomorphic-react-template reloaded
+# isomorphic500
 
-opinionated!
+Isomorphic app.
+
+To start the app run:
+
+```bash
+npm start
+```
+
+then open [localhost:3000](http://localhost:3000).
+
+
+### Build
+
+To run the built version:
+
+```bash
+npm run build   # build for production
+npm run prod    # run production version
+```
+
+then open [localhost:8080](http://localhost:8080).
+
 
 ## Application structure
 
@@ -17,7 +38,8 @@ In the production version, they are placed in a `public/assets` directory, then 
 
 ### Webpack
 
-I use webpack as module bundler and assets loader. The entry file for the  client-side app is [app/client.js](app/client.js).
+I use webpack as module bundler and assets loader. The entry file for the client-side app is [app/client.js](app/client.js).
+
 
 ### ES6
 
@@ -42,6 +64,6 @@ to lint from the command line.
 The app uses [debug](https://www.npmjs.com/package/debug) to log debug messages. You can enable/disable by setting an environment variable before running the server.o
 
 ```bash
-DEBUG=iso500,iso500:*,Fluxible node . # enable logging for iso500 and Fluxible
+DEBUG=isomorphic500,isomorphic500:*,Fluxible node . # enable logging for isomorphic500 and Fluxible
 DEBUG= node .                         # disable logging
 ```

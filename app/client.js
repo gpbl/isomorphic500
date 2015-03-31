@@ -5,7 +5,7 @@ import app from "./app";
 
 window.debug = require("debug");
 
-const debug = window.debug("iso500");
+const debug = window.debug("isomorphic500");
 
 const dehydratedState = window.App;
 const mountNode = document.getElementById("root");

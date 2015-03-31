@@ -4,15 +4,15 @@ import compression from "compression";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import favicon from "serve-favicon";
-import domainMiddleware from "express-domain-middleware";
+import domain from "express-domain-middleware";
 import morgan from "morgan";
 import csurf from "csurf";
 
 
 import webpackDevServer from "../webpack/dev-server";
-import renderMiddleware from "./server/renderMiddleware";
+import render from "./server/render";
 
-const debug = require("debug")("iso500");
+const debug = require("debug")("isomorphic500");
 
 // Initialize express server
 const server = express();
@@ -29,7 +29,7 @@ server.use(csurf({ cookie: true }));
 
 // Binds incoming requests responses from express to a nodejs domain
 // (helps with uncaught errors)
-server.use(domainMiddleware);
+server.use(domain);
 if (server.get("env") === "production") {
   // On production, use the public dir for static files
   // The public dir is created by webpack on build time.
@@ -39,7 +39,7 @@ if (server.get("env") === "production") {
 }
 
 // Render the app server-side and send it as response
-server.use(renderMiddleware);
+server.use(render);
 
 server.set("host", process.env.HOST || "localhost");
 server.set("port", process.env.PORT || 3000);

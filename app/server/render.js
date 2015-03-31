@@ -44,14 +44,15 @@ function renderApp(res, context) {
     <HtmlDocument
       state={state}
       markup={markup}
-      scripts={webpackStats.main}
+      script={webpackStats.script}
+      css={webpackStats.css}
     />
   );
   const doctype = "<!DOCTYPE html>";
   res.send(doctype + html);
 }
 
-function renderMiddleware(req, res) {
+function render(req, res) {
 
   // create a fluxible context
   const context = app.createContext({
@@ -88,4 +89,4 @@ function renderMiddleware(req, res) {
 
 }
 
-export default renderMiddleware;
+export default render;
