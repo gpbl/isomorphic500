@@ -6,24 +6,30 @@ import cookieParser from "cookie-parser";
 import favicon from "serve-favicon";
 import domainMiddleware from "express-domain-middleware";
 import morgan from "morgan";
+import csurf from "csurf";
+
+
 import webpackDevServer from "../webpack/dev-server";
+import renderMiddleware from "./server/renderMiddleware";
 
 const debug = require("debug")("iso500");
 
 // Initialize express server
 const server = express();
 
-// Usuall express stuff
+// Usual express stuff
 server.use(morgan(server.get("env") === "production" ? "combined" : "dev"));
 server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(compression());
 server.use(favicon(path.resolve(__dirname, "./assets/favicon.png")));
 
+// This is used by the fetchr plugin
+server.use(csurf({ cookie: true }));
+
 // Binds incoming requests responses from express to a nodejs domain
 // (helps with uncaught errors)
 server.use(domainMiddleware);
-
 if (server.get("env") === "production") {
   // On production, use the public dir for static files
   // The public dir is created by webpack on build time.
@@ -32,8 +38,8 @@ if (server.get("env") === "production") {
   }));
 }
 
-// app router
-// server.use(require("./server/router"));
+// Render the app server-side and send it as response
+server.use(renderMiddleware);
 
 server.set("host", process.env.HOST || "localhost");
 server.set("port", process.env.PORT || 3000);

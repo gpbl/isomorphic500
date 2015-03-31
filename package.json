@@ -18,7 +18,7 @@
     "flux"
   ],
   "author": "gpbl <io@gpbl.org> (https://github.com/gpbl)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/gpbl/isomorphic-react-template/issues"
   },
@@ -28,10 +28,18 @@
     "body-parser": "^1.12.2",
     "compression": "^1.4.3",
     "cookie-parser": "^1.3.4",
+    "csurf": "^1.7.0",
     "express": "^4.12.3",
     "express-domain-middleware": "^0.1.0",
     "favicon": "0.0.2",
+    "flux-router-component": "^0.6.1",
+    "fluxible": "^0.2.10",
+    "fluxible-plugin-fetchr": "^0.2.3",
+    "fluxible-plugin-routr": "^0.3.0",
     "morgan": "^1.5.2",
+    "react": "^0.13.1",
+    "react-tap-event-plugin": "^0.1.6",
+    "serialize-javascript": "^1.0.0",
     "serve-favicon": "^2.2.0"
   },
   "devDependencies": {

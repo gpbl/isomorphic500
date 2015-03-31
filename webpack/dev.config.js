@@ -1,3 +1,6 @@
+// This is the webpack config to use during development.
+// It enables the hot module replacement, the source maps and inline CSS styles.
+
 import path from "path";
 import webpack from "webpack";
 import writeStats from "./write-stats";
@@ -39,18 +42,13 @@ export default {
 
     new webpack.DefinePlugin({
       "process.env": {
-        BROWSER: true,
-        NODE_ENV: "development"
+        BROWSER: JSON.stringify(true),
+        NODE_ENV: JSON.stringify("development")
       }
     }),
 
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: "commons",
-      filename: "commons-[chunkhash].js",
-      minChunks: 2
-    }),
 
     // stats
     function() { this.plugin("done", notifyStats); },

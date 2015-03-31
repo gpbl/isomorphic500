@@ -8,7 +8,8 @@ import path from "path";
 
 const filepath = path.join(__dirname, "../app", "webpack-stats.json");
 
-// Write just a subsets of the stats
+// Write only a relevant subset of the stats and attach the public path to it
+
 function writeStats(stats) {
 
   const publicPath = this.options.output.publicPath;
@@ -20,25 +21,19 @@ function writeStats(stats) {
     ext = ext || "js";
     let chunk = json.assetsByChunkName[name];
 
+    // a chunk could be a string or an array, so make sure it is an array
     if (!(Array.isArray(chunk))) {
       chunk = [chunk];
     }
 
     return chunk
-      .filter(v => path.extname(v) === "." + ext)
-      .map(v => `${publicPath}${v}`);
+      .filter(chunk => path.extname(chunk) === `.${ext}`) // filter by extension
+      .map(chunk => `${publicPath}${chunk}`); // add public path to it
   }
 
-  // extract scripts
-  const commons = getChunks("commons"); // this must be loaded first in the html!
   const main = getChunks("main");
 
-  // extract css
-  const css = getChunks("main", "css");
-
   const content = {
-    css: css,
-    commons: commons,
     main: main
   };
 
