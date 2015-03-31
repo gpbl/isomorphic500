@@ -3,8 +3,8 @@
 
 import path from "path";
 import webpack from "webpack";
-import writeStats from "./write-stats";
-import notifyStats from "./notify-stats";
+import writeStats from "./plugins/write-stats";
+import notifyStats from "./plugins/notify-stats";
 
 const assetsPath = path.join(__dirname, "../public/assets");
 
@@ -17,7 +17,7 @@ export default {
     "main": [
       `webpack-dev-server/client?http://${WEBPACK_HOST}:${WEBPACK_PORT}`,
       "webpack/hot/only-dev-server",
-      "./app/client.js"
+      "./src/client.js"
     ]
   },
   output: {

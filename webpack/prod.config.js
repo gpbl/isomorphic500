@@ -4,7 +4,7 @@ require("babel/register");
 
 var path = require("path");
 var webpack = require("webpack");
-var writeStats = require("./write-stats");
+var writeStats = require("./plugins/write-stats");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var assetsPath = path.join(__dirname, "../public/assets");
@@ -12,7 +12,7 @@ var assetsPath = path.join(__dirname, "../public/assets");
 module.exports = {
   name: "Development",
   entry: {
-    "main": "./app/client.js"
+    "main": "./src/client.js"
   },
   output: {
     path: assetsPath,

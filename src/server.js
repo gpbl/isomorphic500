@@ -9,7 +9,7 @@ import morgan from "morgan";
 import csurf from "csurf";
 
 
-import webpackDevServer from "../webpack/dev-server";
+import webpackDevServer from "../webpack/server";
 import render from "./server/render";
 
 const debug = require("debug")("isomorphic500");

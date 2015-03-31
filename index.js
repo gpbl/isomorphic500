@@ -3,4 +3,4 @@
 require("babel/register");
 
 // Run the server-side app
-require("./app/server");
+require("./src/server");

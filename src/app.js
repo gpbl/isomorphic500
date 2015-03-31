@@ -1,5 +1,3 @@
-// This is the fluxible app, which register the stores and set the fluxible
-// plugins.
 
 import Fluxible from "fluxible";
 import fetchrPlugin from "fluxible-plugin-fetchr";
