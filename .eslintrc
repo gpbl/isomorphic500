@@ -1,16 +1,15 @@
 {
-
   "rules": {
     "no-undef": 1,
     "no-unused-expressions": 1,
-    "no-unused-vars": 1
+    "no-unused-vars": 1,
+    "strict": 0
   },
 
   "ecmaFeatures": {
     "modules": true,
     "jsx": true
   },
-
 
   "env": {
     "browser": true,

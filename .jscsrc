@@ -28,6 +28,7 @@
   "disallowKeywords": ["with"],
   "disallowMultipleLineBreaks": true,
   "disallowMultipleVarDecl": true,
+
   "requireSpaceBeforeBlockStatements": true,
   "requireParenthesesAroundIIFE": true,
   "requireSpacesInConditionalExpression": true,
@@ -41,9 +42,9 @@
   "requireDotNotation": true,
   "requireSpacesInForStatement": true,
   "requireSpaceBetweenArguments": true,
-  "requireCurlyBraces": [
-    "do"
-  ],
+  "requireKeywordsOnNewLine": ["else"],
+  "requireCurlyBraces": [ "do" ],
+  "requireSpaceBeforeKeywords": ["if"],
   "requireSpaceAfterKeywords": [
     "if",
     "else",
@@ -61,6 +62,7 @@
     "allExcept": "firstAfterCurly"
   },
   "requirePaddingNewLinesAfterBlocks": true,
+  "requirePaddingNewlinesBeforeKeywords": ["if"],
   "safeContextKeyword": "_this",
   "validateLineBreaks": "LF",
   "validateQuoteMarks": "\"",
