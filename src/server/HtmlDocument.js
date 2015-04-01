@@ -30,4 +30,11 @@ HtmlDocument.propTypes = {
   css: PropTypes.arrayOf(PropTypes.string)
 };
 
+HtmlDocument.defaultProps = {
+  state: "",
+  markup: "",
+  script: [],
+  css: []
+};
+
 export default HtmlDocument;

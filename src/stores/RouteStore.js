@@ -6,8 +6,8 @@ class RouteStore extends Fluxible.BaseStore {
 
   constructor(dispatcher) {
     super(dispatcher);
-    this.currentPageName = null; // used to display 404/500 errors
-    this.currentRoute = null;    // contains the route from the routes
+    this.currentRoute = null;
+    this.currentPageName = null;
     this.err = null;
   }
 
