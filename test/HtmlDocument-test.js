@@ -6,7 +6,7 @@ import { expect } from "chai";
 
 const TestUtils = React.addons.TestUtils;
 
-describe("HtmlDocument", () => {
+describe("server/HtmlDocument", () => {
 
   let css = ["http://example.com/main.css"];
   let js = ["http://example.com/main.js", "http://example.com/main.hot.js"];
@@ -18,6 +18,7 @@ describe("HtmlDocument", () => {
       if (err) {
         throw (err);
       }
+
       global.window = window;
       global.document = window.document;
       global.navigator = window.navigator;
@@ -25,7 +26,7 @@ describe("HtmlDocument", () => {
     });
   });
 
-  afterEach(function () {
+  afterEach(function() {
     delete global.window;
     delete global.document;
     delete global.navigator;
@@ -59,7 +60,6 @@ describe("HtmlDocument", () => {
 
     done();
   });
-
 
   it("includes css <link>s into <head>", (done) => {
     var htmlDoc = TestUtils.renderIntoDocument(
