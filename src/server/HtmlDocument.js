@@ -7,7 +7,7 @@ class HtmlDocument extends React.Component {
       <html>
         <head>
           { css.map((href, k) =>
-            <link key={k} rel="stylesheet" type="text/css" href={href} /> )
+            <link key={k} rel="stylesheet" type="text/css" href={href} />)
           }
         </head>
         <body>
@@ -24,8 +24,8 @@ class HtmlDocument extends React.Component {
 }
 
 HtmlDocument.propTypes = {
-  state: PropTypes.string.isRequired, // the exposed dehydrated state
-  markup: PropTypes.string.isRequired, // markup for the root node
+  state: PropTypes.string.isRequired,
+  markup: PropTypes.string.isRequired,
   script: PropTypes.arrayOf(PropTypes.string),
   css: PropTypes.arrayOf(PropTypes.string)
 };

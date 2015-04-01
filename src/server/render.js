@@ -21,6 +21,7 @@ function renderApp(res, context) {
 
   if (process.env.NODE_ENV === "development") {
     webpackStats = require("./webpack-stats.json");
+
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
     delete require.cache[require.resolve("./webpack-stats.json")];
@@ -55,10 +56,11 @@ function renderApp(res, context) {
 function render(req, res) {
 
   // create a fluxible context
+  // _csrf is needed by the fetchr plugin
   const context = app.createContext({
     req: req,
     xhrContext: {
-      _csrf: req.csrfToken() // needed by the fetchr plugin
+      _csrf: req.csrfToken()
     }
   });
 
@@ -80,6 +82,7 @@ function render(req, res) {
           renderApp(res, context);
         });
       }
+
       return;
     }
 

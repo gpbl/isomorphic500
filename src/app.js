@@ -13,7 +13,7 @@ import RouteStore from "./stores/RouteStore";
 
 const app = new Fluxible({
   component: Application,
-  componentActionHandler: function (context, payload, done) {
+  componentActionHandler(context, payload, done) {
     // This action handler will be called for actions executed in the component
     // context: it's the right place to intercept any error and
     // display the error page
@@ -26,8 +26,10 @@ const app = new Fluxible({
         console.log(err.stack || payload.err);
         context.executeAction(RouteActionCreators.show500, payload, done);
       }
+
       return;
     }
+
     done();
   }
 

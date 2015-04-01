@@ -16,6 +16,7 @@ app.rehydrate(dehydratedState, (err, context) => {
   if (err) {
     throw err;
   }
+
   const ApplicationComponent = app.getComponent();
   React.render(
     <FluxibleComponent context={context.getComponentContext()}>
@@ -25,5 +26,6 @@ app.rehydrate(dehydratedState, (err, context) => {
     () => {
       debug("Application has been mounted");
     }
+
   );
 });

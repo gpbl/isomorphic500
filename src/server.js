@@ -8,7 +8,6 @@ import domain from "express-domain-middleware";
 import morgan from "morgan";
 import csurf from "csurf";
 
-
 import webpackDevServer from "../webpack/server";
 import render from "./server/render";
 
