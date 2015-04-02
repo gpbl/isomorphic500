@@ -1,0 +1,160 @@
+{
+
+  "credits": {
+    "usernames": "http://fantasynamegenerators.com/",
+    "photos": "Own photos from my place :-)"
+  },
+
+  "users": [
+
+    {
+      "username": "frog",
+      "name": "Matriarch Frog",
+      "place": "The pond on the far right"
+    },
+
+    {
+      "username": "giraffe",
+      "name": "Roaring Giraffe",
+      "place": "Savanna Blue"
+    },
+
+    {
+      "username": "molly",
+      "name": "Abyssinian Molly",
+      "place": "Popular Aquarium"
+    },
+
+    {
+      "username": "kinkajou",
+      "name": "Pink Kinkajou",
+      "place": "Honduras"
+    }
+
+  ],
+
+  "photos": [
+
+    {
+      "id": 1,
+      "title": "Reef at Capo Caccia (Alghero)",
+      "filename": "reef-capo-caccia.jpg"
+    },
+
+    {
+      "id": 2,
+      "title": "An oak during spring",
+      "filename": "oak-tree.jpg"
+    },
+
+    {
+      "id": 3,
+      "title": "Hidden beach in Argentiera",
+      "filename": "argentiera.jpg"
+    },
+
+    {
+      "id": 4,
+      "title": "Mediterranean Sea",
+      "filename": "mediterranean-water.jpg"
+    },
+
+    {
+      "id": 5,
+      "title": "Cat surrounded by clover",
+      "filename": "silly-cat.jpg"
+    },
+
+    {
+      "id": 6,
+      "title": "Wild Daffodil",
+      "filename": "daffodil.jpg"
+    },
+
+    {
+      "id": 7,
+      "title": "Wild Daisies",
+      "filename": "daisies.jpg"
+    },
+
+    {
+      "id": 8,
+      "title": "Ruscus aculeatu",
+      "filename": "pungitopo.jpg"
+    },
+
+    {
+      "id": 9,
+      "title": "Mimosa blossom",
+      "filename": "mimosa.jpg"
+    },
+
+    {
+      "id": 10,
+      "title": "Cyclamen",
+      "filename": "cyclamen.jpg"
+    },
+
+    {
+      "id": 11,
+      "title": "Purple Orchid",
+      "filename": "orchid.jpg"
+    },
+
+    {
+      "id": 12,
+      "title": "A lake in the morning",
+      "filename": "lake.jpg"
+    },
+
+    {
+      "id": 13,
+      "title": "Curious sheeps",
+      "filename": "sheeps.jpg"
+    },
+
+    {
+      "id": 14,
+      "title": "Frittata with artichokes",
+      "filename": "frittata.jpg"
+    },
+
+    {
+      "id": 15,
+      "title": "Lemon marmalade, home made!",
+      "filename": "marmelade.jpg"
+    },
+
+    {
+      "id": 16,
+      "title": "Frittata with artichokes",
+      "filename": "frittata.jpg"
+    },
+
+    {
+      "id": 17,
+      "title": "Rough sea",
+      "filename": "rough-sea.jpg"
+    },
+
+    {
+      "id": 18,
+      "title": "Broom blossom",
+      "filename": "ginestra.jpg"
+    },
+
+    {
+      "id": 19,
+      "title": "Rough sea",
+      "filename": "rough-sea.jpg"
+    },
+
+    {
+      "id": 20,
+      "title": "Rocky mountain",
+      "filename": "rocky-mountain.jpg"
+    }
+
+  ]
+
+}
