@@ -11,7 +11,7 @@ It is built on [express](http://expressjs.com) using [React](https://facebook.gi
 The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux.
 
 - clone this repo and run the server to confirm it is actually working ;-)
-- edit a react component or a css style, and see the app to update as you save!
+- edit a react component or a css style, and see the updated app as you save your changes!
 - read on for some technical details
 - [write issues](https://github.com/gpbl/isomorphic500/issues) and [join the gitter chat](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) to discuss :-)
 
