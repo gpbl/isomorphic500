@@ -1,14 +1,18 @@
 # isomorphic500
 
+[![Join the chat at https://gitter.im/gpbl/isomorphic500](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Isomorphic500 is a small “isomorphic” Javascript app showing photos from [500px](http://500px.com).
 
 It is built on [express](http://expressjs.com) using [React](https://facebook.github.io/react) and [Flux](https://facebook.github.io/flux) with [yahoo/fluxible](http://fluxible.io). It is developed with [webpack](http://webpack.github.io) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) and written with [babeljs](http://babeljs.io) with the help of [eslint](http://eslint.org).
+
+<img src="https://cloud.githubusercontent.com/assets/120693/6989743/1ac490d8-da60-11e4-951e-9a0f5ed8bb75.png" width="700">
 
 The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux.
 
 - clone this repo to see it in action
 - read on for some technical details
-- write issues and join the gitter chat to discuss :-)
+- [write issues](https://github.com/gpbl/isomorphic500/issues) and [join the gitter chat](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) to discuss :-)
 
 > PS. The previous, non-flux version of this repo is in the [isomorphic-react-template] (https://github.com/gpbl/isomorphic500/tree/isomorphic-react-template) branch.
 
