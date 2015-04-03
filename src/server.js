@@ -62,10 +62,6 @@ if (server.get("env") === "development") {
   startDevServer();
 }
 
-// Start a mock server with mockaccino to use for our API requests
-
-// server.use("/service", mockServer);
-
 // Render the app server-side and send it as response
 
 server.use(render);
