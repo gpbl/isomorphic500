@@ -1,5 +1,31 @@
-@import './normalize';
+@import 'constants/colors';
+@import 'constants/typography';
+@import 'utils/normalize';
+
+html {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 
 body {
-  background: red;
+  color: $color-primary;
+  background: $color-white;
+
+  font-size: $font-size;
+  font-family: $font-family;
+  font-weight: 300;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+a {
+  color: $color-secondary;
+}
+
+h1 {
+  font-weight: 300;
+  text-align: center;
 }

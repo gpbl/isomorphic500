@@ -4,11 +4,11 @@
   "description": "Example of an isomorphic React app using fluxible and webpack",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development DEBUG=isomorphic500,isomorphic500:* node index",
+    "start": "NODE_ENV=development DEBUG=isomorphic500 node index",
     "linter": "eslint src && jscs src",
     "test": "mocha --compilers js:babel/register --recursive --reporter spec",
     "build": "webpack --stats --progress --colors --config ./webpack/prod.config.js",
-    "prod": "NODE_ENV=production PORT=8080 DEBUG=isomorphic500,isomorphic500:* node index",
+    "prod": "NODE_ENV=production PORT=8080 DEBUG=isomorphic500 node index",
     "coverage": "babel-node node_modules/.bin/isparta cover --report text node_modules/.bin/_mocha --reporter spec"
   },
   "repository": {
@@ -40,7 +40,7 @@
   },
   "homepage": "https://github.com/gpbl/isomorphic-react-template",
   "dependencies": {
-    "babel": "^4.7.16",
+    "babel": "^5.0.2",
     "body-parser": "^1.12.2",
     "compression": "^1.4.3",
     "cookie-parser": "^1.3.4",
@@ -53,19 +53,19 @@
     "fluxible-plugin-fetchr": "^0.2.3",
     "fluxible-plugin-routr": "^0.3.0",
     "lodash": "^3.6.0",
-    "mockaccino": "0.0.3",
     "morgan": "^1.5.2",
     "react": "^0.13.1",
-    "react-tap-event-plugin": "^0.1.6",
+    "react-document-title": "^1.0.2",
     "serialize-javascript": "^1.0.0",
-    "serve-favicon": "^2.2.0"
+    "serve-favicon": "^2.2.0",
+    "superagent": "^1.1.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^1.2.0",
-    "babel-core": "^4.7.16",
+    "babel-core": "^5.0.2",
     "babel-eslint": "^2.0.2",
     "babel-jest": "*",
-    "babel-loader": "^4.2.0",
+    "babel-loader": "^5.0.0",
     "chai": "^2.2.0",
     "css-loader": "^0.9.1",
     "debug": "^2.1.3",
@@ -78,7 +78,7 @@
     "mocha": "^2.2.1",
     "mocha-jsdom": "^0.2.1",
     "react-hot-loader": "^1.2.4",
-    "sass-loader": "0.4.0",
+    "sass-loader": "0.4.2",
     "style-loader": "^0.9.0",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.8.0"

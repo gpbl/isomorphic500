@@ -1,7 +1,7 @@
 
 import React from "react/addons";
 import HtmlDocument from "../src/server/HtmlDocument";
-import jsdom from "jsdom";
+import jsdom from "mocha-jsdom";
 import { expect } from "chai";
 
 const TestUtils = React.addons.TestUtils;
@@ -13,24 +13,7 @@ describe("server/HtmlDocument", () => {
   let state = "window.App = { state: true }";
   let markup = "<p>Hello world</p>";
 
-  beforeEach((done) => {
-    jsdom.env("<html><body></body></html>", [], (err, window) => {
-      if (err) {
-        throw (err);
-      }
-
-      global.window = window;
-      global.document = window.document;
-      global.navigator = window.navigator;
-      done();
-    });
-  });
-
-  afterEach(function() {
-    delete global.window;
-    delete global.document;
-    delete global.navigator;
-  });
+  jsdom();
 
   it("creates a div#root node into <body>", (done) => {
     var htmlDoc = TestUtils.renderIntoDocument(

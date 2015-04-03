@@ -6,7 +6,7 @@ import webpack from "webpack";
 import writeStats from "./plugins/write-stats";
 import notifyStats from "./plugins/notify-stats";
 
-const assetsPath = path.join(__dirname, "../public/assets");
+const assetsPath = path.resolve(__dirname, "../public/assets");
 
 const WEBPACK_HOST = "localhost";
 const WEBPACK_PORT = parseInt(process.env.PORT) + 1 || 3001;

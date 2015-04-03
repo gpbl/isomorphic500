@@ -4,6 +4,15 @@ import Actions from "../constants/Actions";
 
 class RouteStore extends Fluxible.BaseStore {
 
+  static storeName = "RouteStore"
+
+  static handlers = {
+    [Actions.CHANGE_ROUTE_SUCCESS]: "handleNavigate",
+    [Actions.CHANGE_ROUTE_START]: "changeRoute",
+    [Actions.STATUS_404]: "status404",
+    [Actions.STATUS_500]: "status500"
+  }
+
   constructor(dispatcher) {
     super(dispatcher);
     this.currentRoute = null;
@@ -12,25 +21,52 @@ class RouteStore extends Fluxible.BaseStore {
   }
 
   changeRoute(payload) {
-    this.currentRoute = payload;
+    if (this.currentRoute && this.currentRoute.url === payload.url) {
+      return;
+    }
+
+    this.currentRoute = payload || {};
+
+    this.err = null;
     this.currentRoute.isLoading = true;
+    this.currentPageName = null;
+
     this.emitChange();
   }
 
-  handleNavigate() {
+  handleNavigate(payload) {
+
+    if (payload.url !== this.currentRoute.url) {
+      // too late! This may happen when a route action has been finished
+      // after the route has changed again.
+      return;
+    }
+
     this.currentPageName = null;
+    this.err = null;
     this.currentRoute.isLoading = false;
+
     this.emitChange();
   }
 
   status404() {
     this.currentPageName = "404";
+
+    if (this.currentRoute) {
+      this.currentRoute.isLoading = false;
+    }
+
     this.emitChange();
   }
 
   status500(payload) {
     this.currentPageName = "500";
     this.err = payload.err;
+
+    if (this.currentRoute) {
+      this.currentRoute.isLoading = false;
+    }
+
     this.emitChange();
   }
 
@@ -40,6 +76,10 @@ class RouteStore extends Fluxible.BaseStore {
 
   getCurrentPageName() {
     return this.currentPageName;
+  }
+
+  getNavigationError() {
+    return this.err;
   }
 
   dehydrate() {
@@ -57,13 +97,5 @@ class RouteStore extends Fluxible.BaseStore {
   }
 
 }
-
-RouteStore.storeName = "RouteStore";
-RouteStore.handlers = {
-  [Actions.CHANGE_ROUTE_SUCCESS]: "handleNavigate",
-  [Actions.CHANGE_ROUTE_START]: "changeRoute",
-  [Actions.STATUS_404]: "status404",
-  [Actions.STATUS_500]: "status500"
-};
 
 export default RouteStore;

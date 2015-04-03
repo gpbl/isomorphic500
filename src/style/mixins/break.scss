@@ -1,0 +1,14 @@
+@import '../constants/breaks';
+
+@mixin break($device: 'tablet') {
+
+  $width: $break-tablet;
+
+  @if $device == 'desktop' {
+    $width: $break-desktop;
+  }
+
+  @media screen and (min-width: $width) {
+    @content;
+  }
+}

@@ -1,0 +1,18 @@
+@import 'constants/colors';
+
+.Thumbnail {
+  box-sizing: border-box;
+  width: 5rem;
+  height: 5rem;
+
+  border: 1px solid $color-white;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  transition: filter .25s;
+  &:hover {
+    filter: brightness(75%);
+  }
+}

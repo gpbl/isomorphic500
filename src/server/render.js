@@ -68,6 +68,8 @@ function render(req, res) {
 
     // If the navigate action sends an error, execute an action to make
     // the RouteStore register the error and show the relative page.
+    // This is the server-side version of the componentActionHandler in ../app.js
+
     if (err) {
       if (err.status === 404 || err.statusCode === 404) {
         res.status(404);

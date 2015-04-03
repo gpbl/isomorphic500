@@ -1,64 +1,147 @@
 # isomorphic500
 
-Isomorphic app.
+Isomorphic500 is a small “isomorphic” Javascript app showing photos from [500px](http://500px.com).
 
-To start the app run:
+It is built on [express](http://expressjs.com) using [React](https://facebook.github.io/react) and [Flux](https://facebook.github.io/flux) with [yahoo/fluxible](http://fluxible.io). It is developed with [webpack](http://webpack.github.io) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) and written with [babeljs](http://babeljs.io) with the help of [eslint](http://eslint.org).
+
+The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux.
+
+- clone this repo to see it in action
+- read on for some technical details
+- write issues and join the gitter chat to discuss :-)
+
+**Clone this repo**
+
+```
+git clone https://github.com/gpbl/isomorphic-500.git
+cd isomorphic-500
+npm install
+```
+
+**Start the app**
 
 ```bash
 npm start
 ```
 
-then open [localhost:3000](http://localhost:3000).
+and open [localhost:3000](http://localhost:3000).
 
-
-### Build
-
-To run the built version:
+You can also try the built app:
 
 ```bash
-npm run build   # build for production
-npm run prod    # run production version
+npm run build   # First, build for production
+npm run prod    # then, run the production version
 ```
 
 then open [localhost:8080](http://localhost:8080).
 
-
 ## Application structure
 
-## Static files
+```bash
+$ tree src
 
-Static files, like images, are loaded and hashed with Webpack, to avoid client-side cache.
+├── Application.js       # The root Application component
+├── actions              # Actions creators
+├── app.js               # The fluxible app
+├── assets               # Directory with static files
+├── client.js            # Entry point on the client
+├── components           # Contains the React components
+├── config.js            # Load the config on dev or prd
+├── constants            # Constants values (e.g. action types)
+├── pages                # Contains components as route handlers
+│   ...
+│   └── RouteActions.js  # Actions to execute before rendering a route
+├── routes.js            # Routeer config
+├── server               # Server-side-only code
+│   ├── HtmlDocument.js  # Components containing <html>...</html> page
+│   └── render.js        # Middleware to render HtmlDocument server-side
+├── server.js            # Run the express server, setup fetchr service
+├── services             # Fetchr service
+├── stores               # Flux stores
+├── style                # Contains the SASS styles
+└── utils                # Some useful utils
+```
 
-On development, they are served using the [Webpack Dev Server](https://github.com/webpack/webpack-dev-server), so they can work with the hot module replacement.
+### The fluxible app
 
-In the production version, they are placed in a `public/assets` directory, then served and cached by Express’ `static` directive.
+The [src/app.js](src/app.js) file is the core of the Fluxible application:
 
+- it configures Fluxible with [Application.js](src/Application.js) as the root component.
+- it registers the stores so they can work on the same React context
+- it adds the [routr plugin](https://github.com/yahoo/fluxible-plugin-routr) (the routing interface) and the [fetchr plugin]((https://github.com/yahoo/fluxible-plugin-fetchr)) (to share the same API requests both client and server-side)
+- it makes possible to dehydrate the stores [on the server](src/server/render.js) and rehydrate them [on the client](src/client.js)
+- it provides a `componentActionHandler` to make the app react to errors sent by flux actions
+
+### Async data
+
+I used [Fetchr](https://github.com/yahoo/fetchr) and the relative [fluxible-plugin-fetchr](https://github.com/yahoo/fluxible-plugin-fetchr).
+[Fetchr services](src/services) run only on server and send [superagent](http://visionmedia.github.com/superagent) requests to 500px.
+
+
+### Router
+
+Using [fluxible-plugin-routr](https://github.com/yahoo/fluxible-plugin-routr), I could keep the router in a "flux flow": the current route is stored in the [RouteStore](src/stores/RouteStore.js), and the [Application component](src/Application.js) listens to it to know which [page component](src/pages) should render.
+
+Before setting the route, this plugin can execute an action to prefill the stores with the required data. (see the `action` attributes in the routes’s [config](src/routes.js)).
+
+> Note that these actions can send an error to the `done()` callback, so that we can render an error page, as explained below in the "RouteStore" section.
+
+### Stores
+
+Some components do not listen to stores directly, but they are wrapped with an high-order component using the [connectToStores](src/utils/connectToStores.js) utility. See for example the [PhotoPage](src/pages/PhotoPage.js).
+
+(Thanks [@gaearon](https://github.com/gaearon) for exploring this technique [in his article](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750). The approach is also discussed in [this fluxible issue](https://github.com/yahoo/fluxible/issues/70)).
+
+#### Resource stores
+
+While REST API usually returns collections as arrays, resource stores keep their items as objects – like the [PhotoStore](src/stores/PhotoStore.js). This simplify how items are progressively updated during the app’s life.
+
+#### The RouteStore
+
+The [RouteStore](src/stores/RouteStore.js) keeps track of the current route.
+
+##### Loading state
+
+When a route is loading (e.g. waiting for the API response), the store attaches the `isLoading` property to the route object. The Application component will in this case render a Loader.
+
+##### Route errors
+
+A route error happens when a route is not found or when the service fetching critical data has returned an error.
+
+In these cases, the RouteStore set its `currentPageName` to `404` or `500`, so that the Application component can render a [`NotFoundPage`](src/pages/NotFoundPage.js) or an [`ErrorPage`](src/pages/ErrorPage.js).
+
+> Note that a not-found route may come from the router itself (i.e. the route is missing in the [config](src/routes.js)) but also when a route action sends to the callback an error with `{status: 404}`.
 
 ## Development
 
 ### Webpack
 
-I use [Webpack](http://webpack.github.io) as modules bundler and assets loader. The entry file for the client-side app is [src/client.js](src/client.js).
+Webpack is used as commonjs module bundler, css builder (using sass-loader) and assets loader (images and svg files).
 
-There're two webpack config: [dev.config.js](./webpack/dev.config.js) is for the development and [prod.config.js](./webpack/prod.config.js) for production.
+The [development config](./webpack/dev.config.js) enables source maps, the [Hot Module Replacement](http://webpack.github.io/docs/hot-module-replacement.html) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/). It loads CSS styles with `<style>` (css live reload). This config is used by the [webpack-dev-server](webpack/server.js) which serves the files bundled by Webpack.
 
-[Hot Module Replacement](http://webpack.github.io/docs/hot-module-replacement.html) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) are active when running the development environment: they will reload the app without refreshing the page in the browser! To enable this feature, I use the [Webpack Dev Server](https://github.com/webpack/webpack-dev-server).
+The [production config](./webpack/prod.config.js) is used to build the production version with `npm run build`: similar to the dev config, it minifies the JS files, removes the `debug` statements and produces an external `.css` file. Files are served from a express static directory (i.e. `/public/assets`).
 
-The CSS styles, written with Sass, are explicitly required from the React components. In the development version, they are injected in the document as inline `<style>`s, so they will hot-reload when I save them. When building for production, webpack will bundle them into a single CSS file.
+Both configs set a `process.env.BROWSER` global variable, useful to require CSS from the components, e.g:
 
-Webpack will also take care of other static files (e.g. images from the CSS), renaming them with an hash to skip the browser's cache.
+```js
+// MyComponent
+if (process.env.BROWSER) {
+  require('../style/MyComponent.scss');
+}
+```
 
-### ES6
+Files loaded by webpack are hashed. Javascript and CSS file names are [saved](webpack/plugins/write-stats.js) in a JSON file and passed to the [HtmlDocument](src/server/HtmlDocument.js) component from the [server/render](src/server/render.js) middleware.
 
-I use [Babel](https://babeljs.io/) to write the app in ES6. On the server, Babel transpiles the sources to ES5 using `require('babeljs/register')`. On the client, Webpack pre-compile them with the [babel-loader](https://github.com/babel/babel-loader).
+### Babeljs
 
-On Sublime Text, I installed [babel-sublime](https://github.com/babel/babel-sublime) to enjoy a full support of the modern Babel syntax!
+This app is written in Javascript-[Babel](https://babeljs.io/). Babel config is found in [.babelrc](.babelrc) (it only enables class properties). On Sublime Text, I installed [babel-sublime](https://github.com/babel/babel-sublime) to have full support of the Babel syntax!
 
 ### Linting
 
-I use [eslint](http://eslint.org) with [babel-eslint](https://github.com/babel/babel-eslint) and the [react plugin](https://github.com/yannickcr/eslint-plugin-react) – you can see the config in [.eslintrc](.eslintrc). I configured Sublime Text with [SublimeLinter](https://github.com/roadhump/SublimeLinter-eslint) for linting while writing the code. It's really a great thing!
+I use [eslint](http://eslint.org) with [babel-eslint](https://github.com/babel/babel-eslint) and the [react plugin](https://github.com/yannickcr/eslint-plugin-react) – config in [.eslintrc](.eslintrc). I also configured Sublime Text with [SublimeLinter-eslint](https://github.com/roadhump/SublimeLinter-eslint).
 
-For the code style, I'm experimenting with [jscs](http://jscs.info) using [a config](.jscsrc) inspired by Airbnb. There's even [a package](https://packagecontrol.io/packages/SublimeLinter-jscs) for Sublime.
+Code style with a [jscs](http://jscs.info) using [a config](.jscsrc) inspired by Airbnb's one. On Sublime Text, I installed [SublimeLinter-jscs](https://packagecontrol.io/packages/SublimeLinter-jscs).
 
 You can use this command to run both linters from the command line:
 
@@ -66,13 +149,11 @@ You can use this command to run both linters from the command line:
 npm run linter
 ```
 
-> Note: eslint may throw some warnings since JSX-support is not yet 100% ready.
+I use [SublimeLinter-scss-lint](https://github.com/attenzione/SublimeLinter-scss-lint) for linting the Sass files ([.scss-lint.yml](.scss-lint.yml)).
 
 ### Testing
 
-I'm still a beginner with unit testing a Flux/React app – so my tests may be flawed (please send some suggestions).
-
-After trying unsucessfully to use Facebook’s [jest](https://facebook.github.io/jest) (mainly because of [this issue](https://github.com/facebook/jest/issues/185)), I went with [mocha](http://mochajs.org), using [chai](http://chaijs.com) as assertion library.
+I'm still a beginner with Flux unit testing – so tests are missing :-) I use [mocha](http://mochajs.org), using [chai](http://chaijs.com) as assertion library.
 
 To run the tests, use this command:
 
@@ -88,16 +169,19 @@ npm run coverage
 
 ### Debugging
 
-The app uses [debug](https://www.npmjs.com/package/debug) to log debug messages. You can enable/disable it by setting the `DEBUG` environment variable before running the server:
+The app uses [debug](https://www.npmjs.com/package/debug) to log debug messages. You can enable/disable the logging from Node by setting the `DEBUG` environment variable before running the server:
 
 ```bash
 # enable logging for isomorphic500 and Fluxible
-DEBUG=isomorphic500,isomorphic500:*,Fluxible node index
+DEBUG=isomorphic500,Fluxible node index
 
 # disable logging
 DEBUG= node index
 ```
 
-## Caveats
+From the **browser**, you can enable/disable them by sending this command in the JavaScript console:
 
-- The latests version of `sass-loader` have some [troubles](https://github.com/jtangelder/sass-loader/issues/71), so i stick with `sass-loader@0.4.0` until they are fixed.
+```js
+debug.enable('isomorphic500')
+debug.disable()
+```

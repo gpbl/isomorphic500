@@ -1,12 +1,14 @@
+import Actions from "../constants/Actions";
+
 const RouteActionCreators = {
 
   show404(context, payload, done) {
-    context.dispatch("STATUS_404", payload);
+    context.dispatch(Actions.STATUS_404, payload);
     done();
   },
 
   show500(context, payload, done) {
-    context.dispatch("STATUS_500", payload);
+    context.dispatch(Actions.STATUS_500, payload);
     done();
   }
 

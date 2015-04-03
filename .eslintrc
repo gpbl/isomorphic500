@@ -3,7 +3,8 @@
     "no-undef": 1,
     "no-unused-expressions": 1,
     "no-unused-vars": 1,
-    "strict": 0
+    "strict": 0,
+    "camel_case": 2
   },
 
   "ecmaFeatures": {

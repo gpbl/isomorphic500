@@ -1,15 +1,33 @@
 import React, { PropTypes } from "react";
+import DocumentTitle from "react-document-title";
 
 class HtmlDocument extends React.Component {
+
+  static propTypes = {
+    state: PropTypes.string.isRequired,
+    markup: PropTypes.string.isRequired,
+    script: PropTypes.arrayOf(PropTypes.string),
+    css: PropTypes.arrayOf(PropTypes.string)
+  }
+
+  static defaultProps = {
+    state: "",
+    markup: "",
+    script: [],
+    css: []
+  }
+
   render() {
     const { state, markup, script, css } = this.props;
     return (
       <html>
         <head>
+          <title>{ DocumentTitle.rewind() }</title>
           { css.map((href, k) =>
             <link key={k} rel="stylesheet" type="text/css" href={href} />)
           }
         </head>
+
         <body>
           <div id="root" dangerouslySetInnerHTML={{__html: markup}} />
 
@@ -22,19 +40,5 @@ class HtmlDocument extends React.Component {
     );
   }
 }
-
-HtmlDocument.propTypes = {
-  state: PropTypes.string.isRequired,
-  markup: PropTypes.string.isRequired,
-  script: PropTypes.arrayOf(PropTypes.string),
-  css: PropTypes.arrayOf(PropTypes.string)
-};
-
-HtmlDocument.defaultProps = {
-  state: "",
-  markup: "",
-  script: [],
-  css: []
-};
 
 export default HtmlDocument;

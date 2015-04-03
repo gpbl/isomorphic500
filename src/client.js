@@ -12,10 +12,13 @@ const mountNode = document.getElementById("root");
 
 injectTapEventPlugin();
 
+debug("Rehydrating state...", dehydratedState);
 app.rehydrate(dehydratedState, (err, context) => {
   if (err) {
     throw err;
   }
+
+  debug("State has been rehydrated");
 
   const ApplicationComponent = app.getComponent();
   React.render(

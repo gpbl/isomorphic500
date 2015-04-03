@@ -1,11 +1,12 @@
 
 import React from "react/addons";
-import connectToStores from "../src/utils/connectToStores";
-import jsdom from "jsdom";
+import jsdom from "mocha-jsdom";
 import { expect } from "chai";
 
 import { FluxibleComponent } from "fluxible";
 import { createMockComponentContext } from "fluxible/utils";
+
+import connectToStores from "../src/utils/connectToStores";
 
 import FoobarStore from "./mocks/FoobarStore";
 import FooComponent from "./mocks/FooComponent";
@@ -23,24 +24,11 @@ describe("utils/connectToStores", () => {
     return foobarStore.getState();
   });
 
+  jsdom();
+
   beforeEach((done) => {
     componentContext = new MockComponentContext();
-    jsdom.env("<html><body></body></html>", [], (err, window) => {
-      if (err) {
-        throw (err);
-      }
-
-      global.window = window;
-      global.document = window.document;
-      global.navigator = window.navigator;
-      done();
-    });
-  });
-
-  afterEach(function() {
-    delete global.window;
-    delete global.document;
-    delete global.navigator;
+    done();
   });
 
   it("returns a component as wrapper", (done) => {
@@ -81,23 +69,6 @@ describe("utils/connectToStores", () => {
     const fooInstance = TestUtils.findRenderedComponentWithType(component, FooComponent);
 
     expect(fooInstance.props.originalFoo).to.equal("originalBar");
-
-    done();
-
-  });
-
-  it("the fluxibile context is passed to the component as prop", (done) => {
-    const component = TestUtils.renderIntoDocument(
-      <FluxibleComponent context={componentContext}>
-        <Component foo="bar" />
-      </FluxibleComponent>
-    );
-
-    const fooInstance = TestUtils.findRenderedComponentWithType(component, FooComponent);
-
-    expect(fooInstance.props).to.include.keys("bar");
-    expect(fooInstance.props.context.executeAction).to.be.a("function");
-    expect(fooInstance.props.context.getStore).to.be.a("function");
 
     done();
 
