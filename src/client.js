@@ -9,8 +9,6 @@ const debug = window.debug("isomorphic500");
 const dehydratedState = window.App;
 const mountNode = document.getElementById("root");
 
-injectTapEventPlugin();
-
 debug("Rehydrating state...", dehydratedState);
 app.rehydrate(dehydratedState, (err, context) => {
   if (err) {
