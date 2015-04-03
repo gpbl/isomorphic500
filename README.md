@@ -4,6 +4,8 @@ Isomorphic500 is a small “isomorphic” Javascript app showing photos from [50
 
 It is built on [express](http://expressjs.com) using [React](https://facebook.github.io/react) and [Flux](https://facebook.github.io/flux) with [yahoo/fluxible](http://fluxible.io). It is developed with [webpack](http://webpack.github.io) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) and written with [babeljs](http://babeljs.io) with the help of [eslint](http://eslint.org).
 
+<img src="https://cloud.githubusercontent.com/assets/120693/6989743/1ac490d8-da60-11e4-951e-9a0f5ed8bb75.png" width="700">
+
 The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux.
 
 - clone this repo to see it in action
