@@ -8,7 +8,7 @@ It is built on [express](http://expressjs.com) using [React](https://facebook.gi
 
 <img src="https://cloud.githubusercontent.com/assets/120693/6989743/1ac490d8-da60-11e4-951e-9a0f5ed8bb75.png" width="700">
 
-The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux.
+The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux. It is also an example of a javascript development environment with all the cool recent stuff.
 
 - clone this repo and run the server to confirm it is actually working ;-)
 - edit a react component or a css style, and see the updated app as you save your changes!
