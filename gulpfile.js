@@ -50,8 +50,7 @@ gulp.task('build', ['clean', 'sass', 'webpack', 'copy', 'bust'], function () {
 
 gulp.task('sass', function () {
   var filterCSS = filter('**/*.css');
-  return gulp.src(paths.sass)
-    .pipe(sass())
+  return sass(paths.sass)
     .on('error', notifyError)
     .pipe(filterCSS)
     .pipe(autoprefixer())
