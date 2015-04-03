@@ -95,13 +95,13 @@ Before setting the route, this plugin can execute an action to prefill the store
 
 ### Stores
 
-Some components do not listen to stores directly, but they are wrapped with an high-order component using the [connectToStores](src/utils/connectToStores.js) utility. See for example the [PhotoPage](src/pages/PhotoPage.js).
+Some components do not listen to stores directly, they are instead wrapped with an high-order component using the [connectToStores](src/utils/connectToStores.js) utility. See for example the [PhotoPage](src/pages/PhotoPage.js).
 
 (Thanks [@gaearon](https://github.com/gaearon) for exploring this technique [in his article](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750). The approach is also discussed in [this fluxible issue](https://github.com/yahoo/fluxible/issues/70)).
 
 #### Resource stores
 
-While REST API usually returns collections as arrays, resource stores keep their items as objects – like the [PhotoStore](src/stores/PhotoStore.js). This simplify how items are progressively updated during the app’s life.
+While REST APIs usually return collections as arrays, a resource store keeps the items organized in an object – like the [PhotoStore](src/stores/PhotoStore.js). This simplifies the progressive updates that may happen during the app’s life.
 
 #### The RouteStore
 
@@ -109,7 +109,7 @@ The [RouteStore](src/stores/RouteStore.js) keeps track of the current route.
 
 ##### Loading state
 
-When a route is loading (e.g. waiting for the API response), the store attaches the `isLoading` property to the route object. The Application component will in this case render a Loader.
+When a route is loading (e.g. waiting for the API response), the store set the `isLoading` property to the route object. The Application component will then render a Loader until the route is finished to load.
 
 ##### Route errors
 
@@ -125,7 +125,7 @@ In these cases, the RouteStore set its `currentPageName` to `404` or `500`, so t
 
 Webpack is used as commonjs module bundler, css builder (using sass-loader) and assets loader (images and svg files).
 
-The [development config](./webpack/dev.config.js) enables source maps, the [Hot Module Replacement](http://webpack.github.io/docs/hot-module-replacement.html) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/). It loads CSS styles with `<style>` (css live reload). This config is used by the [webpack-dev-server](webpack/server.js) which serves the files bundled by Webpack.
+The [development config](./webpack/dev.config.js) enables source maps, the [Hot Module Replacement](http://webpack.github.io/docs/hot-module-replacement.html) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/). It loads CSS styles with `<style>`, to enable styles live reload). This config is used by the [webpack-dev-server](webpack/server.js), serving the files bundled by Webpack.
 
 The [production config](./webpack/prod.config.js) is used to build the production version with `npm run build`: similar to the dev config, it minifies the JS files, removes the `debug` statements and produces an external `.css` file. Files are served from a express static directory (i.e. `/public/assets`).
 
@@ -142,13 +142,13 @@ Files loaded by webpack are hashed. Javascript and CSS file names are [saved](we
 
 ### Babeljs
 
-This app is written in Javascript-[Babel](https://babeljs.io/). Babel config is found in [.babelrc](.babelrc) (it only enables class properties). On Sublime Text, I installed [babel-sublime](https://github.com/babel/babel-sublime) to have full support of the Babel syntax!
+This app is written in Javascript-[Babel](https://babeljs.io/). Babel config is in [.babelrc](.babelrc) (it only enables class properties). On Sublime Text, I installed [babel-sublime](https://github.com/babel/babel-sublime) to have full support of the Babel syntax!
 
 ### Linting
 
 I use [eslint](http://eslint.org) with [babel-eslint](https://github.com/babel/babel-eslint) and the [react plugin](https://github.com/yannickcr/eslint-plugin-react) – config in [.eslintrc](.eslintrc). I also configured Sublime Text with [SublimeLinter-eslint](https://github.com/roadhump/SublimeLinter-eslint).
 
-Code style with a [jscs](http://jscs.info) using [a config](.jscsrc) inspired by Airbnb's one. On Sublime Text, I installed [SublimeLinter-jscs](https://packagecontrol.io/packages/SublimeLinter-jscs).
+Code style with [jscs](http://jscs.info) using [a config](.jscsrc) inspired by Airbnb's one. On Sublime Text, I installed [SublimeLinter-jscs](https://packagecontrol.io/packages/SublimeLinter-jscs).
 
 You can use this command to run both linters from the command line:
 
