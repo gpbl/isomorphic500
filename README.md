@@ -10,7 +10,7 @@ The intent of this project is to solidify my experience with these technologies 
 - read on for some technical details
 - write issues and join the gitter chat to discuss :-)
 
-> PS. The previous, non-flux version of this repo is in the [isomorphic-react-template] (https://github.com/gpbl/isomorphic500/tree/isomorphic-react-template) tag.
+> PS. The previous, non-flux version of this repo is in the [isomorphic-react-template] (https://github.com/gpbl/isomorphic500/tree/isomorphic-react-template) branch.
 
 **Clone this repo**
 
