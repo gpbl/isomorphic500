@@ -1,15 +1,15 @@
 import React from "react";
-import { FluxibleComponent } from "fluxible";
 import app from "./app";
 
 window.debug = require("debug");
 
 const debug = window.debug("isomorphic500");
 
-const dehydratedState = window.App;
 const mountNode = document.getElementById("root");
+const dehydratedState = window.App;
 
 debug("Rehydrating state...", dehydratedState);
+
 app.rehydrate(dehydratedState, (err, context) => {
   if (err) {
     throw err;
@@ -17,15 +17,9 @@ app.rehydrate(dehydratedState, (err, context) => {
 
   debug("State has been rehydrated");
 
-  const ApplicationComponent = app.getComponent();
-  React.render(
-    <FluxibleComponent context={context.getComponentContext()}>
-      <ApplicationComponent />
-    </FluxibleComponent>,
-    mountNode,
-    () => {
-      debug("Application has been mounted");
-    }
+  const Application = app.getComponent();
 
-  );
+  React.render(<Application context={context.getComponentContext()} />, mountNode, () => {
+    debug("Application has been mounted");
+  });
 });

@@ -1,7 +1,8 @@
 import React, { PropTypes } from "react";
-import { FluxibleMixin } from "fluxible";
+import { provideContext, connectToStores } from "fluxible/addons";
+
 import { RouterMixin } from "flux-router-component";
-import DocumentTitle from 'react-document-title';
+import DocumentTitle from "react-document-title";
 
 import Page from "./components/Page";
 
@@ -17,38 +18,34 @@ if (process.env.BROWSER) {
   require("./style/Loader.scss");
 }
 
-const Application = React.createClass({
+let Application = React.createClass({
 
   propTypes: {
+    context: PropTypes.object.isRequired,
     pageName: PropTypes.string,
-    route: PropTypes.object
+    route: PropTypes.object,
+    err: PropTypes.object
   },
 
-  statics: {
-    storeListeners: ["RouteStore"]
-  },
-
-  mixins: [FluxibleMixin, RouterMixin],
-
+  // RouterMixin needs the route in the component state
   getInitialState() {
-    return this.getStateFromStores();
-  },
-
-  getStateFromStores() {
-    const routeStore = this.getStore("RouteStore");
     return {
-      pageName: routeStore.getCurrentPageName(),
-      route: routeStore.getCurrentRoute(),
-      err: routeStore.getNavigationError()
+      route: this.props.route
     };
   },
 
-  onChange() {
-    this.setState(this.getStateFromStores());
+  componentWillReceiveProps(nextProps) {
+    if (this.props.route.url !== nextProps.route.url) {
+      this.setState({
+        route: nextProps.route
+      });
+    }
   },
 
+  mixins: [RouterMixin],
+
   render() {
-    const { pageName, route, err } = this.state;
+    const { pageName, route, err } = this.props;
     return (
       <DocumentTitle title="isomorphic500">
         <Page>
@@ -87,7 +84,7 @@ const Application = React.createClass({
         RouteHandler = <PhotoPage id={route.params.id} />;
       break;
       default:
-        console.warn(`Missing route handler route with name ${route.name}`);
+        console.warn(`Missing handler for route with name ${route.name}`);
         RouteHandler = <NotFoundPage />;
       break;
     }
@@ -96,5 +93,16 @@ const Application = React.createClass({
   }
 
 });
+
+Application = connectToStores(Application, ["RouteStore"], {
+  RouteStore: (store) => ({
+    pageName: store.getCurrentPageName(),
+    route: store.getCurrentRoute(),
+    err: store.getNavigationError()
+  })
+});
+
+// wrap application in the fluxible context
+Application = provideContext(Application);
 
 export default Application;

@@ -49,7 +49,7 @@
     "express-domain-middleware": "^0.1.0",
     "favicon": "0.0.2",
     "flux-router-component": "^0.6.1",
-    "fluxible": "^0.3.3",
+    "fluxible": "^0.4.1",
     "fluxible-plugin-fetchr": "^0.2.3",
     "fluxible-plugin-routr": "^0.3.0",
     "lodash": "^3.6.0",

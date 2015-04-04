@@ -1,7 +1,7 @@
 import React,  { PropTypes } from "react";
 import DocumentTitle from 'react-document-title';
 
-import connectToStores from "../utils/connectToStores";
+import { connectToStores } from "fluxible/addons";
 import PhotoAttribution from '../components/PhotoAttribution';
 import Photo from '../components/Photo';
 
@@ -27,10 +27,8 @@ class PhotoPage extends React.Component {
 
 }
 
-PhotoPage = connectToStores(PhotoPage, ["PhotoStore"], (photoStore, props) => {
-  return {
-    photo: photoStore.get(props.id)
-  }
+PhotoPage = connectToStores(PhotoPage, ["PhotoStore"], {
+  PhotoStore: (store, props) => ({ photo: store.get(props.id) })
 })
 
 export default PhotoPage;

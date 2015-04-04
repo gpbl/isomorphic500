@@ -3,7 +3,7 @@
 
 import React from "react";
 import serialize from "serialize-javascript";
-import { FluxibleComponent } from "fluxible";
+
 import { navigateAction } from "flux-router-component";
 
 import app from "../app";
@@ -30,13 +30,11 @@ function renderApp(res, context) {
   // dehydrate the app and expose its state
   const state = "window.App=" + serialize(app.dehydrate(context)) + ";";
 
-  const ApplicationComponent = app.getComponent();
+  const Application = app.getComponent();
 
-  // Render the Application to string using the fluxible context
+  // Render the Application to string
   const markup = React.renderToString(
-    <FluxibleComponent context={context.getComponentContext()}>
-      <ApplicationComponent />
-    </FluxibleComponent>
+    <Application context={ context.getComponentContext() } />
   );
 
   // The application component is rendered to static markup
