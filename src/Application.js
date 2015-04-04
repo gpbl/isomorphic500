@@ -8,6 +8,7 @@ import Page from "./components/Page";
 
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorPage from "./pages/ErrorPage";
+import LoadingPage from "./pages/LoadingPage";
 import PhotoPage from "./pages/PhotoPage";
 import FeaturedPage from "./pages/FeaturedPage";
 
@@ -17,7 +18,6 @@ const debug = require("debug")("isomorphic500");
 
 if (process.env.BROWSER) {
   require("./style/Application.scss");
-  require("./style/Loader.scss");
 }
 
 let Application = React.createClass({
@@ -65,9 +65,7 @@ let Application = React.createClass({
               <ErrorPage err={err} /> :
 
             route.isLoading ?
-              <DocumentTitle title="Page is loading...">
-                <div className="Loader" />
-              </DocumentTitle> :
+              <LoadingPage /> :
 
             this.renderRoute(route)
 
