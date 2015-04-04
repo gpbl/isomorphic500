@@ -12,8 +12,6 @@ import app from "./app";
 import config from "./config";
 import render from "./server/render";
 
-const debug = require("debug")("isomorphic500");
-
 // Initialize express server
 
 const server = express();

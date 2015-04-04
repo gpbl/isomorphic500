@@ -1,8 +1,8 @@
-import React from 'react';
-import { NavLink } from 'flux-router-component';
+import React from "react";
+import { NavLink } from "flux-router-component";
 
 if (process.env.BROWSER) {
-  require('../style/Footer.scss');
+  require("../style/Footer.scss");
 }
 
 class Footer extends React.Component {
@@ -11,10 +11,10 @@ class Footer extends React.Component {
     return (
       <div className="Footer">
         <div className="Footer-disclaimer">
-          Photos copyright of their respective authors.
+          Photos copyrights of their respective authors.
         </div>
         <div>
-          <strong>isomorphic500</strong>. <a href="https://github.com/gpbl/isomorphic500">See this project’s page</a> or try something
+          <strong>isomorphic500</strong>. <a href="https://github.com/gpbl/isomorphic500">See the project’s page</a> or try something
           exciting: <NavLink className="Footer-link" routeName="bad">a bad route</NavLink> or <NavLink className="Footer-link" routeName="photo" navParams={{id: 100000000000}}>an unexisting photo</NavLink>
         </div>
       </div>
