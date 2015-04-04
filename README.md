@@ -2,15 +2,16 @@
 
 [![Join the chat at https://gitter.im/gpbl/isomorphic500](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Isomorphic500 is a small “isomorphic” Javascript app showing photos from [500px](http://500px.com).
+Isomorphic500 is a small isomorphic Javascript app showing photos from [500px](http://500px.com).
 
 It is built on [express](http://expressjs.com) using [React](https://facebook.github.io/react) and [Flux](https://facebook.github.io/flux) with [yahoo/fluxible](http://fluxible.io). It is developed with [webpack](http://webpack.github.io) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) and written with [babeljs](http://babeljs.io) with the help of [eslint](http://eslint.org).
 
 <img src="https://cloud.githubusercontent.com/assets/120693/6989743/1ac490d8-da60-11e4-951e-9a0f5ed8bb75.png" width="700">
 
-The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux.
+The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux. It is also an example of a javascript development environment with all the cool recent stuff.
 
-- clone this repo to see it in action
+- clone this repo and run the server to confirm it is actually working ;-)
+- edit a react component or a css style, and see the updated app as you save your changes!
 - read on for some technical details
 - [write issues](https://github.com/gpbl/isomorphic500/issues) and [join the gitter chat](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) to discuss :-)
 
@@ -48,23 +49,24 @@ $ tree src
 
 ├── Application.js       # The root Application component
 ├── actions              # Actions creators
-├── app.js               # The fluxible app
-├── assets               # Directory with static files
-├── client.js            # Entry point on the client
-├── components           # Contains the React components
+├── app.js               # The Fluxible app
+├── assets               # Dir with static files
+├── client.js            # Entry point for the client
+├── components           # React components
 ├── config.js            # Load the config on dev or prd
 ├── constants            # Constants values (e.g. action types)
-├── pages                # Contains components as route handlers
+├── pages                # Contains route handlers components
 │   ...
-│   └── RouteActions.js  # Actions to execute before rendering a route
-├── routes.js            # Routeer config
+│   └── RouteActions.js  # Actions executed when rendering a route
+├── public               # Only in prod: contains static assets loaded with webpack
+├── routes.js            # Routes config
 ├── server               # Server-side-only code
 │   ├── HtmlDocument.js  # Components containing <html>...</html> page
 │   └── render.js        # Middleware to render HtmlDocument server-side
 ├── server.js            # Run the express server, setup fetchr service
-├── services             # Fetchr service
+├── services             # Fetchr services (e.g. load data from 500px API)
 ├── stores               # Flux stores
-├── style                # Contains the SASS styles
+├── style                # Contains the Sass styles
 └── utils                # Some useful utils
 ```
 
@@ -94,13 +96,13 @@ Before setting the route, this plugin can execute an action to prefill the store
 
 ### Stores
 
-Some components do not listen to stores directly, but they are wrapped with an high-order component using the [connectToStores](src/utils/connectToStores.js) utility. See for example the [PhotoPage](src/pages/PhotoPage.js).
+Some components do not listen to stores directly, they are instead wrapped with an high-order component using the [connectToStores](src/utils/connectToStores.js) utility. See for example the [PhotoPage](src/pages/PhotoPage.js).
 
 (Thanks [@gaearon](https://github.com/gaearon) for exploring this technique [in his article](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750). The approach is also discussed in [this fluxible issue](https://github.com/yahoo/fluxible/issues/70)).
 
 #### Resource stores
 
-While REST API usually returns collections as arrays, resource stores keep their items as objects – like the [PhotoStore](src/stores/PhotoStore.js). This simplify how items are progressively updated during the app’s life.
+While REST APIs usually return collections as arrays, a resource store keeps the items organized in an object – like the [PhotoStore](src/stores/PhotoStore.js). This simplifies the progressive updates that may happen during the app’s life.
 
 #### The RouteStore
 
@@ -108,7 +110,7 @@ The [RouteStore](src/stores/RouteStore.js) keeps track of the current route.
 
 ##### Loading state
 
-When a route is loading (e.g. waiting for the API response), the store attaches the `isLoading` property to the route object. The Application component will in this case render a Loader.
+When a route is loading (e.g. waiting for the API response), the store set the `isLoading` property to the route object. The Application component will then render a Loader until the route is finished to load.
 
 ##### Route errors
 
@@ -124,7 +126,7 @@ In these cases, the RouteStore set its `currentPageName` to `404` or `500`, so t
 
 Webpack is used as commonjs module bundler, css builder (using sass-loader) and assets loader (images and svg files).
 
-The [development config](./webpack/dev.config.js) enables source maps, the [Hot Module Replacement](http://webpack.github.io/docs/hot-module-replacement.html) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/). It loads CSS styles with `<style>` (css live reload). This config is used by the [webpack-dev-server](webpack/server.js) which serves the files bundled by Webpack.
+The [development config](./webpack/dev.config.js) enables source maps, the [Hot Module Replacement](http://webpack.github.io/docs/hot-module-replacement.html) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/). It loads CSS styles with `<style>`, to enable styles live reload). This config is used by the [webpack-dev-server](webpack/server.js), serving the files bundled by Webpack.
 
 The [production config](./webpack/prod.config.js) is used to build the production version with `npm run build`: similar to the dev config, it minifies the JS files, removes the `debug` statements and produces an external `.css` file. Files are served from a express static directory (i.e. `/public/assets`).
 
@@ -141,13 +143,13 @@ Files loaded by webpack are hashed. Javascript and CSS file names are [saved](we
 
 ### Babeljs
 
-This app is written in Javascript-[Babel](https://babeljs.io/). Babel config is found in [.babelrc](.babelrc) (it only enables class properties). On Sublime Text, I installed [babel-sublime](https://github.com/babel/babel-sublime) to have full support of the Babel syntax!
+This app is written in Javascript-[Babel](https://babeljs.io/). Babel config is in [.babelrc](.babelrc) (it only enables class properties). On Sublime Text, I installed [babel-sublime](https://github.com/babel/babel-sublime) to have full support of the Babel syntax!
 
 ### Linting
 
 I use [eslint](http://eslint.org) with [babel-eslint](https://github.com/babel/babel-eslint) and the [react plugin](https://github.com/yannickcr/eslint-plugin-react) – config in [.eslintrc](.eslintrc). I also configured Sublime Text with [SublimeLinter-eslint](https://github.com/roadhump/SublimeLinter-eslint).
 
-Code style with a [jscs](http://jscs.info) using [a config](.jscsrc) inspired by Airbnb's one. On Sublime Text, I installed [SublimeLinter-jscs](https://packagecontrol.io/packages/SublimeLinter-jscs).
+Code style with [jscs](http://jscs.info) using [a config](.jscsrc) inspired by Airbnb's one. On Sublime Text, I installed [SublimeLinter-jscs](https://packagecontrol.io/packages/SublimeLinter-jscs).
 
 You can use this command to run both linters from the command line:
 
