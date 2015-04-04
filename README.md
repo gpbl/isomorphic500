@@ -1,6 +1,6 @@
 # isomorphic500
 
-[Isomorphic500](https://isomorphic500.herokuapp.com) is a small isomorphic Javascript app showing photos from [500px](http://500px.com).
+[Isomorphic500](https://isomorphic500.herokuapp.com) is a small isomorphic web application featuring photos from [500px](http://500px.com).
 
 It is built on [express](http://expressjs.com) using [React](https://facebook.github.io/react) and [Flux](https://facebook.github.io/flux) with [yahoo/fluxible](http://fluxible.io). It is developed with [webpack](http://webpack.github.io) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) and written with [babeljs](http://babeljs.io) with the help of [eslint](http://eslint.org).
 
