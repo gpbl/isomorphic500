@@ -6,7 +6,8 @@ export default {
 
   read(req, resource, params, config, done) {
     get("/photos", {
-      image_size: params.imageSize || 4,
+      feature: params.feature,
+      image_size: params.imageSize || 4
     }, done);
   }
 };
