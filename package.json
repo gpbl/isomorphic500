@@ -26,17 +26,8 @@
   "bugs": {
     "url": "https://github.com/gpbl/isomorphic-react-template/issues"
   },
-  "jest": {
-    "scriptPreprocessor": "./node_modules/babel-jest",
-    "testFileExtensions": [
-      "js"
-    ],
-    "modulePathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "moduleFileExtensions": [
-      "js"
-    ]
+  "engines": {
+    "node": "0.12.x"
   },
   "homepage": "https://github.com/gpbl/isomorphic-react-template",
   "dependencies": {
