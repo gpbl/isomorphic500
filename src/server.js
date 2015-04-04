@@ -10,7 +10,6 @@ import csurf from "csurf";
 
 import app from "./app";
 import config from "./config";
-import startDevServer from "../webpack/server";
 import render from "./server/render";
 
 const debug = require("debug")("isomorphic500");
@@ -59,7 +58,7 @@ if (server.get("env") === "production") {
 // On development, serve the static files from the webpack dev server.
 
 if (server.get("env") === "development") {
-  startDevServer();
+  require("../webpack/server")();
 }
 
 // Render the app server-side and send it as response

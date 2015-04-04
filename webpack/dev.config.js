@@ -3,8 +3,8 @@
 
 import path from "path";
 import webpack from "webpack";
-import writeStats from "./plugins/write-stats";
-import notifyStats from "./plugins/notify-stats";
+import writeStats from "./utils/write-stats";
+import notifyStats from "./utils/notify-stats";
 
 const assetsPath = path.resolve(__dirname, "../public/assets");
 
@@ -12,7 +12,7 @@ const WEBPACK_HOST = "localhost";
 const WEBPACK_PORT = parseInt(process.env.PORT) + 1 || 3001;
 
 export default {
-  name: "Development",
+  devtool: "eval",
   entry: {
     "main": [
       `webpack-dev-server/client?http://${WEBPACK_HOST}:${WEBPACK_PORT}`,
@@ -34,7 +34,7 @@ export default {
     ]
   },
   progress: true,
-  plugins: [
+  utils: [
 
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
@@ -60,6 +60,6 @@ export default {
     // stats
     function() { this.plugin("done", notifyStats); },
     function() { this.plugin("done", writeStats); }
-  ],
-  devtool: "eval"
+
+  ]
 };
