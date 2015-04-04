@@ -28,7 +28,7 @@ npm install
 **Start the app**
 
 ```bash
-npm start
+npm run dev
 ```
 
 and open [localhost:3000](http://localhost:3000).

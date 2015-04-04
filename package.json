@@ -4,13 +4,14 @@
   "description": "Example of an isomorphic React app using fluxible and webpack",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development DEBUG=isomorphic500 node index",
+    "start": "ECHO Running the production app... && node index",
+    "dev": "NODE_ENV=development DEBUG=isomorphic500 node index",
+    "prod": "NODE_ENV=production PORT=8080 DEBUG=isomorphic500 node index",
+    "build": "webpack --stats --progress --colors --config ./webpack/prod.config.js",
+    "postinstall": "npm run build",
     "linter": "eslint src && jscs src",
     "test": "mocha --compilers js:babel/register --recursive --reporter spec",
-    "build": "webpack --stats --progress --colors --config ./webpack/prod.config.js",
-    "prod": "NODE_ENV=production PORT=8080 DEBUG=isomorphic500 node index",
-    "coverage": "babel-node node_modules/.bin/isparta cover --report text node_modules/.bin/_mocha --reporter spec",
-    "postinstall": "webpack --config ./webpack/prod.config.js"
+    "coverage": "babel-node node_modules/.bin/isparta cover --report text node_modules/.bin/_mocha --reporter spec"
   },
   "repository": {
     "type": "git",
