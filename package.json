@@ -4,7 +4,7 @@
   "description": "Example of an isomorphic React app using fluxible and webpack",
   "main": "index.js",
   "scripts": {
-    "start": "ECHO Running the production app... && node index",
+    "start": "node index",
     "dev": "NODE_ENV=development DEBUG=isomorphic500 node index",
     "prod": "NODE_ENV=production PORT=8080 DEBUG=isomorphic500 node index",
     "build": "webpack --stats --config ./webpack/prod.config.js",
