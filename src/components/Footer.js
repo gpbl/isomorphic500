@@ -11,7 +11,7 @@ class Footer extends React.Component {
     return (
       <div className="Footer">
         <div className="Footer-disclaimer">
-          Photos copyrights of their respective authors.
+          Data from <a href="https://500px.com">500px</a>. Photos copyrights of their respective authors.
         </div>
         <div>
           <strong>isomorphic500</strong>. <a href="https://github.com/gpbl/isomorphic500">See the project’s page</a> or try something
