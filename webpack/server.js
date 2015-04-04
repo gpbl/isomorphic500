@@ -17,11 +17,9 @@ const serverOptions = {
   publicPath: config.output.publicPath
 };
 
-export default function() {
-  const compiler = webpack(config);
-  const webpackDevServer = new WebpackDevServer(compiler, serverOptions);
+const compiler = webpack(config);
+const webpackDevServer = new WebpackDevServer(compiler, serverOptions);
 
-  webpackDevServer.listen(WEBPACK_PORT, WEBPACK_HOST, () => {
-    debug("Webpack development server listening on %s:%s", WEBPACK_HOST, WEBPACK_PORT);
-  });
-}
+webpackDevServer.listen(WEBPACK_PORT, WEBPACK_HOST, () => {
+  debug("Webpack development server listening on %s:%s", WEBPACK_HOST, WEBPACK_PORT);
+});

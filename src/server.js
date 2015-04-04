@@ -56,7 +56,7 @@ if (server.get("env") === "production") {
 // On development, serve the static files from the webpack dev server.
 
 if (server.get("env") === "development") {
-  require("../webpack/server")();
+  require("../webpack/server");
 }
 
 // Render the app server-side and send it as response
