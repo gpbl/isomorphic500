@@ -34,7 +34,7 @@ export default {
     ]
   },
   progress: true,
-  utils: [
+  plugins: [
 
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
