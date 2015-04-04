@@ -2,22 +2,20 @@ import Actions from "../constants/Actions";
 
 const PhotoActionCreators = {
 
-  // Load featured photos:
-  // payload = { feature: "fresh_today" }
-  loadFeaturedPhotos(context, payload, done) {
+  loadFeaturedPhotos(context, { feature="popular" }, done) {
 
-    const feature = payload.feature || "popular";
-    context.dispatch(Actions.LOAD_FEATURED_PHOTOS_START, payload);
-    context.service.read("photos", { feature: feature }, { timeout: 20000 },
-      (err, data) => {
+    context.dispatch(Actions.LOAD_FEATURED_PHOTOS_START, { feature });
+
+    context.service.read("photos", { feature }, { timeout: 20000 },
+      (err, results) => {
         if (err) {
-          context.dispatch(Actions.LOAD_FEATURED_PHOTOS_FAILURE, payload);
+          context.dispatch(Actions.LOAD_FEATURED_PHOTOS_FAILURE, { feature });
           return done(err);
         }
 
         context.dispatch(Actions.LOAD_FEATURED_PHOTOS_SUCCESS, {
-          feature: feature,
-          results: data
+          feature,
+          results
         });
         done();
       }
@@ -25,19 +23,18 @@ const PhotoActionCreators = {
     );
   },
 
-  // Load a photo:
-  // payload = { id: "photo_id", imageSize: 5 }
-  loadPhoto(context, payload, done) {
+  loadPhoto(context, { id, imageSize }, done) {
 
-    if (context.getStore("PhotoStore").get(payload.id, payload.imageSize)) {
+    if (context.getStore("PhotoStore").get(id, imageSize)) {
       return done();
     }
 
-    context.dispatch(Actions.LOAD_PHOTO_START, payload);
-    context.service.read("photo", payload, { timeout: 20000 },
+    context.dispatch(Actions.LOAD_PHOTO_START, { id, imageSize });
+
+    context.service.read("photo", { id, imageSize }, { timeout: 20000 },
       (err, data) => {
         if (err) {
-          context.dispatch(Actions.LOAD_PHOTO_FAILURE, payload);
+          context.dispatch(Actions.LOAD_PHOTO_FAILURE, { id, imageSize });
           return done(err);
         }
 

@@ -2,10 +2,11 @@
 // (this code must run only on client!)
 
 function trackPageView() {
-  if (window.ga) {
-    // Track the page view with google analytics
-    window.ga("send", "pageview");
+  if (!window.ga) {
+    return;
   }
+
+  window.ga("send", "pageview");
 }
 
 export default trackPageView;

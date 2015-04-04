@@ -20,12 +20,14 @@ class RouteStore extends Fluxible.BaseStore {
     this.err = null;
   }
 
-  changeRoute(payload) {
-    if (this.currentRoute && this.currentRoute.url === payload.url) {
+  changeRoute(route) {
+
+    if (this.currentRoute && this.currentRoute.url === route.url) {
+      // Do nothing if trying to change to the same route
       return;
     }
 
-    this.currentRoute = payload || {};
+    this.currentRoute = route || {};
 
     this.err = null;
     this.currentRoute.isLoading = true;
@@ -34,11 +36,11 @@ class RouteStore extends Fluxible.BaseStore {
     this.emitChange();
   }
 
-  handleNavigate(payload) {
+  handleNavigate(route) {
 
-    if (payload.url !== this.currentRoute.url) {
-      // too late! This may happen when a route action has been finished
-      // after the route has changed again.
+    if (route.url !== this.currentRoute.url) {
+      // Too late! This may happen when a route action has been finished
+      // to load, but the route did change again.
       return;
     }
 
@@ -59,9 +61,9 @@ class RouteStore extends Fluxible.BaseStore {
     this.emitChange();
   }
 
-  status500(payload) {
+  status500({ err }) {
+    this.err = err;
     this.currentPageName = "500";
-    this.err = payload.err;
 
     if (this.currentRoute) {
       this.currentRoute.isLoading = false;
@@ -90,10 +92,10 @@ class RouteStore extends Fluxible.BaseStore {
     };
   }
 
-  rehydrate(state) {
-    this.err = state.err;
-    this.currentRoute = state.currentRoute;
-    this.currentPageName = state.currentPageName;
+  rehydrate({ err, currentRoute, currentPageName }) {
+    this.err = err;
+    this.currentRoute = currentRoute;
+    this.currentPageName = currentPageName;
   }
 
 }

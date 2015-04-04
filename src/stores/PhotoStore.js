@@ -14,21 +14,23 @@ class PhotoStore extends Fluxible.BaseStore {
 
   constructor(dispatcher) {
     super(dispatcher);
+
     this.photos = {};
     this.featured = [];
     this.currentFeature = null;
   }
 
-  onLoadFeaturedSuccess(payload) {
-    const photos = _(payload.results.photos);
+  onLoadFeaturedSuccess({ feature, results }) {
+    const photos = _(results.photos);
+
     this.photos = photos.indexBy("id").merge(this.photos).value();
     this.featured = photos.map(photo => photo.id).value();
-    this.currentFeature = payload.feature;
+    this.currentFeature = feature;
+
     this.emitChange();
   }
 
-  onLoadSuccess(payload) {
-    const { photo } = payload
+  onLoadSuccess({ photo }) {
     this.photos[photo.id] = _.merge({}, this.photos[photo.id], photo);
     this.emitChange();
   }
@@ -55,10 +57,10 @@ class PhotoStore extends Fluxible.BaseStore {
     };
   }
 
-  rehydrate(state) {
-    this.photos = state.photos;
-    this.featured = state.featured;
-    this.currentFeature = state.currentFeature;
+  rehydrate({ photos, featured, currentFeature }) {
+    this.photos = photos;
+    this.featured = featured;
+    this.currentFeature = currentFeature;
   }
 
 }

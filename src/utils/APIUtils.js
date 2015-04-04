@@ -1,8 +1,9 @@
-// Utils to send requests to the api endpoint
+// Utils to send requests to the 500px API endpoint
 
 import request from "superagent";
-import config from "../config";
 import { assign } from "lodash";
+
+import config from "../config";
 
 const debug = require("debug")("isomorphic500");
 
@@ -18,6 +19,7 @@ const APIUtils = {
 
     debug("Sending GET request to %s", url, query);
 
+    // Customer key is required by the API
     query = assign(query, {
       consumer_key: config.consumerKey
     });
@@ -29,7 +31,7 @@ const APIUtils = {
 
         if (err) {
           if (err.status) {
-            // normalize statusCode vs. status
+            // Normalize statusCode vs. status
             err.statusCode = err.status;
           }
 

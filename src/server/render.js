@@ -53,8 +53,7 @@ function renderApp(res, context) {
 
 function render(req, res) {
 
-  // create a fluxible context
-  // _csrf is needed by the fetchr plugin
+  // Create a fluxible context (_csrf is needed by the fetchr plugin)
   const context = app.createContext({
     req: req,
     xhrContext: {
@@ -62,7 +61,7 @@ function render(req, res) {
     }
   });
 
-  context.executeAction(navigateAction, {url: req.url}, (err) => {
+  context.executeAction(navigateAction, { url: req.url }, (err) => {
 
     // If the navigate action sends an error, execute an action to make
     // the RouteStore register the error and show the relative page.

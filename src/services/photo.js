@@ -3,10 +3,8 @@ import { get } from "../utils/APIUtils";
 export default {
   name: "photo",
 
-  read(req, resource, params, config, done) {
-    get(`/photos/${params.id}`, {
-      image_size: params.imageSize || 1600,
-      tags: true
-    }, done)
+  read(req, resource, { id, imageSize=1600 }, config, done) {
+    get(`/photos/${id}`, { image_size: imageSize }, done);
   }
+
 };
