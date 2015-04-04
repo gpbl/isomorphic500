@@ -20,7 +20,7 @@ class PhotoPage extends React.Component {
     const { photo } = this.props;
     return (
       <DocumentTitle title={photo.name}>
-        <div className="Animate-fadeIn">
+        <div>
           <h1>{ photo.name }</h1>
           <PhotoAttribution user={ photo.user } />
           <Photo imageSize={4} photo={photo} />

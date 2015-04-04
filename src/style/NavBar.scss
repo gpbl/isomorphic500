@@ -28,6 +28,10 @@
   text-decoration: none;
   text-transform: uppercase;
 
+  &:hover {
+    opacity: .75;
+  }
+
   &:first-child {
     padding-left: 0;
   }
