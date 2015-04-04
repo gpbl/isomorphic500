@@ -1,9 +1,10 @@
 @import 'constants/colors';
 
 .Thumbnail {
+
   box-sizing: border-box;
-  width: 8rem;
-  height: 8rem;
+  min-width: 8rem;
+  min-height: 8rem;
 
   border: 1px solid $color-white;
 
@@ -12,7 +13,9 @@
   background-size: cover;
 
   transition: filter .25s;
+
   &:hover {
     filter: brightness(75%);
   }
+
 }

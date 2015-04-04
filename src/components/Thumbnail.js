@@ -19,9 +19,7 @@ class Thumbnail extends React.Component {
     };
 
     return (
-      <NavLink routeName="photo" navParams={{id: photo.id}}>
-        <div className="Thumbnail" style={style} />
-      </NavLink>
+      <NavLink className="Thumbnail" style={style} routeName="photo" navParams={{id: photo.id}} />
     );
   }
 

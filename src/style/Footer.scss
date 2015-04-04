@@ -1,10 +1,8 @@
-@import "constants/colors";
 
 .Footer {
   font-size: 0.75rem;
   display: flex;
   flex-direction: column;
-  border-top: 1px solid $color-border;
   padding-top: 1rem;
   margin-top: 1rem;
 }
