@@ -1,5 +1,7 @@
 import React, { PropTypes } from "react";
 import DocumentTitle from "react-document-title";
+import config from "../config";
+import ga from "./ga";
 
 class HtmlDocument extends React.Component {
 
@@ -27,6 +29,11 @@ class HtmlDocument extends React.Component {
           { css.map((href, k) =>
             <link key={k} rel="stylesheet" type="text/css" href={href} />)
           }
+
+          { config.trackingId &&
+            <script dangerouslySetInnerHTML={{__html: ga.replace("{trackingId}", config.trackingId)}} />
+          }
+
         </head>
 
         <body>

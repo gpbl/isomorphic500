@@ -11,6 +11,8 @@ import ErrorPage from "./pages/ErrorPage";
 import PhotoPage from "./pages/PhotoPage";
 import FeaturedPage from "./pages/FeaturedPage";
 
+import trackPageView from "./utils/trackPageView";
+
 const debug = require("debug")("isomorphic500");
 
 if (process.env.BROWSER) {
@@ -39,6 +41,12 @@ let Application = React.createClass({
       this.setState({
         route: nextProps.route
       });
+    }
+  },
+
+  componentDidUpdate(prevProps) {
+    if (this.props.route.url !== prevProps.route.url) {
+      trackPageView();
     }
   },
 
