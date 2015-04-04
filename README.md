@@ -96,9 +96,9 @@ Before setting the route, this plugin can execute an action to prefill the store
 
 ### Stores
 
-Some components do not listen to stores directly, they are instead wrapped with an high-order component using the [connectToStores](src/utils/connectToStores.js) utility. See for example the [PhotoPage](src/pages/PhotoPage.js).
+Components do not listen to stores directly: they are wrapped in an high-order component using the fluxible `connectToStores` add-on. See for example the [PhotoPage](src/pages/PhotoPage.js).
 
-(Thanks [@gaearon](https://github.com/gaearon) for exploring this technique [in his article](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750). The approach is also discussed in [this fluxible issue](https://github.com/yahoo/fluxible/issues/70)).
+(Thanks [@gaearon](https://github.com/gaearon) for exploring this technique [in his article](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750)).
 
 #### Resource stores
 
