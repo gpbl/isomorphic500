@@ -5,6 +5,10 @@ import { connectToStores } from "fluxible/addons";
 import PhotoAttribution from '../components/PhotoAttribution';
 import Photo from '../components/Photo';
 
+if (process.env.BROWSER) {
+  require('../style/Animation.scss')
+}
+
 class PhotoPage extends React.Component {
 
   static propTypes = {
@@ -16,7 +20,7 @@ class PhotoPage extends React.Component {
     const { photo } = this.props;
     return (
       <DocumentTitle title={photo.name}>
-        <div>
+        <div className="Animation--fadeBottom">
           <h1>{ photo.name }</h1>
           <PhotoAttribution user={ photo.user } />
           <Photo imageSize={4} photo={photo} />
