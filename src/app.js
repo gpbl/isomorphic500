@@ -8,6 +8,7 @@ import Application from "./Application";
 
 import RouteStore from "./stores/RouteStore";
 import PhotoStore from "./stores/PhotoStore";
+import FeaturedStore from "./stores/FeaturedStore";
 
 const app = new Fluxible({
 
@@ -18,8 +19,8 @@ const app = new Fluxible({
     // This action handler is called for any action executed in the component's
     // context. It's the right place to intercept action errors and display an
     // error page.
-
     const { err } = payload;
+
 
     if (err) {
       const { status, statusCode } = err;
@@ -49,6 +50,6 @@ app.plug(routrPlugin({
 }));
 
 app.registerStore(RouteStore);
-app.registerStore(PhotoStore);
+app.registerStore(FeaturedStore);
 
 export default app;

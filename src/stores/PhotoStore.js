@@ -1,9 +1,8 @@
-
-import Fluxible from "fluxible/addons";
+import { BaseStore } from "fluxible/addons";
 import Actions from "../constants/Actions";
 import _ from "lodash";
 
-class PhotoStore extends Fluxible.BaseStore {
+class PhotoStore extends BaseStore {
 
   static storeName = "PhotoStore"
 
@@ -16,18 +15,6 @@ class PhotoStore extends Fluxible.BaseStore {
     super(dispatcher);
 
     this.photos = {};
-    this.featured = [];
-    this.currentFeature = null;
-  }
-
-  onLoadFeaturedSuccess({ feature, results }) {
-    const photos = _(results.photos);
-
-    this.photos = photos.indexBy("id").merge(this.photos).value();
-    this.featured = photos.map(photo => photo.id).value();
-    this.currentFeature = feature;
-
-    this.emitChange();
   }
 
   onLoadSuccess({ photo }) {
@@ -35,18 +22,15 @@ class PhotoStore extends Fluxible.BaseStore {
     this.emitChange();
   }
 
+  onLoadFeaturedSuccess({ feature, photos }) {
+    this.photos = _(photos).indexBy("id").merge(this.photos).value();
+    this.emitChange();
+  }
+
   get(id, minSize=0) {
     return _.find(this.photos, photo =>
       photo.id === parseInt(id) && photo.images[0].size >= minSize
     );
-  }
-
-  getFeatured(feature) {
-    return this.featured.map(id => this.photos[id]);
-  }
-
-  getCurrentFeature() {
-    return this.currentFeature;
   }
 
   dehydrate() {
