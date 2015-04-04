@@ -13,7 +13,7 @@ const Actions = keyMirror({
 
   LOAD_PHOTO_START: null,
   LOAD_PHOTO_SUCCESS: null,
-  LOAD_PHOTO_FAILURE: null,
+  LOAD_PHOTO_FAILURE: null
 
 });
 
