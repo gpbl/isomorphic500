@@ -67,10 +67,9 @@ server.use(render);
 
 // Finally, start the express server
 
-server.set("host", process.env.HOST || "localhost");
 server.set("port", process.env.PORT || 3000);
 
-server.listen(server.get("port"), server.get("host"), () => {
-  debug(`Express %s server listening on %s:%s`, server.get("env"), server.get("host"), server.get("port"));
+server.listen(server.get("port"), () => {
+  console.log(`Express ${server.get("env")} server listening on ${server.get("port")}`);
 });
 
