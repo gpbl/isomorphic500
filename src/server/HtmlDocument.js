@@ -22,6 +22,7 @@ class HtmlDocument extends React.Component {
     return (
       <html>
         <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
           <title>{ DocumentTitle.rewind() }</title>
           { css.map((href, k) =>
             <link key={k} rel="stylesheet" type="text/css" href={href} />)
