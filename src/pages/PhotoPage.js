@@ -6,7 +6,7 @@ import PhotoAttribution from '../components/PhotoAttribution';
 import Photo from '../components/Photo';
 
 if (process.env.BROWSER) {
-  require('../style/Animation.scss')
+  require('../style/Animate.scss')
 }
 
 class PhotoPage extends React.Component {
@@ -20,7 +20,7 @@ class PhotoPage extends React.Component {
     const { photo } = this.props;
     return (
       <DocumentTitle title={photo.name}>
-        <div className="Animation--fadeBottom">
+        <div className="Animate-fadeIn">
           <h1>{ photo.name }</h1>
           <PhotoAttribution user={ photo.user } />
           <Photo imageSize={4} photo={photo} />

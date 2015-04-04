@@ -1,0 +1,41 @@
+@import 'constants/animation';
+
+.Animate--withDelay {
+  animation-delay: $animation-delay !important;
+}
+
+.Animate--slow {
+  animation-duration: $animation-duration * 4 !important;
+}
+
+@keyframes fade-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(2%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+
+.Animate-fadeBottom {
+  animation: fade-bottom $animation-duration 0s backwards;
+}
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.Animate-fadeIn {
+  animation: fade-in $animation-duration 0s backwards;
+}
