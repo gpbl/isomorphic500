@@ -1,7 +1,7 @@
 
 import RouteActions from "./pages/RouteActions";
 
-import features from './constants/features';
+import features from "./constants/features";
 
 export default {
 
@@ -12,7 +12,7 @@ export default {
   },
 
   featured: {
-    path: `/featured/:feature(${features.join('|')})`,
+    path: `/featured/:feature(${features.join("|")})`,
     method: "get",
     action: RouteActions.featuredPage
   },
