@@ -1,16 +1,17 @@
 # isomorphic500
 
-[![Join the chat at https://gitter.im/gpbl/isomorphic500](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-Isomorphic500 is a small isomorphic Javascript app showing photos from [500px](http://500px.com).
+[Isomorphic500](https://isomorphic500.herokuapp.com) is a small isomorphic Javascript app showing photos from [500px](http://500px.com).
 
 It is built on [express](http://expressjs.com) using [React](https://facebook.github.io/react) and [Flux](https://facebook.github.io/flux) with [yahoo/fluxible](http://fluxible.io). It is developed with [webpack](http://webpack.github.io) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) and written with [babeljs](http://babeljs.io) with the help of [eslint](http://eslint.org).
 
-<img src="https://cloud.githubusercontent.com/assets/120693/6989743/1ac490d8-da60-11e4-951e-9a0f5ed8bb75.png" width="700">
+<a href="https://isomorphic500.herokuapp.com"><img src="https://cloud.githubusercontent.com/assets/120693/6992728/d93c61c8-dadb-11e4-82b3-f08f8bee24c3.png" width="700"></a>
 
-The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux. It is also an example of a javascript development environment with all the cool recent stuff.
+[![Join the chat at https://gitter.im/gpbl/isomorphic500](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-- clone this repo and run the server to confirm it is actually working ;-)
+The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux. It works also as example of a javascript development environment with all the cool recent stuff :-)
+
+- see the demo on [isomorphic500.herokuapp.com](https://isomorphic500.herokuapp.com) (with source maps!)
+- clone this repo and run the server to confirm it is actually working
 - edit a react component or a css style, and see the updated app as you save your changes!
 - read on for some technical details
 - [write issues](https://github.com/gpbl/isomorphic500/issues) and [join the gitter chat](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) to discuss :-)
@@ -61,6 +62,7 @@ $ tree src
 ├── public               # Only in prod: contains static assets loaded with webpack
 ├── routes.js            # Routes config
 ├── server               # Server-side-only code
+│   ├── ga.js            # Contains Google Analytics code to inject into HtmlDocument
 │   ├── HtmlDocument.js  # Components containing <html>...</html> page
 │   └── render.js        # Middleware to render HtmlDocument server-side
 ├── server.js            # Run the express server, setup fetchr service
