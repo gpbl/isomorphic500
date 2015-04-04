@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/gpbl/isomorphic500](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Isomorphic500 is a small “isomorphic” Javascript app showing photos from [500px](http://500px.com).
+Isomorphic500 is a small isomorphic Javascript app showing photos from [500px](http://500px.com).
 
 It is built on [express](http://expressjs.com) using [React](https://facebook.github.io/react) and [Flux](https://facebook.github.io/flux) with [yahoo/fluxible](http://fluxible.io). It is developed with [webpack](http://webpack.github.io) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) and written with [babeljs](http://babeljs.io) with the help of [eslint](http://eslint.org).
 
@@ -49,23 +49,24 @@ $ tree src
 
 ├── Application.js       # The root Application component
 ├── actions              # Actions creators
-├── app.js               # The fluxible app
-├── assets               # Directory with static files
-├── client.js            # Entry point on the client
-├── components           # Contains the React components
+├── app.js               # The Fluxible app
+├── assets               # Dir with static files
+├── client.js            # Entry point for the client
+├── components           # React components
 ├── config.js            # Load the config on dev or prd
 ├── constants            # Constants values (e.g. action types)
-├── pages                # Contains components as route handlers
+├── pages                # Contains route handlers components
 │   ...
-│   └── RouteActions.js  # Actions to execute before rendering a route
-├── routes.js            # Routeer config
+│   └── RouteActions.js  # Actions executed when rendering a route
+├── public               # Only in prod: contains static assets loaded with webpack
+├── routes.js            # Routes config
 ├── server               # Server-side-only code
 │   ├── HtmlDocument.js  # Components containing <html>...</html> page
 │   └── render.js        # Middleware to render HtmlDocument server-side
 ├── server.js            # Run the express server, setup fetchr service
-├── services             # Fetchr service
+├── services             # Fetchr services (e.g. load data from 500px API)
 ├── stores               # Flux stores
-├── style                # Contains the SASS styles
+├── style                # Contains the Sass styles
 └── utils                # Some useful utils
 ```
 
