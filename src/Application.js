@@ -56,7 +56,7 @@ let Application = React.createClass({
     const { pageName, route, err } = this.props;
     return (
       <DocumentTitle title="isomorphic500">
-        <Page>
+        <Page footer={!route.isLoading}>
           {
             pageName === "404" ?
               <NotFoundPage /> :
