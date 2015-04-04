@@ -14,7 +14,7 @@ class Footer extends React.Component {
           Photos copyright of their respective authors.
         </div>
         <div>
-          <strong>isomorphic-500</strong>. <a href="https://github.com/gpbl/isomorphic-500">See this project’s page</a> or try something
+          <strong>isomorphic500</strong>. <a href="https://github.com/gpbl/isomorphic500">See this project’s page</a> or try something
           exciting: <NavLink className="Footer-link" routeName="bad">a bad route</NavLink> or <NavLink className="Footer-link" routeName="photo" navParams={{id: 100000000000}}>an unexisting photo</NavLink>
         </div>
       </div>

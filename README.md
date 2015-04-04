@@ -20,8 +20,8 @@ The intent of this project is to solidify my experience with these technologies 
 **Clone this repo**
 
 ```
-git clone https://github.com/gpbl/isomorphic-500.git
-cd isomorphic-500
+git clone https://github.com/gpbl/isomorphic500.git
+cd isomorphic500
 npm install
 ```
 
