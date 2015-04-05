@@ -4,10 +4,9 @@
 import React from "react";
 import serialize from "serialize-javascript";
 
-import { navigateAction } from "flux-router-component";
-
 import app from "../app";
 import HtmlDocument from "./HtmlDocument";
+import renderAction from "./renderAction";
 
 import RouteActionCreators from "../actions/RouteActionCreators";
 
@@ -17,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
   webpackStats = require("./webpack-stats.json");
 }
 
-function renderApp(res, context) {
+function renderApp(req, res, context) {
 
   if (process.env.NODE_ENV === "development") {
     webpackStats = require("./webpack-stats.json");
@@ -41,6 +40,7 @@ function renderApp(res, context) {
   // and sent as response.
   const html = React.renderToStaticMarkup(
     <HtmlDocument
+      lang={req.locale}
       state={state}
       markup={markup}
       script={webpackStats.script}
@@ -61,34 +61,34 @@ function render(req, res) {
     }
   });
 
-  context.executeAction(navigateAction, { url: req.url }, (err) => {
+  context.executeAction(renderAction, { url: req.url, locale: req.locale }, (err) => {
 
-    // If the navigate action sends an error, execute an action to make
+    // If the action return an errors, execute another action to make
     // the RouteStore register the error and show the relative page.
-    // This is the server-side version of the componentActionHandler in ../app.js
+    // This is basically the server-side counterpart of
+    // componentActionHandler in ../app.js
 
     if (err) {
       if (err.status === 404 || err.statusCode === 404) {
         res.status(404);
-        context.executeAction(RouteActionCreators.show404, { err: err }, () => {
-          renderApp(res, context);
+        context.executeAction(RouteActionCreators.show404, { err }, () => {
+          renderApp(req, res, context);
         });
       }
       else {
         res.status(500);
-        context.executeAction(RouteActionCreators.show500, { err: err }, () => {
+        context.executeAction(RouteActionCreators.show500, { err }, () => {
           console.log(err.stack || err);
-          renderApp(res, context);
+          renderApp(req, res, context);
         });
       }
 
       return;
     }
 
-    renderApp(res, context);
+    renderApp(req, res, context);
 
   });
-
 }
 
 export default render;
