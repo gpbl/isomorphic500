@@ -8,6 +8,9 @@ export default {
   consumerKey: "CLmpqnpwGLKetORtjc5gb9tC2hllfd6cqdfzHqFD",
 
   // Google Analytics tracking id (skipped on dev)
-  trackingId: "UA-46857126-2"
+  trackingId: "UA-46857126-2",
+
+  // Supported locales
+  locales: ["en", "it"]
 
 }
