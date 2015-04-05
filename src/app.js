@@ -13,23 +13,21 @@ const app = new Fluxible({
 
   component: Application,
 
-  componentActionHandler(context, payload, done) {
+  componentActionHandler(context, { err }, done) {
 
     // This action handler is called for any action executed in the component's
     // context. It's the right place to intercept action errors and display an
     // error page.
 
-    const { err } = payload;
-
     if (err) {
       const { status, statusCode } = err;
 
       if (status && status === 404 || statusCode && statusCode === 404) {
-        context.executeAction(RouteActionCreators.show404, payload, done);
+        context.executeAction(RouteActionCreators.show404, { err }, done);
       }
       else {
-        console.log(err.stack || payload.err);
-        context.executeAction(RouteActionCreators.show500, payload, done);
+        console.log(err.stack || err);
+        context.executeAction(RouteActionCreators.show500, { err }, done);
       }
 
       return;
