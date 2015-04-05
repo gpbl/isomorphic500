@@ -1,5 +1,5 @@
 import React from "react";
-import app from "./app";
+import IntlUtils from "./utils/IntlUtils";
 
 window.debug = require("debug");
 
@@ -8,18 +8,30 @@ const debug = window.debug("isomorphic500");
 const mountNode = document.getElementById("root");
 const dehydratedState = window.App;
 
-debug("Rehydrating state...", dehydratedState);
+function renderApp() {
 
-app.rehydrate(dehydratedState, (err, context) => {
-  if (err) {
-    throw err;
-  }
+  const app = require("./app");
 
-  debug("State has been rehydrated");
+  debug("Rehydrating state...", dehydratedState);
 
-  const Application = app.getComponent();
+  app.rehydrate(dehydratedState, (err, context) => {
+    if (err) {
+      throw err;
+    }
 
-  React.render(<Application context={context.getComponentContext()} />, mountNode, () => {
-    debug("Application has been mounted");
+    debug("State has been rehydrated");
+
+    const Application = app.getComponent();
+
+    React.render(<Application context={context.getComponentContext()} />, mountNode, () => {
+      debug("Application has been mounted");
+    });
   });
-});
+}
+
+// Load the Intl polyfill and required locale data
+const locale = document.documentElement.getAttribute("lang");
+
+IntlUtils.loadIntlPolyfill(locale)
+  .then(IntlUtils.loadLocaleData.bind(null, locale))
+  .then(renderApp);
