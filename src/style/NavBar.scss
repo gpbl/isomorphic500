@@ -1,6 +1,7 @@
 @import 'constants/colors';
 
 .NavBar {
+  position: relative;
   margin-bottom: 2rem;
 }
 
@@ -62,4 +63,10 @@
     width: 100%;
     background-color: currentColor;
   }
+}
+
+.NavBar-locales {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
