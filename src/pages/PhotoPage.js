@@ -1,15 +1,12 @@
-import React,  { PropTypes } from "react";
-import DocumentTitle from 'react-document-title';
+import React, { PropTypes, Component } from "react";
+import DocumentTitle from "react-document-title";
 
 import { connectToStores } from "fluxible/addons";
-import PhotoAttribution from '../components/PhotoAttribution';
-import Photo from '../components/Photo';
 
-if (process.env.BROWSER) {
-  require('../style/Animate.scss')
-}
+import Photo from "../components/Photo";
+import PhotoMeta from "../components/PhotoMeta";
 
-class PhotoPage extends React.Component {
+class PhotoPage extends Component {
 
   static propTypes = {
     photo: PropTypes.object.isRequired,
@@ -18,11 +15,12 @@ class PhotoPage extends React.Component {
 
   render() {
     const { photo } = this.props;
+
     return (
       <DocumentTitle title={photo.name}>
         <div>
           <h1>{ photo.name }</h1>
-          <PhotoAttribution user={ photo.user } />
+          <PhotoMeta photo={ photo } />
           <Photo imageSize={4} photo={photo} />
         </div>
       </DocumentTitle>
@@ -33,6 +31,6 @@ class PhotoPage extends React.Component {
 
 PhotoPage = connectToStores(PhotoPage, ["PhotoStore"], {
   PhotoStore: (store, props) => ({ photo: store.get(props.id) })
-})
+});
 
 export default PhotoPage;

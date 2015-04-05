@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import FormattedMessage from '../components/FormattedMessage';
 
 class PhotoAttribution extends React.Component {
 
@@ -9,9 +10,12 @@ class PhotoAttribution extends React.Component {
   render() {
     const { user } = this.props;
     return (
-      <p>
-        A photo by <a href={`https://500px.com/${user.username}`}>{ user.fullname }</a>.
-      </p>
+      <FormattedMessage
+        message="photo.attribution"
+        userLink={
+          <a href={`https://500px.com/${user.username}`}>{ user.fullname }</a>
+        }
+      />
     );
   }
 
