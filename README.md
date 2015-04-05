@@ -2,7 +2,7 @@
 
 [Isomorphic500](https://isomorphic500.herokuapp.com) is a small isomorphic web application featuring photos from [500px](http://500px.com).
 
-It is built on [express](http://expressjs.com) using [React](https://facebook.github.io/react) and [Flux](https://facebook.github.io/flux) with [yahoo/fluxible](http://fluxible.io). It is developed with [webpack](http://webpack.github.io) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) and written with [babeljs](http://babeljs.io) with the help of [eslint](http://eslint.org).
+It is built on [express](http://expressjs.com) using [React](https://facebook.github.io/react) and [Flux](https://facebook.github.io/flux) with [yahoo/fluxible](http://fluxible.io). It is developed with [webpack](http://webpack.github.io) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/) and written with [babeljs](http://babeljs.io) with the help of [eslint](http://eslint.org). It supports multiple languages using [react-intl](http://formatjs.io/react/).
 
 <a href="https://isomorphic500.herokuapp.com"><img src="https://cloud.githubusercontent.com/assets/120693/6992728/d93c61c8-dadb-11e4-82b3-f08f8bee24c3.png" width="700"></a>
 
@@ -42,6 +42,31 @@ npm run prod    # then, run the production version
 ```
 
 then open [localhost:8080](http://localhost:8080).
+
+## Table of Contents
+
+* [Application structure](#application-structure)
+  * [The fluxible app](#the-fluxible-app)
+  * [Async data](#async-data)
+  * [Router](#router)
+  * [Stores](#stores)
+    * [Resource stores](#resource-stores)
+    * [The RouteStore](#the-routestore)
+      * [Loading state](#loading-state)
+      * [Route errors](#route-errors)
+* [Internationalization (i18n)](#internationalization-i18n)
+  * [How the user’s locale is detected](#how-the-user’s-locale-is-detected)
+  * [The difficult parts](#the-difficult-parts)
+  * [Webpack on the rescue](#webpack-on-the-rescue)
+  * [Internationalization, the flux way](#internationalization-the-flux-way)
+  * [Sending the locale to the API](#sending-the-locale-to-the-api)
+* [Development](#development)
+  * [Webpack](#webpack)
+  * [Babeljs](#babeljs)
+  * [Linting](#linting)
+  * [Testing](#testing)
+  * [Debugging](#debugging)
+
 
 ## Application structure
 
@@ -104,7 +129,7 @@ Components do not listen to stores directly: they are wrapped in an high-order c
 
 #### Resource stores
 
-While REST APIs usually return collections as arrays, a resource store keeps the items organized in an object – like the [PhotoStore](src/stores/PhotoStore.js). This simplifies the progressive updates that may happen during the app’s life.
+While REST APIs usually return collections as arrays, a resource store keeps items as big object – like the [PhotoStore](src/stores/PhotoStore.js). This simplifies the progressive resource updates that may happen during the app’s life.
 
 #### The RouteStore
 
@@ -112,7 +137,7 @@ The [RouteStore](src/stores/RouteStore.js) keeps track of the current route.
 
 ##### Loading state
 
-When a route is loading (e.g. waiting for the API response), the store set the `isLoading` property to the route object. The Application component will then render a Loader until the route is finished to load.
+When a route is loading (e.g. waiting for the API response), the store set the `isLoading` property to the route object. The Application component will then render a loading page.
 
 ##### Route errors
 
@@ -121,6 +146,57 @@ A route error happens when a route is not found or when the service fetching cri
 In these cases, the RouteStore set its `currentPageName` to `404` or `500`, so that the Application component can render a [`NotFoundPage`](src/pages/NotFoundPage.js) or an [`ErrorPage`](src/pages/ErrorPage.js).
 
 > Note that a not-found route may come from the router itself (i.e. the route is missing in the [config](src/routes.js)) but also when a route action sends to the callback an error with `{status: 404}`.
+
+## Internationalization (i18n)
+
+To give an example on how to implement i18n in a React application, isomorphic500 supports English and [Italian](https://www.youtube.com/watch?v=9JhuOicPFZY).
+
+Here, for "internationalization" I mean:
+
+- to format numbers/currencies and dates/times according to the user's locale
+- to provide translated strings for the texts displayed in the components.
+
+This app adopts [React Intl](http://formatjs.io/react/), which is a solid library for this purpose.
+
+### How the user’s locale is detected
+
+The app sniffs the browser's `accept-language` request header. The [locale](https://github.com/jed/locale) npm module has a nice express middleware for that. Locales are restricted to those set in the app's [config](../config).
+
+The user may want to override the detected locale: the [LocaleSwitcher](src/components/LocaleSwitcher.js) component set a cookie when the user chooses a language. Also, we enable the `?hl` parameter in the query string to override it. Server-side, cookie and query string are detected by the [setLocale](src/server/setLocale.js) middleware.
+
+So, the `locale` middleware will attach the desired locale to `req.locale`, which come useful to set the `lang` attribute in the `<html>` tag. This attribute it is also used by `client.js` to load the locale data client-side.
+
+### The difficult parts
+
+React-intl requires some boilerplate to make it working properly. Difficulties here arise mainly for two reasons:
+
+1. React Intl relies on the [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) *global* API, which is not always available on some node.js versions nor on some browsers (e.g. Safari). Luckly there's an [Intl polyfill](https://www.npmjs.com/package/intl): on the server, we can just "require" it – however on the browser we want to download it *only* when `Intl` is not supported.
+
+2. For each language, we need to load a set of *locale data* (used by `Intl` to format numbers and dates) and the translated strings, called *messages* (used by `react-intl`). While on node.js we can load them in memory, on the client they need to be downloaded first – and we want to download only the relevant data for the current locale.
+
+**On the server** the solution is easy: as said, the server [loads a polyfill](src/server/intl-polyfill) including both `Intl` and the locale data. For supporting the browser, we can instead rely on our technology stack, i.e. flux and webpack.
+
+### Webpack on the rescue
+
+**On the client**, we have to load the `Intl` polyfill and its locale data *before* rendering the app, i.e. in [client.js](src/client.js).
+
+For this purpose, I used webpack's `require.ensure()` to split `Intl` and localized data in multiple chunks. Only after they have been downloaded, the app can be mounted. See the `loadIntlPolyfill()` and `loadLocaleData()` functions in [IntlUtils](src/utils/IntlUtils.js): they return a promise that is resolved when the webpack chunks are downloaded and `require`d.
+
+They are used in [client.js](client.js) before mounting the app.
+
+> **Important**: since `react-intl` assumes `Intl` is already in the global scope, we can't import the fluxible app (which imports react-intl in some of its components) *before* polyfilling `Intl`. That's why you see in [client.js](src/client.js) `require("./app")` inside the in the `renderApp()` function, and not as `import` on the top of the file.
+
+### Internationalization, the flux way
+
+Lets talk about the data that react-intl needs to deliver translated content. It is saved for each language in the [intl](src/intl) directory and **can be shared between client and server** using a store, i.e. the [IntlStore](stores/IntlStore).
+
+The store listens to a `LOAD_INTL` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **server side** before rendering the HtmlDocument component in [server/render.js](src/server/render.js), together with the usual `navigateAction`. The store will be rehydrate by Fluxible as usual.
+
+An higher-order component would pass the store state to the react-intl components as props. For doing this, I used a custom implementation of [FormattedMessage](src/components/FormattedMessage.js) and [FormattedNumber](src/components/FormattedNumber.js), adopting a small [connectToIntlStore](src/utils/connectToIntlStore.js) utils.
+
+### Sending the locale to the API
+
+While this is not required by the 500px API, we can send the current locale to the API so it can deliver localized content. This is made very easy by the Fetchr services, since they expose the `req` object: see for example the [photo service](src/services/photo.js).
 
 ## Development
 
@@ -194,4 +270,7 @@ From the **browser**, you can enable/disable them by sending this command in the
 ```js
 debug.enable('isomorphic500')
 debug.disable()
+// then, refresh!
 ```
+
+
