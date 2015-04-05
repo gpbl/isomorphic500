@@ -6,8 +6,9 @@ import routes from "./routes";
 
 import Application from "./Application";
 
-import RouteStore from "./stores/RouteStore";
+import IntlStore from "./stores/IntlStore";
 import PhotoStore from "./stores/PhotoStore";
+import RouteStore from "./stores/RouteStore";
 
 const app = new Fluxible({
 
@@ -46,7 +47,8 @@ app.plug(routrPlugin({
   routes: routes
 }));
 
-app.registerStore(RouteStore);
+app.registerStore(IntlStore);
 app.registerStore(PhotoStore);
+app.registerStore(RouteStore);
 
 export default app;
