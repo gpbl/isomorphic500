@@ -7,6 +7,7 @@ import ga from "./ga";
 class HtmlDocument extends React.Component {
 
   static propTypes = {
+    lang: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired,
     markup: PropTypes.string.isRequired,
     script: PropTypes.arrayOf(PropTypes.string),
@@ -14,16 +15,14 @@ class HtmlDocument extends React.Component {
   }
 
   static defaultProps = {
-    state: "",
-    markup: "",
     script: [],
     css: []
   }
 
   render() {
-    const { state, markup, script, css } = this.props;
+    const { state, markup, script, css, lang } = this.props;
     return (
-      <html>
+      <html lang={lang}>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
           <title>{ DocumentTitle.rewind() }</title>
