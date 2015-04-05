@@ -4,6 +4,8 @@ import { NavLink } from "flux-router-component";
 import { connectToStores } from "fluxible/addons";
 
 import features from "../constants/features";
+import LocaleSwitcher from "../components/LocaleSwitcher";
+import FormattedMessage from "../components/FormattedMessage";
 
 if (process.env.BROWSER) {
   require("../style/NavBar.scss");
@@ -34,10 +36,13 @@ class NavBar extends React.Component {
                   className={className}
                   routeName="featured"
                   navParams={{feature: feature}}>
-                  { feature }
+                  <FormattedMessage message={`features.${feature}`} />
                 </NavLink>;
             })
           }
+        </div>
+        <div className="NavBar-locales">
+          <LocaleSwitcher />
         </div>
       </div>
     );

@@ -1,0 +1,16 @@
+@import 'constants/colors';
+
+.LocaleSwitcher-link {
+  display: inline-block;
+  padding: .25rem 0.5rem;
+  margin-left: .5rem;
+  color: $color-secondary;
+  font-size: .75rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.LocaleSwitcher-link--active {
+  color: $color-white;
+  background-color: $color-secondary;
+}
