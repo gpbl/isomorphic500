@@ -170,7 +170,7 @@ So, the `locale` middleware will attach the desired locale to `req.locale`, whic
 
 React-intl requires some boilerplate to work properly. Difficulties here arise mainly for two reasons:
 
-1. React Intl relies on the [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) *global* API, which is not always available on some node.js versions nor on some browsers (e.g. Safari). Luckly there's an [Intl polyfill](https://www.npmjs.com/package/intl): on the server, we can just "require" it – however on the browser we want to download it *only* when `Intl` is not supported.
+1. React Intl relies on the [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) *global* API, not always available on node.js or some browsers (e.g. Safari). Luckly there's an [Intl polyfill](https://www.npmjs.com/package/intl): on the server we can just "require" it – however on the browser we want to download it *only* when `Intl` is not supported.
 
 2. For each language, we need to load a set of *locale data* (used by `Intl` to format numbers and dates) and the translated strings, called *messages* (used by `react-intl`). While on node.js we can load them in memory, on the client they need to be downloaded first – and we want to download only the relevant data for the current locale.
 
