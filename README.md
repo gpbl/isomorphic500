@@ -168,7 +168,7 @@ So, the `locale` middleware will attach the desired locale to `req.locale`, whic
 
 ### The difficult parts
 
-React-intl requires some boilerplate to make it working properly. Difficulties here arise mainly for two reasons:
+React-intl requires some boilerplate to work properly. Difficulties here arise mainly for two reasons:
 
 1. React Intl relies on the [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) *global* API, which is not always available on some node.js versions nor on some browsers (e.g. Safari). Luckly there's an [Intl polyfill](https://www.npmjs.com/package/intl): on the server, we can just "require" it – however on the browser we want to download it *only* when `Intl` is not supported.
 
