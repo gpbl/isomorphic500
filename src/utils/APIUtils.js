@@ -9,7 +9,7 @@ const debug = require("debug")("isomorphic500");
 
 const APIUtils = {
 
-  get(endpoint, query, done) {
+  get(endpoint, query, { locale }, done) {
     if (arguments.length === 2) {
       done = query;
       query = {};
@@ -21,10 +21,11 @@ const APIUtils = {
 
     // Customer key is required by the API
     query = assign(query, {
-      consumer_key: config.consumerKey
+      "consumer_key": config.consumerKey
     });
 
     request.get(url)
+      .set("accept-language", locale)
       .query(query)
       .end((err, res) => {
         debug("Received response %s from %s", res.status, url);
