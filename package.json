@@ -53,6 +53,7 @@
     "fluxible-plugin-fetchr": "^0.2.3",
     "fluxible-plugin-routr": "^0.3.0",
     "intl": "^0.1.4",
+    "locale": "0.0.20",
     "lodash": "^3.6.0",
     "morgan": "^1.5.2",
     "react": "^0.13.1",

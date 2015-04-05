@@ -7,10 +7,11 @@ import favicon from "serve-favicon";
 import domain from "express-domain-middleware";
 import morgan from "morgan";
 import csurf from "csurf";
-
+import locale from "locale";
 import app from "./app";
 import config from "./config";
 import render from "./server/render";
+import setLocale from "./server/setLocale";
 
 // Initialize express server
 
@@ -23,6 +24,18 @@ server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(compression());
 server.use(favicon(path.resolve(__dirname, "./assets/favicon.png")));
+
+// Set the default locale
+
+locale.Locale.default = config.locales[0];
+
+// Set req.locale based on the browser settings
+
+server.use(locale(config.locales));
+
+// Overwrite req.locale either from cookie or querystring
+
+server.use(setLocale);
 
 // This is used by the fetchr plugin
 
