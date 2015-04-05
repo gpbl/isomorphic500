@@ -50,6 +50,7 @@
     "file-loader": "^0.8.1",
     "flux-router-component": "^0.6.1",
     "fluxible": "^0.4.1",
+    "fluxible-action-utils": "^0.2.1",
     "fluxible-plugin-fetchr": "^0.2.3",
     "fluxible-plugin-routr": "^0.3.0",
     "intl": "^0.1.4",
