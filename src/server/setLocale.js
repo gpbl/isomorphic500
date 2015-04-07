@@ -9,7 +9,7 @@ const setLocale = (req, res, next) => {
 
   // Locale can be changed by passing ?hl=<locale> in the querystring
 
-  if (req.query.hasOwnProperty("hl")) {
+  if (req.query.hl) {
     // But only the supported ones!
     if (config.locales.indexOf(req.query.hl) > -1) {
       req.locale = req.query.hl;
@@ -18,7 +18,7 @@ const setLocale = (req, res, next) => {
   }
 
   // Or by setting a `hl` cookie
-  else if (req.cookies.hasOwnProperty("hl")) {
+  else if (req.cookies.hl) {
     if (config.locales.indexOf(req.cookies.hl) > -1) {
       req.locale = req.cookies.hl;
       debug("Locale has been set from cookie: %s", req.locale);
