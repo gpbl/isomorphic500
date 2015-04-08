@@ -53,10 +53,10 @@ let Application = React.createClass({
   mixins: [RouterMixin],
 
   render() {
-    const { pageName, route, err } = this.props;
+    const { pageName, route, err, isLoading } = this.props;
     return (
       <DocumentTitle title="isomorphic500">
-        <Page footer={!route.isLoading}>
+        <Page footer={!isLoading}>
           {
             pageName === "404" ?
               <NotFoundPage /> :
@@ -64,7 +64,7 @@ let Application = React.createClass({
             pageName === "500" ?
               <ErrorPage err={err} /> :
 
-            route.isLoading ?
+            isLoading ?
               <LoadingPage /> :
 
             this.renderRoute(route)
@@ -104,7 +104,8 @@ Application = connectToStores(Application, ["RouteStore"], {
   RouteStore: (store) => ({
     pageName: store.getCurrentPageName(),
     route: store.getCurrentRoute(),
-    err: store.getNavigationError()
+    err: store.getNavigationError(),
+    isLoading: store.isLoading()
   })
 });
 

@@ -17,6 +17,7 @@ class RouteStore extends Fluxible.BaseStore {
     super(dispatcher);
     this.currentRoute = null;
     this.currentPageName = null;
+    this.loading = false;
     this.err = null;
   }
 
@@ -30,7 +31,7 @@ class RouteStore extends Fluxible.BaseStore {
     this.currentRoute = route || {};
 
     this.err = null;
-    this.currentRoute.isLoading = true;
+    this.loading = true;
     this.currentPageName = null;
 
     this.emitChange();
@@ -46,7 +47,7 @@ class RouteStore extends Fluxible.BaseStore {
 
     this.currentPageName = null;
     this.err = null;
-    this.currentRoute.isLoading = false;
+    this.loading = false;
 
     this.emitChange();
   }
@@ -55,7 +56,7 @@ class RouteStore extends Fluxible.BaseStore {
     this.currentPageName = "404";
 
     if (this.currentRoute) {
-      this.currentRoute.isLoading = false;
+      this.loading = false;
     }
 
     this.emitChange();
@@ -66,7 +67,7 @@ class RouteStore extends Fluxible.BaseStore {
     this.currentPageName = "500";
 
     if (this.currentRoute) {
-      this.currentRoute.isLoading = false;
+      this.loading = false;
     }
 
     this.emitChange();
@@ -84,16 +85,22 @@ class RouteStore extends Fluxible.BaseStore {
     return this.err;
   }
 
+  isLoading() {
+    return this.loading;
+  }
+
   dehydrate() {
     return {
+      loading: this.loading,
       err: this.err,
       currentRoute: this.currentRoute,
       currentPageName: this.currentPageName
     };
   }
 
-  rehydrate({ err, currentRoute, currentPageName }) {
+  rehydrate({ err, loading, currentRoute, currentPageName }) {
     this.err = err;
+    this.loading = loading;
     this.currentRoute = currentRoute;
     this.currentPageName = currentPageName;
   }

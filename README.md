@@ -137,7 +137,7 @@ The [RouteStore](src/stores/RouteStore.js) keeps track of the current route.
 
 ##### Loading state
 
-When a route is loading (e.g. waiting for the API response), the store set the `isLoading` property to the route object. The Application component will then render a loading page.
+When a route is loading (e.g. waiting for the API response), the store set the `loading` property. The Application component will then render a loading page.
 
 ##### Route errors
 
