@@ -1,4 +1,5 @@
 import React, { PropTypes } from "react";
+import { isEqual } from "lodash";
 import { provideContext, connectToStores } from "fluxible/addons";
 
 import { RouterMixin } from "flux-router-component";
@@ -37,7 +38,7 @@ let Application = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.route.url !== nextProps.route.url) {
+    if (!isEqual(this.route, nextProps.route)) {
       this.setState({
         route: nextProps.route
       });
@@ -45,7 +46,7 @@ let Application = React.createClass({
   },
 
   componentDidUpdate(prevProps) {
-    if (this.props.route.url !== prevProps.route.url) {
+    if (!isEqual(this.route, prevProps.route)) {
       trackPageView();
     }
   },
