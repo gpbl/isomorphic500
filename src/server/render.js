@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
   webpackStats = require("./webpack-stats.json");
 }
 
-function renderApp(req, res, context) {
+function renderApp(req, res, context, next) {
 
   if (process.env.NODE_ENV === "development") {
     webpackStats = require("./webpack-stats.json");
@@ -31,27 +31,32 @@ function renderApp(req, res, context) {
 
   const Application = app.getComponent();
 
-  // Render the Application to string
-  const markup = React.renderToString(
-    <Application context={ context.getComponentContext() } />
-  );
+  try {
+    // Render the Application to string
+    const markup = React.renderToString(
+      <Application context={ context.getComponentContext() } />
+    );
 
-  // The application component is rendered to static markup
-  // and sent as response.
-  const html = React.renderToStaticMarkup(
-    <HtmlDocument
-      lang={req.locale}
-      state={state}
-      markup={markup}
-      script={webpackStats.script}
-      css={webpackStats.css}
-    />
-  );
-  const doctype = "<!DOCTYPE html>";
-  res.send(doctype + html);
+    // The application component is rendered to static markup
+    // and sent as response.
+    const html = React.renderToStaticMarkup(
+      <HtmlDocument
+        lang={req.locale}
+        state={state}
+        markup={markup}
+        script={webpackStats.script}
+        css={webpackStats.css}
+      />
+    );
+    const doctype = "<!DOCTYPE html>";
+    res.send(doctype + html);
+  }
+  catch (e) {
+    next(e);
+  }
 }
 
-function render(req, res) {
+function render(req, res, next) {
 
   // Create a fluxible context (_csrf is needed by the fetchr plugin)
   const context = app.createContext({
@@ -72,21 +77,21 @@ function render(req, res) {
       if (err.status === 404 || err.statusCode === 404) {
         res.status(404);
         context.executeAction(RouteActionCreators.show404, { err }, () => {
-          renderApp(req, res, context);
+          renderApp(req, res, context, next);
         });
       }
       else {
         res.status(500);
         context.executeAction(RouteActionCreators.show500, { err }, () => {
           console.log(err.stack || err);
-          renderApp(req, res, context);
+          renderApp(req, res, context, next);
         });
       }
 
       return;
     }
 
-    renderApp(req, res, context);
+    renderApp(req, res, context, next);
 
   });
 }

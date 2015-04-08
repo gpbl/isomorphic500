@@ -44,7 +44,6 @@
     "csurf": "^1.7.0",
     "debug": "^2.1.3",
     "express": "^4.12.3",
-    "express-domain-middleware": "^0.1.0",
     "extract-text-webpack-plugin": "^0.5.0",
     "favicon": "0.0.2",
     "file-loader": "^0.8.1",

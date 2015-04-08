@@ -4,7 +4,6 @@ import compression from "compression";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import favicon from "serve-favicon";
-import domain from "express-domain-middleware";
 import morgan from "morgan";
 import csurf from "csurf";
 import locale from "locale";
@@ -41,11 +40,6 @@ server.use(setLocale);
 
 server.use(csurf({ cookie: true }));
 
-// Binds incoming requests to a nodejs domain
-// (avoids to crash the server on uncaught errors)
-
-server.use(domain);
-
 // Configure fetchr (for doing api calls server and client-side)
 // and register its services
 
@@ -75,6 +69,14 @@ if (server.get("env") === "development") {
 // Render the app server-side and send it as response
 
 server.use(render);
+
+// Generic server errors (e.g. not caught by components)
+server.use((err, req, res, next) => {
+  console.log("Error on request %s %s", req.method, req.url);
+  console.log(err);
+  console.log(err.stack);
+  res.status(500).send("Something bad happened");
+});
 
 // Finally, start the express server
 
