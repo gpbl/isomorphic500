@@ -18,7 +18,7 @@ The intent of this project is to solidify my experience with these technologies 
 
 **Clone this repo**
 
-> **Note** This app is tested on node 0.12.x
+> **Note** This app has been tested on node 0.12.x
 
 ```
 git clone https://github.com/gpbl/isomorphic500.git
