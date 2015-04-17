@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import FormattedMessage from '../components/FormattedMessage';
+import React, { PropTypes } from "react";
+import FormattedMessage from "../components/FormattedMessage";
 
 class PhotoAttribution extends React.Component {
 

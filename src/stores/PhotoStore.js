@@ -41,7 +41,7 @@ class PhotoStore extends Fluxible.BaseStore {
     );
   }
 
-  getFeatured(feature) {
+  getFeatured() {
     return this.featured.map(id => this.photos[id]);
   }
 
