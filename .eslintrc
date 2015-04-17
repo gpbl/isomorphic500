@@ -1,4 +1,5 @@
 {
+  "parser": "babel-eslint",
   "rules": {
     "no-undef": 1,
     "no-unused-expressions": 1,
@@ -19,6 +20,8 @@
 
   "globals": {
     "BROWSER": true
-  }
+  },
+
+  "plugins": ["react"]
 
 }

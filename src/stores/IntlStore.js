@@ -41,7 +41,7 @@ class IntlStore extends BaseStore {
   }
 
   getCurrentLocale() {
-    return this.currentLocale
+    return this.currentLocale;
   }
 
   dehydrate() {
