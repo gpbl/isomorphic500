@@ -16,9 +16,9 @@ The intent of this project is to solidify my experience with these technologies 
 - read on for some technical details
 - [write issues](https://github.com/gpbl/isomorphic500/issues) and [join the gitter chat](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) to discuss :-)
 
-> PS. The previous, non-flux version of this repo is in the [isomorphic-react-template] (https://github.com/gpbl/isomorphic500/tree/isomorphic-react-template) branch.
-
 **Clone this repo**
+
+> **Note** This app has been tested on node 0.12.x
 
 ```
 git clone https://github.com/gpbl/isomorphic500.git
