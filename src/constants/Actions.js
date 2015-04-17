@@ -7,6 +7,8 @@ const Actions = keyMirror({
   STATUS_404: null,
   STATUS_500: null,
 
+  SET_HTML_HEAD: null,
+
   LOAD_FEATURED_PHOTOS_START: null,
   LOAD_FEATURED_PHOTOS_SUCCESS: null,
   LOAD_FEATURED_PHOTOS_FAILURE: null,

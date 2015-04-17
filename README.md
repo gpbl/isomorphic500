@@ -54,6 +54,7 @@ then open [localhost:8080](http://localhost:8080).
     * [The RouteStore](#the-routestore)
       * [Loading state](#loading-state)
       * [Route errors](#route-errors)
+    * [The HtmlHeadStore](#the-htmlheadstore)
 * [Internationalization (i18n)](#internationalization-i18n)
   * [How the user’s locale is detected](#how-the-user’s-locale-is-detected)
   * [The difficult parts](#the-difficult-parts)
@@ -146,6 +147,14 @@ A route error happens when a route is not found or when the service fetching cri
 In these cases, the RouteStore set its `currentPageName` to `404` or `500`, so that the Application component can render a [`NotFoundPage`](src/pages/NotFoundPage.js) or an [`ErrorPage`](src/pages/ErrorPage.js).
 
 > Note that a not-found route may come from the router itself (i.e. the route is missing in the [config](src/routes.js)) but also when a route action sends to the callback an error with `{status: 404}`.
+
+#### The HtmlHeadStore
+
+The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `HtmlDocument` component, during server-side rendering. It is listened by the `Application` component to change the browser's `document.title`.
+
+The `onHtmlHeadSet` handler set the data according to the current route. This store uses data from other stores, such the titles of the photos, or the intl messages from the `IntlStore`.
+
+It is important that the handler is executed after the other stores have been filled up with their data. The HtmlHeadStore listens to the `SET_HTML_HEAD` action (executed by an action creator in [RouteActions](src/pages/RouteActions.js)`) *only* after fetching the data required to render a page.
 
 ## Internationalization (i18n)
 

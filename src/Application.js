@@ -3,7 +3,6 @@ import { isEqual } from "lodash";
 import { provideContext, connectToStores } from "fluxible/addons";
 
 import { RouterMixin } from "flux-router-component";
-import DocumentTitle from "react-document-title";
 
 import Page from "./components/Page";
 
@@ -27,7 +26,8 @@ let Application = React.createClass({
     context: PropTypes.object.isRequired,
     pageName: PropTypes.string,
     route: PropTypes.object,
-    err: PropTypes.object
+    err: PropTypes.object,
+    documentTitle: PropTypes.string
   },
 
   // RouterMixin needs the route in the component state
@@ -46,7 +46,13 @@ let Application = React.createClass({
   },
 
   componentDidUpdate(prevProps) {
-    if (!isEqual(this.route, prevProps.route)) {
+    const { documentTitle, route } = this.props;
+
+    if (prevProps.documentTitle !== documentTitle) {
+      document.title = documentTitle;
+    }
+
+    if (!isEqual(route, prevProps.route)) {
       trackPageView();
     }
   },
@@ -56,23 +62,21 @@ let Application = React.createClass({
   render() {
     const { pageName, route, err, isLoading } = this.props;
     return (
-      <DocumentTitle title="isomorphic500">
-        <Page footer={!isLoading}>
-          {
-            pageName === "404" ?
-              <NotFoundPage /> :
+      <Page footer={!isLoading}>
+        {
+          pageName === "404" ?
+            <NotFoundPage /> :
 
-            pageName === "500" ?
-              <ErrorPage err={err} /> :
+          pageName === "500" ?
+            <ErrorPage err={err} /> :
 
-            isLoading ?
-              <LoadingPage /> :
+          isLoading ?
+            <LoadingPage /> :
 
-            this.renderRoute(route)
+          this.renderRoute(route)
 
-          }
-        </Page>
-      </DocumentTitle>
+        }
+      </Page>
     );
   },
 
@@ -85,30 +89,30 @@ let Application = React.createClass({
     switch (route.name) {
       case "featured":
       case "home":
-        RouteHandler = <FeaturedPage />;
+        RouteHandler = FeaturedPage;
       break;
       case "photo":
-        RouteHandler = <PhotoPage id={route.params.id} />;
+        RouteHandler = PhotoPage;
       break;
       default:
         console.warn(`Missing handler for route with name ${route.name}`);
-        RouteHandler = <NotFoundPage />;
+        RouteHandler = NotFoundPage;
       break;
     }
 
-    return RouteHandler;
+    return <RouteHandler {...route.params} />;
   }
 
 });
 
-Application = connectToStores(Application, ["RouteStore"], {
-  RouteStore: (store) => ({
-    pageName: store.getCurrentPageName(),
-    route: store.getCurrentRoute(),
-    err: store.getNavigationError(),
-    isLoading: store.isLoading()
+Application = connectToStores(Application, ["RouteStore", "HtmlHeadStore"], (stores) => ({
+    pageName: stores.RouteStore.getCurrentPageName(),
+    route: stores.RouteStore.getCurrentRoute(),
+    err: stores.RouteStore.getNavigationError(),
+    isLoading: stores.RouteStore.isLoading(),
+    documentTitle: stores.HtmlHeadStore.getTitle()
   })
-});
+);
 
 // wrap application in the fluxible context
 Application = provideContext(Application);

@@ -41,6 +41,7 @@ function renderApp(req, res, context, next) {
     // and sent as response.
     const html = React.renderToStaticMarkup(
       <HtmlDocument
+        context={ context.getComponentContext() }
         lang={req.locale}
         state={state}
         markup={markup}

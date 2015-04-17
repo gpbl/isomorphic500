@@ -1,7 +1,5 @@
 import React, { PropTypes } from "react";
-import DocumentTitle from "react-document-title";
 import { connectToStores } from "fluxible/addons";
-import { NavLink, navigateAction } from "flux-router-component";
 
 import Thumbnail from "../components/Thumbnail";
 
@@ -16,29 +14,24 @@ class FeaturedPage extends React.Component {
   }
 
   render() {
-    const { photos, currentFeature } = this.props;
+    const { photos } = this.props;
     return (
-      <DocumentTitle title={`${currentFeature} on 500px`}>
-        <div>
+      <div>
 
-          <div className="ThumbnailCollection">
-            {
-              photos.map(photo => <Thumbnail key={photo.id} size="small" photo={photo} />)
-            }
-          </div>
-
+        <div className="ThumbnailCollection">
+          {
+            photos.map(photo => <Thumbnail key={photo.id} size="small" photo={photo} />)
+          }
         </div>
-      </DocumentTitle>
+
+      </div>
     );
   }
 
 }
 
 FeaturedPage = connectToStores(FeaturedPage, ["PhotoStore"], (stores) =>
-  ({
-    photos: stores.PhotoStore.getFeatured(),
-    currentFeature: stores.PhotoStore.getCurrentFeature()
-  })
+  ({ photos: stores.PhotoStore.getFeatured() })
 );
 
 export default FeaturedPage;
