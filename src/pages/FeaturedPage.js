@@ -34,11 +34,11 @@ class FeaturedPage extends React.Component {
 
 }
 
-FeaturedPage = connectToStores(FeaturedPage, ["PhotoStore"], {
-  PhotoStore: (store) => ({
-    photos: store.getFeatured(),
-    currentFeature: store.getCurrentFeature()
+FeaturedPage = connectToStores(FeaturedPage, ["PhotoStore"], (stores) =>
+  ({
+    photos: stores.PhotoStore.getFeatured(),
+    currentFeature: stores.PhotoStore.getCurrentFeature()
   })
-});
+);
 
 export default FeaturedPage;
