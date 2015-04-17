@@ -1,6 +1,10 @@
 import React from "react";
 import IntlUtils from "./utils/IntlUtils";
 
+// Add promise support for browser not supporting it
+import es6Promise from "es6-promise";
+es6Promise.polyfill();
+
 window.debug = require("debug");
 
 const debug = window.debug("isomorphic500");
