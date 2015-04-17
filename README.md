@@ -150,11 +150,9 @@ In these cases, the RouteStore set its `currentPageName` to `404` or `500`, so t
 
 #### The HtmlHeadStore
 
-The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `HtmlDocument` component, during server-side rendering. It is listened by the `Application` component to change the browser's `document.title`.
+The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `HtmlDocument` component, during server-side rendering. It is also listened by the `Application` component to change the browser's `document.title`.
 
-The `onHtmlHeadSet` handler set the data according to the current route. This store uses data from other stores, such the titles of the photos, or the intl messages from the `IntlStore`.
-
-It is important that the handler is executed after the other stores have been filled up with their data. The HtmlHeadStore listens to the `SET_HTML_HEAD` action (executed by an action creator in [RouteActions](src/pages/RouteActions.js)`) *only* after fetching the data required to render a page.
+The `onHtmlHeadSet` handler set the data according to the current route. This store uses data from other stores, such the titles of the photos, or the intl messages from the `IntlStore`. It is important that this handler is executed after the other stores have been filled up with their data. The HtmlHeadStore listens to the `SET_HTML_HEAD` action (dispatched by an action creator in [RouteActions](src/pages/RouteActions.js)) *only* after fetching the data required to render a page.
 
 ## Internationalization (i18n)
 
