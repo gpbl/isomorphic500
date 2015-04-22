@@ -1,14 +1,18 @@
 import { get } from "../utils/APIUtils";
 
+// Fetchr service to load a photo given its id.
+
 export default {
   name: "photo",
 
   read(req, resource, { id, imageSize=1600 }, config, done) {
-    get(`/photos/${id}`, {
+    const query = {
       "image_size": imageSize
-    }, {
+    };
+    const options = {
       locale: req.locale
-    }, done);
+    };
+    get(`/photos/${id}`, query, options, done);
   }
 
 };
