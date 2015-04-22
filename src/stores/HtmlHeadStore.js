@@ -44,8 +44,11 @@ class HtmlHeadStore extends BaseStore {
   }
 
   getCurrentUrl() {
-    const routeStore = this.dispatcher.getStore("RouteStore");
-    return `${BASE_URL}${routeStore.getCurrentRoute().url}`;
+    const route = this.dispatcher.getStore("RouteStore").getCurrentRoute();
+    if (!route) {
+      return "";
+    }
+    return `${BASE_URL}${route.url}`;
   }
 
   getImages() {
