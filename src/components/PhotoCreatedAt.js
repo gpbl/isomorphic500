@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from "react";
-import FormattedDate from "../components/FormattedDate";
+import FormattedDate from "../utils/FormattedDate";
 
 class PhotoCreatedAt extends Component {
 

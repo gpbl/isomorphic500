@@ -5,7 +5,7 @@ import { connectToStores } from "fluxible/addons";
 
 import features from "../constants/features";
 import LocaleSwitcher from "../components/LocaleSwitcher";
-import FormattedMessage from "../components/FormattedMessage";
+import FormattedMessage from "../utils/FormattedMessage";
 
 if (process.env.BROWSER) {
   require("../style/NavBar.scss");

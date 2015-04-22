@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from "react";
-import FormattedMessage from "../components/FormattedMessage";
-import FormattedNumber from "../components/FormattedNumber";
+import FormattedMessage from "../utils/FormattedMessage";
+import FormattedNumber from "../utils/FormattedNumber";
 
 class PhotoRating extends Component {
 
