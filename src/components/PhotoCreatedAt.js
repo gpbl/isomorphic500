@@ -3,6 +3,10 @@ import FormattedDate from "../utils/FormattedDate";
 
 class PhotoCreatedAt extends Component {
 
+  static propTypes = {
+    date: PropTypes.string.isRequired
+  }
+
   render() {
     const { date } = this.props;
 
