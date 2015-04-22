@@ -1,7 +1,7 @@
-import React, { PropTypes } from "react";
+import React, { PropTypes, Component } from "react";
 import FormattedMessage from "../utils/FormattedMessage";
 
-class PhotoAttribution extends React.Component {
+class PhotoAttribution extends Component {
 
   static propTypes = {
     user: PropTypes.object.isRequired

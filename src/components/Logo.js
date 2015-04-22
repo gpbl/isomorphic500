@@ -1,6 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 
-class Logo extends React.Component {
+/*
+This component renders SVG instead of the classic HTML elements.
+ */
+class Logo extends Component {
 
   render() {
     return (

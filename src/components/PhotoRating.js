@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from "react";
+import React, { Component } from "react";
 import FormattedMessage from "../utils/FormattedMessage";
 import FormattedNumber from "../utils/FormattedNumber";
 

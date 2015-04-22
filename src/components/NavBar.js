@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropTypes, Component } from "react";
 import Logo from "../components/Logo";
 import { NavLink } from "flux-router-component";
 
@@ -10,7 +10,7 @@ if (process.env.BROWSER) {
   require("../style/NavBar.scss");
 }
 
-class NavBar extends React.Component {
+class NavBar extends Component {
 
   static contextTypes = {
     getStore: PropTypes.func.isRequired
@@ -36,13 +36,15 @@ class NavBar extends React.Component {
                 className = `${className} ${className}--selected`;
               }
 
-              return <NavLink
+              return (
+                <NavLink
                   key={feature}
                   className={className}
                   routeName="featured"
                   navParams={{feature: feature}}>
                   <FormattedMessage message={`features.${feature}`} />
-                </NavLink>;
+                </NavLink>
+              );
             })
           }
         </div>

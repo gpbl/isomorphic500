@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
-import { loadPhoto } from '../actions/PhotoActionCreators';
+import React, { PropTypes, Component } from "react";
+import { loadPhoto } from "../actions/PhotoActionCreators";
 
-class Photo extends React.Component {
+class Photo extends Component {
 
   static propTypes = {
     photo: PropTypes.object.isRequired,

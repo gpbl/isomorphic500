@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import { NavLink } from "flux-router-component";
 
 if (process.env.BROWSER) {
   require("../style/Footer.scss");
 }
 
-class Footer extends React.Component {
+class Footer extends Component {
 
   render() {
     return (

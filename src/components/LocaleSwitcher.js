@@ -3,7 +3,7 @@ import { locales } from "../config";
 import { writeCookie } from "../utils/CookieUtils";
 
 if (process.env.BROWSER) {
-  require("../style/LocaleSwitcher.scss")
+  require("../style/LocaleSwitcher.scss");
 }
 
 class LocaleSwitcher extends Component {
@@ -17,7 +17,7 @@ class LocaleSwitcher extends Component {
       <div className="LocaleSwitcher">
         { locales.map(this.renderLocaleLink, this) }
       </div>
-    )
+    );
   }
 
   renderLocaleLink(locale) {
@@ -35,7 +35,7 @@ class LocaleSwitcher extends Component {
          href={`?hl=${locale}`}>
           { locale }
       </a>
-    )
+    );
   }
 
   handleLocaleClick(locale, e) {
