@@ -6,10 +6,11 @@ import routes from "./routes";
 
 import Application from "./Application";
 
+import FeaturedStore from "./stores/FeaturedStore";
+import HtmlHeadStore from "./stores/HtmlHeadStore";
 import IntlStore from "./stores/IntlStore";
 import PhotoStore from "./stores/PhotoStore";
 import RouteStore from "./stores/RouteStore";
-import HtmlHeadStore from "./stores/HtmlHeadStore";
 
 const app = new Fluxible({
 
@@ -48,9 +49,10 @@ app.plug(routrPlugin({
   routes: routes
 }));
 
+app.registerStore(FeaturedStore);
+app.registerStore(HtmlHeadStore);
 app.registerStore(IntlStore);
 app.registerStore(PhotoStore);
 app.registerStore(RouteStore);
-app.registerStore(HtmlHeadStore);
 
 export default app;

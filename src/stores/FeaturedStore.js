@@ -1,0 +1,45 @@
+import { BaseStore } from "fluxible/addons";
+import Actions from "../constants/Actions";
+
+/*
+This is a "list store", i.e. it holds only ids referring to another
+"resource store". This one keeps the `id` of the photos in PhotoStore
+when the featured photos has been loaded.
+ */
+
+class FeaturedStore extends BaseStore {
+
+  static storeName = "FeaturedStore"
+
+  static handlers = {
+    [Actions.LOAD_FEATURED_PHOTOS_SUCCESS]: "onLoadSuccess",
+  }
+
+  constructor(dispatcher) {
+    super(dispatcher);
+    this.featured = [];
+  }
+
+  onLoadSuccess(photos) {
+    this.featured = photos.map(photo => photo.id);
+    this.emitChange();
+  }
+
+  getFeaturedPhotos() {
+    return this.featured;
+  }
+
+  dehydrate() {
+    return {
+      featured: this.featured
+    };
+  }
+
+  rehydrate({ featured }) {
+    this.featured = featured;
+  }
+
+}
+
+
+export default FeaturedStore;

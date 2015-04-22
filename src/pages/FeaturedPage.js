@@ -30,8 +30,11 @@ class FeaturedPage extends React.Component {
 
 }
 
-FeaturedPage = connectToStores(FeaturedPage, ["PhotoStore"], (stores) =>
-  ({ photos: stores.PhotoStore.getFeatured() })
-);
+FeaturedPage = connectToStores(FeaturedPage, ["PhotoStore", "FeaturedStore"], (stores) => {
+  const ids = stores.FeaturedStore.getFeaturedPhotos();
+  return {
+    photos: stores.PhotoStore.getMultiple(ids)
+  };
+});
 
 export default FeaturedPage;

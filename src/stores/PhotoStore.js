@@ -1,9 +1,14 @@
-
-import Fluxible from "fluxible/addons";
+import { BaseStore } from "fluxible/addons";
 import Actions from "../constants/Actions";
 import _ from "lodash";
 
-class PhotoStore extends Fluxible.BaseStore {
+/*
+This is a "resource store", holding the photo objects loaded by the app.
+Photo objects can come either loading a single photo (`LOAD_PHOTO_SUCCESS`)
+or after loading featured photos (`LOAD_FEATURED_SUCCESS`).
+ */
+
+class PhotoStore extends BaseStore {
 
   static storeName = "PhotoStore"
 
@@ -14,24 +19,16 @@ class PhotoStore extends Fluxible.BaseStore {
 
   constructor(dispatcher) {
     super(dispatcher);
-
     this.photos = {};
-    this.featured = [];
-    this.currentFeature = null;
   }
 
-  onLoadFeaturedSuccess({ feature, results }) {
-    const photos = _(results.photos);
-
-    this.photos = photos.indexBy("id").merge(this.photos).value();
-    this.featured = photos.map(photo => photo.id).value();
-    this.currentFeature = feature;
-
+  onLoadSuccess(photo) {
+    this.photos[photo.id] = _.merge({}, this.photos[photo.id], photo);
     this.emitChange();
   }
 
-  onLoadSuccess({ photo }) {
-    this.photos[photo.id] = _.merge({}, this.photos[photo.id], photo);
+  onLoadFeaturedSuccess(photos) {
+    this.photos = _(photos).indexBy("id").merge(this.photos).value();
     this.emitChange();
   }
 
@@ -41,26 +38,18 @@ class PhotoStore extends Fluxible.BaseStore {
     );
   }
 
-  getFeatured() {
-    return this.featured.map(id => this.photos[id]);
-  }
-
-  getCurrentFeature() {
-    return this.currentFeature;
+  getMultiple(ids) {
+    return ids.map(id => this.photos[id]);
   }
 
   dehydrate() {
     return {
-      photos: this.photos,
-      featured: this.featured,
-      currentFeature: this.currentFeature
+      photos: this.photos
     };
   }
 
-  rehydrate({ photos, featured, currentFeature }) {
-    this.photos = photos;
-    this.featured = featured;
-    this.currentFeature = currentFeature;
+  rehydrate(state) {
+    this.photos = state.photos;
   }
 
 }
