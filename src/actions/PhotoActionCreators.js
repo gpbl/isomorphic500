@@ -7,16 +7,13 @@ const PhotoActionCreators = {
     context.dispatch(Actions.LOAD_FEATURED_PHOTOS_START, { feature });
 
     context.service.read("photos", { feature }, { timeout: 20000 },
-      (err, results) => {
+      (err, data) => {
         if (err) {
-          context.dispatch(Actions.LOAD_FEATURED_PHOTOS_FAILURE, { feature });
+          context.dispatch(Actions.LOAD_FEATURED_PHOTOS_FAILURE);
           return done(err);
         }
 
-        context.dispatch(Actions.LOAD_FEATURED_PHOTOS_SUCCESS, {
-          feature,
-          results
-        });
+        context.dispatch(Actions.LOAD_FEATURED_PHOTOS_SUCCESS, data.photos);
         done();
       }
 
@@ -38,7 +35,7 @@ const PhotoActionCreators = {
           return done(err);
         }
 
-        context.dispatch(Actions.LOAD_PHOTO_SUCCESS, data);
+        context.dispatch(Actions.LOAD_PHOTO_SUCCESS, data.photo);
         done();
       }
 
