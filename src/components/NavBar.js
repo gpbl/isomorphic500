@@ -1,7 +1,6 @@
 import React from "react";
 import Logo from "../components/Logo";
 import { NavLink } from "flux-router-component";
-import { connectToStores } from "fluxible/addons";
 
 import features from "../constants/features";
 import LocaleSwitcher from "../components/LocaleSwitcher";
@@ -13,8 +12,14 @@ if (process.env.BROWSER) {
 
 class NavBar extends React.Component {
 
+  static contextTypes = {
+    getStore: PropTypes.func.isRequired
+  }
+
   render() {
-    const { currentFeature } = this.props;
+    const route = this.context.getStore("RouteStore").getCurrentRoute();
+    const currentFeature = route ? route.params.feature : null;
+
     return (
       <div className="NavBar">
         <div className="NavBar-title">
@@ -49,12 +54,5 @@ class NavBar extends React.Component {
   }
 
 }
-
-NavBar = connectToStores(NavBar, ["RouteStore"], {
-  RouteStore: (store) => {
-    const route = store.getCurrentRoute();
-    return { currentFeature: route ? route.params.feature : null };
-  }
-});
 
 export default NavBar;
