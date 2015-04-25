@@ -7,7 +7,7 @@
     "start": "NODE_ENV=production node index",
     "dev": "NODE_ENV=development DEBUG=isomorphic500 node index",
     "prod": "NODE_ENV=production PORT=8080 DEBUG=isomorphic500 node index",
-    "build": "webpack --stats --config ./webpack/prod.config.js",
+    "build": "webpack --stats --progress --config ./webpack/prod.config.js",
     "postinstall": "npm run build",
     "linter": "eslint src && jscs src",
     "test": "mocha --compilers js:babel/register --recursive --reporter spec",
