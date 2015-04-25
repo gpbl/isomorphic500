@@ -31,10 +31,6 @@ module.exports = {
   progress: true,
   plugins: [
 
-    // Fix issue with fluxible 0.4
-    // see https://github.com/gpbl/isomorphic500/issues/29
-    new webpack.IgnorePlugin(/vertx/),
-
     // ignore debug statements
     new webpack.NormalModuleReplacementPlugin(/debug/, process.cwd() + "/webpack/utils/noop.js"),
 
