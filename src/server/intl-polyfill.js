@@ -6,8 +6,6 @@
 import { locales } from "../config";
 import IntlUtils from "../utils/IntlUtils";
 
-const debug = require("debug")("isomorphic500");
-
 if (locales) {
 
   if (global.Intl) {
@@ -20,14 +18,11 @@ if (locales) {
       Intl.NumberFormat = IntlPolyfill.NumberFormat;
       Intl.DateTimeFormat = IntlPolyfill.DateTimeFormat;
 
-      debug("Intl has been found, but locale data has been polyfilled.");
-
     }
   }
   else {
     // No `Intl`: use and load the polyfill.
     global.Intl = require("intl");
-    debug("Intl is not supported, so the polyfill has been loaded.");
   }
 
 }
