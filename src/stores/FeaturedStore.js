@@ -12,15 +12,17 @@ class FeaturedStore extends BaseStore {
   static storeName = "FeaturedStore"
 
   static handlers = {
-    [Actions.LOAD_FEATURED_PHOTOS_SUCCESS]: "onLoadSuccess",
+    [Actions.LOAD_FEATURED_PHOTOS_SUCCESS]: "handleLoadSuccess"
   }
 
   constructor(dispatcher) {
     super(dispatcher);
     this.featured = [];
+    this.currentFeature = null;
   }
 
-  onLoadSuccess(photos) {
+  handleLoadSuccess({ feature, photos }) {
+    this.currentFeature = feature;
     this.featured = photos.map(photo => photo.id);
     this.emitChange();
   }
@@ -29,14 +31,20 @@ class FeaturedStore extends BaseStore {
     return this.featured;
   }
 
+  getCurrentFeature() {
+    return this.currentFeature;
+  }
+
   dehydrate() {
     return {
-      featured: this.featured
+      featured: this.featured,
+      currentFeature: this.currentFeature
     };
   }
 
-  rehydrate({ featured }) {
-    this.featured = featured;
+  rehydrate(state) {
+    this.featured = state.featured;
+    this.currentFeature = state.currentFeature;
   }
 
 }
