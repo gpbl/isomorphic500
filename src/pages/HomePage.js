@@ -1,11 +1,12 @@
-import React, { PropTypes, Component } from "react";
+import React, { Component } from "react";
+import FormattedMessage from "../utils/FormattedMessage";
 
 class HomePage extends Component {
 
   render() {
     return (
       <div>
-        Welcome
+        <FormattedMessage message="home.welcome" />
       </div>
     );
   }
