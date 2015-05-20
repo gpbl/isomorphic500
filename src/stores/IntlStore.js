@@ -7,7 +7,7 @@ class IntlStore extends BaseStore {
   static storeName = "IntlStore"
 
   static handlers = {
-    [Actions.LOAD_INTL]: "onLoad",
+    [Actions.LOAD_INTL]: "handleLoad"
   }
 
   constructor(dispatcher) {
@@ -17,7 +17,7 @@ class IntlStore extends BaseStore {
     this.currentLocale = null;
   }
 
-  onLoad({ messages, locales }) {
+  handleLoad({ messages, locales }) {
     this.messages = messages;
     this.locales = locales;
     this.currentLocale = locales[0];
