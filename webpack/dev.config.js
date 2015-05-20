@@ -12,7 +12,7 @@ const WEBPACK_HOST = "localhost";
 const WEBPACK_PORT = parseInt(process.env.PORT) + 1 || 3001;
 
 export default {
-  devtool: "eval",
+  devtool: "cheap-module-source-map",
   entry: {
     "main": [
       `webpack-dev-server/client?http://${WEBPACK_HOST}:${WEBPACK_PORT}`,
@@ -29,7 +29,7 @@ export default {
   module: {
     loaders: [
       { test: /\.(jpe?g|png|gif|svg)$/, loader: "file" },
-      { test: /\.js$/, exclude: /node_modules/, loaders: ["react-hot", "babel"] },
+      { test: /\.js$/, exclude: /node_modules/, loaders: ["react-hot", "babel?cacheDirectory"] },
       { test: /\.scss$/, loader: "style!css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true" }
     ]
   },

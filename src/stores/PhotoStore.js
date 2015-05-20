@@ -5,16 +5,16 @@ import _ from "lodash";
 /*
 This is a "resource store", holding the photo objects loaded by the app.
 Photo objects can come either loading a single photo (`LOAD_PHOTO_SUCCESS`)
-or after loading featured photos (`LOAD_FEATURED_SUCCESS`).
- */
+or after loading featured photos (`LOAD_FEATURED_PHOTOS_SUCCESS`).
+*/
 
 class PhotoStore extends BaseStore {
 
   static storeName = "PhotoStore"
 
   static handlers = {
-    [Actions.LOAD_FEATURED_PHOTOS_SUCCESS]: "onLoadFeaturedSuccess",
-    [Actions.LOAD_PHOTO_SUCCESS]: "onLoadSuccess"
+    [Actions.LOAD_FEATURED_PHOTOS_SUCCESS]: "handleLoadFeaturedSuccess",
+    [Actions.LOAD_PHOTO_SUCCESS]: "handleLoadSuccess"
   }
 
   constructor(dispatcher) {
@@ -22,12 +22,12 @@ class PhotoStore extends BaseStore {
     this.photos = {};
   }
 
-  onLoadSuccess(photo) {
+  handleLoadSuccess(photo) {
     this.photos[photo.id] = _.merge({}, this.photos[photo.id], photo);
     this.emitChange();
   }
 
-  onLoadFeaturedSuccess(photos) {
+  handleLoadFeaturedSuccess({ photos }) {
     this.photos = _(photos).indexBy("id").merge(this.photos).value();
     this.emitChange();
   }

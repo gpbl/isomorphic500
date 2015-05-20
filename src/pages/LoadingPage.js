@@ -1,4 +1,4 @@
-import React, { PropTypes } from "react";
+import React from "react";
 
 if (process.env.BROWSER) {
   require("../style/Loader.scss");
@@ -8,7 +8,7 @@ if (process.env.BROWSER) {
 class LoadingPage extends React.Component {
 
   render() {
-    return <div className="Loader Animate--slow Animate--withDelay Animate-fadeIn" />;
+    return <div className="Loader Animate--slow Animate-fadeIn" />;
   }
 
 }

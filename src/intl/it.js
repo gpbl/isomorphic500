@@ -25,6 +25,10 @@ export default {
       "documentTitle": "{feature} su 500px"
     },
 
+    "home": {
+      "welcome": "Benvenuto in isomorphic500. Esplora un po’ le foto..."
+    },
+
     "photo": {
 
       "documentTitle": "{name} – di {user}",

@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react";
 
-import { NavLink } from "flux-router-component";
+import { NavLink } from "fluxible-router";
 
 if (process.env.BROWSER) {
   require("../style/Thumbnail.scss");

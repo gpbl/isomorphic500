@@ -6,9 +6,9 @@ import serialize from "serialize-javascript";
 
 import app from "../app";
 import HtmlDocument from "./HtmlDocument";
-import renderAction from "./renderAction";
 
-import RouteActionCreators from "../actions/RouteActionCreators";
+import { navigateAction } from "fluxible-router";
+import { loadIntlMessages } from "../actions/IntlActionCreators";
 
 let webpackStats;
 
@@ -67,34 +67,15 @@ function render(req, res, next) {
     }
   });
 
-  context.executeAction(renderAction, { url: req.url, locale: req.locale }, (err) => {
+  // Fill the intl store with the messages according to locale and
+  // execute the navigate action to fill the RouteStore
+  // (here we make use of executeAction returning a promise)
+  Promise.all([
+      context.executeAction(loadIntlMessages, { locale: req.locale }),
+      context.executeAction(navigateAction, { url: req.url })
+    ]).then(() => renderApp(req, res, context, next))
+      .catch(() => renderApp(req, res, context, next));
 
-    // If the action return an errors, execute another action to make
-    // the RouteStore register the error and show the relative page.
-    // This is basically the server-side counterpart of
-    // componentActionHandler in ../app.js
-
-    if (err) {
-      if (err.status === 404 || err.statusCode === 404) {
-        res.status(404);
-        context.executeAction(RouteActionCreators.show404, { err }, () => {
-          renderApp(req, res, context, next);
-        });
-      }
-      else {
-        res.status(500);
-        context.executeAction(RouteActionCreators.show500, { err }, () => {
-          console.log(err.stack || err);
-          renderApp(req, res, context, next);
-        });
-      }
-
-      return;
-    }
-
-    renderApp(req, res, context, next);
-
-  });
 }
 
 export default render;

@@ -1,6 +1,6 @@
 import { get } from "../utils/APIUtils";
 
-// Fetchr service to load a photo given its id.
+// Fetchr service to load a photo given an id.
 
 export default {
   name: "photo",

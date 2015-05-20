@@ -28,7 +28,7 @@ const APIUtils = {
       .set("accept-language", locale)
       .query(query)
       .end((err, res) => {
-        debug("Received response %s from %s", res.status, url);
+        debug("Received response %s from %s", res && res.status, url);
 
         if (err) {
           if (err.status) {

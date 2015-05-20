@@ -1,32 +1,40 @@
 
-import RouteActions from "./pages/RouteActions";
+import InitActions from "./pages/InitActions";
 
 import features from "./constants/features";
+
+import HomePage from "./pages/HomePage";
+import PhotoPage from "./pages/PhotoPage";
+import FeaturedPage from "./pages/FeaturedPage";
 
 export default {
 
   home: {
     path: "/",
     method: "get",
-    action: RouteActions.featuredPage
+    handler: HomePage
   },
 
   featured: {
     path: `/featured/:feature(${features.join("|")})`,
     method: "get",
-    action: RouteActions.featuredPage
+    handler: FeaturedPage,
+    action: InitActions.featuredPage
   },
 
   photo: {
     path: "/photo/:id",
     method: "get",
-    action: RouteActions.photoPage
+    handler: PhotoPage,
+    action: InitActions.photoPage
   },
 
+  // This route doesn't point to any handler.
+  // I made it just as example for showing an action responding with an error
   bad: {
     path: "/bad",
     method: "get",
-    action: RouteActions.badPage
+    action: InitActions.badPage
   }
 
 };

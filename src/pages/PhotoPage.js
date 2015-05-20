@@ -26,8 +26,10 @@ class PhotoPage extends Component {
 
 }
 
-PhotoPage = connectToStores(PhotoPage, ["PhotoStore"], (stores, props) =>
-  ({ photo: stores.PhotoStore.get(props.id) })
-);
+PhotoPage = connectToStores(PhotoPage, ["PhotoStore"], (stores, props) => {
+  return {
+    photo: stores.PhotoStore.get(props.id)
+  };
+});
 
 export default PhotoPage;
