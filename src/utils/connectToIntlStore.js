@@ -1,4 +1,5 @@
 // Passes IntlStore messages and locales down to Component as props.
+// It is used in the /utils/Formatted* utilities.
 //
 // Example
 //
