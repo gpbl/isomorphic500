@@ -1,120 +1,102 @@
-import React, { PropTypes } from "react";
-import { isEqual } from "lodash";
-import { provideContext, connectToStores } from "fluxible/addons";
+import Debug from "debug";
 
-import { RouterMixin } from "flux-router-component";
+import React, { PropTypes, Component } from "react";
+import { provideContext, connectToStores } from "fluxible/addons";
+import { handleHistory } from "fluxible-router";
 
 import Page from "./components/Page";
+import Immutable from "immutable";
 
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorPage from "./pages/ErrorPage";
 import LoadingPage from "./pages/LoadingPage";
-import PhotoPage from "./pages/PhotoPage";
-import FeaturedPage from "./pages/FeaturedPage";
 
 import trackPageView from "./utils/trackPageView";
-
-const debug = require("debug")("isomorphic500");
 
 if (process.env.BROWSER) {
   require("./style/Application.scss");
 }
 
-let Application = React.createClass({
+const debug = Debug("Application.js");
 
-  propTypes: {
-    context: PropTypes.object.isRequired,
-    pageName: PropTypes.string,
-    route: PropTypes.object,
-    err: PropTypes.object,
+class Application extends Component {
+
+  static propTypes = {
+
+    // props coming from fluxible-router's handleHistory
+    isNavigateComplete: PropTypes.bool,
+    currentRoute: PropTypes.object,
+    currentNavigateError: PropTypes.shape({
+      statusCode: PropTypes.number.isRequired,
+      message: PropTypes.string.isRequired
+    }),
+
+    // prop coming from HtmlHeadStore
     documentTitle: PropTypes.string
-  },
 
-  // RouterMixin needs the route in the component state
-  getInitialState() {
-    return {
-      route: this.props.route
-    };
-  },
-
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.route, nextProps.route)) {
-      this.setState({
-        route: nextProps.route
-      });
-    }
-  },
+  }
 
   componentDidUpdate(prevProps) {
-    const { documentTitle, route } = this.props;
+    const { documentTitle, currentRoute } = this.props;
 
     if (prevProps.documentTitle !== documentTitle) {
       document.title = documentTitle;
     }
 
-    if (!isEqual(route, prevProps.route)) {
+    if (!Immutable.is(prevProps.currentRoute, currentRoute)) {
       trackPageView();
     }
-  },
-
-  mixins: [RouterMixin],
-
-  render() {
-    const { pageName, route, err, isLoading } = this.props;
-    return (
-      <Page footer={!isLoading}>
-        {
-          pageName === "404" ?
-            <NotFoundPage /> :
-
-          pageName === "500" ?
-            <ErrorPage err={err} /> :
-
-          isLoading ?
-            <LoadingPage /> :
-
-          this.renderRoute(route)
-
-        }
-      </Page>
-    );
-  },
-
-  renderRoute(route) {
-
-    debug("Rendering route %s", route.url);
-
-    let RouteHandler;
-
-    switch (route.name) {
-      case "featured":
-      case "home":
-        RouteHandler = FeaturedPage;
-      break;
-      case "photo":
-        RouteHandler = PhotoPage;
-      break;
-      default:
-        console.warn(`Missing handler for route with name ${route.name}`);
-        RouteHandler = NotFoundPage;
-      break;
-    }
-
-    return <RouteHandler {...route.params} />;
   }
 
-});
+  render() {
+    const { currentRoute, currentNavigateError, isNavigateComplete } = this.props;
 
-Application = connectToStores(Application, ["RouteStore", "HtmlHeadStore"], (stores) => ({
-    pageName: stores.RouteStore.getCurrentPageName(),
-    route: stores.RouteStore.getCurrentRoute(),
-    err: stores.RouteStore.getNavigationError(),
-    isLoading: stores.RouteStore.isLoading(),
+    let Handler = currentRoute && currentRoute.get("handler");
+
+    let content;
+
+    if (currentNavigateError && currentNavigateError.statusCode === 404) {
+      // This "not found" error comes from a page init actions (InitActions.js)
+      // e.g. when a 500px API responds 404
+      content = <NotFoundPage />;
+    }
+    else if (currentNavigateError) {
+      // Generic error, usually always with statusCode 500
+      content = <ErrorPage err={currentNavigateError} />;
+    }
+    else if (!Handler) {
+      // No handler: this is another case where a route is not found (e.g.
+      // is not defined in the routes.js config)
+      content = <NotFoundPage />;
+    }
+    else if (!isNavigateComplete) {
+      // Show a loading page while waiting the route's action to finish
+      content = <LoadingPage />;
+    }
+    else {
+      // Here you go with the actual page content
+      const params = currentRoute.get("params").toJS();
+      content = <Handler {...params} />;
+    }
+    return (
+      <Page footer={isNavigateComplete}>
+        { content }
+      </Page>
+    );
+  }
+
+}
+
+Application = connectToStores(Application, ["HtmlHeadStore"], (stores) => ({
     documentTitle: stores.HtmlHeadStore.getTitle()
   })
 );
 
-// wrap application in the fluxible context
+// Wrap with fluxible-router's history handler (required for routing)
+// It also pass `currentRoute` as prop to the component
+Application = handleHistory(Application);
+
+// Wrap Application with the fluxible context (required)
 Application = provideContext(Application);
 
 export default Application;

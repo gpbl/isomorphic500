@@ -5,27 +5,31 @@ import IntlMessageFormat from "intl-messageformat";
 const SITE_NAME = "Isomorphic500";
 const BASE_URL = "http://isomorphic500.herokuapp.com";
 
+/*
+This store listens to fluxible-router's actions and keep
+the state of the content used in the <head> tag.
+It is mainly used in server/HtmlDocument.js, however Application.js
+listen to it to change the document's title
+ */
+
 class HtmlHeadStore extends BaseStore {
 
   static storeName = "HtmlHeadStore"
 
   static handlers = {
-    [Actions.SET_HTML_HEAD]: "onHtmlHeadSet",
-
-    [Actions.CHANGE_ROUTE_START]: "onChangeRouteStart",
-    [Actions.STATUS_404]: "on404Error",
-    [Actions.STATUS_500]: "on500Error"
-
+    [Actions.NAVIGATE_START]: "handleNavigateStart",
+    [Actions.NAVIGATE_SUCCESS]: "handleNavigateSuccess",
+    [Actions.NAVIGATE_FAILURE]: "handleNavigateFailure"
   }
 
   constructor(dispatcher) {
     super(dispatcher);
     this.siteName = SITE_NAME;
-    this.initialize();
     this.currentUrl = null;
+    this.setInitialState();
   }
 
-  initialize() {
+  setInitialState() {
     this.title = this.formatMessage("meta.title");
     this.description = this.formatMessage("meta.description");
     this.images = [];
@@ -46,9 +50,9 @@ class HtmlHeadStore extends BaseStore {
   getCurrentUrl() {
     const route = this.dispatcher.getStore("RouteStore").getCurrentRoute();
     if (!route) {
-      return "";
+      return BASE_URL;
     }
-    return `${BASE_URL}${route.url}`;
+    return `${BASE_URL}${route.get("url")}`;
   }
 
   getImages() {
@@ -61,13 +65,24 @@ class HtmlHeadStore extends BaseStore {
     return msg.format(values);
   }
 
-  onHtmlHeadSet(route) {
+  handleNavigateStart() {
+    // Use a loading title when loading the route
+    this.title = this.formatMessage("meta.loadingTitle");
+    this.emitChange();
+  }
 
-    switch (route.name) {
+  handleNavigateSuccess(route) {
+
+    // Remember: route is an immutable object!
+
+    switch (route.get("name")) {
 
       case "photo":
+
+        const id = route.getIn(["params", "id"]);
+
         let store = this.dispatcher.getStore("PhotoStore");
-        let photo = store.get(route.params.id);
+        let photo = store.get(id);
 
         this.title = this.formatMessage("photo.documentTitle", {
           name: photo.name,
@@ -83,7 +98,8 @@ class HtmlHeadStore extends BaseStore {
       break;
 
       case "featured":
-        const featureName = this.formatMessage(`features.${route.params.feature}`);
+        const feature = route.getIn(["params", "feature"]);
+        const featureName = this.formatMessage(`features.${feature}`);
         this.title = this.formatMessage("featured.documentTitle", {
           feature: featureName
         });
@@ -91,28 +107,22 @@ class HtmlHeadStore extends BaseStore {
 
       default:
         // Just set the defaults
-        this.initialize();
+        this.setInitialState();
       break;
     }
 
     this.emitChange();
   }
 
-  onChangeRouteStart() {
-    this.title = this.formatMessage("meta.loadingTitle");
+  handleNavigateFailure(error) {
+    if (error.statusCode === 404) {
+      this.title = this.formatMessage("meta.notFoundTitle");
+    }
+    else {
+      this.title = this.formatMessage("meta.errorTitle");
+    }
     this.emitChange();
   }
-
-  on500Error() {
-    this.title = this.formatMessage("meta.errorTitle");
-    this.emitChange();
-  }
-
-  on404Error() {
-    this.title = this.formatMessage("meta.notFoundTitle");
-    this.emitChange();
-  }
-
 
 }
 

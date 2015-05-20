@@ -8,7 +8,7 @@ It is built on [express](http://expressjs.com) using [React](https://facebook.gi
 
 [![Join the chat at https://gitter.im/gpbl/isomorphic500](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-The intent of this project is to solidify my experience with these technologies and (maybe) to inspire other developers in their journey with React and Flux. It works also as example of a javascript development environment with all the cool recent stuff :-)
+The intent of this project is to solidify my experience with these technologies and perhaps to inspire other developers in their journey with React and Flux. It works also as example of a javascript development environment with all the cool recent stuff :-)
 
 - see the demo on [isomorphic500.herokuapp.com](https://isomorphic500.herokuapp.com) (with source maps!)
 - clone this repo and run the server to confirm it is actually working
@@ -51,14 +51,11 @@ then open [localhost:8080](http://localhost:8080).
   * [Router](#router)
   * [Stores](#stores)
     * [Resource stores](#resource-stores)
-    * [The RouteStore](#the-routestore)
-      * [Loading state](#loading-state)
-      * [Route errors](#route-errors)
+    * [List stores](#list-stores)
     * [The HtmlHeadStore](#the-htmlheadstore)
 * [Internationalization (i18n)](#internationalization-i18n)
   * [How the user’s locale is detected](#how-the-user’s-locale-is-detected)
-  * [The difficult parts](#the-difficult-parts)
-  * [Webpack on the rescue](#webpack-on-the-rescue)
+  * [Setting up react-intl](#setting-up-react-intl)
   * [Internationalization, the flux way](#internationalization-the-flux-way)
   * [Sending the locale to the API](#sending-the-locale-to-the-api)
 * [Development](#development)
@@ -68,34 +65,36 @@ then open [localhost:8080](http://localhost:8080).
   * [Testing](#testing)
   * [Debugging](#debugging)
 
-
 ## Application structure
 
 ```bash
 $ tree src
 
 ├── Application.js       # The root Application component
-├── actions              # Actions creators
+├── actions/             # Actions creators
 ├── app.js               # The Fluxible app
-├── assets               # Dir with static files
+├── assets/              # Dir with static files
 ├── client.js            # Entry point for the client
-├── components           # React components
+├── components/          # React components
 ├── config.js            # Load the config on dev or prd
-├── constants            # Constants values (e.g. action types)
-├── pages                # Contains route handlers components
+├── constants/           # Constants values (e.g. action types)
+├── intl/                # intl messages
+├── pages/               # Contains components acting as "page" for each route
 │   ...
-│   └── RouteActions.js  # Actions executed when rendering a route
-├── public               # Only in prod: contains static assets loaded with webpack
+│   └── InitActions.js   # Actions executed when rendering a route
+├── public/              # Only in production: contains static assets loaded with webpack
 ├── routes.js            # Routes config
-├── server               # Server-side-only code
+├── server/              # Server-side-only code
 │   ├── ga.js            # Contains Google Analytics code to inject into HtmlDocument
+│   ├── intl-polyfill.js # Support for `intl` on node.js
 │   ├── HtmlDocument.js  # Components containing <html>...</html> page
-│   └── render.js        # Middleware to render HtmlDocument server-side
+│   ├── render.js        # Middleware to render HtmlDocument server-side
+│   └── setLocale.js     # Middleware to set locale according to browser, cookie or querystring
 ├── server.js            # Run the express server, setup fetchr service
-├── services             # Fetchr services (e.g. load data from 500px API)
-├── stores               # Flux stores
-├── style                # Contains the Sass styles
-└── utils                # Some useful utils
+├── services/            # Fetchr services (e.g. load data from 500px API)
+├── stores/              # Flux stores
+├── style/               # Contains the Sass styles
+└── utils/               # Some useful utils
 ```
 
 ### The fluxible app
@@ -104,23 +103,17 @@ The [src/app.js](src/app.js) file is the core of the Fluxible application:
 
 - it configures Fluxible with [Application.js](src/Application.js) as the root component.
 - it registers the stores so they can work on the same React context
-- it adds the [routr plugin](https://github.com/yahoo/fluxible-plugin-routr) (the routing interface) and the [fetchr plugin]((https://github.com/yahoo/fluxible-plugin-fetchr)) (to share the same API requests both client and server-side)
+- it adds the [fetchr plugin]((https://github.com/yahoo/fluxible-plugin-fetchr)), to share the same API requests both client and server-side
 - it makes possible to dehydrate the stores [on the server](src/server/render.js) and rehydrate them [on the client](src/client.js)
-- it provides a `componentActionHandler` to make the app react to errors sent by flux actions
 
 ### Async data
 
 I used [Fetchr](https://github.com/yahoo/fetchr) and the relative [fluxible-plugin-fetchr](https://github.com/yahoo/fluxible-plugin-fetchr).
 [Fetchr services](src/services) run only on server and send [superagent](http://visionmedia.github.com/superagent) requests to 500px.
 
-
 ### Router
 
-Using [fluxible-plugin-routr](https://github.com/yahoo/fluxible-plugin-routr), I could keep the router in a "flux flow": the current route is stored in the [RouteStore](src/stores/RouteStore.js), and the [Application component](src/Application.js) listens to it to know which [page component](src/pages) should render.
-
-Before setting the route, this plugin can execute an action to prefill the stores with the required data. (see the `action` attributes in the routes’s [config](src/routes.js)).
-
-> Note that these actions can send an error to the `done()` callback, so that we can render an error page, as explained below in the "RouteStore" section.
+This app uses [fluxible-router](https://github.com/yahoo/fluxible-router) for routing. Fluxible-router works pretty well in fluxible applications since it follows the flux paradigm. The [Application component](src/Application.js) is wrapped by its `handleHistory` utils to bind the router to the app.
 
 ### Stores
 
@@ -136,36 +129,15 @@ While REST APIs usually return collections as arrays, a resource store keeps ite
 
 A list store keeps references to a resource store, as the [FeaturedStore](src/stores/FeaturedStore.js) holds the ids of the photos in [PhotoStore](src/stores/PhotoStore.js).
 
-#### The RouteStore
-
-The [RouteStore](src/stores/RouteStore.js) keeps track of the current route.
-
-##### Loading state
-
-When a route is loading (e.g. waiting for the API response), the store set the `loading` property. The Application component will then render a loading page.
-
-##### Route errors
-
-A route error happens when a route is not found or when the service fetching critical data has returned an error.
-
-In these cases, the RouteStore set its `currentPageName` to `404` or `500`, so that the Application component can render a [`NotFoundPage`](src/pages/NotFoundPage.js) or an [`ErrorPage`](src/pages/ErrorPage.js).
-
-> Note that a not-found route may come from the router itself (i.e. the route is missing in the [config](src/routes.js)) but also when a route action sends to the callback an error with `{status: 404}`.
-
 #### The HtmlHeadStore
 
 The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `HtmlDocument` component, during server-side rendering. It is also listened by the `Application` component to change the browser's `document.title`.
 
-The `onHtmlHeadSet` handler set the data according to the current route. This store uses data from other stores, such the titles of the photos, or the intl messages from the `IntlStore`. It is important that this handler is executed after the other stores have been filled up with their data. The HtmlHeadStore listens to the `SET_HTML_HEAD` action (dispatched by an action creator in [RouteActions](src/pages/RouteActions.js)) *only* after fetching the data required to render a page.
+This store listen to the route actions and set its content according to the current route. It also get data from other stores (e.g. the photo's title from the `PhotoStore`), or the intl messages from the `IntlStore`.
 
 ## Internationalization (i18n)
 
 To give an example on how to implement i18n in a React application, isomorphic500 supports English and [Italian](https://www.youtube.com/watch?v=9JhuOicPFZY).
-
-Here, for "internationalization" I mean:
-
-- to format numbers/currencies and dates/times according to the user's locale
-- to provide translated strings for the texts displayed in the components.
 
 This app adopts [React Intl](http://formatjs.io/react/), which is a solid library for this purpose.
 
@@ -175,9 +147,7 @@ The app sniffs the browser's `accept-language` request header. The [locale](http
 
 The user may want to override the detected locale: the [LocaleSwitcher](src/components/LocaleSwitcher.js) component set a cookie when the user chooses a language. Also, we enable the `?hl` parameter in the query string to override it. Server-side, cookie and query string are detected by the [setLocale](src/server/setLocale.js) middleware.
 
-So, the `locale` middleware will attach the desired locale to `req.locale`, which come useful to set the `lang` attribute in the `<html>` tag. This attribute it is also used by `client.js` to load the locale data client-side.
-
-### The difficult parts
+### Setting up react-intl
 
 React-intl requires some boilerplate to work properly. Difficulties here arise mainly for two reasons:
 
@@ -186,8 +156,6 @@ React-intl requires some boilerplate to work properly. Difficulties here arise m
 2. For each language, we need to load a set of *locale data* (used by `Intl` to format numbers and dates) and the translated strings, called *messages* (used by `react-intl`). While on node.js we can load them in memory, on the client they need to be downloaded first – and we want to download only the relevant data for the current locale.
 
 **On the server** the solution is easy: as said, the server [loads a polyfill](src/server/intl-polyfill) including both `Intl` and the locale data. For supporting the browser, we can instead rely on our technology stack, i.e. flux and webpack.
-
-### Webpack on the rescue
 
 **On the client**, we have to load the `Intl` polyfill and its locale data *before* rendering the app, i.e. in [client.js](src/client.js).
 

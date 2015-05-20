@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from "react";
 import Logo from "../components/Logo";
-import { NavLink } from "flux-router-component";
+import { NavLink } from "fluxible-router";
 
 import features from "../constants/features";
 import LocaleSwitcher from "../components/LocaleSwitcher";
 import FormattedMessage from "../utils/FormattedMessage";
-
+import { RouteStore } from "fluxible-router";
 if (process.env.BROWSER) {
   require("../style/NavBar.scss");
 }
@@ -17,9 +17,8 @@ class NavBar extends Component {
   }
 
   render() {
-    const route = this.context.getStore("RouteStore").getCurrentRoute();
-    const currentFeature = route ? route.params.feature : null;
-
+    const route = this.context.getStore(RouteStore).getCurrentRoute();
+    const currentFeature = route ? route.getIn(["params", "feature"]) : null;
     return (
       <div className="NavBar">
         <div className="NavBar-title">

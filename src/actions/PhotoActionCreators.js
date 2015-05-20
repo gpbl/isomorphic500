@@ -1,19 +1,24 @@
 import Actions from "../constants/Actions";
 
+// Tip: in your fetchr service calls, make sure you set a timeout higher than
+// the default of 3000ms. See https://github.com/yahoo/fetchr/issues/58
+const TIMEOUT = 20000;
+
 const PhotoActionCreators = {
 
   loadFeaturedPhotos(context, { feature="popular" }, done) {
 
-    context.dispatch(Actions.LOAD_FEATURED_PHOTOS_START, { feature });
-
-    context.service.read("photos", { feature }, { timeout: 20000 },
+    context.service.read("photos", { feature }, { timeout: TIMEOUT },
       (err, data) => {
         if (err) {
-          context.dispatch(Actions.LOAD_FEATURED_PHOTOS_FAILURE);
           return done(err);
         }
 
-        context.dispatch(Actions.LOAD_FEATURED_PHOTOS_SUCCESS, data.photos);
+        context.dispatch(Actions.LOAD_FEATURED_PHOTOS_SUCCESS, {
+          feature: feature,
+          photos: data.photos
+        });
+
         done();
       }
 
@@ -22,19 +27,11 @@ const PhotoActionCreators = {
 
   loadPhoto(context, { id, imageSize }, done) {
 
-    if (context.getStore("PhotoStore").get(id, imageSize)) {
-      return done();
-    }
-
-    context.dispatch(Actions.LOAD_PHOTO_START, { id, imageSize });
-
-    context.service.read("photo", { id, imageSize }, { timeout: 20000 },
+    context.service.read("photo", { id, imageSize }, { timeout: TIMEOUT },
       (err, data) => {
         if (err) {
-          context.dispatch(Actions.LOAD_PHOTO_FAILURE, { id, imageSize });
           return done(err);
         }
-
         context.dispatch(Actions.LOAD_PHOTO_SUCCESS, data.photo);
         done();
       }
