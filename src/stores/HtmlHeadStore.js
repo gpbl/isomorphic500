@@ -7,9 +7,8 @@ const BASE_URL = "http://isomorphic500.herokuapp.com";
 
 /*
 This store listens to fluxible-router's actions and keep
-the state of the content used in the <head> tag.
-It is mainly used in server/HtmlDocument.js, however Application.js
-listen to it to change the document's title
+the content for the <head> tag. Used in server/HtmlDocument.js,
+and Application.js (to change the document's title)
  */
 
 class HtmlHeadStore extends BaseStore {
@@ -59,6 +58,7 @@ class HtmlHeadStore extends BaseStore {
     return this.images;
   }
 
+  // Used to intl strings, has access to the IntlStore
   formatMessage(message, values={}) {
     const store = this.dispatcher.getStore("IntlStore");
     const msg = new IntlMessageFormat(store.getMessage(message), store.getLocales());
@@ -71,6 +71,7 @@ class HtmlHeadStore extends BaseStore {
     this.emitChange();
   }
 
+  // Set the main store content according to the received route
   handleNavigateSuccess(route) {
 
     // Remember: route is an immutable object!
