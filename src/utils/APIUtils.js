@@ -21,7 +21,7 @@ const APIUtils = {
 
     // Customer key is required by the API
     query = assign(query, {
-      "consumer_key": config.consumerKey
+      consumer_key: config.consumerKey
     });
 
     request.get(url)

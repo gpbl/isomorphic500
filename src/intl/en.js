@@ -1,3 +1,4 @@
+// jscs:disable disallowQuotedKeysInObjects
 export default {
   locales: ["en"],
 
