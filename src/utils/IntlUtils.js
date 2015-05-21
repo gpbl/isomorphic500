@@ -52,8 +52,9 @@ const IntlUtils = {
   loadLocaleData(locale) {
     const hasIntl = IntlUtils.hasBuiltInLocaleData(locale);
 
-    // Make sure ReactIntl is in the global scope
-    // This is required for adding locale-data
+    // Make sure ReactIntl is in the global scope: this is required for adding locale-data
+    // Since ReactIntl needs the `Intl` polyfill to be required (sic) we must place
+    // this require here, when loadIntlPolyfill is supposed to be present
     require("expose?ReactIntl!react-intl");
 
     return new Promise((resolve) => {
