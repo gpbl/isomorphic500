@@ -1,4 +1,3 @@
-import Debug from "debug";
 
 import React, { PropTypes, Component } from "react";
 import { provideContext, connectToStores } from "fluxible/addons";
@@ -16,8 +15,6 @@ import trackPageView from "./utils/trackPageView";
 if (process.env.BROWSER) {
   require("./style/Application.scss");
 }
-
-const debug = Debug("Application.js");
 
 class Application extends Component {
 
