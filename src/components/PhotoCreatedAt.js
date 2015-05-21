@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from "react";
 import FormattedDate from "../utils/FormattedDate";
+import FormattedRelative from "../utils/FormattedRelative";
 
 class PhotoCreatedAt extends Component {
 
@@ -11,7 +12,10 @@ class PhotoCreatedAt extends Component {
     const { date } = this.props;
 
     return (
-      <FormattedDate value={new Date(date)} year="numeric" month="long" day="numeric" />
+      <div>
+        <FormattedDate value={new Date(date)} year="numeric" month="long" day="numeric" />
+        { ' ' } (<FormattedRelative value={new Date(date)} />)
+      </div>
     );
   }
 
