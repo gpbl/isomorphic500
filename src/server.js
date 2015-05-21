@@ -71,7 +71,7 @@ if (server.get("env") === "development") {
 server.use(render);
 
 // Generic server errors (e.g. not caught by components)
-server.use((err, req, res, next) => {
+server.use((err, req, res, next) => {  // eslint-disable-line no-unused-vars
   console.log("Error on request %s %s", req.method, req.url);
   console.log(err);
   console.log(err.stack);
