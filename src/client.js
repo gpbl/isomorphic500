@@ -5,17 +5,12 @@ import IntlUtils from "./utils/IntlUtils";
 import es6Promise from "es6-promise";
 es6Promise.polyfill();
 
-// Make sure ReactIntl is in the global scope
-// This is required for adding locale-data
-require("expose?ReactIntl!react-intl");
-
 window.debug = require("debug");
 
 const debug = window.debug("isomorphic500");
 
 const mountNode = document.getElementById("root");
 const dehydratedState = window.App;
-
 function renderApp() {
 
   const app = require("./app");

@@ -18,6 +18,7 @@ const IntlUtils = {
     return new Promise((resolve) => {
 
       if (window.Intl && IntlUtils.hasBuiltInLocaleData(locale)) {
+
         // all fine: Intl is in the global scope and the locale data is available
         return resolve();
       }
@@ -34,6 +35,7 @@ const IntlUtils = {
         Intl.DateTimeFormat = IntlPolyfill.DateTimeFormat;
 
         debug("Intl polyfill for %s has been loaded", locale);
+
         resolve();
       }, "intl");
 
@@ -50,6 +52,10 @@ const IntlUtils = {
   loadLocaleData(locale) {
     const hasIntl = IntlUtils.hasBuiltInLocaleData(locale);
 
+    // Make sure ReactIntl is in the global scope
+    // This is required for adding locale-data
+    require("expose?ReactIntl!react-intl");
+
     return new Promise((resolve) => {
 
       switch (locale) {
@@ -58,6 +64,7 @@ const IntlUtils = {
         case "it":
 
           if (!hasIntl) {
+
             require.ensure([
                 "intl/locale-data/jsonp/it",
                 "react-intl/dist/locale-data/it"
@@ -86,10 +93,14 @@ const IntlUtils = {
             require.ensure([
                 "intl/locale-data/jsonp/en"
               ], (require) => {
+
               require("intl/locale-data/jsonp/en");
               debug("Intl locale-data for %s has been downloaded", locale);
               resolve();
             }, "locale-en");
+          }
+          else {
+            resolve();
           }
 
       }
