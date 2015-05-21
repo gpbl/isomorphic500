@@ -1,3 +1,7 @@
+// Contains utils to download the locale data for the current language, eventually
+// requiring the `Intl` polyfill for browser not supporting it
+// It is used in client.js *before* rendering the root component.
+
 const debug = require("debug")("isomorphic500");
 
 const IntlUtils = {
@@ -37,32 +41,57 @@ const IntlUtils = {
 
   },
 
-  // Returns a promise which is resolved when locale datas chunks
-  // has been downloaded and required
+  // Returns a promise which is resolved as the required locale-data chunks
+  // has been downloaded with webpack's require.ensure. For each language,
+  // we make two different chunks: one for browsers supporting `intl` and one
+  // for those who don't.
+  // The react-intl locale-data is required, for example, by the FormattedRelative
+  // component.
   loadLocaleData(locale) {
+    const hasIntl = IntlUtils.hasBuiltInLocaleData(locale);
 
     return new Promise((resolve) => {
 
-      if (IntlUtils.hasBuiltInLocaleData(locale)) {
-        debug("Locale data for %s is already available", locale);
-        return resolve();
-      }
+      switch (locale) {
 
-      if (locale === "it") {
-        require.ensure(["intl/locale-data/jsonp/it"], (require) => {
-          require("intl/locale-data/jsonp/it");
-          debug("Locale data for %s has been downloaded", locale);
-          resolve();
-        }, "locale-it");
-      }
+        // italian
+        case "it":
 
-      else {
-        // english is the fallback
-        require.ensure(["intl/locale-data/jsonp/en"], (require) => {
-          require("intl/locale-data/jsonp/en");
-          debug("Locale data for %s has been downloaded", locale);
-          resolve();
-        }, "locale-en");
+          if (!hasIntl) {
+            require.ensure([
+                "intl/locale-data/jsonp/it",
+                "react-intl/dist/locale-data/it"
+              ], (require) => {
+              require("intl/locale-data/jsonp/it");
+              require("react-intl/dist/locale-data/it");
+              debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
+              resolve();
+            }, "locale-it");
+          }
+          else {
+            require.ensure([
+                "react-intl/dist/locale-data/it"
+              ], (require) => {
+              require("react-intl/dist/locale-data/it");
+              debug("ReactIntl locale-data for %s has been downloaded", locale);
+              resolve();
+            }, "locale-it-no-intl");
+          }
+
+        break;
+
+        // english
+        default:
+          if (!hasIntl) {
+            require.ensure([
+                "intl/locale-data/jsonp/en"
+              ], (require) => {
+              require("intl/locale-data/jsonp/en");
+              debug("Intl locale-data for %s has been downloaded", locale);
+              resolve();
+            }, "locale-en");
+          }
+
       }
 
     });

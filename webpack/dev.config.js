@@ -28,6 +28,7 @@ export default {
   },
   module: {
     loaders: [
+      { test: require.resolve("react-intl"), loader: "expose?ReactIntl" },
       { test: /\.(jpe?g|png|gif|svg)$/, loader: "file" },
       { test: /\.js$/, exclude: /node_modules/, loaders: ["react-hot", "babel?cacheDirectory"] },
       { test: /\.scss$/, loader: "style!css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true" }
