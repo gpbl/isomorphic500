@@ -38,7 +38,6 @@ export default {
 
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
 
     // print a webpack progress
     new webpack.ProgressPlugin((percentage, message) => {
