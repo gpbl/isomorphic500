@@ -58,7 +58,7 @@ class HtmlHeadStore extends BaseStore {
     return this.images;
   }
 
-  // Used to intl strings, has access to the IntlStore
+  // Used to get internationalized messages, has access to the IntlStore
   formatMessage(message, values={}) {
     const store = this.dispatcher.getStore("IntlStore");
     const msg = new IntlMessageFormat(store.getMessage(message), store.getLocales());
@@ -71,10 +71,10 @@ class HtmlHeadStore extends BaseStore {
     this.emitChange();
   }
 
-  // Set the main store content according to the received route
+  // Set the store content (images, description, title, etc.) according to the received route
+  // Remember: route is an immutable object!
+  
   handleNavigateSuccess(route) {
-
-    // Remember: route is an immutable object!
 
     switch (route.get("name")) {
 
