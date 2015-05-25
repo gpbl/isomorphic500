@@ -1,5 +1,5 @@
-// Passes IntlStore messages and locales down to Component as props.
-// It is used in the /utils/Formatted* utilities.
+// Pass messages and locales from IntlStore down to Component as props.
+// It is basically used in the /utils/Formatted* utilities.
 //
 // Example
 //
@@ -22,7 +22,7 @@ function connectToIntlStore(Component) {
     render() {
 
       const intlStore = this.context.getStore("IntlStore");
-      let intl = intlStore.getState();
+      let intl = intlStore.getState(); // returns { locales, messages }
 
       if (this.props.message) {
         intl.message = intlStore.getMessage(this.props.message);
