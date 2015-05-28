@@ -17,21 +17,21 @@ if (process.env.NODE_ENV === "production") {
 }
 
 function renderApp(req, res, context, next) {
-
-  if (process.env.NODE_ENV === "development") {
-    webpackStats = require("./webpack-stats.json");
-
-    // Do not cache webpack stats: the script file would change since
-    // hot module replacement is enabled in the development env
-    delete require.cache[require.resolve("./webpack-stats.json")];
-  }
-
-  // dehydrate the app and expose its state
-  const state = "window.App=" + serialize(app.dehydrate(context)) + ";";
-
-  const Application = app.getComponent();
-
   try {
+
+    if (process.env.NODE_ENV === "development") {
+      webpackStats = require("./webpack-stats.json");
+
+      // Do not cache webpack stats: the script file would change since
+      // hot module replacement is enabled in the development env
+      delete require.cache[require.resolve("./webpack-stats.json")];
+    }
+
+    // dehydrate the app and expose its state
+    const state = "window.App=" + serialize(app.dehydrate(context)) + ";";
+
+    const Application = app.getComponent();
+
     // Render the Application to string
     const markup = React.renderToString(
       <Application context={ context.getComponentContext() } />
