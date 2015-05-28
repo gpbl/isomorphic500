@@ -9,7 +9,7 @@ function notifyWarning(warning) {
   console.log(warning);
 }
 
-function notifyStats(stats) {
+module.exports = function notifyStats(stats) {
   var json = stats.toJson();
   if (json.errors.length > 0) {
     json.errors.forEach(notifyError);
@@ -21,6 +21,4 @@ function notifyStats(stats) {
       colors: true
     }));
   }
-}
-
-export default notifyStats;
+};

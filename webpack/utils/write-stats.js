@@ -3,23 +3,23 @@
 // These stats basically contains the path of the script files to
 // <script>-load in the browser.
 
-import fs from "fs";
-import path from "path";
+var fs = require("fs");
+var path = require("path");
 
-const filepath = path.resolve(__dirname, "../../src/server/webpack-stats.json");
+var filepath = path.resolve(__dirname, "../../src/server/webpack-stats.json");
 
 // Write only a relevant subset of the stats and attach the public path to it
 
-function writeStats(stats) {
+module.exports = function writeStats(stats) {
 
-  const publicPath = this.options.output.publicPath;
+  var publicPath = this.options.output.publicPath;
 
-  const json = stats.toJson();
+  var json = stats.toJson();
 
   // get chunks by name and extensions
   function getChunks(name, ext) {
     ext = ext || "js";
-    let chunk = json.assetsByChunkName[name];
+    var chunk = json.assetsByChunkName[name];
 
     // a chunk could be a string or an array, so make sure it is an array
     if (!(Array.isArray(chunk))) {
@@ -27,20 +27,23 @@ function writeStats(stats) {
     }
 
     return chunk
-      .filter(chunk => path.extname(chunk) === `.${ext}`) // filter by extension
-      .map(chunk => `${publicPath}${chunk}`); // add public path to it
+       // filter by extension
+      .filter(function (chunkName) {
+        return path.extname(chunkName) === "." + ext;
+      })
+      .map(function(chunkName) {
+        return publicPath + chunkName;
+      });
   }
 
-  const script = getChunks("main", "js");
-  const css = getChunks("main", "css");
+  var script = getChunks("main", "js");
+  var css = getChunks("main", "css");
 
-  const content = {
+  var content = {
     script: script,
     css: css
   };
 
   fs.writeFileSync(filepath, JSON.stringify(content));
 
-}
-
-export default writeStats;
+};

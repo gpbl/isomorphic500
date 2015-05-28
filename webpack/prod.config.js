@@ -1,7 +1,5 @@
 // Webpack config for creating the production bundle.
 
-require("babel/register");
-
 var path = require("path");
 var webpack = require("webpack");
 var writeStats = require("./utils/write-stats");
@@ -40,12 +38,14 @@ module.exports = {
     // set global vars
     new webpack.DefinePlugin({
       "process.env": {
+
+        // Mainly used to require CSS files with webpack, which can happen only on browser
+        // Used as `if (process.env.BROWSER)...`
         BROWSER: JSON.stringify(true),
 
-        // used to know we are on browser
+        // Useful to reduce the size of client-side libraries, e.g. react
         NODE_ENV: JSON.stringify("production")
 
-        // clean up some react stuff
       }
     }),
 
