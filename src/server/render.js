@@ -74,7 +74,14 @@ function render(req, res, next) {
       context.executeAction(loadIntlMessages, { locale: req.locale }),
       context.executeAction(navigateAction, { url: req.url })
     ]).then(() => renderApp(req, res, context, next))
-      .catch(() => renderApp(req, res, context, next));
+      .catch((err) => {
+        if (!err.statusCode || !err.status) {
+          next(err);
+        }
+        else {
+          renderApp(req, res, context, next);
+        }
+      });
 
 }
 
