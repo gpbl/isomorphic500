@@ -26,12 +26,12 @@ const IntlUtils = {
       debug("Intl or locale data for %s not available, downloading the polyfill...", locale);
 
       // Create a intl chunk with webpack and run the callback once it has
-      // been download. Make sure to require `intl/intl` and not just `intl`
+      // been download. Make sure to require `intl/Intl` and not just `intl`
       // otherwise webpack will require the *complete* intl package (with all
       // the locales)
 
-      require.ensure(["intl/intl"], (require) => {
-        const IntlPolyfill = require("intl/intl");
+      require.ensure(["intl/Intl"], (require) => {
+        const IntlPolyfill = require("intl/Intl");
 
         Intl.NumberFormat = IntlPolyfill.NumberFormat;
         Intl.DateTimeFormat = IntlPolyfill.DateTimeFormat;
