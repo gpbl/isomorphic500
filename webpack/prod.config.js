@@ -35,6 +35,9 @@ module.exports = {
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin("[name]-[chunkhash].css"),
 
+    // ignore dev config
+    new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
+
     // set global vars
     new webpack.DefinePlugin({
       "process.env": {
