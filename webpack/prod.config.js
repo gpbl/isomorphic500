@@ -29,8 +29,8 @@ module.exports = {
   progress: true,
   plugins: [
 
-    // ignore debug statements
-    new webpack.NormalModuleReplacementPlugin(/debug/, process.cwd() + "/webpack/utils/noop.js"),
+    // ignore debug statements (uncommented for demo app)
+    // new webpack.NormalModuleReplacementPlugin(/debug/, process.cwd() + "/webpack/utils/noop.js"),
 
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin("[name]-[chunkhash].css"),
@@ -49,14 +49,14 @@ module.exports = {
       }
     }),
 
-    // optimizations
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-          warnings: false
-        }
-    }),
+    // // optimizations
+    // new webpack.optimize.DedupePlugin(),
+    // new webpack.optimize.OccurenceOrderPlugin(),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //       warnings: false
+    //     }
+    // }),
 
     // stats
     function() { this.plugin("done", writeStats); }
