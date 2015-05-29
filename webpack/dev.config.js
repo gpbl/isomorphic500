@@ -15,7 +15,7 @@ module.exports = {
   devtool: "cheap-module-eval-source-map",
   entry: {
     "main": [
-      "webpack-dev-server/client?http://" + WEBPACK_HOST + WEBPACK_PORT,
+      "webpack-dev-server/client?http://" + WEBPACK_HOST + ":" + WEBPACK_PORT,
       "webpack/hot/only-dev-server",
       "./src/client.js"
     ]
