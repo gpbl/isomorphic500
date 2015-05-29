@@ -9,7 +9,7 @@
     "prod": "NODE_ENV=production PORT=8080 DEBUG=isomorphic500 node index",
     "build": "webpack --stats --progress --config ./webpack/prod.config.js",
     "postinstall": "npm run build",
-    "linter": "eslint src && jscs src",
+    "lint": "eslint src",
     "test": "mocha --compilers js:babel/register --recursive --reporter spec",
     "coverage": "babel-node node_modules/.bin/isparta cover --report text node_modules/.bin/_mocha --reporter spec"
   },
