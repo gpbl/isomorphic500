@@ -62,6 +62,7 @@ then open [localhost:8080](http://localhost:8080).
 * [Development](#development)
   * [Webpack](#webpack)
   * [Babeljs](#babeljs)
+  * [.editorconfig](#editorconfig)
   * [Linting](#linting)
   * [Testing](#testing)
   * [Debugging](#debugging)
@@ -202,6 +203,10 @@ Files loaded by webpack are hashed. Javascript and CSS file names are [saved](we
 ### Babeljs
 
 This app is written in Javascript-[Babel](https://babeljs.io/). Babel config is in [.babelrc](.babelrc) (it only enables class properties). On Sublime Text, I installed [babel-sublime](https://github.com/babel/babel-sublime) to have full support of the Babel syntax!
+
+### .editorconfig
+
+The [.editorconfig](.editorconfig) file can be used with your IDE/editor to mantain a consistent coding style. See [editorconfig.org](http://editorconfig.org) for more info. (thanks to @lohek)
 
 ### Linting
 
