@@ -49,9 +49,9 @@
     "extract-text-webpack-plugin": "^0.8.0",
     "favicon": "0.0.2",
     "file-loader": "^0.8.3",
-    "fluxible": "^0.4.9",
+    "fluxible": "^0.4.10",
     "fluxible-plugin-fetchr": "^0.3.0",
-    "fluxible-router": "^0.1.4",
+    "fluxible-router": "^0.1.8",
     "immutable": "^3.7.3",
     "intl": "^0.1.4",
     "intl-messageformat": "^1.1.0",
@@ -68,7 +68,7 @@
     "strip-loader": "^0.1.0",
     "style-loader": "^0.12.2",
     "superagent": "^1.2.0",
-    "webpack": "^1.9.8"
+    "webpack": "^1.9.10"
   },
   "devDependencies": {
     "babel-eslint": "^3.1.5",
@@ -81,6 +81,6 @@
     "mocha": "^2.2.5",
     "mocha-jsdom": "^0.3.0",
     "react-hot-loader": "^1.2.7",
-    "webpack-dev-server": "^1.8.2"
+    "webpack-dev-server": "^1.9.0"
   }
 }
