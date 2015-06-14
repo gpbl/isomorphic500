@@ -22,9 +22,11 @@ class FeaturedStore extends BaseStore {
   }
 
   handleLoadSuccess({ feature, photos }) {
-    this.currentFeature = feature;
-    this.featured = photos.map(photo => photo.id);
-    this.emitChange();
+    this.dispatcher.waitFor("PhotoStore", () => {
+      this.currentFeature = feature;
+      this.featured = photos.map(photo => photo.id);
+      this.emitChange();
+    });
   }
 
   getFeaturedPhotos() {
