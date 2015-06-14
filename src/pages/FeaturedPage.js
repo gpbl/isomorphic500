@@ -10,11 +10,16 @@ if (process.env.BROWSER) {
 class FeaturedPage extends React.Component {
 
   static propTypes = {
-    photos: PropTypes.array.isRequired
+    photoIds: PropTypes.array.isRequired
+  }
+
+  static contextTypes = {
+    getStore: PropTypes.func.isRequired
   }
 
   render() {
-    const { photos } = this.props;
+    const { photoIds } = this.props;
+    const photos = this.context.getStore("PhotoStore").getMultiple(photoIds);
     return (
       <div>
 
@@ -30,10 +35,9 @@ class FeaturedPage extends React.Component {
 
 }
 
-FeaturedPage = connectToStores(FeaturedPage, ["PhotoStore", "FeaturedStore"], (stores) => {
-  const ids = stores.FeaturedStore.getFeaturedPhotos();
+FeaturedPage = connectToStores(FeaturedPage, ["FeaturedStore"], (stores) => {
   return {
-    photos: stores.PhotoStore.getMultiple(ids)
+    photoIds: stores.FeaturedStore.getFeaturedPhotos()
   };
 });
 
