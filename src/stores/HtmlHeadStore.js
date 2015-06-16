@@ -73,7 +73,7 @@ class HtmlHeadStore extends BaseStore {
 
   // Set the store content (images, description, title, etc.) according to the received route
   // Remember: route is an immutable object!
-  
+
   handleNavigateSuccess(route) {
 
     switch (route.get("name")) {
