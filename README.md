@@ -60,6 +60,7 @@ then open [localhost:8080](http://localhost:8080).
   * [Internationalization, the flux way](#internationalization-the-flux-way)
   * [Sending the locale to the API](#sending-the-locale-to-the-api)
 * [Development](#development)
+  * [nodemon](#nodemon)
   * [Webpack](#webpack)
   * [Babeljs](#babeljs)
   * [.editorconfig](#editorconfig)
@@ -181,6 +182,16 @@ While this is not required by the 500px API, we can send the current locale to t
 
 ## Development
 
+Run the development version with 
+
+```
+npm run dev
+```
+
+### nodemon
+
+This task runs the server with [nodemon](https://github.com/remy/nodemon). Nodemon will restart the server when some of the files specified in [its config](nodemon.json) change.
+
 ### Webpack
 
 Webpack is used as commonjs module bundler, css builder (using sass-loader) and assets loader (images and svg files).
@@ -222,7 +233,7 @@ I use [SublimeLinter-scss-lint](https://github.com/attenzione/SublimeLinter-scss
 
 ### Testing
 
-I'm still a beginner with Flux unit testing – so tests are missing :-) I use [mocha](http://mochajs.org), using [chai](http://chaijs.com) as assertion library.
+I'm still a beginner with Flux unit testing – so tests are missing :-) I'd use [mocha](http://mochajs.org), using [chai](http://chaijs.com) as assertion library.
 
 To run the tests, use this command:
 
