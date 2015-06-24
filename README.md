@@ -136,7 +136,7 @@ A list store keeps references to a resource store, as the [FeaturedStore](src/st
 
 The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `HtmlDocument` component, during server-side rendering. It is also listened by the `Application` component to change the browser's `document.title`.
 
-This store listen to the route actions and set its content according to the current route. It also get data from other stores (e.g. the photo's title from the `PhotoStore`), or the intl messages from the `IntlStore`.
+This store listen to the route actions and set its content according to the current route. It also get data from other stores (e.g. the photo's title from the `PhotoStore`), or the localized messages from the `IntlStore`.
 
 ## Internationalization (i18n)
 
@@ -170,9 +170,9 @@ They are used in [client.js](client.js) before mounting the app.
 
 ### Internationalization, the flux way
 
-Lets talk about the data that react-intl needs to deliver translated content. It is saved for each language in the [intl](src/intl) directory and **can be shared between client and server** using a store, i.e. the [IntlStore](stores/IntlStore).
+Lets talk about the data that `react-intl` needs to deliver translated content. Translated messages are saved in the [intl](src/intl) directory and shared between client and server using the [IntlStore](stores/IntlStore).
 
-The store listens to a `LOAD_INTL` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **server side** before rendering the HtmlDocument component in [server/render.js](src/server/render.js), together with the usual `navigateAction`. The store will be rehydrate by Fluxible as usual.
+This store listens to a `LOAD_INTL_SERVER` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **only server side** before rendering the `HtmlDocument` component together with the usual `navigateAction`. (It has the `_SERVER` suffix in its name to mark that it is a server-side only action: the [IntlStore](stores/IntlStore) will handle it only on a node.js environment)
 
 An higher-order component would pass the store state to the react-intl components as props. For doing this, I used a custom implementation of [FormattedMessage](src/utils/FormattedMessage.js) and [FormattedNumber](src/utils/FormattedNumber.js), adopting a small [connectToIntlStore](src/utils/connectToIntlStore.js) utils.
 

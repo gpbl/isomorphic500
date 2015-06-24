@@ -6,9 +6,7 @@ class IntlStore extends BaseStore {
 
   static storeName = "IntlStore"
 
-  static handlers = {
-    [Actions.LOAD_INTL]: "handleLoad"
-  }
+  static handlers = {}
 
   constructor(dispatcher) {
     super(dispatcher);
@@ -53,6 +51,11 @@ class IntlStore extends BaseStore {
     this.locales = locales;
     this.currentLocale = currentLocale;
   }
+}
+
+// This action is dispatched only on the server
+if (!process.env.BROWSER) {
+  IntlStore.handlers[Actions.LOAD_INTL_SERVER] = "handleLoad";
 }
 
 export default IntlStore;
