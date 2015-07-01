@@ -22,7 +22,7 @@ module.exports = {
   },
   output: {
     path: assetsPath,
-    filename: "[name]-[chunkhash].js",
+    filename: "[name]-[hash].js",
     chunkFilename: "[name]-[chunkhash].js",
     publicPath: "http://" + WEBPACK_HOST + ":" + WEBPACK_PORT + "/assets/"
   },
