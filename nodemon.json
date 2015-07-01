@@ -1,5 +1,4 @@
 {
-  "verbose": true,
   "watch": [
     "config",
     "src/constants",
