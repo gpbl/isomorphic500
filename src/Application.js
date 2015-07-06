@@ -41,7 +41,7 @@ class Application extends Component {
     }
 
     if (!Immutable.is(prevProps.currentRoute, currentRoute)) {
-      trackPageView();
+      trackPageView(currentRoute.get('url'));
     }
   }
 
