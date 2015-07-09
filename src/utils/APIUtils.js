@@ -19,7 +19,7 @@ const APIUtils = {
 
     debug("Sending GET request to %s", url, query);
 
-    // Customer key is required by the API
+    // Consumer key is required by 500px API
     query = assign(query, {
       consumer_key: config.consumerKey
     });
