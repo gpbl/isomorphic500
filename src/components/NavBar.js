@@ -6,7 +6,8 @@ import Logo from "../components/Logo";
 
 import features from "../constants/features";
 import LocaleSwitcher from "../components/LocaleSwitcher";
-import FormattedMessage from "../utils/FormattedMessage";
+import { FormattedMessage } from "../utils/IntlComponents";
+
 if (process.env.BROWSER) {
   require("../style/NavBar.scss");
 }

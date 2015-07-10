@@ -22,12 +22,8 @@ class IntlStore extends BaseStore {
     this.emitChange();
   }
 
-  getState() {
-    return {
-      messages: this.messages,
-      locales: this.locales,
-      currentLocale: this.currentLocale
-    };
+  getMessages() {
+    return this.messages;
   }
 
   getMessage(path) {
@@ -43,7 +39,11 @@ class IntlStore extends BaseStore {
   }
 
   dehydrate() {
-    return this.getState();
+    return {
+      currentLocale: this.currentLocale,
+      locales: this.locales,
+      messages: this.messages
+    };
   }
 
   rehydrate({ messages, locales, currentLocale }) {
