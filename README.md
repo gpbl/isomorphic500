@@ -65,7 +65,6 @@ then open [localhost:8080](http://localhost:8080).
   * [Babeljs](#babeljs)
   * [.editorconfig](#editorconfig)
   * [Linting](#linting)
-  * [Testing](#testing)
   * [Debugging](#debugging)
 
 ## Application structure
@@ -74,12 +73,12 @@ then open [localhost:8080](http://localhost:8080).
 $ tree src
 
 ├── Application.js       # The root Application component
-├── actions/             # Actions creators
+├── actions/             # Action creators
 ├── app.js               # The Fluxible app
 ├── assets/              # Dir with static files
 ├── client.js            # Entry point for the client
 ├── components/          # React components
-├── config.js            # Load the config on dev or prd
+├── config.js            # Load the config for dev or prod
 ├── constants/           # Constants values (e.g. action types)
 ├── intl/                # intl messages
 ├── pages/               # Contains components acting as "page" for each route
@@ -90,14 +89,21 @@ $ tree src
 ├── server/              # Server-side-only code
 │   ├── ga.js            # Contains Google Analytics code to inject into HtmlDocument
 │   ├── intl-polyfill.js # Support for `intl` on node.js
-│   ├── HtmlDocument.js  # Components containing <html>...</html> page
+│   ├── HtmlDocument.js  # Components containing  the <html>...</html> page
 │   ├── render.js        # Middleware to render HtmlDocument server-side
 │   └── setLocale.js     # Middleware to set locale according to browser, cookie or querystring
 ├── server.js            # Run the express server, setup fetchr service
 ├── services/            # Fetchr services (e.g. load data from 500px API)
 ├── stores/              # Flux stores
+│   ├── FeaturedStore.js # Contains the photos' ids to display in the featured page
+│   ├── HtmlHeadStore.js # Used to keep title and meta tags
+│   ├── IntlStore.js     # Stores intl messages and the current locale
+│   └── PhotoStore.js    # Store photo objects from 500px
 ├── style/               # Contains the Sass styles
 └── utils/               # Some useful utils
+    ...
+    └── IntlComponents.js # Wraps react-intl components to use them with ES6 classes and flux stores
+
 ```
 
 ### The fluxible app
@@ -116,13 +122,13 @@ I used [Fetchr](https://github.com/yahoo/fetchr) and the relative [fluxible-plug
 
 ### Router
 
-This app uses [fluxible-router](https://github.com/yahoo/fluxible-router) for routing. Fluxible-router works pretty well in fluxible applications since it follows the flux paradigm. The [Application component](src/Application.js) is wrapped by its `handleHistory` utils to bind the router to the app.
+This app uses [fluxible-router](https://github.com/yahoo/fluxible-router) for routing. Fluxible-router works pretty well in fluxible applications since it follows the flux paradigm. The [Application component](src/Application.js) uses the `@handleHistory` decorator to bind the router to the app.
 
 ### Stores
 
-Instead of directly listening to stores, components are wrapped in an high-order component using the fluxible `connectToStores` add-on. See for example the [PhotoPage](src/pages/PhotoPage.js) or the [FeaturedPage](src/pages/FeaturedPage.js).
+Instead of directly listening to stores, components use fluxible's `@connectToStores` decorator: a store state is passed to components as prop. See for example the [PhotoPage](src/pages/PhotoPage.js) or the [FeaturedPage](src/pages/FeaturedPage.js). 
 
-Other components need to access the store data without listening to the stores: they make use of the fluxible context, requiring the `getStore` function in the context's type. This is the case of [NavBar](src/components/NavBar.js) or [LocaleSwitcher](src/components/LocaleSwitcher.js).
+`connectToStore` can also "consume" store data without actually listening to any store. This is the case of [NavBar](src/components/NavBar.js) or [LocaleSwitcher](src/components/LocaleSwitcher.js).
 
 #### Resource stores
 
@@ -136,7 +142,7 @@ A list store keeps references to a resource store, as the [FeaturedStore](src/st
 
 The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `HtmlDocument` component, during server-side rendering. It is also listened by the `Application` component to change the browser's `document.title`.
 
-This store listen to the route actions and set its content according to the current route. It also get data from other stores (e.g. the photo's title from the `PhotoStore`), or the localized messages from the `IntlStore`.
+This store listens to route actions and set its content according to the current route. It also get data from other stores (e.g. the photo's title from the `PhotoStore`), or the localized messages from the `IntlStore`.
 
 ## Internationalization (i18n)
 
@@ -172,9 +178,9 @@ They are used in [client.js](client.js) before mounting the app.
 
 Lets talk about the data that `react-intl` needs to deliver translated content. Translated messages are saved in the [intl](src/intl) directory and shared between client and server using the [IntlStore](stores/IntlStore).
 
-This store listens to a `LOAD_INTL_SERVER` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **only server side** before rendering the `HtmlDocument` component together with the usual `navigateAction`. (It has the `_SERVER` suffix in its name to mark that it is a server-side only action: the [IntlStore](stores/IntlStore) will handle it only on a node.js environment)
+This store listens to a `LOAD_INTL_SERVER` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **only server side** before rendering the `HtmlDocument` component together with the usual `navigateAction`. This allows to dehydrate/rehydrate the store content.
 
-An higher-order component would pass the store state to the react-intl components as props. For doing this, I used a custom implementation of [FormattedMessage](src/utils/FormattedMessage.js) and [FormattedNumber](src/utils/FormattedNumber.js), adopting a small [connectToIntlStore](src/utils/connectToIntlStore.js) utils.
+React-intl components need to have access to the `IntlStore`. Plus, since I'm using ES6 classes, I can't adopt the react-intl `Mixin` in my components. To solve this, I wrap the `Formatted*` components and make them available from [IntlComponents](src/utils/IntlComponents.js).
 
 ### Sending the locale to the API
 
@@ -227,25 +233,7 @@ I use [eslint](http://eslint.org) with [babel-eslint](https://github.com/babel/b
 npm run lint
 ```
 
-Code style with [jscs](http://jscs.info) using [a config](.jscsrc) inspired by Airbnb's one. On Sublime Text, I installed [SublimeLinter-jscs](https://packagecontrol.io/packages/SublimeLinter-jscs). (Note, it doesn't play well with babeljs, [yet](https://github.com/jscs-dev/node-jscs/issues/1353))
-
 I use [SublimeLinter-scss-lint](https://github.com/attenzione/SublimeLinter-scss-lint) for linting the Sass files ([.scss-lint.yml](.scss-lint.yml)).
-
-### Testing
-
-I'm still a beginner with Flux unit testing – so tests are missing :-) I'd use [mocha](http://mochajs.org), using [chai](http://chaijs.com) as assertion library.
-
-To run the tests, use this command:
-
-```
-npm test
-```
-
-There's also the test coverage with [isparta](https://github.com/douglasduteil/isparta) (based on [istanbul](https://github.com/gotwarlost/istanbul)):
-
-```bash
-npm run coverage
-```
 
 ### Debugging
 
