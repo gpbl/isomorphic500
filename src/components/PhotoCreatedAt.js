@@ -13,7 +13,8 @@ class PhotoCreatedAt extends Component {
     return (
       <div>
         <FormattedDate value={new Date(date)} year="numeric" month="long" day="numeric" />
-        { ' ' } (<FormattedRelative value={new Date(date)} />)
+        { ' ' }
+        (<FormattedRelative value={new Date(date)} />)
       </div>
     );
   }
