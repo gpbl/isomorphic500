@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from "react";
+import { connectToStores } from "fluxible-addons-react";
+
 import { locales } from "../config";
 import { writeCookie } from "../utils/CookieUtils";
 
@@ -6,10 +8,13 @@ if (process.env.BROWSER) {
   require("../style/LocaleSwitcher.scss");
 }
 
+@connectToStores([], (context) =>
+  ({ currentLocale: context.getStore("IntlStore").getCurrentLocale() })
+)
 class LocaleSwitcher extends Component {
 
-  static contextTypes = {
-    getStore: PropTypes.func.isRequired
+  static propTypes = {
+    currentLocale: PropTypes.string.isRequired
   }
 
   render() {
@@ -21,7 +26,7 @@ class LocaleSwitcher extends Component {
   }
 
   renderLocaleLink(locale) {
-    const currentLocale = this.context.getStore("IntlStore").getCurrentLocale();
+    const { currentLocale } = this.props;
 
     let className = "LocaleSwitcher-link";
     if (locale === currentLocale) {

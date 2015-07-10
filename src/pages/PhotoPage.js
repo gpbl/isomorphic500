@@ -1,10 +1,12 @@
 import React, { PropTypes, Component } from "react";
-
-import { connectToStores } from "fluxible/addons";
+import { connectToStores } from "fluxible-addons-react";
 
 import Photo from "../components/Photo";
 import PhotoMeta from "../components/PhotoMeta";
 
+@connectToStores(["PhotoStore"], (context, props) =>
+  ({ photo: context.getStore("PhotoStore").get(props.id) })
+)
 class PhotoPage extends Component {
 
   static propTypes = {
@@ -26,10 +28,5 @@ class PhotoPage extends Component {
 
 }
 
-PhotoPage = connectToStores(PhotoPage, ["PhotoStore"], (stores, props) => {
-  return {
-    photo: stores.PhotoStore.get(props.id)
-  };
-});
 
 export default PhotoPage;

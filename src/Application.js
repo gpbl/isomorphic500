@@ -1,6 +1,6 @@
 
 import React, { PropTypes, Component } from "react";
-import { provideContext, connectToStores } from "fluxible/addons";
+import { provideContext, connectToStores } from "fluxible-addons-react";
 import { handleHistory } from "fluxible-router";
 
 import Page from "./components/Page";
@@ -15,6 +15,20 @@ import trackPageView from "./utils/trackPageView";
 if (process.env.BROWSER) {
   require("./style/Application.scss");
 }
+
+// Wrap Application with the fluxible context.
+// PS. new to this syntax? Those are called "decorators", see
+// https://babeljs.io/docs/usage/experimental/
+@provideContext
+
+// Wrap with fluxible-router's history handler (required for routing)
+// This also passes `currentRoute` as prop to the component
+@handleHistory
+
+// Listen to HtmlHeadStore and pass the document title to the component
+@connectToStores(["HtmlHeadStore"], (context) =>
+  ({ documentTitle: context.getStore("HtmlHeadStore").getTitle() })
+)
 
 class Application extends Component {
 
@@ -41,7 +55,7 @@ class Application extends Component {
     }
 
     if (!Immutable.is(prevProps.currentRoute, currentRoute)) {
-      trackPageView(currentRoute.get('url'));
+      trackPageView(currentRoute.get("url"));
     }
   }
 
@@ -83,17 +97,5 @@ class Application extends Component {
   }
 
 }
-
-Application = connectToStores(Application, ["HtmlHeadStore"], (stores) => ({
-    documentTitle: stores.HtmlHeadStore.getTitle()
-  })
-);
-
-// Wrap with fluxible-router's history handler (required for routing)
-// It also pass `currentRoute` as prop to the component
-Application = handleHistory(Application);
-
-// Wrap Application with the fluxible context (required)
-Application = provideContext(Application);
 
 export default Application;

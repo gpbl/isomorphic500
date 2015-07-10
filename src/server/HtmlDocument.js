@@ -2,8 +2,19 @@ import React, { PropTypes } from "react";
 
 import { trackingId } from "../config";
 import ga from "./ga";
-import { provideContext } from "fluxible/addons";
+import { provideContext, connectToStores } from "fluxible-addons-react";
 
+@provideContext()
+@connectToStores([], (context) => {
+  const htmlHeadStore = context.getStore("HtmlHeadStore");
+  return {
+    title: htmlHeadStore.getTitle(),
+    description: htmlHeadStore.getDescription(),
+    siteName: htmlHeadStore.getSiteName(),
+    currentUrl: htmlHeadStore.getCurrentUrl(),
+    images: htmlHeadStore.getImages()
+  };
+})
 class HtmlDocument extends React.Component {
 
   static propTypes = {
@@ -12,37 +23,40 @@ class HtmlDocument extends React.Component {
     state: PropTypes.string.isRequired,
     markup: PropTypes.string.isRequired,
     script: PropTypes.arrayOf(PropTypes.string),
-    css: PropTypes.arrayOf(PropTypes.string)
+    css: PropTypes.arrayOf(PropTypes.string),
+
+    // meta tags, title, etc.
+    title: PropTypes.string,
+    description: PropTypes.string,
+    siteName: PropTypes.string,
+    currentUrl: PropTypes.string,
+    images: PropTypes.array
   }
 
   static defaultProps = {
     script: [],
-    css: []
-  }
-
-  static contextTypes = {
-    getStore: PropTypes.func.isRequired
+    css: [],
+    meta: {}
   }
 
   render() {
     const { state, markup, script, css, lang } = this.props;
-    const htmlHead = this.context.getStore("HtmlHeadStore");
-
+    const { title, description, siteName, currentUrl, images } = this.props;
     return (
       <html lang={lang}>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
-          <title>{ htmlHead.getTitle() }</title>
+          <title>{ title }</title>
 
-          <meta name="description" content={ htmlHead.getDescription() } />
+          <meta name="description" content={ description } />
           <meta property="og:type" content="website" />
-          <meta property="og:site_name" content={ htmlHead.getSiteName() } />
-          <meta property="og:title" content={ htmlHead.getTitle() } />
-          <meta property="og:description" content={ htmlHead.getDescription() } />
-          <meta property="og:url" content={ htmlHead.getCurrentUrl() } />
+          <meta property="og:site_name" content={ siteName } />
+          <meta property="og:title" content={ title } />
+          <meta property="og:description" content={ description } />
+          <meta property="og:url" content={ currentUrl } />
 
-          { htmlHead.getImages().map(url => <meta property="og:image" content={ url } />) }
+          { images.map(url => <meta property="og:image" content={ url } />) }
 
           { css.map((href, k) =>
             <link key={k} rel="stylesheet" type="text/css" href={href} />)
@@ -66,7 +80,5 @@ class HtmlDocument extends React.Component {
     );
   }
 }
-
-HtmlDocument = provideContext(HtmlDocument);
 
 export default HtmlDocument;

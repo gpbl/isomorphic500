@@ -1,23 +1,27 @@
 import React, { PropTypes, Component } from "react";
-import Logo from "../components/Logo";
+import { connectToStores } from "fluxible-addons-react";
 import { NavLink } from "fluxible-router";
+
+import Logo from "../components/Logo";
 
 import features from "../constants/features";
 import LocaleSwitcher from "../components/LocaleSwitcher";
 import FormattedMessage from "../utils/FormattedMessage";
-import { RouteStore } from "fluxible-router";
 if (process.env.BROWSER) {
   require("../style/NavBar.scss");
 }
 
+@connectToStores([], (context) =>
+  ({ route: context.getStore("RouteStore").getCurrentRoute() })
+)
 class NavBar extends Component {
 
-  static contextTypes = {
-    getStore: PropTypes.func.isRequired
+  static PropTypes = {
+    route: PropTypes.object.isRequired
   }
 
   render() {
-    const route = this.context.getStore(RouteStore).getCurrentRoute();
+    const { route } = this.props;
     const currentFeature = route ? route.getIn(["params", "feature"]) : null;
     return (
       <div className="NavBar">
