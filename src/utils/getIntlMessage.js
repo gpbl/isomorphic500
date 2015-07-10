@@ -1,5 +1,5 @@
-// Similar to react-intl's `getIntlMessage`
-// (It receives the messages as argument)
+// Similar to react-intl's Mixin `getIntlMessage`, but it receives the messages
+// as argument. It is used by the IntlStore the get a message from its path
 
 function getIntlMessage(messages, path) {
   const pathParts = path.split(".");
