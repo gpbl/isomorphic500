@@ -1,6 +1,8 @@
-// Wrap react-intl's <FormattedMessage /> by passing messages and locales from the IntlStore
+// Wrap react-intl's components by passing messages and locales from the IntlStore
 // Supports also the message props:
-// Example         <FormattedMessage message="home.welcome" />
+// Example
+//
+//    <FormattedMessage message="home.welcome" />
 
 import { FormattedMessage, FormattedDate, FormattedNumber, FormattedRelative }
   from "react-intl";
