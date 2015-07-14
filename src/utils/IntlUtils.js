@@ -90,6 +90,32 @@ const IntlUtils = {
 
         break;
 
+        // portugues
+        case "pt":
+
+          if (!hasIntl) {
+
+            require.ensure([
+                "intl/locale-data/jsonp/pt",
+                "react-intl/dist/locale-data/pt"
+              ], (require) => {
+
+                require("intl/locale-data/jsonp/pt");
+                debug("Intl locale-data for %s has been downloaded", locale);
+                resolve();
+              }, "locale-pt");
+            }
+            else {
+              require.ensure([
+                  "react-intl/dist/locale-data/pt"
+                ], (require) => {
+                require("react-intl/dist/locale-data/pt");
+                debug("ReactIntl locale-data for %s has been downloaded", locale);
+                resolve();
+              }, "locale-pt-no-intl");
+            }
+        break;
+
         // english
         default:
           if (!hasIntl) {
