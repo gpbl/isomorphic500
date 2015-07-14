@@ -1,10 +1,10 @@
-/* global systems sync persistent */
+/* global systems sync persistent path */
 
 // Documentation: http://docs.azk.io/Azkfile.js
 
 // Adds the systems that shape your system
 systems({
-  isomorphic500: {
+  "isomorphic500-dev": {
     // Dependent systems
     depends: [],
 
@@ -39,15 +39,18 @@ systems({
       NODE_ENV: "dev",
       PORT: "3000",
       HOST: "0.0.0.0"
+    },
+    export_envs: {
+      APP_URL: "#{azk.default_domain}:#{net.port.http}"
     }
   },
 
   "isomorphic500-prod": {
-    extends: "isomorphic500",
+    extends: "isomorphic500-dev",
     provision: [
       "npm install"
     ],
-    scalable: {default: 1},
+    scalable: { default: 0, limit: 1 },
     command: "npm run build && npm run prod",
     wait: {retry: 40, timeout: 1000},
     ports: {
@@ -58,6 +61,61 @@ systems({
       NODE_ENV: "production",
       PORT: "8080",
       HOST: "0.0.0.0"
+    },
+    export_envs: {
+      APP_URL: "#{azk.default_domain}:#{net.port.http}"
+    }
+  },
+
+  "ngrok-dev": {
+    // Dependent systems
+    depends: ["isomorphic500-dev"],
+    image: {docker: "azukiapp/ngrok"},
+
+    // Mounts folders to assigned paths
+    mounts: {
+      // equivalent persistent_folders
+      "/ngrok/log": path("./log")
+    },
+    scalable: { default: 0, limit: 1 },
+
+    // do not expect application response
+    wait: false,
+    http: {
+      domains: ["#{system.name}.#{azk.default_domain}"]
+    },
+    ports: {
+      http: "4040"
+    },
+    envs: {
+      NGROK_CONFIG: "/ngrok/ngrok.yml",
+      NGROK_LOG: "/ngrok/log/ngrok.log"
+    }
+  },
+
+  "ngrok-prod": {
+    // Dependent systems
+    depends: ["isomorphic500-prod"],
+    image: {docker: "azukiapp/ngrok"},
+
+    // Mounts folders to assigned paths
+    mounts: {
+      // equivalent persistent_folders
+      "/ngrok/log": path("./log")
+    },
+    scalable: { default: 0, limit: 1 },
+
+    // do not expect application response
+    wait: false,
+    http: {
+      domains: ["#{system.name}.#{azk.default_domain}"]
+    },
+    ports: {
+      http: "4040"
+    },
+    envs: {
+      NGROK_CONFIG: "/ngrok/ngrok.yml",
+      NGROK_LOG: "/ngrok/log/ngrok.log"
     }
   }
 

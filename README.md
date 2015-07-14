@@ -45,31 +45,16 @@ npm run prod    # then, run the production version
 
 - then open [localhost:8080](http://localhost:8080).
 
-**Start the app with azk + Docker (Linux or MacOSX only)**
+**Start the app with [azk](http://azk.io/) + [Docker](https://www.docker.com/)**
 
-Install azk and docker
-
-```bash
-wget -qO- https://get.docker.com/ | sh   # install Docker
-curl -Ls http://azk.io/install.sh | bash # install azk
-```
-
-**run azk container, dev and prod at same time**
+With [azk](http://azk.io/), you don't even need Node.js installed on your machine. It can start the application in both development and production modes. It also configures a [ngrok](https://ngrok.com/) system which allows us to expose the site over the web and analyzes all requests made.
 
 ```bash
-azk restart -R -v && azk logs --follow
+$ azk agent start
+$ azk start
 ```
 
-- dev:  [isomorphic500.dev.azk.io](http://isomorphic500.dev.azk.io/)
-- prod: [isomorphic500-prod.dev.azk.io](http://isomorphic500-prod.dev.azk.io/)
-
-Removing root ownership from files
-
-```bash
-sudo chown `whoami` -R .
-npm install
-npm run dev
-```
+see [Running with azk](#running-with-azk) for to get more info
 
 
 ## Table of Contents
@@ -94,6 +79,7 @@ npm run dev
   * [.editorconfig](#editorconfig)
   * [Linting](#linting)
   * [Debugging](#debugging)
+* [Running with azk](#running-with-azk)
 
 ## Application structure
 
@@ -281,4 +267,70 @@ From the **browser**, you can enable/disable them by sending this command in the
 debug.enable('isomorphic500')
 debug.disable()
 // then, refresh!
+```
+
+### Running with azk
+
+- [Install azk on Linux](http://docs.azk.io/en/installation/linux.html)
+- [Install azk on Mac OS X](http://docs.azk.io/en/installation/mac_os_x.html)
+
+- Or just run this:
+> You'll need Docker installed if you are using Linux or VirtualBox if you are using Mac OS X
+
+```bash
+$ curl -Ls http://azk.io/install.sh | bash
+```
+
+Run app in both dev and prod environment (one container for each environment):
+
+*local dev*
+
+```bash
+$ azk restart isomorphic500-dev -R -v
+```
+
+- [isomorphic500-dev.dev.azk.io](http://isomorphic500-dev.dev.azk.io/)
+
+*local prod*
+
+```bash
+$ azk restart isomorphic500-prod -R -v
+```
+
+- [isomorphic500-prod.dev.azk.io](http://isomorphic500-prod.dev.azk.io/)
+
+*ngrok dev (will open the ngrok local dashboard with the exposed url)*
+
+```bash
+$ azk restart ngrok-dev -R -v
+```
+
+- [ngrok-dev.dev.azk.io ](http://ngrok-dev.dev.azk.io/)
+
+*ngrok prod (will open the ngrok local dashboard with the exposed url)*
+
+```bash
+$ azk restart ngrok-prod -R -v
+```
+
+- [ngrok-prod.dev.azk.io ](http://ngrok-prod.dev.azk.io/)
+
+__server logs__
+```bash
+$ azk logs --follow
+```
+
+
+Images used:
+
+- [nodejs](http://images.azk.io/#/node)
+- [ngrok](http://images.azk.io/#/ngrok)
+
+Removing root ownership from files:
+
+Once Docker runs as [root user](https://docs.docker.com/installation/ubuntulinux/#create-a-docker-group) inside container, if you want to access `node_modules` files from your machine, you have to set the proper files ownership.
+
+```bash
+# Fix node_modules ownership
+$ sudo chown -R `id -un`:`id -gn` node_modules
 ```

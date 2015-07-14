@@ -3,3 +3,4 @@ public
 src/server/webpack-stats.json
 .azk/
 *.log
+log/
