@@ -43,7 +43,34 @@ npm run build   # First, build for production
 npm run prod    # then, run the production version
 ```
 
-then open [localhost:8080](http://localhost:8080).
+- then open [localhost:8080](http://localhost:8080).
+
+**Start the app with azk + Docker (Linux or MacOSX only)**
+
+Install azk and docker
+
+```bash
+wget -qO- https://get.docker.com/ | sh   # install Docker
+curl -Ls http://azk.io/install.sh | bash # install azk
+```
+
+**run azk container, dev and prod at same time**
+
+```bash
+azk restart -R -v && azk logs --follow
+```
+
+- dev:  [isomorphic500.dev.azk.io](http://isomorphic500.dev.azk.io/)
+- prod: [isomorphic500-prod.dev.azk.io](http://isomorphic500-prod.dev.azk.io/)
+
+Removing root ownership from files
+
+```bash
+sudo chown `whoami` -R .
+npm install
+npm run dev
+```
+
 
 ## Table of Contents
 

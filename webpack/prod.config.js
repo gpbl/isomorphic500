@@ -11,7 +11,7 @@ var assetsPath = path.join(__dirname, "../public/assets");
 module.exports = {
   devtool: "source-map",
   entry: {
-    "main": "./src/client.js"
+    main: "./src/client.js"
   },
   output: {
     path: assetsPath,
