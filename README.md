@@ -80,10 +80,11 @@ see [Running with azk](#running-with-azk) for to get more info
   * [Linting](#linting)
   * [Debugging](#debugging)
 * [Running with azk](#running-with-azk)
-  * [Install azk](#install-azk)
-  * [Azk local run](#azk-local-run)
-  * [Azk ngrok expose](#azk-ngrok-expose)
-  * [Azk troubleshooting](#azk-troubleshooting)
+  * [Installing azk](#installing-azk)
+  * [Running isomorphic500 locally](#running-isomorphic500-locally)
+  * [Exposing your app to the web](#exposing-your-app-to-the-web)
+  * [Checking logs](#checking-logs)
+  * [azk troubleshooting](#azk-troubleshooting)
 
 ## Application structure
 
@@ -302,7 +303,7 @@ $ azk start -Rv isomorphic500
 You can expose your app to the web via a public URL using ngrok:
 
 ```bash
-$ azk start -RV ngrok
+$ azk start -Rv ngrok
 ```
 
 - [ngrok.dev.azk.io ](http://ngrok.dev.azk.io/)
