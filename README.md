@@ -80,6 +80,10 @@ see [Running with azk](#running-with-azk) for to get more info
   * [Linting](#linting)
   * [Debugging](#debugging)
 * [Running with azk](#running-with-azk)
+  * [Install azk](#install-azk)
+  * [Azk local run](#azk-local-run)
+  * [Azk ngrok expose](#azk-ngrok-expose)
+  * [Azk troubleshooting](#azk-troubleshooting)
 
 ## Application structure
 
@@ -269,7 +273,9 @@ debug.disable()
 // then, refresh!
 ```
 
-### Running with azk
+## Running with azk
+
+### Install azk
 
 - [Install azk on Linux](http://docs.azk.io/en/installation/linux.html)
 - [Install azk on Mac OS X](http://docs.azk.io/en/installation/mac_os_x.html)
@@ -280,6 +286,8 @@ debug.disable()
 ```bash
 $ curl -Ls http://azk.io/install.sh | bash
 ```
+
+### Azk local run
 
 Run app in both dev and prod environment (one container for each environment):
 
@@ -298,6 +306,8 @@ $ azk restart isomorphic500-prod -R -v
 ```
 
 - [isomorphic500-prod.dev.azk.io](http://isomorphic500-prod.dev.azk.io/)
+
+### Azk ngrok expose
 
 *ngrok dev (will open the ngrok local dashboard with the exposed url)*
 
@@ -320,13 +330,9 @@ __server logs__
 $ azk logs --follow
 ```
 
+### Azk troubleshooting
 
-Images used:
-
-- [nodejs](http://images.azk.io/#/node)
-- [ngrok](http://images.azk.io/#/ngrok)
-
-Removing root ownership from files:
+*Removing root ownership from files*
 
 Once Docker runs as [root user](https://docs.docker.com/installation/ubuntulinux/#create-a-docker-group) inside container, if you want to access `node_modules` files from your machine, you have to set the proper files ownership.
 
@@ -334,3 +340,7 @@ Once Docker runs as [root user](https://docs.docker.com/installation/ubuntulinux
 # Fix node_modules ownership
 $ sudo chown -R `id -un`:`id -gn` node_modules
 ```
+
+*Further help*
+
+see [official azk troubleshooting](http://docs.azk.io/en/troubleshooting/README.html)
