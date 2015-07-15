@@ -2,42 +2,29 @@
 // requiring the `Intl` polyfill for browser not supporting it
 // It is used in client.js *before* rendering the root component.
 
+import isIntlLocaleSupported from "intl-locales-supported";
+
 const debug = require("debug")("isomorphic500");
 
 const IntlUtils = {
 
-  hasBuiltInLocaleData(locale) {
-    return Intl.NumberFormat.supportedLocalesOf(locale)[0] === locale &&
-      Intl.DateTimeFormat.supportedLocalesOf(locale)[0] === locale;
-  },
+  // Returns a promise which is resolved when Intl has been polyfilled
 
-  // Returns a promise which is resolved when Intl chunk has been
-  // downloaded and required
   loadIntlPolyfill(locale) {
 
+    if (window.Intl && isIntlLocaleSupported(locale)) {
+      // all fine: Intl is in the global scope and the locale data is available
+      return Promise.resolve();
+    }
+
     return new Promise((resolve) => {
-
-      if (window.Intl && IntlUtils.hasBuiltInLocaleData(locale)) {
-
-        // all fine: Intl is in the global scope and the locale data is available
-        return resolve();
-      }
-
       debug("Intl or locale data for %s not available, downloading the polyfill...", locale);
 
-      // Create a intl chunk with webpack and run the callback once it has
-      // been download. Make sure to require `intl/Intl` and not just `intl`
-      // otherwise webpack will require the *complete* intl package (with all
-      // the locales)
-
-      require.ensure(["intl/Intl"], (require) => {
-        const IntlPolyfill = require("intl/Intl");
-
-        Intl.NumberFormat = IntlPolyfill.NumberFormat;
-        Intl.DateTimeFormat = IntlPolyfill.DateTimeFormat;
-
+      // When building: create a intl chunk with webpack
+      // When executing: run the callback once the chunk has been download.
+      require.ensure(["intl"], (require) => {
+        require("intl"); // apply the polyfill
         debug("Intl polyfill for %s has been loaded", locale);
-
         resolve();
       }, "intl");
 
@@ -52,7 +39,7 @@ const IntlUtils = {
   // The react-intl locale-data is required, for example, by the FormattedRelative
   // component.
   loadLocaleData(locale) {
-    const hasIntl = IntlUtils.hasBuiltInLocaleData(locale);
+    const hasIntl = isIntlLocaleSupported(locale);
 
     // Make sure ReactIntl is in the global scope: this is required for adding locale-data
     // Since ReactIntl needs the `Intl` polyfill to be required (sic) we must place
