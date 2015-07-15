@@ -6,7 +6,13 @@
 }
 
 .NavBar-title {
-  text-align: center;
+  text-align: left;
+}
+
+@media screen and (min-device-width: 481px) {
+  .NavBar-title {
+    text-align: center;
+  }
 }
 
 .NavBar-links {
