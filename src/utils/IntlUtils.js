@@ -86,8 +86,8 @@ const IntlUtils = {
                 "intl/locale-data/jsonp/pt",
                 "react-intl/dist/locale-data/pt"
               ], (require) => {
-
                 require("intl/locale-data/jsonp/pt");
+                require("react-intl/dist/locale-data/pt");
                 debug("Intl locale-data for %s has been downloaded", locale);
                 resolve();
               }, "locale-pt");
@@ -118,7 +118,6 @@ const IntlUtils = {
           else {
             resolve();
           }
-
       }
 
     });
