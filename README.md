@@ -275,62 +275,48 @@ debug.disable()
 
 ## Running with azk
 
-### Install azk
+### Installing azk
 
 - [Install azk on Linux](http://docs.azk.io/en/installation/linux.html)
 - [Install azk on Mac OS X](http://docs.azk.io/en/installation/mac_os_x.html)
 
-- Or just run this:
+- Or simply run:
 > You'll need Docker installed if you are using Linux or VirtualBox if you are using Mac OS X
 
 ```bash
 $ curl -Ls http://azk.io/install.sh | bash
 ```
 
-### Azk local run
-
-Run app in both dev and prod environment (one container for each environment):
-
-*local dev*
+### Running isomorphic500 locally
 
 ```bash
-$ azk restart isomorphic500-dev -R -v
+$ azk start -Rv isomorphic500
 ```
 
-- [isomorphic500-dev.dev.azk.io](http://isomorphic500-dev.dev.azk.io/)
+- [isomorphic500.dev.azk.io](http://isomorphic500.dev.azk.io/)
 
-*local prod*
+> If you want to run the production environment, just replace `isomorphic500` by `isomorphic500-prod` in the command above.
+
+### Exposing your app to the web
+
+You can expose your app to the web via a public URL using ngrok:
 
 ```bash
-$ azk restart isomorphic500-prod -R -v
+$ azk start -RV ngrok
 ```
 
-- [isomorphic500-prod.dev.azk.io](http://isomorphic500-prod.dev.azk.io/)
+- [ngrok.dev.azk.io ](http://ngrok.dev.azk.io/)
 
-### Azk ngrok expose
+> If you want to expose the app running in production environment, just replace `ngrok` by `ngrok-prod` in the command above.
 
-*ngrok dev (will open the ngrok local dashboard with the exposed url)*
 
-```bash
-$ azk restart ngrok-dev -R -v
-```
+### Checking logs
 
-- [ngrok-dev.dev.azk.io ](http://ngrok-dev.dev.azk.io/)
-
-*ngrok prod (will open the ngrok local dashboard with the exposed url)*
-
-```bash
-$ azk restart ngrok-prod -R -v
-```
-
-- [ngrok-prod.dev.azk.io ](http://ngrok-prod.dev.azk.io/)
-
-__server logs__
 ```bash
 $ azk logs --follow
 ```
 
-### Azk troubleshooting
+### azk troubleshooting
 
 *Removing root ownership from files*
 
@@ -343,4 +329,4 @@ $ sudo chown -R `id -un`:`id -gn` node_modules
 
 *Further help*
 
-see [official azk troubleshooting](http://docs.azk.io/en/troubleshooting/README.html)
+See [official azk troubleshooting](http://docs.azk.io/en/troubleshooting/README.html)

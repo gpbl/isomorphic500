@@ -4,7 +4,7 @@
 
 // Adds the systems that shape your system
 systems({
-  "isomorphic500-dev": {
+  "isomorphic500": {
     // Dependent systems
     depends: [],
 
@@ -46,7 +46,7 @@ systems({
   },
 
   "isomorphic500-prod": {
-    extends: "isomorphic500-dev",
+    extends: "isomorphic500",
     provision: [
       "npm install"
     ],
@@ -67,9 +67,9 @@ systems({
     }
   },
 
-  "ngrok-dev": {
+  "ngrok": {
     // Dependent systems
-    depends: ["isomorphic500-dev"],
+    depends: ["isomorphic500"],
     image: {docker: "azukiapp/ngrok"},
 
     // Mounts folders to assigned paths
