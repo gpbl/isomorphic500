@@ -8,6 +8,6 @@ export default {
   consumerKey: "CLmpqnpwGLKetORtjc5gb9tC2hllfd6cqdfzHqFD",
 
   // Supported locales
-  locales: ["en", "it"]
+  locales: ["en", "it", "pt"]
 
 }

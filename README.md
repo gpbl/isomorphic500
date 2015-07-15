@@ -126,7 +126,7 @@ This app uses [fluxible-router](https://github.com/yahoo/fluxible-router) for ro
 
 ### Stores
 
-Instead of directly listening to stores, components use fluxible's `@connectToStores` decorator: a store state is passed to components as prop. See for example the [PhotoPage](src/pages/PhotoPage.js) or the [FeaturedPage](src/pages/FeaturedPage.js). 
+Instead of directly listening to stores, components use fluxible's `@connectToStores` decorator: a store state is passed to components as prop. See for example the [PhotoPage](src/pages/PhotoPage.js) or the [FeaturedPage](src/pages/FeaturedPage.js).
 
 `connectToStore` can also "consume" store data without actually listening to any store. This is the case of [NavBar](src/components/NavBar.js) or [LocaleSwitcher](src/components/LocaleSwitcher.js).
 
@@ -146,7 +146,7 @@ This store listens to route actions and set its content according to the current
 
 ## Internationalization (i18n)
 
-To give an example on how to implement i18n in a React application, isomorphic500 supports English and [Italian](https://www.youtube.com/watch?v=9JhuOicPFZY).
+To give an example on how to implement i18n in a React application, isomorphic500 supports English, [Italian](https://www.youtube.com/watch?v=9JhuOicPFZY) and Portuguese.
 
 This app adopts [React Intl](http://formatjs.io/react/), which is a solid library for this purpose.
 
@@ -188,7 +188,7 @@ While this is not required by the 500px API, we can send the current locale to t
 
 ## Development
 
-Run the development version with 
+Run the development version with
 
 ```
 npm run dev
@@ -254,5 +254,3 @@ debug.enable('isomorphic500')
 debug.disable()
 // then, refresh!
 ```
-
-
