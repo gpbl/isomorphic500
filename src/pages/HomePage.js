@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormattedMessage }  from "../utils/IntlComponents";
+import { FormattedMessage } from "../utils/IntlComponents";
 
 class HomePage extends Component {
 
