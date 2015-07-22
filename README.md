@@ -6,7 +6,6 @@ It is built on [express](http://expressjs.com) using [React](https://facebook.gi
 
 <a href="https://isomorphic500.herokuapp.com"><img src="https://cloud.githubusercontent.com/assets/120693/7737327/95f3de1c-ff4a-11e4-86fb-e9d3cabcdedb.png" width="700"></a>
 
-[![Join the chat at https://gitter.im/gpbl/isomorphic500](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 <img src="https://david-dm.org/gpbl/isomorphic500.svg">
 
 The intent of this project is to solidify my experience with these technologies and perhaps to inspire other developers in their journey with React and Flux. It works also as example of a javascript development environment with all the cool recent stuff :-)
@@ -15,7 +14,9 @@ The intent of this project is to solidify my experience with these technologies 
 - clone this repo and run the server to confirm it is actually working
 - edit a react component or a css style, and see the updated app as you save your changes!
 - read on for some technical details
-- [write issues](https://github.com/gpbl/isomorphic500/issues) and [join the gitter chat](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) to discuss :-)
+
+**Get help**
+Join the [gitter chat](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or the [#isomorphic500](https://reactiflux.slack.com/archives/isomorphic500) on [reactiflux](http://www.reactiflux.com) :-)
 
 **Clone this repo**
 
