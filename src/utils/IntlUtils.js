@@ -77,6 +77,33 @@ const IntlUtils = {
 
         break;
 
+        // french
+        case "fr":
+
+          if (!hasIntl) {
+
+            require.ensure([
+                "intl/locale-data/jsonp/fr",
+                "react-intl/dist/locale-data/fr"
+              ], (require) => {
+              require("intl/locale-data/jsonp/fr");
+              require("react-intl/dist/locale-data/fr");
+              debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
+              resolve();
+            }, "locale-fr");
+          }
+          else {
+            require.ensure([
+                "react-intl/dist/locale-data/fr"
+              ], (require) => {
+              require("react-intl/dist/locale-data/fr");
+              debug("ReactIntl locale-data for %s has been downloaded", locale);
+              resolve();
+            }, "locale-fr-no-intl");
+          }
+
+        break;
+
         // portugues
         case "pt":
 
