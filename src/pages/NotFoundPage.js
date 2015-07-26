@@ -1,5 +1,5 @@
 import React from "react";
-import FormattedMessage from "../utils/FormattedMessage";
+import { FormattedMessage } from "../utils/IntlComponents";
 
 class NotFoundPage extends React.Component {
 
