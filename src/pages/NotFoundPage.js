@@ -1,9 +1,14 @@
 import React from "react";
+import FormattedMessage from "../utils/FormattedMessage";
 
 class NotFoundPage extends React.Component {
 
   render() {
-    return <h1>Page not found</h1>;
+    return (
+      <div>
+        <FormattedMessage message="meta.notFoundTitle" />
+      </div>
+    );
   }
 
 }
