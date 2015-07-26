@@ -147,7 +147,7 @@ This store listens to route actions and set its content according to the current
 
 ## Internationalization (i18n)
 
-To give an example on how to implement i18n in a React application, isomorphic500 supports English, [Italian](https://www.youtube.com/watch?v=9JhuOicPFZY) and Portuguese.
+To give an example on how to implement i18n in a React application, isomorphic500 supports English, [Italian](https://www.youtube.com/watch?v=9JhuOicPFZY), Portuguese and French.
 
 This app adopts [React Intl](http://formatjs.io/react/), which is a solid library for this purpose.
 
