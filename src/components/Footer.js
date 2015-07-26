@@ -9,7 +9,7 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="Footer">
+      <div styles={[styles.Footer]}>
         <div className="Footer-disclaimer">
           Data from <a href="https://500px.com">500px</a>. Photos copyrights of their respective authors.
         </div>
@@ -22,5 +22,13 @@ class Footer extends Component {
   }
 
 }
+var StyleSheet = require('react-style')
+
+var styles = StyleSheet.create({
+    Footer: {
+          fontSize: '0.75rem',
+          backgroundColor: 'red'
+        }
+})
 
 export default Footer;

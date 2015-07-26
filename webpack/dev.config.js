@@ -5,6 +5,8 @@ var path = require("path");
 var webpack = require("webpack");
 var writeStats = require("./utils/write-stats");
 var notifyStats = require("./utils/notify-stats");
+var ReactStylePlugin = require('react-style-webpack-plugin');
+var ReactStyleHotLoader = require("./utils/react-style-hot-loader");
 
 var assetsPath = path.resolve(__dirname, "../public/assets");
 
@@ -29,7 +31,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.(jpe?g|png|gif|svg)$/, loader: "file" },
-      { test: /\.js$/, exclude: /node_modules/, loaders: ["react-hot", "babel?cacheDirectory"] },
+      { test: /\.js$/, exclude: /node_modules/, loaders: ["react-hot", __dirname + '/utils/react-style-hot-loader', ReactStylePlugin.loader(), "babel?cacheDirectory"] },
       { test: /\.scss$/, loader: "style!css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true" }
     ]
   },
