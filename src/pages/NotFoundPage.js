@@ -6,7 +6,7 @@ class NotFoundPage extends React.Component {
   render() {
     return (
       <div>
-        <FormattedMessage message="meta.notFoundTitle" />
+        <h1><FormattedMessage message="meta.notFoundTitle" /></h1>
       </div>
     );
   }
