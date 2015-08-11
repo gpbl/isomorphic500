@@ -45,17 +45,13 @@ npm run prod    # then, run the production version
 
 - then open [localhost:8080](http://localhost:8080).
 
-**Start the app with [azk](http://azk.io/) + [Docker](https://www.docker.com/)**
-
-With [azk](http://azk.io/), you don't even need Node.js installed on your machine. It can start the application in both development and production modes. It also configures a [ngrok](https://ngrok.com/) system which allows us to expose the site over the web and analyzes all requests made.
+**using [azk](http://azk.io/)**
 
 ```bash
-$ azk agent start
 $ azk start
 ```
 
-see [Running with azk](#running-with-azk) for to get more info
-
+see [Azkfile.md](./Azkfile.md) to get more info
 
 ## Table of Contents
 
@@ -79,12 +75,6 @@ see [Running with azk](#running-with-azk) for to get more info
   * [.editorconfig](#editorconfig)
   * [Linting](#linting)
   * [Debugging](#debugging)
-* [Running with azk](#running-with-azk)
-  * [Installing azk](#installing-azk)
-  * [Running isomorphic500 locally](#running-isomorphic500-locally)
-  * [Exposing your app to the web](#exposing-your-app-to-the-web)
-  * [Checking logs](#checking-logs)
-  * [azk troubleshooting](#azk-troubleshooting)
 
 ## Application structure
 
@@ -274,60 +264,3 @@ debug.disable()
 // then, refresh!
 ```
 
-## Running with azk
-
-### Installing azk
-
-- [Install azk on Linux](http://docs.azk.io/en/installation/linux.html)
-- [Install azk on Mac OS X](http://docs.azk.io/en/installation/mac_os_x.html)
-
-- Or simply run:
-> You'll need Docker installed if you are using Linux or VirtualBox if you are using Mac OS X
-
-```bash
-$ curl -Ls http://azk.io/install.sh | bash
-```
-
-### Running isomorphic500 locally
-
-```bash
-$ azk start -Rv isomorphic500
-```
-
-- [isomorphic500.dev.azk.io](http://isomorphic500.dev.azk.io/)
-
-> If you want to run the production environment, just replace `isomorphic500` by `isomorphic500-prod` in the command above.
-
-### Exposing your app to the web
-
-You can expose your app to the web via a public URL using ngrok:
-
-```bash
-$ azk start -Rv ngrok
-```
-
-- [ngrok.dev.azk.io ](http://ngrok.dev.azk.io/)
-
-> If you want to expose the app running in production environment, just replace `ngrok` by `ngrok-prod` in the command above.
-
-
-### Checking logs
-
-```bash
-$ azk logs --follow
-```
-
-### azk troubleshooting
-
-*Removing root ownership from files*
-
-Once Docker runs as [root user](https://docs.docker.com/installation/ubuntulinux/#create-a-docker-group) inside container, if you want to access `node_modules` files from your machine, you have to set the proper files ownership.
-
-```bash
-# Fix node_modules ownership
-$ sudo chown -R `id -un`:`id -gn` node_modules
-```
-
-*Further help*
-
-See [official azk troubleshooting](http://docs.azk.io/en/troubleshooting/README.html)
