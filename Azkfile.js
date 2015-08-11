@@ -140,7 +140,7 @@ systems({
     // just call with azk shell deploy
     scalable: {"default": 0, "limit": 0},
     envs: {
-      GIT_CHECKOUT_COMMIT_BRANCH_TAG: 'azkfile-deploy',
+      GIT_CHECKOUT_COMMIT_BRANCH_TAG: 'azkfile',
       AZK_RESTART_COMMAND: 'azk restart isomorphic500-prod -Rvv',
       RUN_SETUP: 'true',
       RUN_CONFIGURE: 'true',
@@ -150,7 +150,7 @@ systems({
   "fast-deploy": {
     extends: 'deploy',
     envs: {
-      GIT_CHECKOUT_COMMIT_BRANCH_TAG: 'azkfile-deploy',
+      GIT_CHECKOUT_COMMIT_BRANCH_TAG: 'azkfile',
       AZK_RESTART_COMMAND: 'azk restart isomorphic500-prod -Rvv',
       RUN_SETUP: 'false',
       RUN_CONFIGURE: 'false',
