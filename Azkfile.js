@@ -132,7 +132,8 @@ systems({
       "/azk/deploy/src":  path("."),
                           // will use your public key on server
                           // that way you can connect with:
-                          // $ ssh root@REMOTE.IP
+                          // $ ssh git@REMOTE.IP
+                          // $ bash
       "/azk/deploy/.ssh": path("#{process.env.HOME}/.ssh")
     },
     // this is not a server
