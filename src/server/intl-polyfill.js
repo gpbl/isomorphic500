@@ -1,4 +1,4 @@
-/* global Intl */
+/* global Intl IntlPolyfill */
 
 // Add support for intl on node.js
 // See: http://formatjs.io/guides/runtime-environments/#server

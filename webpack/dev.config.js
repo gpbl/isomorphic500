@@ -8,13 +8,13 @@ var notifyStats = require("./utils/notify-stats");
 
 var assetsPath = path.resolve(__dirname, "../public/assets");
 
-var WEBPACK_HOST = "localhost";
+var WEBPACK_HOST = process.env.HOST_NAME || "0.0.0.0";
 var WEBPACK_PORT = parseInt(process.env.PORT) + 1 || 3001;
 
 module.exports = {
   devtool: "cheap-module-eval-source-map",
   entry: {
-    "main": [
+    main: [
       "webpack-dev-server/client?http://" + WEBPACK_HOST + ":" + WEBPACK_PORT,
       "webpack/hot/only-dev-server",
       "./src/client.js"
@@ -51,10 +51,11 @@ module.exports = {
     }),
 
     // stats
-    function () {
+    function() {
       this.plugin("done", notifyStats);
     },
-    function () {
+
+    function() {
       this.plugin("done", writeStats);
     },
 

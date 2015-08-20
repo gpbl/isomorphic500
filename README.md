@@ -43,7 +43,15 @@ npm run build   # First, build for production
 npm run prod    # then, run the production version
 ```
 
-then open [localhost:8080](http://localhost:8080).
+- then open [localhost:8080](http://localhost:8080).
+
+**using [azk](http://azk.io/)**
+
+```bash
+$ azk start
+```
+
+see [Azkfile.md](./Azkfile.md) to get more info
 
 ## Table of Contents
 
@@ -255,3 +263,4 @@ debug.enable('isomorphic500')
 debug.disable()
 // then, refresh!
 ```
+

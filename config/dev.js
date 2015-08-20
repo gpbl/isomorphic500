@@ -10,4 +10,4 @@ export default {
   // Supported locales
   locales: ["en", "it", "pt", "fr"]
 
-}
+};
