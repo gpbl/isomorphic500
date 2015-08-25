@@ -4,8 +4,7 @@
 import React from "react";
 import serialize from "serialize-javascript";
 
-import app from "../app";
-import HtmlDocument from "./HtmlDocument";
+import fluxibleApp from "../fluxibleApp";
 import Html from "../components/Html";
 
 import { navigateAction } from "fluxible-router";
@@ -29,9 +28,9 @@ function renderApp(req, res, context, next) {
     }
 
     // dehydrate the app and expose its state
-    const state = "window.App=" + serialize(app.dehydrate(context)) + ";";
+    const state = "window.App=" + serialize(fluxibleApp.dehydrate(context)) + ";";
 
-    const Application = app.getComponent();
+    const Application = fluxibleApp.getComponent();
 
     // Render the Application to string
     const markup = React.renderToString(
@@ -61,7 +60,7 @@ function renderApp(req, res, context, next) {
 function render(req, res, next) {
 
   // Create a fluxible context (_csrf is needed by the fetchr plugin)
-  const context = app.createContext({
+  const context = fluxibleApp.createContext({
     req: req,
     xhrContext: {
       _csrf: req.csrfToken()

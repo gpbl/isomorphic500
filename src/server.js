@@ -9,7 +9,8 @@ import favicon from "serve-favicon";
 import morgan from "morgan";
 import csurf from "csurf";
 import locale from "locale";
-import app from "./app";
+
+import fluxibleApp from "./fluxibleApp";
 import config from "./config";
 import render from "./server/render";
 import setLocale from "./server/setLocale";
@@ -44,6 +45,7 @@ server.use(csurf({ cookie: true }));
 
 // Configure fetchr (for doing api calls server and client-side)
 // and register its services
+  const fetchr = fluxibleApp.getPlugin("FetchrPlugin");
 
 const fetchr = app.getPlugin("FetchrPlugin");
 fetchr.registerService(require("./services/photos"));
