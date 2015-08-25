@@ -15,17 +15,19 @@ import config from "./config";
 import render from "./server/render";
 import setLocale from "./server/setLocale";
 
+const staticPath = path.resolve(__dirname, "./static");
+
 // Initialize express server
 
 const server = express();
 
 // Usual express stuff
+  app.use(favicon(`${staticPath}/assets/favicon.png`));
 
 server.use(morgan(server.get("env") === "production" ? "combined" : "dev"));
 server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(compression());
-server.use(favicon(path.resolve(__dirname, "./assets/favicon.png")));
 
 // Set the default locale
 
