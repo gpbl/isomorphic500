@@ -18,77 +18,77 @@ import setLocale from "./server/setLocale";
 const staticPath = path.resolve(__dirname, "./static");
 
 // Initialize express server
+export default function (callback) {
+  const app = express();
 
-const server = express();
+  app.set("env", process.env.NODE_ENV || "development");
+  app.set("host", process.env.HOST || "0.0.0.0");
+  app.set("port", process.env.PORT || 3000);
 
-// Usual express stuff
+  app.use(morgan(app.get("env") === "production" ? "combined" : "dev"));
+  app.use(bodyParser.json());
+  app.use(cookieParser());
+  app.use(compression());
   app.use(favicon(`${staticPath}/assets/favicon.png`));
 
-server.use(morgan(server.get("env") === "production" ? "combined" : "dev"));
-server.use(bodyParser.json());
-server.use(cookieParser());
-server.use(compression());
+  // Set the default locale
 
-// Set the default locale
+  locale.Locale.default = config.locales[0];
 
-locale.Locale.default = config.locales[0];
+  // Set req.locale based on the browser settings
 
-// Set req.locale based on the browser settings
+  app.use(locale(config.locales));
 
-server.use(locale(config.locales));
+  // Overwrite req.locale either from cookie or querystring
 
-// Overwrite req.locale either from cookie or querystring
+  app.use(setLocale);
 
-server.use(setLocale);
+  // This is used by the fetchr plugin
 
-// This is used by the fetchr plugin
+  app.use(csurf({ cookie: true }));
 
-server.use(csurf({ cookie: true }));
+  // Configure fetchr (for doing api calls server and client-side)
+  // and register its services
 
-// Configure fetchr (for doing api calls server and client-side)
-// and register its services
   const fetchr = fluxibleApp.getPlugin("FetchrPlugin");
+  fetchr.registerService(require("./services/photos"));
+  fetchr.registerService(require("./services/photo"));
 
-const fetchr = app.getPlugin("FetchrPlugin");
-fetchr.registerService(require("./services/photos"));
-fetchr.registerService(require("./services/photo"));
+  // Use the fetchr middleware (will enable requests from /api)
 
-// Use the fetchr middleware (will enable requests from /api)
+  app.use(fetchr.getXhrPath(), fetchr.getMiddleware());
 
-server.use(fetchr.getXhrPath(), fetchr.getMiddleware());
+  // On production, use the public directory for static files
+  // This directory is created by webpack on build time.
 
-// On production, use the public directory for static files
-// This directory is created by webpack on build time.
+  if (app.get("env") === "production") {
+    app.use(express.static(path.resolve(__dirname, "../public"), {
+      maxAge: 365 * 24 * 60 * 60
+    }));
+  }
 
-if (server.get("env") === "production") {
-  server.use(express.static(path.resolve(__dirname, "../public"), {
-    maxAge: 365 * 24 * 60 * 60
-  }));
+  // On development, serve the static files from the webpack dev app.
+
+  if (app.get("env") === "development") {
+    require("../webpack/server");
+  }
+
+  // Render the app server-side and send it as response
+
+  app.use(render);
+
+  // Generic server errors (e.g. not caught by components)
+  app.use((err, req, res, next) => {  // eslint-disable-line no-unused-vars
+    console.log("Error on request %s %s", req.method, req.url);
+    console.log(err);
+    console.log(err.stack);
+    res.status(500).send("Something bad happened");
+  });
+
+  // Finally, start the express server
+
+  // Finally, start the express application
+  return app.listen(app.get("port"), () => callback(app));
+
 }
-
-// On development, serve the static files from the webpack dev server.
-
-if (server.get("env") === "development") {
-  require("../webpack/server");
-}
-
-// Render the app server-side and send it as response
-
-server.use(render);
-
-// Generic server errors (e.g. not caught by components)
-server.use((err, req, res, next) => {  // eslint-disable-line no-unused-vars
-  console.log("Error on request %s %s", req.method, req.url);
-  console.log(err);
-  console.log(err.stack);
-  res.status(500).send("Something bad happened");
-});
-
-// Finally, start the express server
-
-server.set("port", process.env.PORT || 3000);
-
-server.listen(server.get("port"), () => {
-  console.log(`Express ${server.get("env")} server listening on ${server.get("port")}`);
-});
 
