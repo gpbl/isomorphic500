@@ -60,12 +60,11 @@ function render(req, res, next) {
   ])
     .then(() => renderApp(req, res, context, next))
     .catch((err) => {
-      if (!err.statusCode || !err.status) {
-        next(err);
-      }
-      else {
+      if (err.statusCode || err.status) {
         renderApp(req, res, context, next);
+        return;
       }
+      next(err);
     });
 
 }
