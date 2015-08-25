@@ -205,6 +205,9 @@ Webpack is used as commonjs module bundler, css builder (using sass-loader) and 
 
 The [development config](./webpack/dev.config.js) enables source maps, the [Hot Module Replacement](http://webpack.github.io/docs/hot-module-replacement.html) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/). It loads CSS styles with `<style>`, to enable styles live reload). This config is used by the [webpack-dev-server](webpack/server.js), serving the files bundled by Webpack.
 
+> This config uses the [webpack-error-notification](https://github.com/vsolovyov/webpack-error-notification)
+> plugin. To get notified on errors while compiling the code, on Mac you must `brew install terminal-notifier`.
+
 The [production config](./webpack/prod.config.js) is used to build the production version with `npm run build`: similar to the dev config, it minifies the JS files, removes the `debug` statements and produces an external `.css` file. Files are served from a express static directory (i.e. `/public/assets`).
 
 Both configs set a `process.env.BROWSER` global variable, useful to require CSS from the components, e.g:
