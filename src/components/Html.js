@@ -12,8 +12,8 @@ if (process.env.NODE_ENV === "production") {
   // on production, include scripts and css from the webpack stats
   const config = require("../../webpack/prod.config");
   const stats = require("../../static/dist/stats.json");
-  const main = stats.assetsByChunkName.main[0];
-  scripts.push(`${config.output.publicPath}${main}`);
+  scripts.push(`${config.output.publicPath}${stats.main}`);
+  css.push(`${config.output.publicPath}${stats.css}`);
 }
 else {
   // on development, use the webpack dev server config
