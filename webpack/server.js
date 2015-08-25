@@ -1,25 +1,29 @@
-// Starts a webpack dev server for dev environments
+/* eslint no-console: 0 */
 
 import WebpackDevServer from "webpack-dev-server";
 import webpack from "webpack";
 import config from "./dev.config";
 
-const debug = require("debug")("isomorphic500");
+const host = process.env.HOST || "0.0.0.0";
+const port = (process.env.PORT + 1) || 3001;
 
-const WEBPACK_HOST = process.env.HOST || "localhost";
-const WEBPACK_PORT = parseInt(process.env.PORT) + 1 || 3001;
-
-const serverOptions = {
-  contentBase: `http://${WEBPACK_HOST}:${WEBPACK_PORT}`,
-  quiet: true,
-  noInfo: true,
+const options = {
+  contentBase: `http://${host}:${port}`,
   hot: true,
-  publicPath: config.output.publicPath
+  inline: true,
+  lazy: false,
+  publicPath: config.output.publicPath,
+  stats: {
+    colors: true
+  }
 };
 
-const compiler = webpack(config);
-const webpackDevServer = new WebpackDevServer(compiler, serverOptions);
+export default function() {
 
-webpackDevServer.listen(WEBPACK_PORT, WEBPACK_HOST, () => {
-  debug("Webpack development server listening on %s:%s", WEBPACK_HOST, WEBPACK_PORT);
-});
+  const compiler = webpack(config);
+  const webpackDevServer = new WebpackDevServer(compiler, options);
+
+  return webpackDevServer.listen(port, host, function() {
+    console.log("Webpack development server listening on %s:%s", host, port);
+  });
+}

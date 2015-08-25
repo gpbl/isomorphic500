@@ -10,23 +10,23 @@ window.debug = require("debug");
 
 const debug = window.debug("isomorphic500");
 
-const mountNode = document.getElementById("root");
-const dehydratedState = window.App;
+const mountNode = document.getElementById("content");
+const dehydratedState = window.__INITIAL_STATE__;
 
 function renderApp() {
 
-  const app = require("./app");
+  const fluxibleApp = require("./fluxibleApp");
 
   debug("Rehydrating state...", dehydratedState);
 
-  app.rehydrate(dehydratedState, (err, context) => {
+  fluxibleApp.rehydrate(dehydratedState, (err, context) => {
     if (err) {
       throw err;
     }
 
     debug("State has been rehydrated");
 
-    const Application = app.getComponent();
+    const Application = fluxibleApp.getComponent();
 
     React.render(<Application context={ context.getComponentContext() } />, mountNode, () => {
       debug("Application has been mounted");

@@ -71,45 +71,54 @@ then open [localhost:8080](http://localhost:8080).
 ## Application structure
 
 ```bash
-$ tree src
-
-├── Application.js       # The root Application component
-├── actions/             # Action creators
-├── app.js               # The Fluxible app
-├── assets/              # Dir with static files
-├── client.js            # Entry point for the client
-├── components/          # React components
-├── config.js            # Load the config for dev or prod
-├── constants/           # Constants values (e.g. action types)
-├── intl/                # intl messages
-├── pages/               # Contains components acting as "page" for each route
-│   ...
-│   └── InitActions.js   # Actions executed when rendering a route
-├── public/              # Only in production: contains static assets loaded with webpack
-├── routes.js            # Routes config
-├── server/              # Server-side-only code
-│   ├── ga.js            # Contains Google Analytics code to inject into HtmlDocument
-│   ├── intl-polyfill.js # Support for `intl` on node.js
-│   ├── HtmlDocument.js  # Components containing  the <html>...</html> page
-│   ├── render.js        # Middleware to render HtmlDocument server-side
-│   └── setLocale.js     # Middleware to set locale according to browser, cookie or querystring
-├── server.js            # Run the express server, setup fetchr service
-├── services/            # Fetchr services (e.g. load data from 500px API)
-├── stores/              # Flux stores
-│   ├── FeaturedStore.js # Contains the photos' ids to display in the featured page
-│   ├── HtmlHeadStore.js # Used to keep title and meta tags
-│   ├── IntlStore.js     # Stores intl messages and the current locale
-│   └── PhotoStore.js    # Store photo objects from 500px
-├── style/               # Contains the Sass styles
-└── utils/               # Some useful utils
-    ...
-    └── IntlComponents.js # Wraps react-intl components to use them with ES6 classes and flux stores
+.
+├── index.js            # Starts the express server and the webpack dev server
+├── config              # Contains the configuration for dev and prod environments
+├── nodemon.json        # Configure nodemon to watch some files
+├── src
+│   ├── Application.js  # The react component root of the application
+│   ├── client.js       # Entry point for the client
+│   ├── config.js       # Config loader (load the config files from /config)
+│   ├── fluxibleApp.js  # The fluxible app
+│   ├── routes.js       # Routes used by fluxible-router
+│   ├── server.js       # Start the express server and render the routes server-side
+│   │
+│   ├── actions         # Fluxible actions
+│   ├── components      # React components
+│   │   ├── ...
+│   │   └── Html.js     # Used to render the <html> document server-side
+│   ├── constants       # Constants
+│   ├── intl            # Contains the messages for i18n
+│   ├── pages           # Contains react components to render the page for each route
+│   ├── server          # Server-side only code
+│   │   ├── ga.js              # Google Analytics script
+│   │   ├── intl-polyfill.js   # Patch node to support `Intl` and locale-data
+│   │   ├── render.js          # Middleware to render server-side the fluxible app
+│   │   └── setLocale.js       # Middleware to detect and set the request's locale
+│   ├── services        # Fetchr services
+│   ├── stores          # Fluxible stores
+│   ├── style           # Contains the Sass files
+│   └── utils         
+│       ├── APIUtils.js            # Wrapper to superagent for communicating with 500px API
+│       ├── CookieUtils.js         # Utility to write/read cookies 
+│       ├── IntlComponents.js      # Exports wrapped react-intl components
+│       ├── IntlUtils.js           # Utilities to load `Intl` and locale-data
+│       ├── connectToIntlStore.js  # Connects react-intl components with the IntlStore
+│       ├── getIntlMessage.js      # Get react-intl messages
+│       └── trackPageView.js       # Track a page view with google analitics
+├── static              
+│   ├── assets         # Static files
+│   └── dist           # Output files for webpack on production
+└── webpack
+    ├── dev.config.js  # Webpack config for development
+    ├── prod.config.js # Webpack config for building the production files
+    └── server.js      # Used to starts the webpack dev server
 
 ```
 
 ### The fluxible app
 
-The [src/app.js](src/app.js) file is the core of the Fluxible application:
+The [src/fluxibleApp](src/fluxibleApp) file is the core of the Fluxible application:
 
 - it configures Fluxible with [Application.js](src/Application.js) as the root component.
 - it registers the stores so they can work on the same React context
@@ -118,7 +127,7 @@ The [src/app.js](src/app.js) file is the core of the Fluxible application:
 
 ### Async data
 
-I used [Fetchr](https://github.com/yahoo/fetchr) and the relative [fluxible-plugin-fetchr](https://github.com/yahoo/fluxible-plugin-fetchr).
+I used [Fetchr](https://github.com/yahoo/fetchr) and [fluxible-plugin-fetchr](https://github.com/yahoo/fluxible-plugin-fetchr).
 [Fetchr services](src/services) run only on server and send [superagent](http://visionmedia.github.com/superagent) requests to 500px.
 
 ### Router
@@ -141,7 +150,7 @@ A list store keeps references to a resource store, as the [FeaturedStore](src/st
 
 #### The HtmlHeadStore
 
-The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `HtmlDocument` component, during server-side rendering. It is also listened by the `Application` component to change the browser's `document.title`.
+The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `Html` component, during server-side rendering. It is also listened by the `Application` component to change the browser's `document.title`.
 
 This store listens to route actions and set its content according to the current route. It also get data from other stores (e.g. the photo's title from the `PhotoStore`), or the localized messages from the `IntlStore`.
 
@@ -179,7 +188,7 @@ They are used in [client.js](client.js) before mounting the app.
 
 Lets talk about the data that `react-intl` needs to deliver translated content. Translated messages are saved in the [intl](src/intl) directory and shared between client and server using the [IntlStore](stores/IntlStore).
 
-This store listens to a `LOAD_INTL_SERVER` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **only server side** before rendering the `HtmlDocument` component together with the usual `navigateAction`. This allows to dehydrate/rehydrate the store content.
+This store listens to a `LOAD_INTL_SERVER` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **only server side** before rendering the `Html` component together with the usual `navigateAction`. This allows to dehydrate/rehydrate the store content.
 
 React-intl components need to have access to the `IntlStore`. Plus, since I'm using ES6 classes, I can't adopt the react-intl `Mixin` in my components. To solve this, I wrap the `Formatted*` components and make them available from [IntlComponents](src/utils/IntlComponents.js).
 
@@ -205,7 +214,10 @@ Webpack is used as commonjs module bundler, css builder (using sass-loader) and 
 
 The [development config](./webpack/dev.config.js) enables source maps, the [Hot Module Replacement](http://webpack.github.io/docs/hot-module-replacement.html) and [react-hot-loader](http://gaearon.github.io/react-hot-loader/). It loads CSS styles with `<style>`, to enable styles live reload). This config is used by the [webpack-dev-server](webpack/server.js), serving the files bundled by Webpack.
 
-The [production config](./webpack/prod.config.js) is used to build the production version with `npm run build`: similar to the dev config, it minifies the JS files, removes the `debug` statements and produces an external `.css` file. Files are served from a express static directory (i.e. `/public/assets`).
+> This config uses the [webpack-error-notification](https://github.com/vsolovyov/webpack-error-notification)
+> plugin. To get notified on errors while compiling the code, on Mac you must `brew install terminal-notifier`.
+
+The [production config](./webpack/prod.config.js) builds the client-side production bundle from `npm run build`.
 
 Both configs set a `process.env.BROWSER` global variable, useful to require CSS from the components, e.g:
 
@@ -216,7 +228,7 @@ if (process.env.BROWSER) {
 }
 ```
 
-Files loaded by webpack are hashed. Javascript and CSS file names are [saved](webpack/plugins/write-stats.js) in a JSON file and passed to the [HtmlDocument](src/server/HtmlDocument.js) component from the [server/render](src/server/render.js) middleware.
+On production, files bundled by webpack are hashed. Javascript and CSS file names are saved in a `static/dists/stats.json` which is read by the [Html](src/components/Html.js) component.
 
 ### Babeljs
 

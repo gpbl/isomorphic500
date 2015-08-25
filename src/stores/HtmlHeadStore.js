@@ -7,7 +7,7 @@ const BASE_URL = "http://isomorphic500.herokuapp.com";
 
 /*
 This store listens to fluxible-router's actions and keep
-the content for the <head> tag. Used in server/HtmlDocument.js,
+the content for the <head> tag. Used in components/Html.js,
 and Application.js (to change the document's title)
  */
 

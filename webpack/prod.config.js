@@ -2,22 +2,20 @@
 
 var path = require("path");
 var webpack = require("webpack");
-var writeStats = require("./utils/write-stats");
+var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var strip = require("strip-loader");
 
-var assetsPath = path.join(__dirname, "../public/assets");
+var dist = path.resolve(__dirname, "../static/dist");
 
 module.exports = {
   devtool: "source-map",
-  entry: {
-    "main": "./src/client.js"
-  },
+  entry: "./src/client.js",
   output: {
-    path: assetsPath,
+    path: dist,
     filename: "[name]-[hash].js",
     chunkFilename: "[name]-[chunkhash].js",
-    publicPath: "/assets/"
+    publicPath: "/dist/"
   },
   module: {
     loaders: [
@@ -26,11 +24,7 @@ module.exports = {
       { test: /\.scss$/, loader: ExtractTextPlugin.extract("style", "css!autoprefixer?browsers=last 2 version!sass") }
     ]
   },
-  progress: true,
   plugins: [
-
-    // ignore debug statements (uncommented for demo app)
-    // new webpack.NormalModuleReplacementPlugin(/debug/, process.cwd() + "/webpack/utils/noop.js"),
 
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin("[name]-[chunkhash].css"),
@@ -61,8 +55,16 @@ module.exports = {
       }
     }),
 
-    // stats
-    function() { this.plugin("done", writeStats); }
+    // Write out stats.json file to build directory.
+    new StatsWriterPlugin({
+      transform: function (data) {
+        return {
+          main: data.assetsByChunkName.main[0],
+          css: data.assetsByChunkName.main[1]
+        };
+      }
+    })
+
 
   ]
 };
