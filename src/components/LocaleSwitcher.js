@@ -17,12 +17,10 @@ class LocaleSwitcher extends Component {
     currentLocale: PropTypes.string.isRequired
   }
 
-  render() {
-    return (
-      <div className="LocaleSwitcher">
-        { locales.map(this.renderLocaleLink, this) }
-      </div>
-    );
+  handleLocaleClick(locale, e) {
+    e.preventDefault();
+    writeCookie("hl", locale, 365);
+    window.location.reload();
   }
 
   renderLocaleLink(locale) {
@@ -34,20 +32,23 @@ class LocaleSwitcher extends Component {
     }
 
     return (
-      <a key={locale}
-         className={className}
-         onClick={this.handleLocaleClick.bind(this, locale)}
-         href={`?hl=${locale}`}>
+      <a key={ locale }
+         className={ className }
+         onClick={ this.handleLocaleClick.bind(this, locale) }
+         href={ `?hl=${locale}` }>
           { locale }
       </a>
     );
   }
 
-  handleLocaleClick(locale, e) {
-    e.preventDefault();
-    writeCookie("hl", locale, 365);
-    window.location.reload();
+  render() {
+    return (
+      <div className="LocaleSwitcher">
+        { locales.map(this.renderLocaleLink, this) }
+      </div>
+    );
   }
+
 
 }
 

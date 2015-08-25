@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 import path from "path";
 import express from "express";
 import compression from "compression";

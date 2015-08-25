@@ -234,7 +234,7 @@ I use [eslint](http://eslint.org) with [babel-eslint](https://github.com/babel/b
 npm run lint
 ```
 
-I use [SublimeLinter-scss-lint](https://github.com/attenzione/SublimeLinter-scss-lint) for linting the Sass files ([.scss-lint.yml](.scss-lint.yml)).
+I use [SublimeLinter-scss-lint](https://github.com/attenzione/SublimeLinter-scss-lint) for linting the Sass files ([.scss-lint.yml](.scss-lint.yml)) (only with Sublime Text).
 
 ### Debugging
 

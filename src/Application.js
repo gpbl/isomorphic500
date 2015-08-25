@@ -62,7 +62,7 @@ class Application extends Component {
   render() {
     const { currentRoute, currentNavigateError, isNavigateComplete } = this.props;
 
-    let Handler = currentRoute && currentRoute.get("handler");
+    const Handler = currentRoute && currentRoute.get("handler");
 
     let content;
 
@@ -73,7 +73,7 @@ class Application extends Component {
     }
     else if (currentNavigateError) {
       // Generic error, usually always with statusCode 500
-      content = <ErrorPage err={currentNavigateError} />;
+      content = <ErrorPage err={ currentNavigateError } />;
     }
     else if (!Handler) {
       // No handler: this is another case where a route is not found (e.g.
@@ -90,7 +90,7 @@ class Application extends Component {
       content = <Handler {...params} />;
     }
     return (
-      <Page footer={isNavigateComplete}>
+      <Page footer={ isNavigateComplete }>
         { content }
       </Page>
     );

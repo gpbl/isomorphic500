@@ -42,11 +42,11 @@ class NavBar extends Component {
 
               return (
                 <NavLink
-                  key={feature}
-                  className={className}
+                  key={ feature }
+                  className={ className }
                   routeName="featured"
-                  navParams={{feature: feature}}>
-                  <FormattedMessage message={`features.${feature}`} />
+                  navParams={ {feature: feature} }>
+                  <FormattedMessage message={ `features.${feature}` } />
                 </NavLink>
               );
             })

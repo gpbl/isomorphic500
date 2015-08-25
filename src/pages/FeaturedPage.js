@@ -27,7 +27,7 @@ class FeaturedPage extends React.Component {
         <div className="ThumbnailCollection">
           {
             photos.map(photo =>
-              <Thumbnail key={photo.id} size="small" photo={photo} />
+              <Thumbnail key={ photo.id } size="small" photo={ photo } />
             )
           }
         </div>

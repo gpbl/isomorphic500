@@ -13,7 +13,7 @@ class PhotoAttribution extends Component {
       <FormattedMessage
         message="photo.attribution"
         userLink={
-          <a href={`https://500px.com/${user.username}`}>{ user.fullname }</a>
+          <a href={ `https://500px.com/${user.username}` }>{ user.fullname }</a>
         }
       />
     );

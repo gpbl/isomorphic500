@@ -21,7 +21,7 @@ class PhotoPage extends Component {
       <div>
         <h1>{ photo.name }</h1>
         <PhotoMeta photo={ photo } />
-        <Photo imageSize={4} photo={photo} />
+        <Photo imageSize={ 4 } photo={ photo } />
       </div>
     );
   }
