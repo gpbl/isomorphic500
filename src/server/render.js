@@ -10,43 +10,27 @@ import Html from "../components/Html";
 import { navigateAction } from "fluxible-router";
 import { loadIntlMessages } from "../actions/IntlActionCreators";
 
-let webpackStats;
-
-if (process.env.NODE_ENV === "production") {
-  webpackStats = require("./webpack-stats.json");
-}
-
 function renderApp(req, res, context, next) {
   try {
 
-    if (process.env.NODE_ENV === "development") {
-      webpackStats = require("./webpack-stats.json");
-
-      // Do not cache webpack stats: the script file would change since
-      // hot module replacement is enabled in the development env
-      delete require.cache[require.resolve("./webpack-stats.json")];
-    }
-
     // dehydrate the app and expose its state
-    const state = "window.App=" + serialize(fluxibleApp.dehydrate(context)) + ";";
+    const state = "window.__INITIAL_STATE__=" + serialize(fluxibleApp.dehydrate(context)) + ";";
 
     const Application = fluxibleApp.getComponent();
 
     // Render the Application to string
-    const markup = React.renderToString(
+    const content = React.renderToString(
       <Application context={ context.getComponentContext() } />
     );
 
-    // The application component is rendered to static markup
+    // The application component is rendered to static content
     // and sent as response.
     const html = React.renderToStaticMarkup(
       <Html
         context={ context.getComponentContext() }
         lang={ req.locale }
         state={ state }
-        markup={ markup }
-        script={ webpackStats.script }
-        css={ webpackStats.css }
+        content={ content }
       />
     );
     const doctype = "<!DOCTYPE html>";

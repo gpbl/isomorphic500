@@ -2,8 +2,26 @@
 import React, { PropTypes } from "react";
 
 import { trackingId } from "../config";
-import ga from "./ga";
+import ga from "../server/ga";
 import { provideContext, connectToStores } from "fluxible-addons-react";
+
+const css = [];
+const scripts = [];
+
+if (process.env.NODE_ENV === "production") {
+  // on production, include scripts and css from the webpack stats
+  const config = require("../../webpack/prod.config");
+  const stats = require("../../static/dist/stats.json");
+  const main = stats.assetsByChunkName.main[0];
+  scripts.push(`${config.output.publicPath}${main}`);
+}
+else {
+  // on development, use the webpack dev server config
+  // css are not needed since they are injected inline with webpack
+  const config = require("../../webpack/dev.config");
+  scripts.push(`${config.output.publicPath}${config.output.filename}`);
+}
+
 
 @provideContext()
 @connectToStores([], (context) => {
@@ -22,9 +40,7 @@ class Html extends React.Component {
     context: PropTypes.object.isRequired,
     lang: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired,
-    markup: PropTypes.string.isRequired,
-    script: PropTypes.arrayOf(PropTypes.string),
-    css: PropTypes.arrayOf(PropTypes.string),
+    content: PropTypes.string.isRequired,
 
     // meta tags, title, etc.
     title: PropTypes.string,
@@ -35,13 +51,11 @@ class Html extends React.Component {
   }
 
   static defaultProps = {
-    script: [],
-    css: [],
     meta: {}
   }
 
   render() {
-    const { state, markup, script, css, lang } = this.props;
+    const { state, content, lang } = this.props;
     const { title, description, siteName, currentUrl, images } = this.props;
     return (
       <html lang={ lang }>
@@ -59,21 +73,18 @@ class Html extends React.Component {
 
           { images.map(url => <meta property="og:image" content={ url } />) }
 
-          { css.map((href, k) =>
-            <link key={ k } rel="stylesheet" type="text/css" href={ href } />)
-          }
+          { css.map((href, k) => <link key={ k } rel="stylesheet" type="text/css" href={ href } />) }
 
-          { trackingId && <script dangerouslySetInnerHTML={ {__html: ga.replace("{trackingId}", trackingId)} } />
-          }
+          { trackingId && <script dangerouslySetInnerHTML={ {__html: ga.replace("{trackingId}", trackingId)} } /> }
 
         </head>
 
         <body>
-          <div id="root" dangerouslySetInnerHTML={ {__html: markup} } />
+          <div id="content" dangerouslySetInnerHTML={ {__html: content} } />
 
           <script dangerouslySetInnerHTML={ {__html: state} } />
 
-          { script.map((src, k) => <script key={ k } src={ src } />) }
+          { scripts.map((src, i) => <script src={ src } key={ i } />) }
 
         </body>
       </html>
