@@ -5,7 +5,9 @@ import express from "express";
 import compression from "compression";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import favicon from "serve-favicon";
+import serveStatic from "serve-static";
+import serveFavicon from "serve-favicon";
+
 import morgan from "morgan";
 import csurf from "csurf";
 import locale from "locale";
@@ -15,7 +17,7 @@ import config from "./config";
 import render from "./server/render";
 import setLocale from "./server/setLocale";
 
-const staticPath = path.resolve(__dirname, "./static");
+const staticPath = path.resolve(__dirname, "../static");
 
 // Initialize express server
 export default function (callback) {
@@ -29,7 +31,7 @@ export default function (callback) {
   app.use(bodyParser.json());
   app.use(cookieParser());
   app.use(compression());
-  app.use(favicon(`${staticPath}/assets/favicon.png`));
+  app.use(serveFavicon(`${staticPath}/assets/favicon.png`));
 
   // Set the default locale
 
@@ -58,20 +60,11 @@ export default function (callback) {
 
   app.use(fetchr.getXhrPath(), fetchr.getMiddleware());
 
-  // On production, use the public directory for static files
-  // This directory is created by webpack on build time.
-
-  if (app.get("env") === "production") {
-    app.use(express.static(path.resolve(__dirname, "../public"), {
-      maxAge: 365 * 24 * 60 * 60
-    }));
-  }
-
-  // On development, serve the static files from the webpack dev app.
-
-  if (app.get("env") === "development") {
-    require("../webpack/server");
-  }
+  // Use the `static` dir for serving static assets. On production, it contains the js
+  // files built with webpack
+  app.use(serveStatic(staticPath, {
+    maxAge: 365 * 24 * 60 * 60
+  }));
 
   // Render the app server-side and send it as response
 
