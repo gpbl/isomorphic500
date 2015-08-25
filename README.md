@@ -6,7 +6,7 @@ It is built on [express](http://expressjs.com) using [React](https://facebook.gi
 
 <a href="https://isomorphic500.herokuapp.com"><img src="https://cloud.githubusercontent.com/assets/120693/7737327/95f3de1c-ff4a-11e4-86fb-e9d3cabcdedb.png" width="700"></a>
 
-<img src="https://david-dm.org/gpbl/isomorphic500.svg">
+[![Build Status](https://travis-ci.org/gpbl/isomorphic500.svg?branch=master)](https://travis-ci.org/gpbl/isomorphic500) <img src="https://david-dm.org/gpbl/isomorphic500.svg">
 
 The intent of this project is to solidify my experience with these technologies and perhaps to inspire other developers in their journey with React and Flux. It works also as example of a javascript development environment with all the cool recent stuff :-)
 
