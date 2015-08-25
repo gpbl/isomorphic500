@@ -26,9 +26,6 @@ module.exports = {
   },
   plugins: [
 
-    // ignore debug statements (uncommented for demo app)
-    // new webpack.NormalModuleReplacementPlugin(/debug/, process.cwd() + "/webpack/utils/noop.js"),
-
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin("[name]-[chunkhash].css"),
 
