@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 // A webpack plugin to notify errors and warning when compiling
 
 function notifyError(error) {
