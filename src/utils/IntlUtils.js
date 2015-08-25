@@ -50,101 +50,99 @@ const IntlUtils = {
 
       switch (locale) {
 
-        // italian
-        case "it":
+      // italian
+      case "it":
 
-          if (!hasIntl) {
+        if (!hasIntl) {
 
-            require.ensure([
-                "intl/locale-data/jsonp/it",
-                "react-intl/dist/locale-data/it"
-              ], (require) => {
-              require("intl/locale-data/jsonp/it");
-              require("react-intl/dist/locale-data/it");
-              debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
-              resolve();
-            }, "locale-it");
-          }
-          else {
-            require.ensure([
-                "react-intl/dist/locale-data/it"
-              ], (require) => {
-              require("react-intl/dist/locale-data/it");
-              debug("ReactIntl locale-data for %s has been downloaded", locale);
-              resolve();
-            }, "locale-it-no-intl");
-          }
-
-        break;
-
-        // french
-        case "fr":
-
-          if (!hasIntl) {
-
-            require.ensure([
-                "intl/locale-data/jsonp/fr",
-                "react-intl/dist/locale-data/fr"
-              ], (require) => {
-              require("intl/locale-data/jsonp/fr");
-              require("react-intl/dist/locale-data/fr");
-              debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
-              resolve();
-            }, "locale-fr");
-          }
-          else {
-            require.ensure([
-                "react-intl/dist/locale-data/fr"
-              ], (require) => {
-              require("react-intl/dist/locale-data/fr");
-              debug("ReactIntl locale-data for %s has been downloaded", locale);
-              resolve();
-            }, "locale-fr-no-intl");
-          }
-
-        break;
-
-        // portugues
-        case "pt":
-
-          if (!hasIntl) {
-
-            require.ensure([
-                "intl/locale-data/jsonp/pt",
-                "react-intl/dist/locale-data/pt"
-              ], (require) => {
-                require("intl/locale-data/jsonp/pt");
-                require("react-intl/dist/locale-data/pt");
-                debug("Intl locale-data for %s has been downloaded", locale);
-                resolve();
-              }, "locale-pt");
-            }
-            else {
-              require.ensure([
-                  "react-intl/dist/locale-data/pt"
-                ], (require) => {
-                require("react-intl/dist/locale-data/pt");
-                debug("ReactIntl locale-data for %s has been downloaded", locale);
-                resolve();
-              }, "locale-pt-no-intl");
-            }
-        break;
-
-        // english
-        default:
-          if (!hasIntl) {
-            require.ensure([
-                "intl/locale-data/jsonp/en"
-              ], (require) => {
-
-              require("intl/locale-data/jsonp/en");
-              debug("Intl locale-data for %s has been downloaded", locale);
-              resolve();
-            }, "locale-en");
-          }
-          else {
+          require.ensure([
+            "intl/locale-data/jsonp/it",
+            "react-intl/dist/locale-data/it"
+          ], (require) => {
+            require("intl/locale-data/jsonp/it");
+            require("react-intl/dist/locale-data/it");
+            debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
             resolve();
-          }
+          }, "locale-it");
+        }
+        else {
+          require.ensure([
+            "react-intl/dist/locale-data/it"
+          ], (require) => {
+            require("react-intl/dist/locale-data/it");
+            debug("ReactIntl locale-data for %s has been downloaded", locale);
+            resolve();
+          }, "locale-it-no-intl");
+        }
+
+        break;
+
+      // french
+      case "fr":
+
+        if (!hasIntl) {
+          require.ensure([
+            "intl/locale-data/jsonp/fr",
+            "react-intl/dist/locale-data/fr"
+          ], (require) => {
+            require("intl/locale-data/jsonp/fr");
+            require("react-intl/dist/locale-data/fr");
+            debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
+            resolve();
+          }, "locale-fr");
+        }
+        else {
+          require.ensure([
+            "react-intl/dist/locale-data/fr"
+          ], (require) => {
+            require("react-intl/dist/locale-data/fr");
+            debug("ReactIntl locale-data for %s has been downloaded", locale);
+            resolve();
+          }, "locale-fr-no-intl");
+        }
+
+        break;
+
+      // portugues
+      case "pt":
+
+        if (!hasIntl) {
+          require.ensure([
+            "intl/locale-data/jsonp/pt",
+            "react-intl/dist/locale-data/pt"
+          ], (require) => {
+            require("intl/locale-data/jsonp/pt");
+            require("react-intl/dist/locale-data/pt");
+            debug("Intl locale-data for %s has been downloaded", locale);
+            resolve();
+          }, "locale-pt");
+        }
+        else {
+          require.ensure([
+            "react-intl/dist/locale-data/pt"
+          ], (require) => {
+            require("react-intl/dist/locale-data/pt");
+            debug("ReactIntl locale-data for %s has been downloaded", locale);
+            resolve();
+          }, "locale-pt-no-intl");
+
+        }
+        break;
+
+      // english
+      default:
+        if (!hasIntl) {
+          require.ensure([
+            "intl/locale-data/jsonp/en"
+          ], (require) => {
+            require("intl/locale-data/jsonp/en");
+            debug("Intl locale-data for %s has been downloaded", locale);
+            resolve();
+          }, "locale-en");
+        }
+        else {
+          resolve();
+        }
       }
 
     });

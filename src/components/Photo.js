@@ -8,12 +8,12 @@ class Photo extends Component {
     imageSize: PropTypes.number
   }
 
-  static defaultProps = {
-    imageSize: 1600
-  }
-
   static contextTypes = {
     executeAction: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    imageSize: 1600
   }
 
   componentDidMount() {
@@ -26,8 +26,8 @@ class Photo extends Component {
   render() {
     const { photo } = this.props;
     return (
-      <a href={`https://500px.com/photo/${photo.id}`}>
-        <img style={{width: "100%", height: "auto"}} src={photo.images[0].url} />
+      <a href={ `https://500px.com/photo/${photo.id}` }>
+        <img style={ {width: "100%", height: "auto"} } src={ photo.images[0].url } />
       </a>
     );
   }

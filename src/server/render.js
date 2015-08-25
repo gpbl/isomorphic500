@@ -42,11 +42,11 @@ function renderApp(req, res, context, next) {
     const html = React.renderToStaticMarkup(
       <HtmlDocument
         context={ context.getComponentContext() }
-        lang={req.locale}
-        state={state}
-        markup={markup}
-        script={webpackStats.script}
-        css={webpackStats.css}
+        lang={ req.locale }
+        state={ state }
+        markup={ markup }
+        script={ webpackStats.script }
+        css={ webpackStats.css }
       />
     );
     const doctype = "<!DOCTYPE html>";
@@ -71,17 +71,18 @@ function render(req, res, next) {
   // execute the navigate action to fill the RouteStore
   // (here we make use of executeAction returning a promise)
   Promise.all([
-      context.executeAction(loadIntlMessages, { locale: req.locale }),
-      context.executeAction(navigateAction, { url: req.url })
-    ]).then(() => renderApp(req, res, context, next))
-      .catch((err) => {
-        if (!err.statusCode || !err.status) {
-          next(err);
-        }
-        else {
-          renderApp(req, res, context, next);
-        }
-      });
+    context.executeAction(loadIntlMessages, { locale: req.locale }),
+    context.executeAction(navigateAction, { url: req.url })
+  ])
+    .then(() => renderApp(req, res, context, next))
+    .catch((err) => {
+      if (!err.statusCode || !err.status) {
+        next(err);
+      }
+      else {
+        renderApp(req, res, context, next);
+      }
+    });
 
 }
 

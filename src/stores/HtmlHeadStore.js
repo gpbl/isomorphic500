@@ -78,38 +78,39 @@ class HtmlHeadStore extends BaseStore {
 
     switch (route.get("name")) {
 
-      case "photo":
+    case "photo":
 
-        const id = route.getIn(["params", "id"]);
+      const id = route.getIn(["params", "id"]);
 
-        let store = this.dispatcher.getStore("PhotoStore");
-        let photo = store.get(id);
+      const store = this.dispatcher.getStore("PhotoStore");
+      const photo = store.get(id);
 
-        this.title = this.formatMessage("photo.documentTitle", {
-          name: photo.name,
-          user: photo.user.fullname
-        });
+      this.title = this.formatMessage("photo.documentTitle", {
+        name: photo.name,
+        user: photo.user.fullname
+      });
 
-        this.description = this.formatMessage("photo.documentDescription", {
-          name: photo.name,
-          user: photo.user.fullname
-        });
+      this.description = this.formatMessage("photo.documentDescription", {
+        name: photo.name,
+        user: photo.user.fullname
+      });
 
-        this.images = [photo.image_url];
+      this.images = [photo.image_url];
       break;
 
-      case "featured":
-        const feature = route.getIn(["params", "feature"]);
-        const featureName = this.formatMessage(`features.${feature}`);
-        this.title = this.formatMessage("featured.documentTitle", {
-          feature: featureName
-        });
+    case "featured":
+      const feature = route.getIn(["params", "feature"]);
+      const featureName = this.formatMessage(`features.${feature}`);
+      this.title = this.formatMessage("featured.documentTitle", {
+        feature: featureName
+      });
       break;
 
-      default:
-        // Just set the defaults
-        this.setInitialState();
+    default:
+      // Just set the defaults
+      this.setInitialState();
       break;
+
     }
 
     this.emitChange();

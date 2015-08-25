@@ -9,7 +9,7 @@ class PhotoRating extends Component {
     return (
       <FormattedMessage
         message="photo.rating"
-        rating={<FormattedNumber value={rating} />}
+        rating={ <FormattedNumber value={ rating } /> }
       />
     );
   }

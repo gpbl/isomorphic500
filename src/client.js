@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import React from "react";
 import IntlUtils from "./utils/IntlUtils";
 
@@ -11,6 +12,7 @@ const debug = window.debug("isomorphic500");
 
 const mountNode = document.getElementById("root");
 const dehydratedState = window.App;
+
 function renderApp() {
 
   const app = require("./app");
@@ -26,7 +28,7 @@ function renderApp() {
 
     const Application = app.getComponent();
 
-    React.render(<Application context={context.getComponentContext()} />, mountNode, () => {
+    React.render(<Application context={ context.getComponentContext() } />, mountNode, () => {
       debug("Application has been mounted");
     });
   });

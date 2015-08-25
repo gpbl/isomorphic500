@@ -1,3 +1,4 @@
+/* eslint react/no-danger: 0 */
 import React, { PropTypes } from "react";
 
 import { trackingId } from "../config";
@@ -43,7 +44,7 @@ class HtmlDocument extends React.Component {
     const { state, markup, script, css, lang } = this.props;
     const { title, description, siteName, currentUrl, images } = this.props;
     return (
-      <html lang={lang}>
+      <html lang={ lang }>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
@@ -59,21 +60,20 @@ class HtmlDocument extends React.Component {
           { images.map(url => <meta property="og:image" content={ url } />) }
 
           { css.map((href, k) =>
-            <link key={k} rel="stylesheet" type="text/css" href={href} />)
+            <link key={ k } rel="stylesheet" type="text/css" href={ href } />)
           }
 
-          { trackingId &&
-            <script dangerouslySetInnerHTML={{__html: ga.replace("{trackingId}", trackingId)}} />
+          { trackingId && <script dangerouslySetInnerHTML={ {__html: ga.replace("{trackingId}", trackingId)} } />
           }
 
         </head>
 
         <body>
-          <div id="root" dangerouslySetInnerHTML={{__html: markup}} />
+          <div id="root" dangerouslySetInnerHTML={ {__html: markup} } />
 
-          <script dangerouslySetInnerHTML={{__html: state}} />
+          <script dangerouslySetInnerHTML={ {__html: state} } />
 
-          { script.map((src, k) => <script key={k} src={src} />) }
+          { script.map((src, k) => <script key={ k } src={ src } />) }
 
         </body>
       </html>
