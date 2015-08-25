@@ -71,7 +71,6 @@ then open [localhost:8080](http://localhost:8080).
 ## Application structure
 
 ```bash
-$ tree -L 2
 .
 ├── index.js            # Starts the express server and the webpack dev server
 ├── config              # Contains the configuration for dev and prod environments
