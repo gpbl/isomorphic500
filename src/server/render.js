@@ -6,6 +6,7 @@ import serialize from "serialize-javascript";
 
 import app from "../app";
 import HtmlDocument from "./HtmlDocument";
+import Html from "../components/Html";
 
 import { navigateAction } from "fluxible-router";
 import { loadIntlMessages } from "../actions/IntlActionCreators";
@@ -40,7 +41,7 @@ function renderApp(req, res, context, next) {
     // The application component is rendered to static markup
     // and sent as response.
     const html = React.renderToStaticMarkup(
-      <HtmlDocument
+      <Html
         context={ context.getComponentContext() }
         lang={ req.locale }
         state={ state }

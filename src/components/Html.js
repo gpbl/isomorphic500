@@ -16,7 +16,7 @@ import { provideContext, connectToStores } from "fluxible-addons-react";
     images: htmlHeadStore.getImages()
   };
 })
-class HtmlDocument extends React.Component {
+class Html extends React.Component {
 
   static propTypes = {
     context: PropTypes.object.isRequired,
@@ -81,4 +81,4 @@ class HtmlDocument extends React.Component {
   }
 }
 
-export default HtmlDocument;
+export default Html;

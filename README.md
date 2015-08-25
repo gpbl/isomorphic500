@@ -88,10 +88,10 @@ $ tree src
 ├── public/              # Only in production: contains static assets loaded with webpack
 ├── routes.js            # Routes config
 ├── server/              # Server-side-only code
-│   ├── ga.js            # Contains Google Analytics code to inject into HtmlDocument
+│   ├── ga.js            # Contains Google Analytics code to inject into the Html component
 │   ├── intl-polyfill.js # Support for `intl` on node.js
-│   ├── HtmlDocument.js  # Components containing  the <html>...</html> page
-│   ├── render.js        # Middleware to render HtmlDocument server-side
+│   ├── Html.js          # Component containing  the <html>...</html> page
+│   ├── render.js        # Middleware to render the Html component server-side
 │   └── setLocale.js     # Middleware to set locale according to browser, cookie or querystring
 ├── server.js            # Run the express server, setup fetchr service
 ├── services/            # Fetchr services (e.g. load data from 500px API)
@@ -141,7 +141,7 @@ A list store keeps references to a resource store, as the [FeaturedStore](src/st
 
 #### The HtmlHeadStore
 
-The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `HtmlDocument` component, during server-side rendering. It is also listened by the `Application` component to change the browser's `document.title`.
+The [HtmlHeadStore](src/stores/HtmlHeadStore.js) is a special store used to set the `<head>` meta-tags in the `Html` component, during server-side rendering. It is also listened by the `Application` component to change the browser's `document.title`.
 
 This store listens to route actions and set its content according to the current route. It also get data from other stores (e.g. the photo's title from the `PhotoStore`), or the localized messages from the `IntlStore`.
 
@@ -179,7 +179,7 @@ They are used in [client.js](client.js) before mounting the app.
 
 Lets talk about the data that `react-intl` needs to deliver translated content. Translated messages are saved in the [intl](src/intl) directory and shared between client and server using the [IntlStore](stores/IntlStore).
 
-This store listens to a `LOAD_INTL_SERVER` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **only server side** before rendering the `HtmlDocument` component together with the usual `navigateAction`. This allows to dehydrate/rehydrate the store content.
+This store listens to a `LOAD_INTL_SERVER` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **only server side** before rendering the `Html` component together with the usual `navigateAction`. This allows to dehydrate/rehydrate the store content.
 
 React-intl components need to have access to the `IntlStore`. Plus, since I'm using ES6 classes, I can't adopt the react-intl `Mixin` in my components. To solve this, I wrap the `Formatted*` components and make them available from [IntlComponents](src/utils/IntlComponents.js).
 
@@ -216,7 +216,7 @@ if (process.env.BROWSER) {
 }
 ```
 
-Files loaded by webpack are hashed. Javascript and CSS file names are [saved](webpack/plugins/write-stats.js) in a JSON file and passed to the [HtmlDocument](src/server/HtmlDocument.js) component from the [server/render](src/server/render.js) middleware.
+Files loaded by webpack are hashed. Javascript and CSS file names are [saved](webpack/plugins/write-stats.js) in a JSON file and passed to the [Html](src/components/Html.js) component from the [server/render](src/server/render.js) middleware.
 
 ### Babeljs
 
