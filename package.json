@@ -9,7 +9,7 @@
     "prod": "NODE_ENV=production PORT=8080 DEBUG=isomorphic500 node index",
     "build": "webpack --stats --progress --config ./webpack/prod.config.js",
     "postinstall": "npm run build",
-    "lint": "eslint src"
+    "lint": "eslint index.js src webpack"
   },
   "repository": {
     "type": "git",
