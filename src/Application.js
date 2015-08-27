@@ -81,11 +81,13 @@ class Application extends Component {
       content = <NotFoundPage />;
     }
     else if (!isNavigateComplete) {
-      // Show a loading page while waiting the route's action to finish
+      // Render a loading page while waiting the route's action to finish
       content = <LoadingPage />;
     }
     else {
-      // Here you go with the actual page content
+      // Render the Handler (aka the page) for the current route. The route params 
+      // (e.g. values from the URLs) are props being sent to the page component,
+      // for example the `id` of a photo for the `PhotoPage` component.
       const params = currentRoute.get("params").toJS();
       content = <Handler {...params} />;
     }
