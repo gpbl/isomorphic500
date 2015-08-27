@@ -45,6 +45,9 @@ npm run prod    # then, run the production version
 
 then open [localhost:8080](http://localhost:8080).
 
+> If you are starting the server on Windows, please read https://github.com/gpbl/isomorphic500/issues/58
+
+
 ## Table of Contents
 
 * [Application structure](#application-structure)
