@@ -243,7 +243,9 @@ The [.editorconfig](.editorconfig) file can be used with your IDE/editor to mant
 
 ### Linting
 
-I use [eslint](http://eslint.org) with [babel-eslint](https://github.com/babel/babel-eslint) and the [react plugin](https://github.com/yannickcr/eslint-plugin-react) – config in [.eslintrc](.eslintrc). I also configured Sublime Text with [SublimeLinter-eslint](https://github.com/roadhump/SublimeLinter-eslint).
+I use [eslint](http://eslint.org) with [babel-eslint](https://github.com/babel/babel-eslint) and the [react plugin](https://github.com/yannickcr/eslint-plugin-react). I also configured Sublime Text with [SublimeLinter-eslint](https://github.com/roadhump/SublimeLinter-eslint).
+
+I use the rules from my own [eslint-config-gpbl](https://github.com/gpbl/eslint-config-gpbl) shared configs.
 
 ```bash
 npm run lint

@@ -44,6 +44,7 @@
     "debug": "2.2.0",
     "es6-promise": "3.0.2",
     "eslint": "1.2.1",
+    "eslint-config-gpbl": "1.0.2",
     "eslint-plugin-react": "3.2.3",
     "expose-loader": "0.7.0",
     "express": "4.13.3",
