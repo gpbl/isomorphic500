@@ -20,7 +20,7 @@ Join the [gitter chat](https://gitter.im/gpbl/isomorphic500?utm_source=badge&utm
 
 **Clone this repo**
 
-> **Note** This app has been tested on node 0.12.x
+**Note** This app has been tested on node 4
 
 ```
 git clone https://github.com/gpbl/isomorphic500.git
