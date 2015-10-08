@@ -26,4 +26,4 @@ export default function setLocale(req, res, next) {
   }
 
   next();
-};
+}
