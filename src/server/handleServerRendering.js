@@ -5,7 +5,7 @@ import React from "react";
 import serialize from "serialize-javascript";
 
 import app from "../app";
-import Html from "../components/Html";
+import Html from "../containers/Html";
 
 import { navigateAction } from "fluxible-router";
 import { loadIntlMessages } from "../actions/IntlActionCreators";
@@ -40,7 +40,7 @@ function renderApp(req, res, context, next) {
   }
 }
 
-function render(req, res, next) {
+export default function handleServerRendering(req, res, next) {
 
   // Create a fluxible context (_csrf is needed by the fetchr plugin)
   const context = app.createContext({
@@ -67,5 +67,3 @@ function render(req, res, next) {
     });
 
 }
-
-export default render;
