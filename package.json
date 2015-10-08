@@ -58,6 +58,7 @@
     "intl": "1.0.0",
     "intl-locales-supported": "1.0.0",
     "intl-messageformat": "1.1.0",
+    "keymirror": "0.1.1",
     "locale": "0.0.20",
     "lodash": "3.10.1",
     "morgan": "1.6.1",
