@@ -13,7 +13,7 @@ import LoadingPage from "../containers/LoadingPage";
 import trackPageView from "../utils/trackPageView";
 
 if (process.env.BROWSER) {
-  require("./style/Root.scss");
+  require("../style/Root.scss");
 }
 
 // Wrap Root with the fluxible context.
