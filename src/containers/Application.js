@@ -2,23 +2,21 @@
 import React, { PropTypes, Component } from "react";
 import { provideContext, connectToStores } from "fluxible-addons-react";
 import { handleHistory } from "fluxible-router";
-
-import Page from "./components/Page";
 import Immutable from "immutable";
 
-import NotFoundPage from "./pages/NotFoundPage";
-import ErrorPage from "./pages/ErrorPage";
-import LoadingPage from "./pages/LoadingPage";
+import Page from "../components/Page";
 
-import trackPageView from "./utils/trackPageView";
+import NotFoundPage from "../containers/NotFoundPage";
+import ErrorPage from "../containers/ErrorPage";
+import LoadingPage from "../containers/LoadingPage";
+
+import trackPageView from "../utils/trackPageView";
 
 if (process.env.BROWSER) {
   require("./style/Application.scss");
 }
 
 // Wrap Application with the fluxible context.
-// PS. new to this syntax? Those are called "decorators", see
-// https://babeljs.io/docs/usage/experimental/
 @provideContext
 
 // Wrap with fluxible-router's history handler (required for routing)
@@ -85,7 +83,7 @@ class Application extends Component {
       content = <LoadingPage />;
     }
     else {
-      // Render the Handler (aka the page) for the current route. The route params 
+      // Render the Handler (aka the page) for the current route. The route params
       // (e.g. values from the URLs) are props being sent to the page component,
       // for example the `id` of a photo for the `PhotoPage` component.
       const params = currentRoute.get("params").toJS();

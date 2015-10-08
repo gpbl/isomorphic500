@@ -79,7 +79,6 @@ then open [localhost:8080](http://localhost:8080).
 ├── config              # Contains the configuration for dev and prod environments
 ├── nodemon.json        # Configure nodemon to watch some files
 ├── src
-│   ├── Application.js  # The react component root of the application
 │   ├── client.js       # Entry point for the client
 │   ├── config.js       # Config loader (load the config files from /config)
 │   ├── fluxibleApp.js  # The fluxible app
@@ -88,11 +87,13 @@ then open [localhost:8080](http://localhost:8080).
 │   │
 │   ├── actions         # Fluxible actions
 │   ├── components      # React components
-│   │   ├── ...
-│   │   └── Html.js     # Used to render the <html> document server-side
 │   ├── constants       # Constants
+│   ├── containers      # Contains React containers components
+│   │   ├── ...
+│   │   ├── Html.js     # Used to render the <html> document server-side
+│   │   └── Application.js  # Root component
+
 │   ├── intl            # Contains the messages for i18n
-│   ├── pages           # Contains react components to render the page for each route
 │   ├── server          # Server-side only code
 │   │   ├── ga.js              # Google Analytics script
 │   │   ├── intl-polyfill.js   # Patch node to support `Intl` and locale-data
@@ -139,7 +140,7 @@ This app uses [fluxible-router](https://github.com/yahoo/fluxible-router) for ro
 
 ### Stores
 
-Instead of directly listening to stores, components use fluxible's `@connectToStores` decorator: a store state is passed to components as prop. See for example the [PhotoPage](src/pages/PhotoPage.js) or the [FeaturedPage](src/pages/FeaturedPage.js).
+Instead of directly listening to stores, components use fluxible's `@connectToStores` decorator: a store state is passed to components as prop. See for example the [PhotoPage](src/containers/PhotoPage.js) or the [FeaturedPage](src/containers/FeaturedPage.js).
 
 `connectToStore` can also "consume" store data without actually listening to any store. This is the case of [NavBar](src/components/NavBar.js) or [LocaleSwitcher](src/components/LocaleSwitcher.js).
 
@@ -231,7 +232,7 @@ if (process.env.BROWSER) {
 }
 ```
 
-On production, files bundled by webpack are hashed. Javascript and CSS file names are saved in a `static/dists/stats.json` which is read by the [Html](src/components/Html.js) component.
+On production, files bundled by webpack are hashed. Javascript and CSS file names are saved in a `static/dists/stats.json` which is read by the [Html](src/containers/Html.js) component.
 
 ### Babeljs
 

@@ -1,11 +1,11 @@
 
-import InitActions from "./pages/InitActions";
+import InitActions from "./containers/InitActions";
 
 import features from "./constants/features";
 
-import HomePage from "./pages/HomePage";
-import PhotoPage from "./pages/PhotoPage";
-import FeaturedPage from "./pages/FeaturedPage";
+import HomePage from "./containers/HomePage";
+import PhotoPage from "./containers/PhotoPage";
+import FeaturedPage from "./containers/FeaturedPage";
 
 export default {
 
