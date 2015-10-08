@@ -2,6 +2,7 @@
 // to the client
 
 import React from "react";
+import ReactDOM from "react-dom/server";
 import serialize from "serialize-javascript";
 
 import app from "../app";
@@ -10,34 +11,29 @@ import Html from "../containers/Html";
 import { navigateAction } from "fluxible-router";
 import { loadIntlMessages } from "../actions/IntlActionCreators";
 
-function renderApp(req, res, context, next) {
-  try {
+function renderApp(req, res, context) {
 
-    // dehydrate the app and expose its state
-    const state = "window.__INITIAL_STATE__=" + serialize(app.dehydrate(context)) + ";";
+  // dehydrate the app and expose its state
+  const state = "window.__INITIAL_STATE__=" + serialize(app.dehydrate(context)) + ";";
 
-    const Root = app.getComponent();
+  const Root = app.getComponent();
 
-    // Render the Root to string
-    const content = React.renderToString(
-      <Root context={ context.getComponentContext() } />
-    );
+  // Render the Root to string
+  const content = ReactDOM.renderToString(
+    <Root context={ context.getComponentContext() } />
+  );
 
-    // The root component is rendered as static markup and sent as response.
-    const html = React.renderToStaticMarkup(
-      <Html
-        context={ context.getComponentContext() }
-        lang={ req.locale }
-        state={ state }
-        content={ content }
-      />
-    );
-    const doctype = "<!DOCTYPE html>";
-    res.send(doctype + html);
-  }
-  catch (e) {
-    next(e);
-  }
+  // The root component is rendered as static markup and sent as response.
+  const html = ReactDOM.renderToStaticMarkup(
+    <Html
+      context={ context.getComponentContext() }
+      lang={ req.locale }
+      state={ state }
+      content={ content }
+    />
+  );
+
+  res.send(`<!DOCTYPE html>${html}`);
 }
 
 export default function handleServerRendering(req, res, next) {
@@ -57,10 +53,10 @@ export default function handleServerRendering(req, res, next) {
     context.executeAction(loadIntlMessages, { locale: req.locale }),
     context.executeAction(navigateAction, { url: req.url })
   ])
-    .then(() => renderApp(req, res, context, next))
+    .then(() => renderApp(req, res, context))
     .catch(err => {
       if (err.statusCode || err.status) {
-        renderApp(req, res, context, next);
+        renderApp(req, res, context);
         return;
       }
       next(err);

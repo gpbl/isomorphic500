@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from "react";
+import ReactDOM from "react-dom";
 import IntlUtils from "./utils/IntlUtils";
 
 // Add promise support for browser not supporting it
@@ -28,7 +29,7 @@ function renderApp() {
 
     const Root = app.getComponent();
 
-    React.render(<Root context={ context.getComponentContext() } />, mountNode, () => {
+    ReactDOM.render(<Root context={ context.getComponentContext() } />, mountNode, () => {
       debug("Root component has been mounted");
     });
   });
