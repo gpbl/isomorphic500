@@ -78,8 +78,6 @@ export default function(callback) {
   });
 
   // Finally, start the express server
-
-  // Finally, start the express serverlication
   return server.listen(server.get("port"), () => callback(server));
 
 }

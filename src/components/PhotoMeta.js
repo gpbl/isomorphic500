@@ -8,7 +8,7 @@ if (process.env.BROWSER) {
   require("../style/PhotoMeta.scss");
 }
 
-class PhotoMeta extends Component {
+export default class PhotoMeta extends Component {
 
   static propTypes = {
     photo: PropTypes.object.isRequired
@@ -27,5 +27,3 @@ class PhotoMeta extends Component {
   }
 
 }
-
-export default PhotoMeta;

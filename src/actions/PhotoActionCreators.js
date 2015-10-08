@@ -4,7 +4,7 @@ import Actions from "../constants/Actions";
 // the default of 3000ms. See https://github.com/yahoo/fetchr/issues/58
 const TIMEOUT = 20000;
 
-const PhotoActionCreators = {
+export default {
 
   loadFeaturedPhotos(context, { feature="popular" }, done) {
 
@@ -40,5 +40,3 @@ const PhotoActionCreators = {
   }
 
 };
-
-export default PhotoActionCreators;

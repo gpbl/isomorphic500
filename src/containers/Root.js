@@ -28,7 +28,7 @@ if (process.env.BROWSER) {
   ({ documentTitle: context.getStore("HtmlHeadStore").getTitle() })
 )
 
-class Root extends Component {
+export default class Root extends Component {
 
   static propTypes = {
 
@@ -98,4 +98,3 @@ class Root extends Component {
 
 }
 
-export default Root;

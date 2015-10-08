@@ -7,7 +7,7 @@ import PhotoMeta from "../components/PhotoMeta";
 @connectToStores(["PhotoStore"], (context, props) =>
   ({ photo: context.getStore("PhotoStore").get(props.id) })
 )
-class PhotoPage extends Component {
+export default class PhotoPage extends Component {
 
   static propTypes = {
     photo: PropTypes.object.isRequired,
@@ -27,6 +27,3 @@ class PhotoPage extends Component {
   }
 
 }
-
-
-export default PhotoPage;

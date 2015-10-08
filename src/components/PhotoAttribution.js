@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from "react";
 import { FormattedMessage } from "../utils/IntlComponents";
 
-class PhotoAttribution extends Component {
+export default class PhotoAttribution extends Component {
 
   static propTypes = {
     user: PropTypes.object.isRequired
@@ -20,5 +20,3 @@ class PhotoAttribution extends Component {
   }
 
 }
-
-export default PhotoAttribution;

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from "react";
 import { FormattedDate, FormattedRelative } from "../utils/IntlComponents";
 
-class PhotoCreatedAt extends Component {
+export default class PhotoCreatedAt extends Component {
 
   static propTypes = {
     date: PropTypes.string.isRequired
@@ -20,5 +20,3 @@ class PhotoCreatedAt extends Component {
   }
 
 }
-
-export default PhotoCreatedAt;

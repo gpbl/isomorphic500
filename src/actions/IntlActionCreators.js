@@ -1,6 +1,6 @@
 import Actions from "../constants/Actions";
 
-const IntlActionCreators = {
+export default {
 
   loadIntlMessages(context, { locale }, done) {
     context.dispatch(Actions.LOAD_INTL_SERVER, require(`../intl/${locale}`));
@@ -8,5 +8,3 @@ const IntlActionCreators = {
   }
 
 };
-
-export default IntlActionCreators;

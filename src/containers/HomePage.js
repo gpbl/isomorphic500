@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FormattedMessage }  from "../utils/IntlComponents";
 
-class HomePage extends Component {
+export default class HomePage extends Component {
 
   render() {
     return (
@@ -12,5 +12,3 @@ class HomePage extends Component {
   }
 
 }
-
-export default HomePage;

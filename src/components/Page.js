@@ -7,7 +7,7 @@ if (process.env.BROWSER) {
   require("../style/Page.scss");
 }
 
-class Page extends Component {
+export default class Page extends Component {
 
   static propTypes = {
     footer: PropTypes.bool
@@ -40,5 +40,3 @@ class Page extends Component {
   }
 
 }
-
-export default Page;

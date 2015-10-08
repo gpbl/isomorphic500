@@ -7,7 +7,7 @@ This is a "list store", i.e. it holds only ids referring to another
 when the featured photos has been loaded.
  */
 
-class FeaturedStore extends BaseStore {
+export default class FeaturedStore extends BaseStore {
 
   static storeName = "FeaturedStore"
 
@@ -50,6 +50,3 @@ class FeaturedStore extends BaseStore {
   }
 
 }
-
-
-export default FeaturedStore;

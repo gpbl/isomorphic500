@@ -5,7 +5,7 @@ if (process.env.BROWSER) {
   require("../style/Footer.scss");
 }
 
-class Footer extends Component {
+export default class Footer extends Component {
 
   render() {
     return (
@@ -22,5 +22,3 @@ class Footer extends Component {
   }
 
 }
-
-export default Footer;

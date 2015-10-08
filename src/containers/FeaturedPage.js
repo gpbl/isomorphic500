@@ -14,7 +14,7 @@ if (process.env.BROWSER) {
     photos: photos
   };
 })
-class FeaturedPage extends React.Component {
+export default class FeaturedPage extends React.Component {
 
   static propTypes = {
     photos: PropTypes.array.isRequired
@@ -36,5 +36,3 @@ class FeaturedPage extends React.Component {
   }
 
 }
-
-export default FeaturedPage;

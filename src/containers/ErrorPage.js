@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react";
 
-class ErrorPage extends React.Component {
+export default class ErrorPage extends React.Component {
 
   static propTypes = {
     err: PropTypes.object
@@ -23,5 +23,3 @@ class ErrorPage extends React.Component {
   }
 
 }
-
-export default ErrorPage;

@@ -6,7 +6,7 @@ if (process.env.BROWSER) {
   require("../style/Thumbnail.scss");
 }
 
-class Thumbnail extends React.Component {
+export default class Thumbnail extends React.Component {
 
   static propTypes = {
     photo: PropTypes.object.isRequired
@@ -24,5 +24,3 @@ class Thumbnail extends React.Component {
   }
 
 }
-
-export default Thumbnail;

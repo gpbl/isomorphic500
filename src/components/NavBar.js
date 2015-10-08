@@ -15,7 +15,7 @@ if (process.env.BROWSER) {
 @connectToStores([], context =>
   ({ route: context.getStore("RouteStore").getCurrentRoute() })
 )
-class NavBar extends Component {
+export default class NavBar extends Component {
 
   static PropTypes = {
     route: PropTypes.object.isRequired
@@ -60,5 +60,3 @@ class NavBar extends Component {
   }
 
 }
-
-export default NavBar;

@@ -1,5 +1,5 @@
 // 500px featured photos
-const features = [
+export default [
   "popular",
   "highest_rated",
   "upcoming",
@@ -8,5 +8,3 @@ const features = [
   "fresh_yesterday",
   "fresh_week"
 ];
-
-export default features;

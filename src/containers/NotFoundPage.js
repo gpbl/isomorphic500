@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import { FormattedMessage } from "../utils/IntlComponents";
 
-class NotFoundPage extends React.Component {
+export default class NotFoundPage extends Component {
 
   render() {
     return (
@@ -12,5 +12,3 @@ class NotFoundPage extends React.Component {
   }
 
 }
-
-export default NotFoundPage;

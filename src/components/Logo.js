@@ -3,7 +3,7 @@ import React, { Component } from "react";
 /*
 This component renders SVG instead of the classic HTML elements.
  */
-class Logo extends Component {
+export default class Logo extends Component {
 
   render() {
     return (
@@ -23,5 +23,3 @@ class Logo extends Component {
   }
 
 }
-
-export default Logo;

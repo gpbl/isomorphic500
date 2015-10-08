@@ -4,7 +4,7 @@ import config from "../config";
 
 const debug = require("debug")("isomorphic500");
 
-const setLocale = (req, res, next) => {
+export default function setLocale(req, res, next) {
   debug("Detected locale (from browser) is %s", req.locale);
 
   // Locale can be changed by passing ?hl=<locale> in the querystring
@@ -27,5 +27,3 @@ const setLocale = (req, res, next) => {
 
   next();
 };
-
-export default setLocale;

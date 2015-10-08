@@ -11,7 +11,7 @@ if (process.env.BROWSER) {
 @connectToStores([], context =>
   ({ currentLocale: context.getStore("IntlStore").getCurrentLocale() })
 )
-class LocaleSwitcher extends Component {
+export default class LocaleSwitcher extends Component {
 
   static propTypes = {
     currentLocale: PropTypes.string.isRequired
@@ -49,7 +49,4 @@ class LocaleSwitcher extends Component {
     );
   }
 
-
 }
-
-export default LocaleSwitcher;

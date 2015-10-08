@@ -1,6 +1,6 @@
 import keyMirror from "keymirror";
 
-const Actions = keyMirror({
+export default keyMirror({
 
   LOAD_FEATURED_PHOTOS_SUCCESS: null,
   LOAD_PHOTO_SUCCESS: null,
@@ -12,6 +12,3 @@ const Actions = keyMirror({
   NAVIGATE_FAILURE: null
 
 });
-
-
-export default Actions;

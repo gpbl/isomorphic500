@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from "react";
 import { loadPhoto } from "../actions/PhotoActionCreators";
 
-class Photo extends Component {
+export default class Photo extends Component {
 
   static propTypes = {
     photo: PropTypes.object.isRequired,
@@ -33,5 +33,3 @@ class Photo extends Component {
   }
 
 }
-
-export default Photo;

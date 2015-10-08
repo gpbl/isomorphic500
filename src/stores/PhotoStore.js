@@ -8,7 +8,7 @@ Photo objects can come either loading a single photo (`LOAD_PHOTO_SUCCESS`)
 or after loading featured photos (`LOAD_FEATURED_PHOTOS_SUCCESS`).
 */
 
-class PhotoStore extends BaseStore {
+export default class PhotoStore extends BaseStore {
 
   static storeName = "PhotoStore"
 
@@ -53,6 +53,3 @@ class PhotoStore extends BaseStore {
   }
 
 }
-
-
-export default PhotoStore;

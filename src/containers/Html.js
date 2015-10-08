@@ -34,7 +34,7 @@ else {
     images: htmlHeadStore.getImages()
   };
 })
-class Html extends React.Component {
+export default class Html extends React.Component {
 
   static propTypes = {
     context: PropTypes.object.isRequired,
@@ -91,5 +91,3 @@ class Html extends React.Component {
     );
   }
 }
-
-export default Html;

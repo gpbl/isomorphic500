@@ -11,7 +11,7 @@ the content for the <head> tag. Used in Html.js,
 and Root.js (to change the document's title)
  */
 
-class HtmlHeadStore extends BaseStore {
+export default class HtmlHeadStore extends BaseStore {
 
   static storeName = "HtmlHeadStore"
 
@@ -127,5 +127,3 @@ class HtmlHeadStore extends BaseStore {
   }
 
 }
-
-export default HtmlHeadStore;

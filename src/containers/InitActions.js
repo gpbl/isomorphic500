@@ -2,7 +2,7 @@
 
 import { loadFeaturedPhotos, loadPhoto } from "../actions/PhotoActionCreators";
 
-const InitActions = {
+export default {
 
   featuredPage(context, route, done) {
     const feature = route.getIn(["params", "feature"]);
@@ -23,5 +23,3 @@ const InitActions = {
   }
 
 };
-
-export default InitActions;
