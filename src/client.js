@@ -15,18 +15,18 @@ const dehydratedState = window.__INITIAL_STATE__;
 
 function renderApp() {
 
-  const fluxibleApp = require("./fluxibleApp");
+  const app = require("./app");
 
   debug("Rehydrating state...", dehydratedState);
 
-  fluxibleApp.rehydrate(dehydratedState, (err, context) => {
+  app.rehydrate(dehydratedState, (err, context) => {
     if (err) {
       throw err;
     }
 
     debug("State has been rehydrated");
 
-    const Root = fluxibleApp.getComponent();
+    const Root = app.getComponent();
 
     React.render(<Root context={ context.getComponentContext() } />, mountNode, () => {
       debug("Root component has been mounted");

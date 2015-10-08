@@ -12,7 +12,7 @@ import morgan from "morgan";
 import csurf from "csurf";
 import locale from "locale";
 
-import fluxibleApp from "./fluxibleApp";
+import app from "./app";
 import config from "./config";
 import render from "./server/render";
 import setLocale from "./server/setLocale";
@@ -52,7 +52,7 @@ export default function (callback) {
   // Configure fetchr (for doing api calls server and client-side)
   // and register its services
 
-  const fetchr = fluxibleApp.getPlugin("FetchrPlugin");
+  const fetchr = app.getPlugin("FetchrPlugin");
   fetchr.registerService(require("./services/photos"));
   fetchr.registerService(require("./services/photo"));
 

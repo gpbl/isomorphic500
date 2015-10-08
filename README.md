@@ -79,9 +79,9 @@ then open [localhost:8080](http://localhost:8080).
 ├── config              # Contains the configuration for dev and prod environments
 ├── nodemon.json        # Configure nodemon to watch some files
 ├── src
+│   ├── app.js          # The fluxible app
 │   ├── client.js       # Entry point for the client
 │   ├── config.js       # Config loader (load the config files from /config)
-│   ├── fluxibleApp.js  # The fluxible app
 │   ├── routes.js       # Routes used by fluxible-router
 │   ├── server.js       # Start the express server and render the routes server-side
 │   │
@@ -122,7 +122,7 @@ then open [localhost:8080](http://localhost:8080).
 
 ### The fluxible app
 
-The [src/fluxibleApp](src/fluxibleApp) file is the core of the Fluxible application:
+The [src/app](src/app) file is the core of the Fluxible application:
 
 - it configures Fluxible with [src/containers/Root.js](src/containers/Root.js) as the root component.
 - it registers the stores so they can work on the same React context

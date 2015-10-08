@@ -4,15 +4,15 @@ import { RouteStore } from "fluxible-router";
 
 import routes from "./routes";
 
-import Application from "./containers/Application";
+import Root from "./containers/Root";
 
 import FeaturedStore from "./stores/FeaturedStore";
 import HtmlHeadStore from "./stores/HtmlHeadStore";
 import IntlStore from "./stores/IntlStore";
 import PhotoStore from "./stores/PhotoStore";
 
-// Create the fluxible app using Application as root component
-const app = new Fluxible({ component: Application });
+// Create the fluxible app using Root as root component
+const app = new Fluxible({ component: Root });
 
 // Make fetchr services respond to /api endpoint
 app.plug(fetchrPlugin({ xhrPath: "/api" }));
