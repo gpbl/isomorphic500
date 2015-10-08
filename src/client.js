@@ -26,10 +26,10 @@ function renderApp() {
 
     debug("State has been rehydrated");
 
-    const Application = fluxibleApp.getComponent();
+    const Root = fluxibleApp.getComponent();
 
-    React.render(<Application context={ context.getComponentContext() } />, mountNode, () => {
-      debug("Application has been mounted");
+    React.render(<Root context={ context.getComponentContext() } />, mountNode, () => {
+      debug("Root component has been mounted");
     });
   });
 }

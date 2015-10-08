@@ -13,10 +13,10 @@ import LoadingPage from "../containers/LoadingPage";
 import trackPageView from "../utils/trackPageView";
 
 if (process.env.BROWSER) {
-  require("./style/Application.scss");
+  require("./style/Root.scss");
 }
 
-// Wrap Application with the fluxible context.
+// Wrap Root with the fluxible context.
 @provideContext
 
 // Wrap with fluxible-router's history handler (required for routing)
@@ -28,7 +28,7 @@ if (process.env.BROWSER) {
   ({ documentTitle: context.getStore("HtmlHeadStore").getTitle() })
 )
 
-class Application extends Component {
+class Root extends Component {
 
   static propTypes = {
 
@@ -98,4 +98,4 @@ class Application extends Component {
 
 }
 
-export default Application;
+export default Root;

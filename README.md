@@ -91,7 +91,7 @@ then open [localhost:8080](http://localhost:8080).
 │   ├── containers      # Contains React containers components
 │   │   ├── ...
 │   │   ├── Html.js     # Used to render the <html> document server-side
-│   │   └── Application.js  # Root component
+│   │   └── Root.js     # Root component
 
 │   ├── intl            # Contains the messages for i18n
 │   ├── server          # Server-side only code
@@ -124,7 +124,7 @@ then open [localhost:8080](http://localhost:8080).
 
 The [src/fluxibleApp](src/fluxibleApp) file is the core of the Fluxible application:
 
-- it configures Fluxible with [Application.js](src/Application.js) as the root component.
+- it configures Fluxible with [src/containers/Root.js](src/containers/Root.js) as the root component.
 - it registers the stores so they can work on the same React context
 - it adds the [fetchr plugin]((https://github.com/yahoo/fluxible-plugin-fetchr)), to share the same API requests both client and server-side
 - it makes possible to dehydrate the stores [on the server](src/server/render.js) and rehydrate them [on the client](src/client.js)
@@ -136,7 +136,7 @@ I used [Fetchr](https://github.com/yahoo/fetchr) and [fluxible-plugin-fetchr](ht
 
 ### Router
 
-This app uses [fluxible-router](https://github.com/yahoo/fluxible-router) for routing. Fluxible-router works pretty well in fluxible applications since it follows the flux paradigm. The [Application component](src/Application.js) uses the `@handleHistory` decorator to bind the router to the app.
+This app uses [fluxible-router](https://github.com/yahoo/fluxible-router) for routing. Fluxible-router works pretty well in fluxible applications since it follows the flux paradigm. The [Application component](src/containers/Root.js) uses the `@handleHistory` decorator to bind the router to the app.
 
 ### Stores
 

@@ -16,15 +16,14 @@ function renderApp(req, res, context, next) {
     // dehydrate the app and expose its state
     const state = "window.__INITIAL_STATE__=" + serialize(fluxibleApp.dehydrate(context)) + ";";
 
-    const Application = fluxibleApp.getComponent();
+    const Root = fluxibleApp.getComponent();
 
-    // Render the Application to string
+    // Render the Root to string
     const content = React.renderToString(
-      <Application context={ context.getComponentContext() } />
+      <Root context={ context.getComponentContext() } />
     );
 
-    // The application component is rendered to static content
-    // and sent as response.
+    // The root component is rendered as static markup and sent as response.
     const html = React.renderToStaticMarkup(
       <Html
         context={ context.getComponentContext() }
