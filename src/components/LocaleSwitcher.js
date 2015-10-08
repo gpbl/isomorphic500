@@ -8,7 +8,7 @@ if (process.env.BROWSER) {
   require("../style/LocaleSwitcher.scss");
 }
 
-@connectToStores([], (context) =>
+@connectToStores([], context =>
   ({ currentLocale: context.getStore("IntlStore").getCurrentLocale() })
 )
 class LocaleSwitcher extends Component {

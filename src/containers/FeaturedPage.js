@@ -7,7 +7,7 @@ if (process.env.BROWSER) {
   require("../style/ThumbnailCollection.scss");
 }
 
-@connectToStores(["FeaturedStore"], (context) => {
+@connectToStores(["FeaturedStore"], context => {
   const ids = context.getStore("FeaturedStore").getFeaturedPhotos();
   const photos = context.getStore("PhotoStore").getMultiple(ids);
   return {

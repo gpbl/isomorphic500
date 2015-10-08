@@ -12,7 +12,7 @@ if (process.env.BROWSER) {
   require("../style/NavBar.scss");
 }
 
-@connectToStores([], (context) =>
+@connectToStores([], context =>
   ({ route: context.getStore("RouteStore").getCurrentRoute() })
 )
 class NavBar extends Component {

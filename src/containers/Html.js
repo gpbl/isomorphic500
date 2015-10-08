@@ -24,7 +24,7 @@ else {
 
 
 @provideContext()
-@connectToStores([], (context) => {
+@connectToStores([], context => {
   const htmlHeadStore = context.getStore("HtmlHeadStore");
   return {
     title: htmlHeadStore.getTitle(),

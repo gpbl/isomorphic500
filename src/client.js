@@ -40,6 +40,6 @@ const locale = document.documentElement.getAttribute("lang");
 IntlUtils.loadIntlPolyfill(locale)
   .then(IntlUtils.loadLocaleData.bind(null, locale))
   .then(renderApp)
-  .catch((err) => {
+  .catch(err => {
     console.error(err);
   });

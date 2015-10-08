@@ -17,12 +17,12 @@ const IntlUtils = {
       return Promise.resolve();
     }
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       debug("Intl or locale data for %s not available, downloading the polyfill...", locale);
 
       // When building: create a intl chunk with webpack
       // When executing: run the callback once the chunk has been download.
-      require.ensure(["intl"], (require) => {
+      require.ensure(["intl"], require => {
         require("intl"); // apply the polyfill
         debug("Intl polyfill for %s has been loaded", locale);
         resolve();
@@ -46,7 +46,7 @@ const IntlUtils = {
     // this require here, when loadIntlPolyfill is supposed to be present
     require("expose?ReactIntl!react-intl");
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
 
       switch (locale) {
 
@@ -58,7 +58,7 @@ const IntlUtils = {
           require.ensure([
             "intl/locale-data/jsonp/it",
             "react-intl/dist/locale-data/it"
-          ], (require) => {
+          ], require => {
             require("intl/locale-data/jsonp/it");
             require("react-intl/dist/locale-data/it");
             debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
@@ -68,7 +68,7 @@ const IntlUtils = {
         else {
           require.ensure([
             "react-intl/dist/locale-data/it"
-          ], (require) => {
+          ], require => {
             require("react-intl/dist/locale-data/it");
             debug("ReactIntl locale-data for %s has been downloaded", locale);
             resolve();
@@ -84,7 +84,7 @@ const IntlUtils = {
           require.ensure([
             "intl/locale-data/jsonp/fr",
             "react-intl/dist/locale-data/fr"
-          ], (require) => {
+          ], require => {
             require("intl/locale-data/jsonp/fr");
             require("react-intl/dist/locale-data/fr");
             debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
@@ -94,7 +94,7 @@ const IntlUtils = {
         else {
           require.ensure([
             "react-intl/dist/locale-data/fr"
-          ], (require) => {
+          ], require => {
             require("react-intl/dist/locale-data/fr");
             debug("ReactIntl locale-data for %s has been downloaded", locale);
             resolve();
@@ -110,7 +110,7 @@ const IntlUtils = {
           require.ensure([
             "intl/locale-data/jsonp/pt",
             "react-intl/dist/locale-data/pt"
-          ], (require) => {
+          ], require => {
             require("intl/locale-data/jsonp/pt");
             require("react-intl/dist/locale-data/pt");
             debug("Intl locale-data for %s has been downloaded", locale);
@@ -120,7 +120,7 @@ const IntlUtils = {
         else {
           require.ensure([
             "react-intl/dist/locale-data/pt"
-          ], (require) => {
+          ], require => {
             require("react-intl/dist/locale-data/pt");
             debug("ReactIntl locale-data for %s has been downloaded", locale);
             resolve();
@@ -134,7 +134,7 @@ const IntlUtils = {
         if (!hasIntl) {
           require.ensure([
             "intl/locale-data/jsonp/en"
-          ], (require) => {
+          ], require => {
             require("intl/locale-data/jsonp/en");
             debug("Intl locale-data for %s has been downloaded", locale);
             resolve();

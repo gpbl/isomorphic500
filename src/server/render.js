@@ -59,7 +59,7 @@ function render(req, res, next) {
     context.executeAction(navigateAction, { url: req.url })
   ])
     .then(() => renderApp(req, res, context, next))
-    .catch((err) => {
+    .catch(err => {
       if (err.statusCode || err.status) {
         renderApp(req, res, context, next);
         return;
