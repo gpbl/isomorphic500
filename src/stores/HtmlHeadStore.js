@@ -2,7 +2,8 @@ import { BaseStore } from "fluxible/addons";
 import Actions from "../constants/Actions";
 import IntlMessageFormat from "intl-messageformat";
 
-const SITE_NAME = "Isomorphic500";
+import { siteName } from "../config";
+
 const BASE_URL = "http://isomorphic500.herokuapp.com";
 
 /*
@@ -23,7 +24,7 @@ export default class HtmlHeadStore extends BaseStore {
 
   constructor(dispatcher) {
     super(dispatcher);
-    this.siteName = SITE_NAME;
+    this.siteName = siteName;
     this.currentUrl = null;
     this.setInitialState();
   }

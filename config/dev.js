@@ -8,6 +8,8 @@ export default {
   consumerKey: "CLmpqnpwGLKetORtjc5gb9tC2hllfd6cqdfzHqFD",
 
   // Supported locales
-  locales: ["en", "it", "pt", "fr"]
+  locales: ["en", "it", "pt", "fr"],
+
+  siteName: "isomorphic500 (DEV)"
 
 };
