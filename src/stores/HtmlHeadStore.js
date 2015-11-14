@@ -16,7 +16,6 @@ export default class HtmlHeadStore extends BaseStore {
   static storeName = "HtmlHeadStore"
 
   static handlers = {
-    [Actions.NAVIGATE_START]: "handleNavigateStart",
     [Actions.NAVIGATE_SUCCESS]: "handleNavigateSuccess",
     [Actions.NAVIGATE_FAILURE]: "handleNavigateFailure"
   }
@@ -63,12 +62,6 @@ export default class HtmlHeadStore extends BaseStore {
     const store = this.dispatcher.getStore("IntlStore");
     const msg = new IntlMessageFormat(store.getMessage(message), store.getLocales());
     return msg.format(values);
-  }
-
-  handleNavigateStart() {
-    // Use a loading title when loading the route
-    this.title = this.formatMessage("meta.loadingTitle");
-    this.emitChange();
   }
 
   // Set the store content (images, description, title, etc.) according to the received route

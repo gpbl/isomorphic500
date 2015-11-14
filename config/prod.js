@@ -11,6 +11,9 @@ export default {
   trackingId: "UA-46857126-2",
 
   // Supported locales
-  locales: ["en", "it", "pt", "fr"]
+  locales: {
+    en: "English",
+    it: "Italiano"
+  }
 
 };

@@ -192,7 +192,7 @@ They are used in [client.js](client.js) before mounting the app.
 
 Lets talk about the data that `react-intl` needs to deliver translated content. Translated messages are saved in the [intl](src/intl) directory and shared between client and server using the [IntlStore](stores/IntlStore).
 
-This store listens to a `LOAD_INTL_SERVER` action dispatched by [IntlActionCreator](src/actions/IntlActionCreators.js). We execute this action **only server side** before rendering the `Html` component together with the usual `navigateAction`. This allows to dehydrate/rehydrate the store content.
+This store listens to a `LOAD_INTL_SERVER` action dispatched by an [action creator](src/actions/intl.js). We execute this action **only server side** before rendering the `Html` component together with the usual `navigateAction`. This allows to dehydrate/rehydrate the store content.
 
 React-intl components need to have access to the `IntlStore`. Plus, since I'm using ES6 classes, I can't adopt the react-intl `Mixin` in my components. To solve this, I wrap the `Formatted*` components and make them available from [IntlComponents](src/utils/IntlComponents.js).
 

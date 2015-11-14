@@ -1,0 +1,37 @@
+.SidebarToggler {
+  height: 21px;
+  width: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+.SidebarToggler-top,
+.SidebarToggler-middle,
+.SidebarToggler-bottom {
+  height: 1px;
+  background-color: white;
+  transition: transform 0.3s, background-color 0.1s;
+}
+
+.SidebarToggler-bottom {
+  transform-origin: 50%;
+}
+
+.SidebarToggler-top {
+  transform-origin: 50%;
+}
+
+
+.SidebarToggler--close {
+  .SidebarToggler-bottom {
+    transform: rotate(45deg) translateX(-5px) translateY(-5px);
+  }
+  .SidebarToggler-middle {
+    background-color: transparent;
+  }
+  .SidebarToggler-top {
+    transform: rotate(-45deg) translateX(-5px) translateY(5px);
+  }
+}

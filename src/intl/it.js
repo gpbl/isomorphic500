@@ -7,7 +7,6 @@ export default {
     "meta": {
       "title": "isomorphic500",
       "description": "Applicazione dimostrativa creata con React e Fluxible",
-      "loadingTitle": "Caricamento…",
       "errorTitle": "Errore caricando la pagina",
       "notFoundTitle": "Pagina non trovata"
     },

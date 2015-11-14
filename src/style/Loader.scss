@@ -1,9 +1,33 @@
-// @credit Loader SVG from http://samherbert.net/svg-loaders/
-
 .Loader {
-  height: 2rem;
-  background-image: url('../../static/assets/grid-loader.svg');
+  height: 30px;
+  width: 30px;
+  background-image: url('../../static/assets/loader.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+
+  &.Loader--small {
+    background-image: url('../../static/assets/loader-small.svg');
+  }
+}
+
+.Loader-enter {
+  opacity: 0;
+}
+
+.Loader-enter-active {
+  transform: scale(1);
+  opacity: 1;
+  transition: all 400ms ease-out;
+}
+
+.Loader-leave {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.Loader-leave-active {
+  transform: scale(0);
+  opacity: 0;
+  transition: all 200ms ease-out;
 }

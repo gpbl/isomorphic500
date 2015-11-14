@@ -1,0 +1,38 @@
+.Header {
+  position: relative;
+  z-index: 100;
+}
+
+.Header-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  text-align: center;
+}
+
+.Header-logo {
+  width: 80px;
+  margin-top: 10px;
+  margin-left: -40px;
+  position: fixed;
+}
+
+@media screen and (max-width: 399px) {
+  .Header-loader {
+    width: 30px;
+    top: calc(50% - 15px);
+    margin-left: -15px;
+    position: fixed;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .Header-loader {
+    width: 30px;
+    right: 10px;
+    top: 10px;
+    position: fixed;
+  }
+}

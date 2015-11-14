@@ -1,0 +1,11 @@
+<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="82px" height="82px" viewBox="0 0 82 82" xml:space="preserve">
+  <path d="M16.8340875,7.87554695 C6.33500773,15.5475868 0,27.7465713 0,41 C0,63.6436747 18.3563253,82 41,82 C63.6436747,82 82,63.6436747 82,41 C82,18.3563253 63.6436747,0 41,0 L41,4 C61.4345357,4 78,20.5654643 78,41 C78,61.4345357 61.4345357,78 41,78 C20.5654643,78 4,61.4345357 4,41 C4,29.0369005 9.71497941,18.0318713 19.1940808,11.1051649 L16.8340875,7.87554695 L16.8340875,7.87554695 Z" fill="#FFFFFF">
+    <animateTransform attributeType="xml"
+      attributeName="transform"
+      type="rotate"
+      from="0 41 41"
+      to="360 41 41"
+      dur="1s"
+      repeatCount="indefinite"/>
+    </path>
+  </svg>

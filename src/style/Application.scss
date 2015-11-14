@@ -1,0 +1,32 @@
+@import "normalize";
+
+html {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  color: #AAA;
+  background: black;
+
+  font-size: 14px;
+  font-family: -apple-system, Roboto, sans-serif;
+  font-weight: 300
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}

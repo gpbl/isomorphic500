@@ -1,0 +1,39 @@
+.PhotoPage-background {
+
+  filter: blur(30px);
+  transform: translate3d(0, 0, 0);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+
+}
+
+.PhotoPage-photoContainer {
+  height: 100vh;
+  position: relative;
+  padding: 60px 10px;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.PhotoPage-photo {
+  flex: 1;
+  display: block;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.PhotoPage-caption {
+  z-index: 3;
+  position: relative;
+  padding: 15px 5px;
+}

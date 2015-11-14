@@ -1,16 +1,10 @@
-@import 'constants/colors';
-
 .Thumbnail {
-  background-color: $color-background;
+  display: block;
+  position: relative;
+  z-index: 2;
   box-sizing: border-box;
   min-width: 8rem;
   min-height: 8rem;
-
-  border: 1px solid $color-white;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
 
   transition: filter .25s;
 
@@ -18,4 +12,15 @@
     filter: brightness(75%);
   }
 
+}
+
+.Thumbnail-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }

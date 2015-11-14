@@ -1,0 +1,23 @@
+
+.ErrorDetail {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+}
+
+.ErrorDetail-message {
+  font-size: 2rem;
+  font-weight: 100;
+  text-align: center;
+}
+
+.ErrorDetail-info {
+  margin-top: 2rem;
+  padding: 1rem;
+  font-family: Menlo, monospace;
+  color: #CCC;
+}

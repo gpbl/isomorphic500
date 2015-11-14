@@ -1,20 +1,15 @@
-import React, { PropTypes } from "react";
+import React, { PropTypes, Component } from "react";
 import { connectToStores } from "fluxible-addons-react";
 
-import Thumbnail from "../components/Thumbnail";
+import ThumbnailCollection from "../components/ThumbnailCollection";
 
-if (process.env.BROWSER) {
-  require("../style/ThumbnailCollection.scss");
-}
-
-@connectToStores(["FeaturedStore"], context => {
-  const ids = context.getStore("FeaturedStore").getFeaturedPhotos();
+@connectToStores(["FeaturedStore"], (context, props) => {
+  const ids = context.getStore("FeaturedStore").getFeaturedPhotos(props.feature);
   const photos = context.getStore("PhotoStore").getMultiple(ids);
-  return {
-    photos: photos
-  };
+  return { photos };
 })
-export default class FeaturedPage extends React.Component {
+
+export default class FeaturedPage extends Component {
 
   static propTypes = {
     photos: PropTypes.array.isRequired
@@ -22,17 +17,7 @@ export default class FeaturedPage extends React.Component {
 
   render() {
     const { photos } = this.props;
-    return (
-      <div>
-        <div className="ThumbnailCollection">
-          {
-            photos.map(photo =>
-              <Thumbnail key={ photo.id } size="small" photo={ photo } />
-            )
-          }
-        </div>
-      </div>
-    );
+    return <ThumbnailCollection  photos={ photos } />
   }
 
 }

@@ -17,36 +17,40 @@ export default class FeaturedStore extends BaseStore {
 
   constructor(dispatcher) {
     super(dispatcher);
-    this.featured = [];
+    this.featured = {};
     this.currentFeature = null;
   }
 
   handleLoadSuccess({ feature, photos }) {
     this.dispatcher.waitFor("PhotoStore", () => {
       this.currentFeature = feature;
-      this.featured = photos.map(photo => photo.id);
+      this.featured = {
+        ...this.featured,
+        [feature]: photos.map(photo => photo.id)
+      };
       this.emitChange();
     });
-  }
-
-  getFeaturedPhotos() {
-    return this.featured;
   }
 
   getCurrentFeature() {
     return this.currentFeature;
   }
 
+  getFeaturedPhotos(feature) {
+    if (feature in this.featured) {
+      return this.featured[feature];
+    }
+    return [];
+  }
+
   dehydrate() {
     return {
-      featured: this.featured,
-      currentFeature: this.currentFeature
+      featured: this.featured
     };
   }
 
   rehydrate(state) {
     this.featured = state.featured;
-    this.currentFeature = state.currentFeature;
   }
 
 }

@@ -1,22 +1,9 @@
-@import 'constants/breaks';
-@import 'mixins/break';
-
 .Page {
   display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  max-width: $break-desktop;
-  min-height: 100%;
-  margin: 0 auto;
-  padding: 1rem;
+  flex-direction: "row"
 }
 
-.Page-body {
+.Page-content {
   flex: 1;
-}
-
-@include break() {
-  .Page {
-    padding: 2rem;
-  }
+  background-color: #111;
 }

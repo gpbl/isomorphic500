@@ -1,6 +1,5 @@
 import { BaseStore } from "fluxible/addons";
 import Actions from "../constants/Actions";
-import _ from "lodash";
 
 /*
 This is a "resource store", holding the photo objects loaded by the app.
@@ -14,7 +13,7 @@ export default class PhotoStore extends BaseStore {
 
   static handlers = {
     [Actions.LOAD_FEATURED_PHOTOS_SUCCESS]: "handleLoadFeaturedSuccess",
-    [Actions.LOAD_PHOTO_SUCCESS]: "handleLoadSuccess"
+    [Actions.LOAD_PHOTO_SUCCESS]: "handleLoadPhotoSuccess"
   }
 
   constructor(dispatcher) {
@@ -22,20 +21,20 @@ export default class PhotoStore extends BaseStore {
     this.photos = {};
   }
 
-  handleLoadSuccess(photo) {
-    this.photos[photo.id] = _.merge({}, this.photos[photo.id], photo);
+  handleLoadPhotoSuccess(photo) {
+    this.photos[photo.id] = photo;
     this.emitChange();
   }
 
   handleLoadFeaturedSuccess({ photos }) {
-    this.photos = _(photos).indexBy("id").merge(this.photos).value();
+    photos.forEach(photo => {
+      this.photos[photo.id] = photo;
+    })
     this.emitChange();
   }
 
-  get(id, minSize=0) {
-    return _.find(this.photos, photo =>
-      photo.id === parseInt(id) && photo.images[0].size >= minSize
-    );
+  get(id) {
+    return this.photos[id];
   }
 
   getMultiple(ids) {

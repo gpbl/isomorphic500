@@ -1,0 +1,68 @@
+.SidebarContent {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh);
+  justify-content: space-between;
+  margin: 0 20px;
+}
+
+.SidebarContent--bottom {
+  font-size: .75rem
+}
+
+.SidebarContent-container {
+  margin-bottom: 1.25em;
+  margin-top: .75em;
+}
+
+.SidebarContent-note {
+  font-size: 0.75rem;
+  margin: .3rem 0;
+}
+
+.SidebarContent--small {
+  font-size: 14px;
+}
+
+.SidebarContent-link {
+  display: block;
+  margin: .5em 0;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    left: -0.7em;
+    top: 0.2em;
+    background-image: url("../../static/assets/triangle.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    transition: all .15s ease-in;
+    opacity: 0;
+    height: 1em;
+    width: .35rem;
+  }
+
+  &.SidebarContent-link--active {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  .Loader {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+    margin-left: .5em;
+  }
+
+}
+
+.SidebarContent-title {
+  font-weight: 500;
+  font-size: .875em;
+  padding-top: 1em;
+  padding-bottom: .875em;
+  text-transform: uppercase;
+}

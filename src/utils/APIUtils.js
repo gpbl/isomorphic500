@@ -1,13 +1,12 @@
 // Utils to send requests to the 500px API endpoint
 
 import request from "superagent";
-import { assign } from "lodash";
 
 import config from "../config";
 
 const debug = require("debug")("isomorphic500");
 
-const APIUtils = {
+export default {
 
   get(endpoint, query, { locale }, done) {
     if (arguments.length === 2) {
@@ -20,29 +19,22 @@ const APIUtils = {
     debug("Sending GET request to %s", url, query);
 
     // Consumer key is required by 500px API
-    query = assign(query, {
-      consumer_key: config.consumerKey
-    });
+    query = { ...query, consumer_key: config.consumerKey };
 
     request.get(url)
       .set("accept-language", locale)
       .query(query)
       .end((err, res) => {
-        debug("Received response %s from %s", res && res.status, url);
-
+        debug("Received response %s from %s", res && res.status);
         if (err) {
           if (err.status) {
             // Normalize statusCode vs. status
             err.statusCode = err.status;
           }
-
           return done(err);
         }
-
         done(null, res.body);
       });
   }
 
 };
-
-export default APIUtils;

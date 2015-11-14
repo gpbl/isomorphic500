@@ -5,10 +5,12 @@ import { get } from "../utils/APIUtils";
 export default {
   name: "photos",
 
-  read(req, resource, { feature, imageSize=4 }, config, done) {
+  read(req, resource, { feature }, config, done) {
     const query = {
       feature: feature,
-      "image_size": imageSize
+      rpp: 36,
+      "image_size[]": [600, 2048],
+      exclude: "Nude,Uncategorized,Celebrities,People"
     };
     const options = {
       locale: req.locale

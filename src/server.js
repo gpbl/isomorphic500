@@ -13,18 +13,40 @@ import locale from "locale";
 
 import app from "./app";
 import config from "./config";
-import handleServerRendering from "./server/handleServerRendering";
-import setLocale from "./server/setLocale";
+import handleServerRendering from "./utils/handleServerRendering";
+import localeMiddleware from "./utils/localeMiddleware";
 
+const supportedLocales = Object.keys(config.locales);
 const staticPath = path.resolve(__dirname, "../static");
 
 // Initialize express server
-export default function(callback) {
+export default function(callback=new Function) {
   const server = express();
 
   server.set("env", process.env.NODE_ENV || "development");
   server.set("host", process.env.HOST || "0.0.0.0");
   server.set("port", process.env.PORT || 3000);
+
+  if (server.get("env") === "development") {
+    const webpackMiddleware = require("webpack-dev-middleware");
+    const webpack = require("webpack");
+    const webpackConfig = require("../webpack.config-dev");
+    const webpackCompiler = webpack(webpackConfig);
+
+    server.use(webpackMiddleware(webpackCompiler, {
+      hot: true,
+      // inline: true,
+      // lazy: false,
+      // quiet: true,
+      publicPath: webpackConfig.output.publicPath,
+      stats: {
+        colors: true
+      }
+    }))
+
+    server.use(require("webpack-hot-middleware")(webpackCompiler));
+
+  }
 
   server.use(morgan(server.get("env") === "production" ? "combined" : "dev"));
   server.use(bodyParser.json());
@@ -34,15 +56,15 @@ export default function(callback) {
 
   // Set the default locale
 
-  locale.Locale.default = config.locales[0];
+  locale.Locale.default = supportedLocales[0];
 
   // Set req.locale based on the browser settings
 
-  server.use(locale(config.locales));
+  server.use(locale(supportedLocales));
 
   // Overwrite req.locale either from cookie or querystring
 
-  server.use(setLocale);
+  server.use(localeMiddleware);
 
   // This is used by the fetchr plugin
 
@@ -61,9 +83,9 @@ export default function(callback) {
 
   // Use the `static` dir for serving static assets. On production, it contains the js
   // files built with webpack
-  server.use(serveStatic(staticPath, {
-    maxAge: 365 * 24 * 60 * 60
-  }));
+
+  const maxAge = 365 * 24 * 60 * 60;
+  server.use(serveStatic(staticPath, { maxAge }));
 
   // Render the server server-side and send it as response
 
@@ -74,7 +96,7 @@ export default function(callback) {
     console.log("Error on request %s %s", req.method, req.url);
     console.log(err);
     console.log(err.stack);
-    res.status(500).send("Something bad hserverened");
+    res.status(500).send("Something bad happened");
   });
 
   // Finally, start the express server

@@ -2,7 +2,7 @@
 import React, { PropTypes } from "react";
 
 import { trackingId } from "../config";
-import ga from "../server/ga";
+import ga from "../utils/ga";
 import { provideContext, connectToStores } from "fluxible-addons-react";
 
 const css = [];
@@ -10,7 +10,7 @@ const scripts = [];
 
 if (process.env.NODE_ENV === "production") {
   // on production, include scripts and css from the webpack stats
-  const config = require("../../webpack/prod.config");
+  const config = require("../../webpack.config");
   const stats = require("../../static/dist/stats.json");
   scripts.push(`${config.output.publicPath}${stats.main}`);
   css.push(`${config.output.publicPath}${stats.css}`);
@@ -18,10 +18,9 @@ if (process.env.NODE_ENV === "production") {
 else {
   // on development, use the webpack dev server config
   // css are not needed since they are injected inline with webpack
-  const config = require("../../webpack/dev.config");
+  const config = require("../../webpack.config-dev");
   scripts.push(`${config.output.publicPath}${config.output.filename}`);
 }
-
 
 @provideContext()
 @connectToStores([], context => {
@@ -70,10 +69,12 @@ export default class Html extends React.Component {
           <meta property="og:title" content={ title } />
           <meta property="og:description" content={ description } />
           <meta property="og:url" content={ currentUrl } />
-
+          <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100"
+            rel="stylesheet" type="text/css" />
           { images.map(url => <meta property="og:image" content={ url } />) }
 
-          { css.map((href, k) => <link key={ k } rel="stylesheet" type="text/css" href={ href } />) }
+          { css.map((href, k) =>
+            <link key={ k } rel="stylesheet" type="text/css" href={ href } />) }
 
           { trackingId && <script dangerouslySetInnerHTML={ {__html: ga.replace("{trackingId}", trackingId)} } /> }
 

@@ -2,23 +2,30 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  flex: 1;
 
   .Thumbnail {
 
     flex: 1;
-    flex-basis: 8rem;
+    flex-basis: 12rem;
+
+    &:nth-child(2n+1) {
+      flex-basis: 15rem;
+      min-height: 10rem;
+    }
 
     &:nth-child(5n) {
-      flex-basis: 14rem;;
+      flex-basis: 24rem;
     }
 
     &:nth-child(2n+1) {
-      flex-basis: 10rem;;
+      flex-basis: 17rem;
+      min-height: 17rem;
     }
 
-    &:nth-child(7n+4) {
-      flex-basis: 20rem;
-      min-height: 12rem;
+    &:nth-child(5n+4) {
+      flex-basis: 30rem;
+      min-height: 20rem;
     }
 
     &:hover {

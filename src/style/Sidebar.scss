@@ -1,0 +1,49 @@
+$sidebar-width: 200px;
+
+.Sidebar {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+  width: 0;
+  height: 100vh;
+  background-color: rgba(black, 0.5);
+  transition: width 0.25s;
+
+  &.Sidebar--visible {
+    width: $sidebar-width;
+  }
+
+}
+
+.Sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+  white-space: nowrap;
+  transition: width 0.25s, opacity 0.25s;
+
+  opacity: 0;
+
+  .Sidebar--visible & {
+    width: $sidebar-width;
+    opacity: 1;
+
+  }
+}
+
+.Sidebar-toggler {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 50;
+  transition: left 0.25s;
+
+  .Sidebar--visible & {
+    left: $sidebar-width - 40px;
+  }
+
+}

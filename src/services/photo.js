@@ -5,9 +5,9 @@ import { get } from "../utils/APIUtils";
 export default {
   name: "photo",
 
-  read(req, resource, { id, imageSize=1600 }, config, done) {
+  read(req, resource, { id }, config, done) {
     const query = {
-      "image_size": imageSize
+      "image_size[]": [600, 2048]
     };
     const options = {
       locale: req.locale

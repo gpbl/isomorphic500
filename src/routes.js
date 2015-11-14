@@ -1,5 +1,5 @@
 
-import InitActions from "./containers/InitActions";
+import { loadFeaturedPhotos, loadPhoto } from "./actions/photos";
 
 import features from "./constants/features";
 
@@ -12,29 +12,45 @@ export default {
   home: {
     path: "/",
     method: "get",
-    handler: HomePage
+    handler: HomePage,
+    action(context, route, done) {
+      context.executeAction(loadFeaturedPhotos, { feature: "popular" }, done);
+    }
   },
 
   featured: {
     path: `/featured/:feature(${features.join("|")})`,
     method: "get",
     handler: FeaturedPage,
-    action: InitActions.featuredPage
+    action(context, route, done) {
+      const feature = route.getIn(["params", "feature"]);
+      context.executeAction(loadFeaturedPhotos, { feature }, done);
+    }
   },
 
   photo: {
     path: "/photo/:id",
     method: "get",
     handler: PhotoPage,
-    action: InitActions.photoPage
+    action(context, route, done) {
+      const id = route.getIn(["params", "id"]);
+      context.executeAction(loadPhoto, { id }, done);
+    }
   },
 
   // This route doesn't point to any handler.
-  // I made it just as example for showing an action responding with an error
+  // We use it as example for showing an action responding with an error
   bad: {
     path: "/bad",
     method: "get",
-    action: InitActions.badPage
+    action(context, route, done) {
+      try {
+        throw new Error("This is just a simulation of a server-side error while loading a route")
+      }
+      catch(e) {
+        done(e);
+      }
+    }
   }
 
 };
