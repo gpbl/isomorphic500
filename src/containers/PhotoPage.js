@@ -20,7 +20,7 @@ const keys = {
   const photo = context.getStore("PhotoStore").get(props.id);
   let nextId, prevId;
 
-  if (feature) {
+  if (feature && photo) {
     const photos = FeaturedStore.getFeaturedPhotos(feature);
     const index = photos.indexOf(photo.id);
 
@@ -43,7 +43,7 @@ export default class PhotoPage extends Component {
 
   static propTypes = {
     photo: PropTypes.object,
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
     nextId: PropTypes.number,
     prevId: PropTypes.number,
     feature: PropTypes.string
@@ -94,7 +94,11 @@ export default class PhotoPage extends Component {
   }
 
   render() {
-    const { photo, nextId, prevId } = this.props;
+    const { photo } = this.props;
+
+    if (!photo) {
+      return null;
+    }
 
     return (
       <div>
