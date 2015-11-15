@@ -43,6 +43,7 @@ export default {
   bad: {
     path: "/bad",
     method: "get",
+    handler: HomePage,
     action(context, route, done) {
       try {
         throw new Error("This is just a simulation of a server-side error while loading a route")
