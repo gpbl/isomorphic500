@@ -8,69 +8,65 @@ if (process.env.BROWSER) {
   require("../style/SidebarContent.scss");
 }
 
-const links = [
-  {
-    feature: "popular",
-    href: "/featured/popular",
-    label: "Popular"
-  },
-  {
-    feature: "highest_rated",
-    href: "/featured/highest_rated",
-    label: "Highest Rated"
-  },
-  {
-    feature: "upcoming",
-    href: "/featured/upcoming",
-    label: "Upcoming"
-  },
-  {
-    feature: "editors",
-    href: "/featured/editors",
-    label: "Editors Picks"
-  },
-  {
-    feature: "fresh_today",
-    href: "/featured/fresh_today",
-    label: "Fresh Today"
-  },
-  {
-    feature: "fresh_yesterday",
-    href: "/featured/fresh_yesterday",
-    label: "Fresh Yesterday"
-  },
-  {
-    feature: "fresh_week",
-    href: "/featured/fresh_week",
-    label: "Fresh This Week"
-  }
-]
+const EXPLORE_LINKS = [{
+  feature: "popular",
+  url: "/featured/popular",
+  label: "Popular"
+}, {
+  feature: "highest_rated",
+  url: "/featured/highest_rated",
+  label: "Highest Rated"
+}, {
+  feature: "upcoming",
+  url: "/featured/upcoming",
+  label: "Upcoming"
+}, {
+  feature: "editors",
+  url: "/featured/editors",
+  label: "Editors Picks"
+}, {
+  feature: "fresh_today",
+  url: "/featured/fresh_today",
+  label: "Fresh Today"
+}, {
+  feature: "fresh_yesterday",
+  url: "/featured/fresh_yesterday",
+  label: "Fresh Yesterday"
+}, {
+  feature: "fresh_week",
+  url: "/featured/fresh_week",
+  label: "Fresh This Week"
+}]
 
-function renderLink(loadingUrl, currentFeature) {
-  return (link, i) => {
+function renderLink(loadingUrl, currentRoute=null, currentFeature=null) {
+  return link => {
+    const currentUrl = currentRoute && currentRoute.get("url");
+    const currentRouteName = currentRoute && currentRoute.get("name");
+    const isActive = (!loadingUrl && currentUrl === link.url) ||
+      (currentRouteName === "photo" && currentFeature === link.feature)
 
-    let className = "SidebarContent-link"
-    if (currentFeature === link.feature) {
+    let className = "SidebarContent-link";
+
+    if (isActive) {
       className += " SidebarContent-link--active";
     }
     return (
-      <NavLink key={i} className={ className } href={ link.href }>
+      <NavLink key={ link.url } className={ className } href={ link.url }>
         { link.label }
-        <Loader small isActive={link.href === loadingUrl} />
+        <Loader small isActive={link.url === loadingUrl} />
       </NavLink>
     )
   }
 }
 
-export default function SidebarContent( { loadingUrl, currentFeature }) {
-
+export default function SidebarContent( { loadingUrl, currentRoute, currentFeature }) {
   return (
     <div className="SidebarContent">
 
       <div className="SidebarContent--top">
         <div className="SidebarContent-container">
           <div className="SidebarContent-title">Explore</div>
-          { links.map(renderLink(loadingUrl, currentFeature)) }
+          { EXPLORE_LINKS.map(renderLink(loadingUrl, currentRoute, currentFeature)) }
         </div>
 
         <div className="SidebarContent-container">
@@ -81,15 +77,20 @@ export default function SidebarContent( { loadingUrl, currentFeature }) {
 
         <div className="SidebarContent-container">
           <div className="SidebarContent-title">Experiment</div>
-          <NavLink className="SidebarContent-link" href="/bad">
-            Route with server error
-          </NavLink>
-          <NavLink className="SidebarContent-link" href="/photo/what">
-            An unexisting photo
-          </NavLink>
-          <NavLink className="SidebarContent-link" href="/not-defined">
-            An undefined route
-          </NavLink>
+          {[
+            renderLink(loadingUrl, currentRoute)({
+              url: "/bad",
+              label: "Route with server error"
+            }),
+            renderLink(loadingUrl, currentRoute)({
+              url: "/photo/what",
+              label: "Not existing photo"
+            }),
+            renderLink(loadingUrl, currentRoute)({
+              url: "/not-defined",
+              label: "Undefined route"
+            })
+          ]}
         </div>
       </div>
 
@@ -107,6 +108,7 @@ export default function SidebarContent( { loadingUrl, currentFeature }) {
               </span>
             )
           }
+
         </div>
       </div>
 

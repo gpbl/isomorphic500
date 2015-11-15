@@ -7,12 +7,16 @@ if (process.env.BROWSER) {
   require("../style/Page.scss");
 }
 
-export default function Page({ children, loadingUrl, currentFeature }) {
+export default function Page({ children, loadingUrl, currentRoute, currentFeature }) {
   return (
     <div className="Page">
       <div>
         <Sidebar>
-          <SidebarContent currentFeature={ currentFeature } loadingUrl={ loadingUrl } />
+          <SidebarContent
+            currentFeature={ currentFeature }
+            currentRoute= { currentRoute }
+            loadingUrl={ loadingUrl }
+          />
         </Sidebar>
       </div>
       <div className="Page-content">

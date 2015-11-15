@@ -122,13 +122,15 @@ export default class Application extends Component {
     const {
       modalRouterState,
       isNavigateComplete,
-      currentNavigate
+      currentNavigate,
+      currentRoute
     } = this.state;
 
     return (
       <Page
         currentFeature={ this.props.currentFeature }
-        loadingUrl={ !isNavigateComplete && currentNavigate.url }
+        currentRoute={ currentRoute }
+        loadingUrl={ !isNavigateComplete ? currentNavigate.url : null }
         modalContent={ modalRouterState && this.renderContent(modalRouterState) }>
 
         { this.renderContent(this.state) }
