@@ -45,11 +45,13 @@ export default class FeaturedStore extends BaseStore {
 
   dehydrate() {
     return {
+      currentFeature: this.currentFeature,
       featured: this.featured
     };
   }
 
   rehydrate(state) {
+    this.currentFeature = state.currentFeature;
     this.featured = state.featured;
   }
 

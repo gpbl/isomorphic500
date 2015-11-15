@@ -38,8 +38,7 @@ export default {
     }
   },
 
-  // This route doesn't point to any handler.
-  // We use it as example for showing an action responding with an error
+  // Example showing an action throwing an error
   bad: {
     path: "/bad",
     method: "get",
