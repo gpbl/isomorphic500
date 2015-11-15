@@ -31,8 +31,8 @@
 
   &::before {
     position: absolute;
-    left: -0.7em;
-    top: 0.2em;
+    left: -11px;
+    top: 1px;
     background-image: url("../../static/assets/triangle.svg");
     background-repeat: no-repeat;
     background-size: contain;
@@ -53,8 +53,10 @@
     display: inline-block;
     height: 1em;
     width: 1em;
-    vertical-align: middle;
-    margin-left: .5em;
+    position: absolute;
+    left: -1em;
+    margin-left: -2px;
+    margin-top: 1px;
   }
 
 }
