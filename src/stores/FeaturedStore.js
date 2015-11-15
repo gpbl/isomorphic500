@@ -3,8 +3,8 @@ import Actions from "../constants/Actions";
 
 /*
 This is a "list store", i.e. it holds only ids referring to another
-"resource store". This one keeps the `id` of the photos in PhotoStore
-when the featured photos has been loaded.
+"resource store". It keeps the `id` of the photos in PhotoStore
+when the featured photos have been loaded.
  */
 
 export default class FeaturedStore extends BaseStore {
