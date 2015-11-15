@@ -15,22 +15,8 @@ export default class FeaturedStore extends BaseStore {
     [Actions.LOAD_FEATURED_PHOTOS_SUCCESS]: "handleLoadSuccess"
   }
 
-  constructor(dispatcher) {
-    super(dispatcher);
-    this.featured = {};
-    this.currentFeature = null;
-  }
-
-  handleLoadSuccess({ feature, photos }) {
-    this.dispatcher.waitFor("PhotoStore", () => {
-      this.currentFeature = feature;
-      this.featured = {
-        ...this.featured,
-        [feature]: photos.map(photo => photo.id)
-      };
-      this.emitChange();
-    });
-  }
+  featured = {}
+  currentFeature = null
 
   getCurrentFeature() {
     return this.currentFeature;
@@ -41,6 +27,18 @@ export default class FeaturedStore extends BaseStore {
       return this.featured[feature];
     }
     return [];
+  }
+
+  handleLoadSuccess({ feature, photos }) {
+    // Wait the PhotoStore handle LOAD_FEATURED_PHOTOS_SUCCESS action first
+    this.dispatcher.waitFor("PhotoStore", () => {
+      this.currentFeature = feature;
+      this.featured = {
+        ...this.featured,
+        [feature]: photos.map(photo => photo.id)
+      };
+      this.emitChange();
+    });
   }
 
   dehydrate() {

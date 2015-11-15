@@ -16,9 +16,14 @@ export default class PhotoStore extends BaseStore {
     [Actions.LOAD_PHOTO_SUCCESS]: "handleLoadPhotoSuccess"
   }
 
-  constructor(dispatcher) {
-    super(dispatcher);
-    this.photos = {};
+  photos = {};
+
+  get(id) {
+    return this.photos[id];
+  }
+
+  getMultiple(ids) {
+    return ids.map(id => this.photos[id]);
   }
 
   handleLoadPhotoSuccess(photo) {
@@ -27,18 +32,8 @@ export default class PhotoStore extends BaseStore {
   }
 
   handleLoadFeaturedSuccess({ photos }) {
-    photos.forEach(photo => {
-      this.photos[photo.id] = photo;
-    })
+    photos.forEach(photo => this.photos[photo.id] = photo)
     this.emitChange();
-  }
-
-  get(id) {
-    return this.photos[id];
-  }
-
-  getMultiple(ids) {
-    return ids.map(id => this.photos[id]);
   }
 
   dehydrate() {

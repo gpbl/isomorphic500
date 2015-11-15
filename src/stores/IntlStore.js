@@ -8,19 +8,9 @@ class IntlStore extends BaseStore {
 
   static handlers = {}
 
-  constructor(dispatcher) {
-    super(dispatcher);
-    this.messages = {};
-    this.locales = [];
-    this.currentLocale = null;
-  }
-
-  handleLoad({ messages, locales }) {
-    this.messages = messages;
-    this.locales = locales;
-    this.currentLocale = locales[0];
-    this.emitChange();
-  }
+  messages = {}
+  locales = []
+  currentLocale = null
 
   getMessages() {
     return this.messages;
@@ -36,6 +26,13 @@ class IntlStore extends BaseStore {
 
   getCurrentLocale() {
     return this.currentLocale;
+  }
+
+  handleLoad({ messages, locales }) {
+    this.messages = messages;
+    this.locales = locales;
+    this.currentLocale = locales[0];
+    this.emitChange();
   }
 
   dehydrate() {

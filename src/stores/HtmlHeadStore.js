@@ -20,18 +20,11 @@ export default class HtmlHeadStore extends BaseStore {
     [Actions.NAVIGATE_FAILURE]: "handleNavigateFailure"
   }
 
-  constructor(dispatcher) {
-    super(dispatcher);
-    this.siteName = SITE_NAME;
-    this.currentUrl = null;
-    this.setInitialState();
-  }
-
-  setInitialState() {
-    this.title = this.formatMessage("meta.title");
-    this.description = this.formatMessage("meta.description");
-    this.images = [];
-  }
+  siteName = SITE_NAME
+  currentUrl = null
+  images = []
+  title = ""
+  description = ""
 
   getTitle() {
     return this.title;
@@ -97,11 +90,15 @@ export default class HtmlHeadStore extends BaseStore {
       this.title = this.formatMessage("featured.documentTitle", {
         feature: featureName
       });
+      this.description = "";
+      this.images = [];
       break;
 
     default:
       // Just set the defaults
-      this.setInitialState();
+      this.title = this.formatMessage("meta.title");
+      this.description = this.formatMessage("meta.description");
+      this.images = [];
       break;
 
     }
