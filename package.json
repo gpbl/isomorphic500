@@ -6,7 +6,9 @@
   "scripts": {
     "start": "NODE_ENV=production node index",
     "dev": "NODE_ENV=development DEBUG=isomorphic500 nodemon index.js",
+    "dev-windows": "SET NODE_ENV=development&&SET DEBUG=isomorphic500&&nodemon index.js",
     "prod": "NODE_ENV=production PORT=8080 DEBUG=isomorphic500 node index",
+    "prod-windows": "SET NODE_ENV=production&&SET PORT=8080&&SET DEBUG=isomorphic500&&node index",
     "build": "webpack --stats --config ./webpack/prod.config.js",
     "postinstall": "npm run build",
     "lint": "eslint index.js src webpack config"
