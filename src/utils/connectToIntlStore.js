@@ -21,7 +21,7 @@ function connectToIntlStore(Component) {
     return {
       messages: intlStore.getMessages(),
       locales: intlStore.getLocales(),
-      message: props.message ? intlStore.getMessage(props.message) : null
+      defaultMessage: props.id ? intlStore.getMessage(props.id) : null
     };
   })
   class IntlConnection extends React.Component {
@@ -29,7 +29,7 @@ function connectToIntlStore(Component) {
     static PropTypes = {
       messages: PropTypes.object.isRequired,
       locales: PropTypes.array.isRequired,
-      message: PropTypes.string
+      defaultMessage: PropTypes.string
     }
 
     render() {

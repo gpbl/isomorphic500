@@ -2,6 +2,7 @@
 // requiring the `Intl` polyfill for browser not supporting it
 // It is used in client.js *before* rendering the root component.
 
+import { addLocaleData } from "react-intl";
 import isIntlLocaleSupported from "intl-locales-supported";
 
 const debug = require("debug")("isomorphic500");
@@ -57,19 +58,19 @@ const IntlUtils = {
 
           require.ensure([
             "intl/locale-data/jsonp/it",
-            "react-intl/dist/locale-data/it"
+            "react-intl/locale-data/it"
           ], require => {
             require("intl/locale-data/jsonp/it");
-            require("react-intl/dist/locale-data/it");
+            addLocaleData(require("react-intl/locale-data/it"));
             debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
             resolve();
           }, "locale-it");
         }
         else {
           require.ensure([
-            "react-intl/dist/locale-data/it"
+            "react-intl/locale-data/it"
           ], require => {
-            require("react-intl/dist/locale-data/it");
+            addLocaleData(require("react-intl/locale-data/it"));
             debug("ReactIntl locale-data for %s has been downloaded", locale);
             resolve();
           }, "locale-it-no-intl");
@@ -83,19 +84,19 @@ const IntlUtils = {
         if (!hasIntl) {
           require.ensure([
             "intl/locale-data/jsonp/fr",
-            "react-intl/dist/locale-data/fr"
+            "react-intl/locale-data/fr"
           ], require => {
             require("intl/locale-data/jsonp/fr");
-            require("react-intl/dist/locale-data/fr");
+            addLocaleData(require("react-intl/locale-data/fr"));
             debug("Intl and ReactIntl locale-data for %s has been downloaded", locale);
             resolve();
           }, "locale-fr");
         }
         else {
           require.ensure([
-            "react-intl/dist/locale-data/fr"
+            "react-intl/locale-data/fr"
           ], require => {
-            require("react-intl/dist/locale-data/fr");
+            addLocaleData(require("react-intl/locale-data/fr"));
             debug("ReactIntl locale-data for %s has been downloaded", locale);
             resolve();
           }, "locale-fr-no-intl");
@@ -109,19 +110,19 @@ const IntlUtils = {
         if (!hasIntl) {
           require.ensure([
             "intl/locale-data/jsonp/pt",
-            "react-intl/dist/locale-data/pt"
+            "react-intl/locale-data/pt"
           ], require => {
             require("intl/locale-data/jsonp/pt");
-            require("react-intl/dist/locale-data/pt");
+            addLocaleData(require("react-intl/locale-data/pt"));
             debug("Intl locale-data for %s has been downloaded", locale);
             resolve();
           }, "locale-pt");
         }
         else {
           require.ensure([
-            "react-intl/dist/locale-data/pt"
+            "react-intl/locale-data/pt"
           ], require => {
-            require("react-intl/dist/locale-data/pt");
+            addLocaleData(require("react-intl/locale-data/pt"));
             debug("ReactIntl locale-data for %s has been downloaded", locale);
             resolve();
           }, "locale-pt-no-intl");

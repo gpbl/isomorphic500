@@ -2,6 +2,7 @@
 // to the client
 
 import React from "react";
+import ReactDOMServer from "react-dom/server";
 import serialize from "serialize-javascript";
 
 import app from "../app";
@@ -9,6 +10,7 @@ import Html from "../containers/Html";
 
 import { navigateAction } from "fluxible-router";
 import { loadIntlMessages } from "../actions/IntlActionCreators";
+import { IntlProvider } from "react-intl";
 
 function renderApp(req, res, context, next) {
   try {
@@ -19,12 +21,14 @@ function renderApp(req, res, context, next) {
     const Root = app.getComponent();
 
     // Render the Root to string
-    const content = React.renderToString(
-      <Root context={ context.getComponentContext() } />
+    const content = ReactDOMServer.renderToString(
+      <IntlProvider locale={ req.locale }>
+        <Root context={ context.getComponentContext() } />
+      </IntlProvider>
     );
 
     // The root component is rendered as static markup and sent as response.
-    const html = React.renderToStaticMarkup(
+    const html = ReactDOMServer.renderToStaticMarkup(
       <Html
         context={ context.getComponentContext() }
         lang={ req.locale }

@@ -5,12 +5,12 @@ import { loadFeaturedPhotos, loadPhoto } from "../actions/PhotoActionCreators";
 export default {
 
   featuredPage(context, route, done) {
-    const feature = route.getIn(["params", "feature"]);
+    const { feature } = route.params;
     context.executeAction(loadFeaturedPhotos, { feature }, done);
   },
 
   photoPage(context, route, done) {
-    const id = route.getIn(["params", "id"]);
+    const { id } = route.params;
     context.executeAction(loadPhoto, { id }, done);
   },
 

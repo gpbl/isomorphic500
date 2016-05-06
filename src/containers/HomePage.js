@@ -6,7 +6,7 @@ export default class HomePage extends Component {
   render() {
     return (
       <div>
-        <FormattedMessage message="home.welcome" />
+        <FormattedMessage id="home.welcome" />
       </div>
     );
   }
