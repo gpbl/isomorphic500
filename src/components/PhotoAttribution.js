@@ -11,10 +11,10 @@ export default class PhotoAttribution extends Component {
     const { user } = this.props;
     return (
       <FormattedMessage
-        message="photo.attribution"
-        userLink={
-          <a href={ `https://500px.com/${user.username}` }>{ user.fullname }</a>
-        }
+        id="photo.attribution"
+        values={{
+          userLink: <a href={ `https://500px.com/${user.username}` }>{ user.fullname }</a>
+        }}
       />
     );
   }

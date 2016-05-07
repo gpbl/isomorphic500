@@ -6,7 +6,7 @@ export default class NotFoundPage extends Component {
   render() {
     return (
       <div>
-        <FormattedMessage message="meta.notFoundTitle" />
+        <FormattedMessage id="meta.notFoundTitle" />
       </div>
     );
   }

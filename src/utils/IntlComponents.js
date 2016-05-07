@@ -2,7 +2,7 @@
 // Supports also the message props:
 // Example
 //
-//    <FormattedMessage message="home.welcome" />
+//    <FormattedMessage id="home.welcome" />
 
 import { FormattedMessage, FormattedDate, FormattedNumber, FormattedRelative }
   from "react-intl";

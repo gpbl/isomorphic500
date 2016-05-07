@@ -28,7 +28,7 @@ export default class PhotoStore extends BaseStore {
   }
 
   handleLoadFeaturedSuccess({ photos }) {
-    this.photos = _(photos).indexBy("id").merge(this.photos).value();
+    this.photos = _(photos).keyBy("id").merge(this.photos).value();
     this.emitChange();
   }
 

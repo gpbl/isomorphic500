@@ -23,7 +23,7 @@ export default class NavBar extends Component {
 
   render() {
     const { route } = this.props;
-    const currentFeature = route ? route.getIn(["params", "feature"]) : null;
+    const currentFeature = route ? route.params.feature : null;
     return (
       <div className="NavBar">
         <div className="NavBar-title">
@@ -46,7 +46,7 @@ export default class NavBar extends Component {
                   className={ className }
                   routeName="featured"
                   navParams={ {feature: feature} }>
-                  <FormattedMessage message={ `features.${feature}` } />
+                  <FormattedMessage id={ `features.${feature}` } />
                 </NavLink>
               );
             })

@@ -53,14 +53,14 @@ export default class Root extends Component {
     }
 
     if (!Immutable.is(prevProps.currentRoute, currentRoute)) {
-      trackPageView(currentRoute.get("url"));
+      trackPageView(currentRoute.url);
     }
   }
 
   render() {
     const { currentRoute, currentNavigateError, isNavigateComplete } = this.props;
 
-    const Handler = currentRoute && currentRoute.get("handler");
+    const Handler = currentRoute && currentRoute.handler;
 
     let content;
 
@@ -86,7 +86,7 @@ export default class Root extends Component {
       // Render the Handler (aka the page) for the current route. The route params
       // (e.g. values from the URLs) are props being sent to the page component,
       // for example the `id` of a photo for the `PhotoPage` component.
-      const params = currentRoute.get("params").toJS();
+      const params = currentRoute.params;
       content = <Handler {...params} />;
     }
     return (

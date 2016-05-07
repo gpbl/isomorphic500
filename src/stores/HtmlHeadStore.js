@@ -51,7 +51,7 @@ export default class HtmlHeadStore extends BaseStore {
     if (!route) {
       return BASE_URL;
     }
-    return `${BASE_URL}${route.get("url")}`;
+    return `${BASE_URL}${route.url}`;
   }
 
   getImages() {
@@ -76,11 +76,11 @@ export default class HtmlHeadStore extends BaseStore {
 
   handleNavigateSuccess(route) {
 
-    switch (route.get("name")) {
+    switch (route.name) {
 
     case "photo":
 
-      const id = route.getIn(["params", "id"]);
+      const { id } = route.params;
 
       const store = this.dispatcher.getStore("PhotoStore");
       const photo = store.get(id);
@@ -99,7 +99,7 @@ export default class HtmlHeadStore extends BaseStore {
       break;
 
     case "featured":
-      const feature = route.getIn(["params", "feature"]);
+      const { feature } = route.params;
       const featureName = this.formatMessage(`features.${feature}`);
       this.title = this.formatMessage("featured.documentTitle", {
         feature: featureName
