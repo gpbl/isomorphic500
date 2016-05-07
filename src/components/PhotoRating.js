@@ -8,8 +8,10 @@ export default class PhotoRating extends Component {
 
     return (
       <FormattedMessage
-        message="photo.rating"
-        rating={ <FormattedNumber value={ rating } /> }
+        id="photo.rating"
+        values={{
+          rating: <FormattedNumber value={ rating } />
+        }}
       />
     );
   }
